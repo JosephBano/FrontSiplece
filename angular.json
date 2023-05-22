@@ -50,9 +50,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,5 +122,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c8881ac2-6df9-46f9-80c6-d480d62c0ea8"
   }
 }
