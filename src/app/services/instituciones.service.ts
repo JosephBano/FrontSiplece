@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Instituciones } from '../models/instituciones.model';
 
 @Injectable({
@@ -8,10 +8,23 @@ import { Instituciones } from '../models/instituciones.model';
 })
 export class InstitucionesService {
 
-  private apiUrl = 'desconocido';
+  /*private apiUrl = 'desconocido';
   constructor(private http: HttpClient) { }
 
-  getOptions(): Observable<Instituciones[]> {
+  getInstituciones(): Observable<Instituciones[]> {
     return this.http.get<Instituciones[]>(this.apiUrl);
+  }
+  */
+
+  private instituciones: Instituciones[] = [
+    { id: '1', descripcion: 'Institucion 1' },
+    { id: '2', descripcion: 'Institucion 2' },
+    // Agrega más instituciones aquí si lo deseas
+  ];
+
+  constructor() { }
+
+  getInstituciones(): Observable<Instituciones[]> {
+    return of(this.instituciones);
   }
 }

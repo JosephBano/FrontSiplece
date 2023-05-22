@@ -1,4 +1,4 @@
-export interface Instituciones {
-    id: string;
-    descripcion: string;
+export class Instituciones {
+    id?: string;
+    descripcion?: string;
 }

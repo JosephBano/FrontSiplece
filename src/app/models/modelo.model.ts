@@ -1,3 +1,4 @@
-export interface Modelo {
-    descripcion: string;
+export class Modelo {
+    id?: string;
+    descripcion?: string;
 }

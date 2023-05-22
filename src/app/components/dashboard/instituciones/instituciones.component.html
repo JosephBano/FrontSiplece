@@ -1,7 +1,4 @@
-<select class="form-control mi-clase-propia" name="instituciones" style="width: 100%; margin: 10px 0;" 
-  (change)="onSelectInstitucion($event)">
-  <option value="" selected disabled>Seleccione una institución...</option>
+<select class="form-control selected-instituciones" name="instituciones" (change)="onSelectInstitucion($event)">
+  <option value="" selected disabled>Seleccione una institucion...</option>
   <option *ngFor="let institucion of instituciones" [value]="institucion.id">{{institucion.descripcion}}</option>
 </select>
-
-<app-modelos [institucionId]?="selectedInstitucion?.id"></app-modelos>

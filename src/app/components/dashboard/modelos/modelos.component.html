@@ -1,4 +1,4 @@
-<select class="form-control mi-clase-propia" name="modelos" style="width: 100%; margin: 10px 0;" [disabled]="!institucionId">
+<select class="form-control select-modelos" name="modelos" [disabled]="!modelos.length">
     <option value="" selected disabled>Seleccione un modelo...</option>
     <option *ngFor="let modelo of modelos" [value]="modelo.descripcion">{{modelo.descripcion}}</option>
 </select>

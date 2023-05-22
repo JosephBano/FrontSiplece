@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
+import { SelectedInstitucionService } from '../../../services/selected-institucion.service';
 
 @Component({
   selector: 'app-instituciones',
@@ -13,19 +13,21 @@ export class InstitucionesComponent implements OnInit {
   instituciones: Instituciones[] = [];
   selectedInstitucion: Instituciones | null = null;
   
-  constructor (private institucionService: InstitucionesService) { }
+  constructor (private institucionService: InstitucionesService, private selectedInstitucionService: SelectedInstitucionService) { }
 
   ngOnInit(): void {
-    this.institucionService.getOptions().subscribe((institucion: Instituciones[] ) => {
+    this.institucionService.getInstituciones().subscribe((institucion: Instituciones[] ) => {
+      console.log('Datos de instituciones: ', JSON.stringify(institucion)); 
       this.instituciones = institucion;
     })
-  }
+}
 
-  onSelectInstitucion(event: Event): void {
-    const target = event.target as HTMLSelectElement; // Asegurándose que el target es un HTMLSelectElement
-    const institucionId = target.value ?? null; // Utilizando el operador de coalescencia nula para manejar el caso en el que target.value es null
-    this.selectedInstitucion = this.instituciones.find(institucion => institucion.id === institucionId) || null;
-  }
+onSelectInstitucion(event: Event): void {
+  const target = event.target as HTMLSelectElement;
+  const institucionId = target.value ?? null;
+  const selectedInstitucion = this.instituciones.find(institucion => institucion.id === institucionId) || null;
+  this.selectedInstitucionService.setInstitucion(selectedInstitucion);
+}
   
 
 }
