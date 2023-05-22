@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
-import { SelectedInstitucionService } from '../../../services/selected-institucion.service';
+
 
 @Component({
   selector: 'app-instituciones',
@@ -10,24 +10,25 @@ import { SelectedInstitucionService } from '../../../services/selected-instituci
 })
 export class InstitucionesComponent implements OnInit {
 
-  instituciones: Instituciones[] = [];
-  selectedInstitucion: Instituciones | null = null;
+  selectedInstitucion!: string;
+  instituciones!: Instituciones[];
   
-  constructor (private institucionService: InstitucionesService, private selectedInstitucionService: SelectedInstitucionService) { }
+  
+  constructor (private institucionesService: InstitucionesService) { }
 
   ngOnInit(): void {
-    this.institucionService.getInstituciones().subscribe((institucion: Instituciones[] ) => {
-      console.log('Datos de instituciones: ', JSON.stringify(institucion)); 
-      this.instituciones = institucion;
-    })
-}
+    this.obtenerInstituciones();
+  }
 
-onSelectInstitucion(event: Event): void {
-  const target = event.target as HTMLSelectElement;
-  const institucionId = target.value ?? null;
-  const selectedInstitucion = this.instituciones.find(institucion => institucion.id === institucionId) || null;
-  this.selectedInstitucionService.setInstitucion(selectedInstitucion);
-}
-  
+  obtenerInstituciones(): void {
+    this.institucionesService.getInstituciones().subscribe(
+      instituciones => {
+        this.instituciones = instituciones;
+      },
+      error => {
+        console.error('Error al obtener las instituciones:', error);
+      }
+    );
+  }
 
 }

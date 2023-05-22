@@ -1,4 +1,14 @@
-<select class="form-control selected-instituciones" name="instituciones" (change)="onSelectInstitucion($event)">
-  <option value="" selected disabled>Seleccione una institucion...</option>
-  <option *ngFor="let institucion of instituciones" [value]="institucion.id">{{institucion.descripcion}}</option>
-</select>
+<div class="row">
+  <div class="col-md-12">
+    <div class="input-group mb-3 d-flex">
+      <select id="instituciones" class="form-select form-select-lg selected-instituciones" name="instituciones">
+        <option value="" selected disabled>Seleccione una institución...</option>
+        <option *ngFor="let institucion of instituciones" [value]="institucion.id">{{institucion.descripcion}}</option>
+      </select>
+    </div>
+    
+  </div>
+  <div class="col-md-12 mb-3 ">
+    <app-crud-instituciones></app-crud-instituciones>
+  </div>
+</div>

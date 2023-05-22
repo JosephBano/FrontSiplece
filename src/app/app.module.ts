@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { InstitucionesComponent } from './components/dashboard/instituciones/instituciones.component';
-import { ModelosComponent } from './components/dashboard/modelos/modelos.component';
-import { NuevaInstitucionComponent } from './components/dashboard/instituciones/nueva-institucion/nueva-institucion.component';
+import { ModelosComponent } from './components/dashboard/instituciones/modelos/modelos.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CrudInstitucionesComponent } from './components/dashboard/instituciones/crud-instituciones/crud-instituciones.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +19,15 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     InstitucionesComponent,
     ModelosComponent,
-    NuevaInstitucionComponent
+    CrudInstitucionesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     NgbModule, 
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
     
   ],
   providers: [],

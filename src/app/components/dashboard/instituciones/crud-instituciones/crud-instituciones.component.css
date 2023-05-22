@@ -1,0 +1,16 @@
+.btn-group-customs {
+    border: none;
+    transition-duration: 0.4s;
+}
+.btn.active {
+    background-color: #333;
+    color: #fff;
+}
+.close-btn {
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+.close-btn:hover {
+    color: red;
+    font-size: 30px;
+}
