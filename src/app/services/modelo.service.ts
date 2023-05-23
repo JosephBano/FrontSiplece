@@ -8,18 +8,26 @@ import { Observable, of } from 'rxjs';
 })
 export class ModeloService {
 
-  private apiUrl = 'desconocida';
+  private apiUrl = 'desconocido'; // Cambia esto a tu URL real
 
+  private modelos: Modelo[] = [
+    { id: '1', descripcion: 'Modelo 1', institucionId: '1' },
+    { id: '2', descripcion: 'Modelo 2', institucionId: '1' },
+  ];
   constructor(private http: HttpClient) { }
 
-  getModelos(institucionId: string): Observable<Modelo[]> {
-    return this.http.get<Modelo[]>(`${this.apiUrl}/${institucionId}`);
+  /*getModelo(id: string): Observable<Modelo> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Modelo>(url);
+  }*/
+  getModelo(id: string): Observable<Modelo | undefined> {
+    const modelo = this.modelos.find(m => m.institucionId === id);
+    return of(modelo);
   }
 
-
-  agregarModelo(modelo: Modelo): Observable<any> {
-    return this.http.post(this.apiUrl, modelo);
-  }
+  agregarModelo(modelo: Modelo): Observable<Modelo> {
+    return this.http.post<Modelo>(this.apiUrl, modelo);
+    }
 
   editarModelo(modelo: Modelo): Observable<any> {
     const url = `${this.apiUrl}/${modelo.id}`;
@@ -30,7 +38,4 @@ export class ModeloService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete(url);
   }
-  
- }
-
- 
+}

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
-
 
 @Component({
   selector: 'app-instituciones',
@@ -10,11 +9,12 @@ import { InstitucionesService } from 'src/app/services/instituciones.service';
 })
 export class InstitucionesComponent implements OnInit {
 
-  selectedInstitucion!: string;
-  instituciones!: Instituciones[];
-  
-  
-  constructor (private institucionesService: InstitucionesService) { }
+  @Output() selectedInstitucionChange = new EventEmitter<string>();
+
+  selectedInstitucion: any;
+  instituciones: Instituciones[] = [];
+
+  constructor(private institucionesService: InstitucionesService) { }
 
   ngOnInit(): void {
     this.obtenerInstituciones();
@@ -30,5 +30,8 @@ export class InstitucionesComponent implements OnInit {
       }
     );
   }
-
+  handleInstitucionSeleccionada(event: any): void {
+    this.selectedInstitucion = event.target.value;
+    this.selectedInstitucionChange.emit(this.selectedInstitucion);
+  }
 }

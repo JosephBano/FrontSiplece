@@ -7,43 +7,32 @@ import { InstitucionesService } from 'src/app/services/instituciones.service';
   templateUrl: './crud-instituciones.component.html',
   styleUrls: ['./crud-instituciones.component.css']
 })
-export class CrudInstitucionesComponent implements OnInit{
+export class CrudInstitucionesComponent implements OnInit {
+  selectedInstitucion: string = '';
+  instituciones: Instituciones[] = [];
 
-  @ViewChild('myDiv1') myDiv1!: ElementRef;
-  @ViewChild('myDiv2') myDiv2!: ElementRef;
-  @ViewChild('myDiv3') myDiv3!: ElementRef;
-  selectedButton: number = 2;
+  constructor(private institucionesService: InstitucionesService) { }
 
-  selectedInstitucion!: string;
-  instituciones!: Instituciones[];
-
-  constructor (private institucionesService: InstitucionesService) { }
   ngOnInit(): void {
     this.obtenerInstituciones();
   }
 
-  toggleDiv(buttonNumber: number): void {
-    this.selectedButton = buttonNumber;
-    this.updateButtonStyles();
-    this.updateDivVisibility();
-  }
-
-  updateButtonStyles(): void {
-    const buttons = document.getElementsByClassName('btn');
-    for (let i = 0; i < buttons.length; i++) {
-      buttons[i].classList.remove('btn-selected');
-    }
-
-    const selectedButton = document.getElementById(`btn-${this.selectedButton}`);
-    if (selectedButton) {
-      selectedButton.classList.add('btn-selected');
+  agregarInstitucion(nuevaInstitucion: string): void {
+    if (nuevaInstitucion.trim() !== '') {
+      const institucion: Instituciones = { descripcion: nuevaInstitucion };
+      this.institucionesService.agregarInstitucion(institucion).subscribe(() => this.obtenerInstituciones());
     }
   }
 
-  updateDivVisibility(): void {
-    this.myDiv1.nativeElement.hidden = this.selectedButton !== 1;
-    this.myDiv2.nativeElement.hidden = this.selectedButton !== 2;
-    this.myDiv3.nativeElement.hidden = this.selectedButton !== 3;
+  editarInstitucion(id: string, nuevoNombreInstitucion: string): void {
+    if (nuevoNombreInstitucion.trim() !== '') {
+      const institucion: Instituciones = { id: id, descripcion: nuevoNombreInstitucion };
+      this.institucionesService.editarInstitucion(institucion).subscribe(() => this.obtenerInstituciones());
+    }
+  }
+
+  eliminarInstitucion(id: string): void {
+    this.institucionesService.eliminarInstitucion(id).subscribe(() => this.obtenerInstituciones());
   }
 
   obtenerInstituciones(): void {
@@ -57,4 +46,3 @@ export class CrudInstitucionesComponent implements OnInit{
     );
   }
 }
-

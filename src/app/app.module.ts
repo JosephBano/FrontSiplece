@@ -11,6 +11,7 @@ import { ModelosComponent } from './components/dashboard/instituciones/modelos/m
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CrudInstitucionesComponent } from './components/dashboard/instituciones/crud-instituciones/crud-instituciones.component';
+import { CrudModelosComponent } from './components/dashboard/instituciones/modelos/crud-modelos/crud-modelos.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CrudInstitucionesComponent } from './components/dashboard/instituciones
     NavbarComponent,
     InstitucionesComponent,
     ModelosComponent,
-    CrudInstitucionesComponent
+    CrudInstitucionesComponent,
+    CrudModelosComponent
   ],
   imports: [
     BrowserModule,

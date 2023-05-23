@@ -1,8 +1,12 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="row">
-        <div class="col d-flex mt-5 justify-content-center">        
-            <app-instituciones></app-instituciones>
-        </div>
+      <div class="col d-flex mt-5 justify-content-center">      
+        <div class="row">
+            <app-instituciones (selectedInstitucionChange)="selectedInstitucion=$event"></app-instituciones>
+            <app-modelos [selectedInstitucion]="selectedInstitucion"></app-modelos>
+          </div>
+        </div>  
     </div>
-</div>
+  </div>
+  

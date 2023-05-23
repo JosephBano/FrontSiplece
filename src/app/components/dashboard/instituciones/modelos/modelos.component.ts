@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/modelo.model';
 import { Instituciones } from 'src/app/models/instituciones.model';
+
 @Component({
   selector: 'app-modelos',
   templateUrl: './modelos.component.html',
@@ -10,21 +11,31 @@ import { Instituciones } from 'src/app/models/instituciones.model';
 export class ModelosComponent implements OnInit {
   
   @Input() selectedInstitucion!: string;
+  @Output() selectedModeloChange = new EventEmitter<string>();
   modelos!: Modelo[];
   selectedModelo: string = '';
   instituciones: Instituciones[] = [];
 
-  constructor (private modeloService: ModeloService) {  }
+  constructor(private modeloService: ModeloService) {}
 
   ngOnInit(): void {
     this.obtenerModelos();
   }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedInstitucion']) {
+      this.obtenerModelos();
+    }
+  }
   
   obtenerModelos(): void {
     if (this.selectedInstitucion) {
-      this.modeloService.getModelos(this.selectedInstitucion).subscribe(
-        modelos => {
-          this.modelos = modelos;
+      this.modeloService.getModelo(this.selectedInstitucion).subscribe(
+        modelo => {
+          if (modelo) {
+            this.modelos.push(modelo);
+          }
         },
         error => {
           console.error('Error al obtener los modelos:', error);
@@ -35,54 +46,7 @@ export class ModelosComponent implements OnInit {
     }
   }
 
-  agregarModelo(): void {
-    if (this.selectedInstitucion) {
-      const nuevoModelo: Modelo = {
-        id: '1', 
-        descripcion: 'Nuevo Modelo'
-      };
-
-      this.modeloService.agregarModelo(nuevoModelo).subscribe(
-        response => {
-          console.log('Modelo agregado exitosamente:', response);
-          this.obtenerModelos();
-        },
-        error => {
-          console.error('Error al agregar el modelo:', error);
-        }
-      );
-    }
+  seleccionarModelo(): void {
+    this.selectedModeloChange.emit(this.selectedModelo);
   }
-
-  editarModelo(): void {
-    const modeloEditado: Modelo = {
-      id: '1', 
-      descripcion: 'Modelo editado'
-    };
-
-    this.modeloService.editarModelo(modeloEditado).subscribe(
-      response => {
-        console.log('Modelo editado exitosamente:', response);
-        this.obtenerModelos();
-      },
-      error => {
-        console.error('Error al editar el modelo:', error);
-      }
-    );
-  }
-
-  eliminarModelo(): void {
-    const modeloId: string = '1';
-
-    this.modeloService.eliminarModelo(modeloId).subscribe(
-      response => {
-        console.log('Modelo eliminado exitosamente:', response);
-        this.obtenerModelos();
-      },
-      error => {
-        console.error('Error al eliminar el modelo:', error);
-      }
-    );
-  }
-  
 }
