@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
-import { InstitucionesModelosService } from '../../../services/relations/instituciones-modelos.service';
 
 @Component({
   selector: 'app-instituciones',
@@ -15,7 +14,7 @@ export class InstitucionesComponent implements OnInit {
   selectedInstitucion: any;
   instituciones: Instituciones[] = [];
 
-  constructor(private institucionesService: InstitucionesService, private institucionesModelosService: InstitucionesModelosService) { }
+  constructor(private institucionesService: InstitucionesService) { }
 
   ngOnInit(): void {
     this.obtenerInstituciones();
