@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Modelo } from 'src/app/models/modelo.model';
 import { ModeloService } from 'src/app/services/modelo.service';
 
 @Component({
-  selector: 'app-crud-modelos',
-  templateUrl: './crud-modelos.component.html',
-  styleUrls: ['./crud-modelos.component.css']
+  selector: 'app-crud-modelo',
+  templateUrl: './crud-modelo.component.html',
+  styleUrls: ['./crud-modelo.component.css']
 })
-export class CrudModelosComponent implements OnInit {
+export class CrudModeloComponent {
+
   @Input() selectedInstitucion!: string;
   @Output() selectedModeloChange = new EventEmitter<string>();
   modelos: Modelo[] = [];
@@ -43,7 +44,7 @@ export class CrudModelosComponent implements OnInit {
       this.modeloService.getModelo(this.selectedInstitucion).subscribe(
         modelo => {
           if (modelo) {
-            this.modelos.push(modelo);
+            this.modelos = modelo;
           }
         },
         error => {
@@ -54,5 +55,4 @@ export class CrudModelosComponent implements OnInit {
       this.modelos = [];
     }
   }
-
 }

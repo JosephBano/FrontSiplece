@@ -20,10 +20,10 @@ export class ModeloService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Modelo>(url);
   }*/
-  getModelo(id: string): Observable<Modelo | undefined> {
-    const modelo = this.modelos.find(m => m.institucionId === id);
-    return of(modelo);
-  }
+  getModelo(institucionId: string): Observable<Modelo[]> {
+  const modelos = this.modelos.filter(m => m.institucionId === institucionId);
+  return of(modelos);
+}
 
   agregarModelo(modelo: Modelo): Observable<Modelo> {
     return this.http.post<Modelo>(this.apiUrl, modelo);

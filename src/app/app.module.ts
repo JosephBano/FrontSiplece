@@ -7,11 +7,11 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { InstitucionesComponent } from './components/dashboard/instituciones/instituciones.component';
-import { ModelosComponent } from './components/dashboard/instituciones/modelos/modelos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CrudInstitucionesComponent } from './components/dashboard/instituciones/crud-instituciones/crud-instituciones.component';
-import { CrudModelosComponent } from './components/dashboard/instituciones/modelos/crud-modelos/crud-modelos.component';
+import { ModeloComponent } from './components/dashboard/modelo/modelo.component';
+import { CrudModeloComponent } from './components/dashboard/modelo/crud-modelo/crud-modelo.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +19,9 @@ import { CrudModelosComponent } from './components/dashboard/instituciones/model
     DashboardComponent,
     NavbarComponent,
     InstitucionesComponent,
-    ModelosComponent,
     CrudInstitucionesComponent,
-    CrudModelosComponent
+    ModeloComponent,
+    CrudModeloComponent
   ],
   imports: [
     BrowserModule,

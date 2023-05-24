@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
+import { InstitucionesModelosService } from '../../../services/relations/instituciones-modelos.service';
 
 @Component({
   selector: 'app-instituciones',
@@ -14,7 +15,7 @@ export class InstitucionesComponent implements OnInit {
   selectedInstitucion: any;
   instituciones: Instituciones[] = [];
 
-  constructor(private institucionesService: InstitucionesService) { }
+  constructor(private institucionesService: InstitucionesService, private institucionesModelosService: InstitucionesModelosService) { }
 
   ngOnInit(): void {
     this.obtenerInstituciones();
@@ -33,5 +34,9 @@ export class InstitucionesComponent implements OnInit {
   handleInstitucionSeleccionada(event: any): void {
     this.selectedInstitucion = event.target.value;
     this.selectedInstitucionChange.emit(this.selectedInstitucion);
+  }
+
+  onInstitucionChange(opcion: string) {
+    this.institucionesModelosService.actualizarSeleccion(opcion);
   }
 }

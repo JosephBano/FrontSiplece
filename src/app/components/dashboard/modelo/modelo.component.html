@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-11">
+      <div class="input-group mb-3 d-flex">
+        <select id="modelos" [disabled]="!selectedInstitucion" (change)="seleccionarModelo($event)" class="form-select form-select-lg selected-modelos" name="modelos">
+          <option value="" selected disabled>Seleccione un modelo...</option>
+          <option *ngFor="let modelo of modelos" [value]="modelo.id">{{modelo.descripcion}}</option>
+        </select>
+      
+      </div>
+    </div>
+    <div class="col-md-1 mr-4 mb-3 d-flex justify-content-center">
+      <div class="d-flex mr-4 justify-content-center align-items-center">
+        <span class="material-symbols-outlined icon-large" routerLink="/Modelos">
+          settings
+        </span>
+      </div>
+    </div>
+  </div>
