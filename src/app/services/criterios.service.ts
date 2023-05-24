@@ -12,18 +12,17 @@ export class CriteriosService {
 
   constructor( private http: HttpClient) { }
   
-  /*getCriterio(id: string): Observable<Criterio> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Criterio>(url);
+  /*getCriteriosPorId(id: string): Observable<Criterio[]> {
+    return this.http.get<Criterio[]>(`${this.apiUrl}/criterios?modeloId=${id}`);
   }*/
 
-  private criterio: Criterio[] = [
+  private criterios: Criterio[] = [
     { id: '1', descripcion: 'Criterio 1', modeloId: '1' },
     { id: '2', descripcion: 'Criterio 2', modeloId: '2' },
   ];
 
-  getCriterio(modeloId: string): Observable<Criterio[]> {
-    const criterios = this.criterio.filter(m => m.modeloId === modeloId);
-    return of(criterios);
+  getCriterio(id: string): Observable<Criterio[]> {
+    const criteriosPorId = this.criterios.filter(criterio => criterio.modeloId === id);
+    return of(criteriosPorId);
   }
 }

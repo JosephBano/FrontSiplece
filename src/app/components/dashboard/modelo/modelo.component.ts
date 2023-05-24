@@ -16,18 +16,15 @@ export class ModeloComponent {
   selectedModelo: string = '';
   instituciones: Instituciones[] = [];
 
-
-
   constructor(private modeloService: ModeloService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedInstitucion'] && changes['selectedInstitucion'].currentValue) 
-    {
+    if (changes['selectedInstitucion'] && changes['selectedInstitucion'].currentValue) {
       this.obtenerModelos(changes['selectedInstitucion'].currentValue);
     }
   }
-  
-  obtenerModelos(institucionId: string): void {    
+
+  obtenerModelos(institucionId: string): void {
     this.modeloService.getModelo(institucionId).subscribe(
       modelo => {
         if (modelo) {
@@ -44,8 +41,7 @@ export class ModeloComponent {
 
   seleccionarModelo(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    this.selectedModelo = selectElement.value;
-    this.selectedModeloChange.emit(this.selectedModelo);
+    this.selectedModeloChange.emit(selectElement.value);
   }
 
   handleModeloSeleccionada(event: any): void {

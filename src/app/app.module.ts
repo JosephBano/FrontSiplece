@@ -17,6 +17,8 @@ import { CrudCriteriosComponent } from './components/dashboard/criterios/crud-cr
 import { SubCriteriosComponent } from './components/dashboard/sub-criterios/sub-criterios.component';
 import { CrudSubCriteriosComponent } from './components/dashboard/sub-criterios/crud-sub-criterios/crud-sub-criterios.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { IndicadoresComponent } from './components/dashboard/indicadores/indicadores.component';
+import { CrudIndicadoresComponent } from './components/dashboard/indicadores/crud-indicadores/crud-indicadores.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
     SubCriteriosComponent,
     CrudSubCriteriosComponent,
     InicioComponent,
+    IndicadoresComponent,
+    CrudIndicadoresComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
     <div class="col-md-11">
       <label>Criterio</label>
       <div class="input-group mb-3 d-flex">
-        <select id="modelos" [disabled]="!selectedModelo" (change)="seleccionarCriterio($event)" class="form-select form-select-lg selected-modelos" name="modelos">
+        <select id="criterioSelect" [disabled]="!selectedModelo" (change)="seleccionarCriterio($event)" class="form-select form-select-lg selected-criterios" name="criterios">
           <option value="" id="OptionSelected" selected disabled>Seleccione un criterio...</option>
           <option *ngFor="let criterio of criterios" [value]="criterio.id">{{criterio.descripcion}}</option>
         </select>

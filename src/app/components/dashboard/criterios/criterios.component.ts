@@ -14,34 +14,30 @@ export class CriteriosComponent {
   criterios!: Criterio[];
   selectedCriterio: any;
   modelos: Modelo[] = [];
-
-  seleccion: string = '';
   
   constructor(private criterioService: CriteriosService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes['selectedModelo'] && changes['selectedModelo'].currentValue)
     {
-      this.obtenerModelos(changes['selectedInstitucion'].currentValue);
+      this.obtenerCriterios(changes['selectedModelo'].currentValue);
     }
   }
 
-  obtenerModelos( modelosId: string) {
-    this.criterioService.getCriterio(modelosId).subscribe( criterio => {
+  obtenerCriterios(modeloId: string) {
+    this.criterioService.getCriterio(modeloId).subscribe( criterio => {
       if(criterio){
         this.criterios = criterio;
       }else{
-        this.modelos = [];
+        this.criterios = [];
       }
     }, error =>{
       console.error('Error al obtener criterios: ', error);
-    }
-    );
+    });
   }
 
   seleccionarCriterio(event: Event) {
     const selecElement = event.target as HTMLSelectElement;
-    this.selectedCriterio = selecElement.value;
-    this.selectedCriterioChange.emit(this.selectedCriterio);
+    this.selectedCriterioChange.emit(selecElement.value);
   }
 }

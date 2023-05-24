@@ -2,10 +2,10 @@
   <div class="col-md-11">
     <label>Modelo</label>
     <div class="input-group mb-3 d-flex">
-      <select id="modelos" [disabled]="!selectedInstitucion" (change)="seleccionarModelo($event)" (change)="handleModeloSeleccionada($event)" class="form-select form-select-lg selected-modelos" name="modelos">
+      <select id="modeloSelect" [disabled]="!selectedInstitucion" (change)="seleccionarModelo($event)" class="form-select form-select-lg selected-modelos" name="modelos">
         <option value="" id="OptionSelected" selected disabled>Seleccione un modelo...</option>
         <option *ngFor="let modelo of modelos" [value]="modelo.id">{{modelo.descripcion}}</option>
-      </select>
+  </select>
     </div>
   </div>
 
