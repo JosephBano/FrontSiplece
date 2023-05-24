@@ -13,6 +13,8 @@ export class ModeloService {
   private modelos: Modelo[] = [
     { id: '1', descripcion: 'Modelo 1', institucionId: '1' },
     { id: '2', descripcion: 'Modelo 2', institucionId: '1' },
+    { id: '2', descripcion: 'Modelo 3', institucionId: '2' },
+    { id: '2', descripcion: 'Modelo 4', institucionId: '2' },
   ];
   constructor(private http: HttpClient) { }
 

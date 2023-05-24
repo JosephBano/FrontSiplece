@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnDestro
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/modelo.model';
 import { Instituciones } from 'src/app/models/instituciones.model';
-import { InstitucionesModelosService } from '../../../services/relations/instituciones-modelos.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modelo',
@@ -12,8 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class ModeloComponent {
   
-  @Input() selectedInstitucion!: string;
-  @Output() selectedModeloChange = new EventEmitter<string>();
+  @Input() selectedInstitucion: any;
+  @Output() selectedModeloChange = new EventEmitter<any>();
   modelos!: Modelo[];
   selectedModelo: string = '';
   instituciones: Instituciones[] = [];
@@ -50,4 +48,8 @@ export class ModeloComponent {
     this.selectedModeloChange.emit(this.selectedModelo);
   }
 
+  handleModeloSeleccionada(event: any): void {
+    this.selectedModelo = event.target.value;
+    this.selectedModeloChange.emit(this.selectedModelo);
+  }
 }

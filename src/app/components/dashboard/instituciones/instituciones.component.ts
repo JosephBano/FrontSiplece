@@ -10,7 +10,7 @@ import { InstitucionesModelosService } from '../../../services/relations/institu
 })
 export class InstitucionesComponent implements OnInit {
 
-  @Output() selectedInstitucionChange = new EventEmitter<string>();
+  @Output() selectedInstitucionChange = new EventEmitter<any>();
 
   selectedInstitucion: any;
   instituciones: Instituciones[] = [];

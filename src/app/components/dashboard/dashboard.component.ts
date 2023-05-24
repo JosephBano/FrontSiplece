@@ -9,6 +9,7 @@ export class DashboardComponent
 {
   selectedInstitucion!: string;
   selectedModelo!: string;
+  selectedCriterio!: string;
 
   constructor() { }
 }

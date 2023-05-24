@@ -12,7 +12,7 @@ export class CriteriosComponent {
   @Input() selectedModelo!: string;
   @Output() selectedCriterioChange = new EventEmitter<string>();
   criterios!: Criterio[];
-  selectedCriterio: string = '';
+  selectedCriterio: any;
   modelos: Modelo[] = [];
 
   seleccion: string = '';

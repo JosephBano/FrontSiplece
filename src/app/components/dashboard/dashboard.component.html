@@ -3,7 +3,8 @@
   <div class="row mt-4">    
       <app-instituciones (selectedInstitucionChange)="selectedInstitucion=$event"></app-instituciones>
       <app-modelo [selectedInstitucion]="selectedInstitucion" (selectedModeloChange)="selectedModelo=$event"></app-modelo>
-      <app-criterios [selectedModelo]="selectedModelo"></app-criterios>
+      <app-criterios [selectedModelo]="selectedModelo" (selectedCriterioChange)="selectedCriterio=$event"></app-criterios>
+      <app-sub-criterios [selectedCriterio]="selectedCriterio"></app-sub-criterios>
   </div>
 </div>
   
