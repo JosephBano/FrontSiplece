@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class ModeloService {
-
+  
   private apiUrl = 'desconocido'; // Cambia esto a tu URL real
 
   private modelos: Modelo[] = [
@@ -21,9 +21,9 @@ export class ModeloService {
     return this.http.get<Modelo>(url);
   }*/
   getModelo(institucionId: string): Observable<Modelo[]> {
-  const modelos = this.modelos.filter(m => m.institucionId === institucionId);
-  return of(modelos);
-}
+    const modelos = this.modelos.filter(m => m.institucionId === institucionId);
+    return of(modelos);
+  }
 
   agregarModelo(modelo: Modelo): Observable<Modelo> {
     return this.http.post<Modelo>(this.apiUrl, modelo);

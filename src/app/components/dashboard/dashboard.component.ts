@@ -8,6 +8,7 @@ import { Component } from "@angular/core";
 export class DashboardComponent
 {
   selectedInstitucion!: string;
+  selectedModelo!: string;
 
   constructor() { }
 }

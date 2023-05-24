@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './modelo.component.html',
   styleUrls: ['./modelo.component.css']
 })
-export class ModeloComponent implements  OnDestroy {
+export class ModeloComponent {
   
   @Input() selectedInstitucion!: string;
   @Output() selectedModeloChange = new EventEmitter<string>();
@@ -18,17 +18,9 @@ export class ModeloComponent implements  OnDestroy {
   selectedModelo: string = '';
   instituciones: Instituciones[] = [];
 
-  seleccion: string = '';
-  private seleccionSub: Subscription;
 
-  constructor(private modeloService: ModeloService, private InstitucionesModelosService: InstitucionesModelosService) {
-    this.seleccionSub = InstitucionesModelosService.seleccion$.subscribe( seleccion => {
-      this.seleccion =seleccion;
-    })
-  }
-  ngOnDestroy(): void {
-    this.seleccionSub.unsubscribe();
-  }
+
+  constructor(private modeloService: ModeloService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedInstitucion'] && changes['selectedInstitucion'].currentValue) 
@@ -37,7 +29,7 @@ export class ModeloComponent implements  OnDestroy {
     }
   }
   
-  obtenerModelos(institucionId: string): void {
+  obtenerModelos(institucionId: string): void {    
     this.modeloService.getModelo(institucionId).subscribe(
       modelo => {
         if (modelo) {
@@ -57,4 +49,5 @@ export class ModeloComponent implements  OnDestroy {
     this.selectedModelo = selectElement.value;
     this.selectedModeloChange.emit(this.selectedModelo);
   }
+
 }

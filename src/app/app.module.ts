@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { CrudInstitucionesComponent } from './components/dashboard/instituciones/crud-instituciones/crud-instituciones.component';
 import { ModeloComponent } from './components/dashboard/modelo/modelo.component';
 import { CrudModeloComponent } from './components/dashboard/modelo/crud-modelo/crud-modelo.component';
+import { CriteriosComponent } from './components/dashboard/criterios/criterios.component';
+import { CrudCriteriosComponent } from './components/dashboard/criterios/crud-criterios/crud-criterios.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { CrudModeloComponent } from './components/dashboard/modelo/crud-modelo/c
     InstitucionesComponent,
     CrudInstitucionesComponent,
     ModeloComponent,
-    CrudModeloComponent
+    CrudModeloComponent,
+    CriteriosComponent,
+    CrudCriteriosComponent
   ],
   imports: [
     BrowserModule,

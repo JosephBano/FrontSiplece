@@ -35,8 +35,4 @@ export class InstitucionesComponent implements OnInit {
     this.selectedInstitucion = event.target.value;
     this.selectedInstitucionChange.emit(this.selectedInstitucion);
   }
-
-  onInstitucionChange(opcion: string) {
-    this.institucionesModelosService.actualizarSeleccion(opcion);
-  }
 }
