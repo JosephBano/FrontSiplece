@@ -1,43 +1,41 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { of, switchMap } from 'rxjs';
 import { Criterio } from 'src/app/models/criterios.model';
-import { Modelo } from 'src/app/models/modelo.model';
 import { CriteriosService } from 'src/app/services/criterios.service';
+import { UpdateService } from 'src/app/services/update-service.service';
 
 @Component({
   selector: 'app-criterios',
   templateUrl: './criterios.component.html',
   styleUrls: ['./criterios.component.css']
 })
-export class CriteriosComponent {
-  @Input() selectedModelo!: string;
-  @Output() selectedCriterioChange = new EventEmitter<string>();
-  criterios!: Criterio[];
-  selectedCriterio: any;
-  modelos: Modelo[] = [];
-  
-  constructor(private criterioService: CriteriosService) { }
+export class CriteriosComponent implements OnInit {
+  criterios: Criterio[] = [];
+  criterioControl = new FormControl({value: '', disabled: true});
+  modeloId!: string;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes['selectedModelo'] && changes['selectedModelo'].currentValue)
-    {
-      this.obtenerCriterios(changes['selectedModelo'].currentValue);
-    }
-  }
+  constructor(private criteriosService: CriteriosService, private updateService: UpdateService) { }
 
-  obtenerCriterios(modeloId: string) {
-    this.criterioService.getCriterio(modeloId).subscribe( criterio => {
-      if(criterio){
-        this.criterios = criterio;
-      }else{
-        this.criterios = [];
-      }
-    }, error =>{
-      console.error('Error al obtener criterios: ', error);
+  ngOnInit() {
+    this.updateService.modeloSelected$.pipe(
+      switchMap(id => {
+        this.modeloId = id;
+        this.criterioControl.reset({value: '', disabled: true});
+        if (id) {
+          this.criterioControl.enable();
+          return this.criteriosService.getCriterios(id);
+        } else {
+          return of([]);
+        }
+      })
+    ).subscribe((data) => {
+      this.criterios = data;
     });
-  }
 
-  seleccionarCriterio(event: Event) {
-    const selecElement = event.target as HTMLSelectElement;
-    this.selectedCriterioChange.emit(selecElement.value);
+    this.criterioControl.valueChanges.subscribe((value) => {
+      const selectedCriterio = value || '';
+      this.updateService.selectCriterio(selectedCriterio);
+    })
   }
 }

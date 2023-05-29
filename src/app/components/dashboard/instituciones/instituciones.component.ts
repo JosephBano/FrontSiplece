@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/instituciones.service';
+import { UpdateService } from 'src/app/services/update-service.service';
 
 @Component({
   selector: 'app-instituciones',
@@ -9,29 +11,19 @@ import { InstitucionesService } from 'src/app/services/instituciones.service';
 })
 export class InstitucionesComponent implements OnInit {
 
-  @Output() selectedInstitucionChange = new EventEmitter<any>();
-
-  selectedInstitucion: any;
   instituciones: Instituciones[] = [];
+  institucionControl = new FormControl('');
 
-  constructor(private institucionesService: InstitucionesService) { }
+  constructor(private institucionesService: InstitucionesService, private updateService: UpdateService) { }
 
   ngOnInit(): void {
-    this.obtenerInstituciones();
-  }
+    this.institucionesService.getInstituciones().subscribe((data) => {
+      this.instituciones = data;
+    });
 
-  obtenerInstituciones(): void {
-    this.institucionesService.getInstituciones().subscribe(
-      instituciones => {
-        this.instituciones = instituciones;
-      },
-      error => {
-        console.error('Error al obtener las instituciones:', error);
-      }
-    );
-  }
-  handleInstitucionSeleccionada(event: any): void {
-    this.selectedInstitucion = event.target.value;
-    this.selectedInstitucionChange.emit(this.selectedInstitucion);
+    this.institucionControl.valueChanges.subscribe((value) => {
+      const selectedInstitucion = value || '';
+      this.updateService.selectInstitucion(selectedInstitucion);
+    });
   }
 }

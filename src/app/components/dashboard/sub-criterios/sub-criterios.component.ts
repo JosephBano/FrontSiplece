@@ -1,47 +1,42 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../models/subCriterios.model';
-import { Criterio } from 'src/app/models/criterios.model';
 import { SubCriteriosService } from 'src/app/services/sub-criterios.service';
+import { FormControl } from '@angular/forms';
+import { UpdateService } from '../../../services/update-service.service';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sub-criterios',
   templateUrl: './sub-criterios.component.html',
   styleUrls: ['./sub-criterios.component.css']
 })
-export class SubCriteriosComponent {
-  @Input() selectedCriterio: any;
-  @Output() selectedSubCriterioChange = new EventEmitter<string>();
-  subCriterios!: SubCriterio[];
-  selectedSubCriterio: string = '';
-  critetios: Criterio[] = [];
+export class SubCriteriosComponent implements OnInit{
+  
+  subCriterios: SubCriterio[] = [];
+  subCriterioControl = new FormControl({value: '', disabled: true});
+  criterioId!: string;
+  
+  constructor(private subCriterioService: SubCriteriosService, private updateService: UpdateService) { }
 
-  constructor(private sCriteriosService: SubCriteriosService) { }
+  ngOnInit() {
+    this.updateService.criterioSelected$.pipe(
+      switchMap(id => {
+        this.criterioId = id;
+        this.subCriterioControl.reset({value: '', disabled: true});
+        if (id) {
+          this.subCriterioControl.enable();
+          return this.subCriterioService.getSubCriterio(id);
+        } else {
+          return of([]);
+        }
+      })
+    ).subscribe((data) => {
+      this.subCriterios = data;
+    });
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes['selectedCriterio'] && changes['selectedCriterio'].currentValue)
-    {
-      this.obtenerSubCriterios(changes['selectedCriterio'].currentValue);
-    }
-  }
-
-  obtenerSubCriterios(criteriosId: string): void{
-    this.sCriteriosService.getSubCriterio(criteriosId).subscribe(subcriterio => {
-      if(subcriterio) {
-        this.subCriterios = subcriterio;
-      }else{
-        this.subCriterios = [];
-      }
+    this.subCriterioControl.valueChanges.subscribe(value => {
+      const selectedSubCriterio = value || '';
+      this.updateService.selectModelo(selectedSubCriterio);
     })
-  }
-
-  seleccionarSubCriterio(event: Event){
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedSubCriterio = selectElement.value;
-    this.selectedSubCriterioChange.emit(this.selectedSubCriterio);
-  }
-
-  handlerSubCriterioDisable(event: any): void {
-    this.selectedSubCriterio = event.target.value;
-    this.selectedSubCriterioChange.emit(this.selectedSubCriterio);
   }
 }

@@ -2,9 +2,11 @@
     <div class="col-md-11">
       <label>Criterio</label>
       <div class="input-group mb-3 d-flex">
-        <select id="criterioSelect" [disabled]="!selectedModelo" (change)="seleccionarCriterio($event)" class="form-select form-select-lg selected-criterios" name="criterios">
-          <option value="" id="OptionSelected" selected disabled>Seleccione un criterio...</option>
-          <option *ngFor="let criterio of criterios" [value]="criterio.id">{{criterio.descripcion}}</option>
+        <select [formControl]="criterioControl" [disabled]="!modeloId" class="form-select form-select-lg">
+          <option [selected]="true" [disabled]="true">Seleccione un criterio...</option>
+          <option *ngFor="let criterio of criterios" [value]="criterio.id">
+            {{ criterio.descripcion }}
+          </option>
         </select>
       </div>
     </div>

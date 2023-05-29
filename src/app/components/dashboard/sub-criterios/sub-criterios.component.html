@@ -2,8 +2,8 @@
     <div class="col-md-11">
       <label>Sub Criterio</label>
       <div class="input-group mb-3 d-flex">
-        <select id="subCriterios" [disabled]="!selectedCriterio" (change)="seleccionarSubCriterio($event)" class="form-select form-select-lg selected-modelos" name="modelos">
-          <option value="" id="OptionSelected" selected disabled>Seleccione un sub criterio...</option>
+        <select [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg selected-modelos">
+          <option [selected]="true" [disabled]="true">Seleccione un sub criterio...</option>
           <option *ngFor="let subCriterio of subCriterios" [value]="subCriterio.id">{{subCriterio.descripcion}}</option>
         </select>
       </div>

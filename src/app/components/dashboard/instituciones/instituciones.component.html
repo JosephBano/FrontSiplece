@@ -2,9 +2,10 @@
   <div class="col-md-11">
     <label>Institucion</label>
     <div class="input-group mb-3 d-flex">
-      <select id="instituciones" (change)="handleInstitucionSeleccionada($event)" class="form-select form-select-lg selected-instituciones" name="instituciones">
-        <option value="" selected disabled>Seleccione una institución...</option>
-        <option *ngFor="let institucion of instituciones" [value]="institucion.id">{{institucion.descripcion}}</option>
+      <select [formControl]="institucionControl" class="form-select form-select-lg">
+        <option *ngFor="let institucion of instituciones" [value]="institucion.id">
+          {{ institucion.descripcion }}
+        </option>
       </select>
     </div>  
   </div>

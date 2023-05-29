@@ -11,9 +11,6 @@ export class InstitucionesService {
 
   constructor(private http: HttpClient) { }
 
-  /*getInstituciones(): Observable<Instituciones[]> {
-    return this.http.get<Instituciones[]>(`${this.API_URL}/instituciones`);
-  }*/
   private instituciones: Instituciones[] = [
     { id: '1', descripcion: 'Institucion 1' },
     { id: '2', descripcion: 'Institucion 2' },
@@ -23,15 +20,4 @@ export class InstitucionesService {
     return of(this.instituciones);
   }
 
-  agregarInstitucion(institucion: Instituciones): Observable<Instituciones> {
-    return this.http.post<Instituciones>(`${this.API_URL}/instituciones`, institucion);
-  }
-
-  editarInstitucion(institucion: Instituciones): Observable<Instituciones> {
-    return this.http.put<Instituciones>(`${this.API_URL}/instituciones/${institucion.id}`, institucion);
-  }
-
-  eliminarInstitucion(id: string): Observable<{}> {
-    return this.http.delete(`${this.API_URL}/instituciones/${id}`);
-  }
 }

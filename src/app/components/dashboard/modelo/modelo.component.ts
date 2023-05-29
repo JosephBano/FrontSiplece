@@ -1,51 +1,42 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModeloService } from 'src/app/services/modelo.service';
+import { FormControl } from '@angular/forms';
+import { UpdateService } from 'src/app/services/update-service.service';
+import { switchMap, of } from 'rxjs';
 import { Modelo } from 'src/app/models/modelo.model';
-import { Instituciones } from 'src/app/models/instituciones.model';
 
 @Component({
   selector: 'app-modelo',
   templateUrl: './modelo.component.html',
   styleUrls: ['./modelo.component.css']
 })
-export class ModeloComponent {
+export class ModeloComponent implements OnInit{
   
-  @Input() selectedInstitucion: any;
-  @Output() selectedModeloChange = new EventEmitter<any>();
-  modelos!: Modelo[];
-  selectedModelo: string = '';
-  instituciones: Instituciones[] = [];
+  modelos: Modelo[] = [];
+  modeloControl = new FormControl({ value: '', disabled: true });
+  institucionId!: string;
 
-  constructor(private modeloService: ModeloService) { }
+  constructor(private modelosService: ModeloService, private updateService: UpdateService) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['selectedInstitucion'] && changes['selectedInstitucion'].currentValue) {
-      this.obtenerModelos(changes['selectedInstitucion'].currentValue);
-    }
-  }
-
-  obtenerModelos(institucionId: string): void {
-    this.modeloService.getModelo(institucionId).subscribe(
-      modelo => {
-        if (modelo) {
-          this.modelos = modelo;
+  ngOnInit() {
+    this.updateService.institucionSelected$.pipe(
+      switchMap(id => {
+        this.institucionId = id;
+        this.modeloControl.reset({ value: '', disabled: true });
+        if (id) {
+          this.modeloControl.enable();
+          return this.modelosService.getModelos(id);
         } else {
-          this.modelos = [];
+          return of([]);
         }
-      },
-      error => {
-        console.error('Error al obtener los modelos:', error);
-      }
-    );
-  }
+      })
+    ).subscribe((data) => {
+      this.modelos = data;
+    });
 
-  seleccionarModelo(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedModeloChange.emit(selectElement.value);
-  }
-
-  handleModeloSeleccionada(event: any): void {
-    this.selectedModelo = event.target.value;
-    this.selectedModeloChange.emit(this.selectedModelo);
+    this.modeloControl.valueChanges.subscribe((value) => {
+      const selectedModelo = value || '';
+      this.updateService.selectModelo(selectedModelo);
+    });
   }
 }

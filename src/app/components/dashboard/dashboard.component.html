@@ -1,10 +1,17 @@
 <app-navbar></app-navbar>
 <div class="container">
   <div class="row mt-4">    
-      <app-instituciones (selectedInstitucionChange)="selectedInstitucion=$event"></app-instituciones>
-      <app-modelo [selectedInstitucion]="selectedInstitucion" (selectedModeloChange)="selectedModelo=$event"></app-modelo>
-      <app-criterios [selectedModelo]="selectedModelo" (selectedCriterioChange)="selectedCriterio=$event"></app-criterios>
-      <app-sub-criterios [selectedCriterio]="selectedCriterio"></app-sub-criterios>
+    
+    <app-instituciones></app-instituciones>
+
+    <app-modelo></app-modelo>
+    
+    <app-criterios></app-criterios>
+      
+    <app-sub-criterios></app-sub-criterios>
+
+    <app-indicadores></app-indicadores>
+    
   </div>
 </div>
   
