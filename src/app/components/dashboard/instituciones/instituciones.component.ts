@@ -22,8 +22,7 @@ export class InstitucionesComponent implements OnInit {
     });
 
     this.institucionControl.valueChanges.subscribe((value) => {
-      const selectedInstitucion = value || '';
-      this.updateService.selectInstitucion(selectedInstitucion);
+      this.updateService.selectInstitucion(value);
     });
   }
 }

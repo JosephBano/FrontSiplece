@@ -1,22 +1,23 @@
+// SubCriteriosComponent
 import { Component, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../models/subCriterios.model';
 import { SubCriteriosService } from 'src/app/services/sub-criterios.service';
 import { FormControl } from '@angular/forms';
-import { UpdateService } from '../../../services/update-service.service';
-import { of, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { UpdateService } from 'src/app/services/update-service.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-sub-criterios',
   templateUrl: './sub-criterios.component.html',
   styleUrls: ['./sub-criterios.component.css']
 })
-export class SubCriteriosComponent implements OnInit{
-  
+export class SubCriteriosComponent implements OnInit {
   subCriterios: SubCriterio[] = [];
   subCriterioControl = new FormControl({value: '', disabled: true});
-  criterioId!: string;
-  
-  constructor(private subCriterioService: SubCriteriosService, private updateService: UpdateService) { }
+  criterioId!: string | null;
+
+  constructor(private subCriteriosService: SubCriteriosService, private updateService: UpdateService) {}
 
   ngOnInit() {
     this.updateService.criterioSelected$.pipe(
@@ -25,7 +26,7 @@ export class SubCriteriosComponent implements OnInit{
         this.subCriterioControl.reset({value: '', disabled: true});
         if (id) {
           this.subCriterioControl.enable();
-          return this.subCriterioService.getSubCriterio(id);
+          return this.subCriteriosService.getSubCriterio(id);
         } else {
           return of([]);
         }
@@ -34,9 +35,8 @@ export class SubCriteriosComponent implements OnInit{
       this.subCriterios = data;
     });
 
-    this.subCriterioControl.valueChanges.subscribe(value => {
-      const selectedSubCriterio = value || '';
-      this.updateService.selectModelo(selectedSubCriterio);
-    })
+    this.subCriterioControl.valueChanges.subscribe((value) => {
+      this.updateService.selectSubCriterio(value || null);
+    });
   }
 }

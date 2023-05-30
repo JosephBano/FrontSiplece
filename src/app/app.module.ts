@@ -37,7 +37,6 @@ import { IndicadoresComponent } from './components/dashboard/indicadores/indicad
     HttpClientModule,
     FormsModule, 
     ReactiveFormsModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,10 @@ export class UpdateService {
 
   //Observable string sources
 
-  private institucionSelectedSource = new Subject<string>();
-  private modeloSelectedSource = new Subject<string>();
-  private criterioSelectedSource = new Subject<string>();
-  private subCriterioSelectedSource = new Subject<string>();
+  private institucionSelectedSource = new BehaviorSubject<string | null>(null);
+  private modeloSelectedSource = new BehaviorSubject<string | null>(null);
+  private criterioSelectedSource = new BehaviorSubject<string | null>(null);
+  private subCriterioSelectedSource = new BehaviorSubject<string | null>(null);
 
   //Observable string streams
 
@@ -22,16 +22,26 @@ export class UpdateService {
 
   //Comandos de mensajes servicio 
 
-  selectInstitucion(id: string) {
+  selectInstitucion(id: string | null) {
     this.institucionSelectedSource.next(id);
+    if(!id) {
+      this.selectModelo(null);
+    }
   }
-  selectModelo(id: string) {
+  selectModelo(id: string | null) {
     this.modeloSelectedSource.next(id);
+    if(!id) {
+      this.selectCriterio(null);
+    }
   }
-  selectCriterio(id: string) {
+  selectCriterio(id: string | null) {
     this.criterioSelectedSource.next(id);
+    if(!id) {
+      this.selectSubCriterio(null)
+    }
   }
-  selectSubCriterio(id: string) {
+  
+  selectSubCriterio(id: string | null) {
     this.subCriterioSelectedSource.next(id);
   }
 }

@@ -13,7 +13,7 @@ import { UpdateService } from 'src/app/services/update-service.service';
 export class CriteriosComponent implements OnInit {
   criterios: Criterio[] = [];
   criterioControl = new FormControl({value: '', disabled: true});
-  modeloId!: string;
+  modeloId!: string | null;
 
   constructor(private criteriosService: CriteriosService, private updateService: UpdateService) { }
 
@@ -34,8 +34,7 @@ export class CriteriosComponent implements OnInit {
     });
 
     this.criterioControl.valueChanges.subscribe((value) => {
-      const selectedCriterio = value || '';
-      this.updateService.selectCriterio(selectedCriterio);
-    })
+      this.updateService.selectCriterio(value || null);
+    });
   }
 }

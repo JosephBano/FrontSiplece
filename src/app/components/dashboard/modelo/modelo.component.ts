@@ -14,7 +14,7 @@ export class ModeloComponent implements OnInit{
   
   modelos: Modelo[] = [];
   modeloControl = new FormControl({ value: '', disabled: true });
-  institucionId!: string;
+  institucionId!: string | null;
 
   constructor(private modelosService: ModeloService, private updateService: UpdateService) {}
 
@@ -35,8 +35,7 @@ export class ModeloComponent implements OnInit{
     });
 
     this.modeloControl.valueChanges.subscribe((value) => {
-      const selectedModelo = value || '';
-      this.updateService.selectModelo(selectedModelo);
+      this.updateService.selectModelo(value || null);
     });
   }
 }

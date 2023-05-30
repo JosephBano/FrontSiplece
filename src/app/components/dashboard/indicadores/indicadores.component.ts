@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { Indicador } from 'src/app/models/indicador.model';
 import { IndicadorService } from 'src/app/services/indicador.service';
 import { UpdateService } from 'src/app/services/update-service.service';
+import { NgSelectOption } from '@angular/forms';
+import { SubCriterio } from '../../../models/subCriterios.model';
 
 @Component({
   selector: 'app-indicadores',
@@ -11,27 +13,26 @@ import { UpdateService } from 'src/app/services/update-service.service';
   styleUrls: ['./indicadores.component.css']
 })
 export class IndicadoresComponent implements OnInit {
-
+  
   indicadores: Indicador[] = [];
-  indicadorControl = new FormControl({value: '', disabled: true});
-  subCriterioId!: string;
+  subCriterioId!: string| null;
 
-  constructor( private indicadorService: IndicadorService, private updateService: UpdateService) { }
+  constructor(private indicadorService: IndicadorService, private updateservice: UpdateService) { }
 
   ngOnInit(): void {
-    this.updateService.subCriterioSelected$.pipe(
+    this.updateservice.subCriterioSelected$.pipe(
       switchMap(id => {
         this.subCriterioId = id;
-        this.indicadorControl.reset({value: '', disabled: true});
         if (id) {
-          this.indicadorControl.enable();
           return this.indicadorService.getIndicadores(id);
         } else {
           return of([]);
         }
       })
-    ).subscribe( data => {
+    ).subscribe((data) => {
       this.indicadores = data;
-    })
+    });
   }
+ 
+  
 }

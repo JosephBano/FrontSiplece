@@ -1,21 +1,28 @@
 <div class="row">
-    <div class="col-md-11">
-      <label>Institucion</label>
-      <div class="input-group mb-3 d-flex">
-        <select [formControl]="indicadorControl" [disabled]="!subCriterioId" class="form-select form-select-lg">
-            <option [selected]="true" [disabled]="true">Seleccione</option>
-            <option *ngFor="let indicador of indicadores" [value]="indicador.id">
-              {{ indicador.descripcion }}
-            </option>
-          </select>
-      </div>  
-    </div>
-    
-    <div class="col-md-1 mr-4 mt-1 d-flex justify-content-center">
-      <div class="d-flex mr-4 align-items-center">
-        <span class="material-symbols-outlined icon-large" routerLink="/Instituciones">
-          edit_square
-        </span>
+  <div class="col-md-11">
+    <div class="d-flex justify-content-start mb-3">
+      <h3 class="mt-3">Indicadores</h3>
+      <div class="col-md-1 mr-4 mt-1 d-flex justify-content-center">
+        <div class="d-flex mr-4 align-items-center">
+          <span class="material-symbols-outlined icon-large" routerLink="/Instituciones">
+            edit_square
+          </span>
+        </div>
       </div>
     </div>
+    <p *ngIf="indicadores.length === 0" class="text-center">No se encontró ningún Indicador</p>
+    
+    <div class="input-group mb-3 d-flex">
+      <div *ngIf="subCriterioId">
+        <div class="form-check form-check-inline" *ngFor="let indicador of indicadores">
+          <input class="form-check-input" type="radio" [value]="indicador.id" name="{{indicador.descripcion}}">
+          <label class="form-check-label" for="{{indicador.descripcion}}">{{indicador.descripcion}}</label>
+        </div>
+      </div>
+    </div>  
+  </div>  
   </div>
+
+
+  
+  

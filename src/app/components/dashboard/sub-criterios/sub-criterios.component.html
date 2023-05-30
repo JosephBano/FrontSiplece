@@ -2,9 +2,11 @@
     <div class="col-md-11">
       <label>Sub Criterio</label>
       <div class="input-group mb-3 d-flex">
-        <select [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg selected-modelos">
+        <select [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg">
           <option [selected]="true" [disabled]="true">Seleccione un sub criterio...</option>
-          <option *ngFor="let subCriterio of subCriterios" [value]="subCriterio.id">{{subCriterio.descripcion}}</option>
+          <option *ngFor="let subCriterio of subCriterios" [value]="subCriterio.id">
+            {{ subCriterio.descripcion }}
+          </option>
         </select>
       </div>
     </div>
