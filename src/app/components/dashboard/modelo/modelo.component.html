@@ -3,7 +3,7 @@
     <label>Modelo</label>
     <div class="input-group mb-3 d-flex">
       <select [formControl]="modeloControl" [disabled]="!institucionId" class="form-select form-select-lg">
-        <option [selected]="true" [disabled]="true">Seleccione un modelo...</option>
+        <option value="" [selected]="true" [disabled]="true">Seleccione un modelo...</option>
         <option *ngFor="let modelo of modelos" [value]="modelo.id">
           {{ modelo.descripcion }}
         </option>

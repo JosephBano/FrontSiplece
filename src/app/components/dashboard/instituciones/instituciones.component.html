@@ -3,6 +3,7 @@
     <label>Institucion</label>
     <div class="input-group mb-3 d-flex">
       <select [formControl]="institucionControl" class="form-select form-select-lg">
+        <option value="" [selected]="true" [disabled]="true" >Seleccione una institucion...</option>
         <option *ngFor="let institucion of instituciones" [value]="institucion.id">
           {{ institucion.descripcion }}
         </option>

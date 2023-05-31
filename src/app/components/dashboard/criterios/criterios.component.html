@@ -3,7 +3,7 @@
       <label>Criterio</label>
       <div class="input-group mb-3 d-flex">
         <select [formControl]="criterioControl" [disabled]="!modeloId" class="form-select form-select-lg">
-          <option [selected]="true" [disabled]="true">Seleccione un criterio...</option>
+          <option value="" [selected]="true" [disabled]="true">Seleccione un criterio...</option>
           <option *ngFor="let criterio of criterios" [value]="criterio.id">
             {{ criterio.descripcion }}
           </option>
