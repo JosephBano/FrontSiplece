@@ -21,33 +21,10 @@
   'opsz' 0;
 }
 
-
-
-#search-component {
-  position: relative;
-  width: 300px;
+.container-radio {
+  display: flex;
 }
 
-.indicador-list {
-  position: absolute;
-  width: 100%;
-  max-height: 125px; /* Aqui hemos ajustado el max-height para que sea el tamaño de 5 elementos de la lista */
-  overflow-y: auto;
-  background-color: white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.indicador-list li {
-  padding: 10px;
-  height: 25px; /* Aqui hemos ajustado la altura de cada elemento de la lista */
-  border-bottom: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-.indicador-list li:last-child {
-  border-bottom: 0;
+.item {
+  flex: 1 0 0;
 }

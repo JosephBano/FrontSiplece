@@ -2,6 +2,15 @@
 <div class="container">
   <div class="row mt-4">    
     
+    <!-- <div class="d-flex mb-3">
+      <button mat-mini-fab class="item-position mt-3" color="primary" (click)="toggleVisibilidadEtiquetas()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="item-position">
+        <label class="mt-3">{{buttonContenido}}</label>
+      </div>
+    </div> -->
+
     <app-instituciones *ngIf="mostrarEtiquetas"></app-instituciones>
 
     <app-modelo *ngIf="mostrarEtiquetas"></app-modelo>
@@ -9,14 +18,12 @@
     <app-criterios *ngIf="mostrarEtiquetas"></app-criterios>
       
     <app-sub-criterios *ngIf="mostrarEtiquetas"></app-sub-criterios>
-
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <!--<button (click)="toggleVisibilidadEtiquetas()">{{buttonContenido}}</button> -->
-    </div>
     
-    <app-indicadores></app-indicadores>
+    <app-indicadores *ngIf="mostrarEtiquetas"></app-indicadores>
     
-    <app-crud-button></app-crud-button>
+    <mat-divider class="mt-4"></mat-divider>
+    
+    
   </div>
 </div>
   

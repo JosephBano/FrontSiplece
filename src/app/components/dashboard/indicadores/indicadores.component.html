@@ -1,27 +1,27 @@
 <div class="row">
   <div class="col-md-11">
     <div class="d-flex justify-content-start mb-3">
-      <h3 class="mt-3">Indicadores</h3>
-      <div class="col-md-1 mr-4 mt-1 d-flex justify-content-center">
-        <div class="d-flex mr-4 align-items-center">
-          <span class="material-symbols-outlined icon-large" routerLink="/Instituciones">
-            edit_square
-          </span>
+      <h2 class="mt-4">Indicadores</h2>
+      <div class="col-md-1 mt-3 d-flex justify-content-center">
+        <app-crud-button></app-crud-button>
+      </div>
+    </div>
+    <p *ngIf="indicadores.length === 0" class="text-center">No se encontró ningún Indicador</p> 
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let indicador of indicadores">
+          <mat-radio-group [(ngModel)]="indicadorSelected">
+            <mat-radio-button class="item" [value]="indicador.id">
+                {{indicador.descripcion}}
+            </mat-radio-button>
+          </mat-radio-group>
         </div>
       </div>
     </div>
-    <p *ngIf="indicadores.length === 0" class="text-center">No se encontró ningún Indicador</p>
     
-    <div class="input-group mb-3 d-flex">
-      <div *ngIf="subCriterioId">
-        <div class="form-check form-check-inline" *ngFor="let indicador of indicadores">
-          <input class="form-check-input" type="radio" [value]="indicador.id" name="{{indicador.descripcion}}">
-          <label class="form-check-label" for="{{indicador.descripcion}}">{{indicador.descripcion}}</label>
-        </div>
-      </div>
-    </div>  
   </div>  
-  </div>
+</div>
 
 
   

@@ -16,6 +16,7 @@ export class IndicadoresComponent implements OnInit {
   
   indicadores: Indicador[] = [];
   subCriterioId!: string| null;
+  indicadorSelected!: Indicador[];
 
   constructor(private indicadorService: IndicadorService, private updateservice: UpdateService) { }
 

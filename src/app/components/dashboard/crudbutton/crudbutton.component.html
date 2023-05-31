@@ -1,5 +1,42 @@
-<button mat-button (click)="openDialog()">
-    <span class="material-symbols-outlined icon-large" routerLink="/Instituciones">
+<button type="button" class="btn-config" data-bs-toggle="modal" data-bs-target="#crudModal">
+    <span class="material-symbols-outlined icon-large">
     edit_square
   </span>
 </button>
+
+<div class="modal fade" id="crudModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Modificar Elemento
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+
+          <mat-tab label="Crear">
+            <app-crear-elemento></app-crear-elemento>
+          </mat-tab>
+
+          <mat-tab label="Editar">
+            <app-editar-elemento></app-editar-elemento>
+          </mat-tab>
+
+          <mat-tab label="Eliminar">
+            <app-eliminar-elemento></app-eliminar-elemento>
+          </mat-tab>
+        </mat-tab-group>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

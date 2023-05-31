@@ -1,0 +1,12 @@
+.item-content {
+    background-color: #A2AFF4;
+    padding: 1px 3rem; 
+    border-radius: 10%;
+}
+
+.item-position {
+    margin: 10px 10px;
+}
+.d-flex {
+    flex-direction: row-reverse;
+} 
