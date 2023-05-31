@@ -1,7 +1,7 @@
 // SubCriteriosComponent
 import { Component, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../models/subCriterios.model';
-import { SubCriteriosService } from 'src/app/services/sub-criterios.service';
+import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { FormControl } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 import { UpdateService } from 'src/app/services/update-service.service';

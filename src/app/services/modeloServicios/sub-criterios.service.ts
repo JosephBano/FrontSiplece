@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SubCriterio } from '../models/subCriterios.model';
+import { SubCriterio } from '../../models/subCriterios.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

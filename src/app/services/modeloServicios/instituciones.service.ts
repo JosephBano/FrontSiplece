@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Instituciones } from '../models/instituciones.model';
+import { Instituciones } from '../../models/instituciones.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

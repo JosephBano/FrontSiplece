@@ -2,14 +2,18 @@
 <div class="container">
   <div class="row mt-4">    
     
-    <app-instituciones></app-instituciones>
+    <app-instituciones *ngIf="mostrarEtiquetas"></app-instituciones>
 
-    <app-modelo></app-modelo>
+    <app-modelo *ngIf="mostrarEtiquetas"></app-modelo>
     
-    <app-criterios></app-criterios>
+    <app-criterios *ngIf="mostrarEtiquetas"></app-criterios>
       
-    <app-sub-criterios></app-sub-criterios>
+    <app-sub-criterios *ngIf="mostrarEtiquetas"></app-sub-criterios>
 
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <!--<button (click)="toggleVisibilidadEtiquetas()">{{buttonContenido}}</button> -->
+    </div>
+    
     <app-indicadores></app-indicadores>
     
   </div>

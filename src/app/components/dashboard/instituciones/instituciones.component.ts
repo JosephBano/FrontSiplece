@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Instituciones } from 'src/app/models/instituciones.model';
-import { InstitucionesService } from 'src/app/services/instituciones.service';
+import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { UpdateService } from 'src/app/services/update-service.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { of, switchMap } from 'rxjs';
 import { Criterio } from 'src/app/models/criterios.model';
-import { CriteriosService } from 'src/app/services/criterios.service';
+import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { UpdateService } from 'src/app/services/update-service.service';
 
 @Component({

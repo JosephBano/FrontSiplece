@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { Indicador } from 'src/app/models/indicador.model';
-import { IndicadorService } from 'src/app/services/indicador.service';
+import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { UpdateService } from 'src/app/services/update-service.service';
 import { NgSelectOption } from '@angular/forms';
 import { SubCriterio } from '../../../models/subCriterios.model';

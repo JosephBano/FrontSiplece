@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModeloService } from 'src/app/services/modelo.service';
+import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { FormControl } from '@angular/forms';
 import { UpdateService } from 'src/app/services/update-service.service';
 import { switchMap, of } from 'rxjs';

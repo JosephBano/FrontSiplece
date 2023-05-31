@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Indicador } from '../models/indicador.model';
+import { Indicador } from '../../models/indicador.model';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
