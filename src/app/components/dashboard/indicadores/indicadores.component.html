@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-start mb-3">
       <h2 class="mt-4">Indicadores</h2>
       <div class="col-md-1 mt-3 d-flex justify-content-center">
-        <app-crud-button></app-crud-button>
+        <app-crud-button [sourceComponent]="myComponentId"></app-crud-button>
       </div>
     </div>
     <p *ngIf="indicadores.length === 0" class="text-center">No se encontró ningún Indicador</p> 

@@ -1,4 +1,3 @@
-// SubCriteriosComponent
 import { Component, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../models/subCriterios.model';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
@@ -16,6 +15,8 @@ export class SubCriteriosComponent implements OnInit {
   subCriterios: SubCriterio[] = [];
   subCriterioControl = new FormControl({value: '', disabled: true});
   criterioId!: string | null;
+
+  myComponentId = 'subCriterio';
 
   constructor(private subCriteriosService: SubCriteriosService, private updateService: UpdateService) {}
 

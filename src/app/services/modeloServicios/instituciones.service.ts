@@ -20,4 +20,8 @@ export class InstitucionesService {
     return of(this.instituciones);
   }
 
+  postInstituciones(institucion: Instituciones): Observable<Instituciones[]> {
+    this.instituciones.push(institucion);
+    return of(this.instituciones);
+  }
 }

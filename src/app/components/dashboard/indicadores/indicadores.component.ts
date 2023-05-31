@@ -18,6 +18,8 @@ export class IndicadoresComponent implements OnInit {
   subCriterioId!: string| null;
   indicadorSelected!: Indicador[];
 
+  myComponentId = 'indicador';
+
   constructor(private indicadorService: IndicadorService, private updateservice: UpdateService) { }
 
   ngOnInit(): void {

@@ -5,15 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  private objeto: any;
-
-  constructor() { }
-
-  setObjetp(obj: any) {
-    this.objeto = obj;
-  }
-
-  getObjeto() {
-    return this.objeto;
+  setLocalStorage(data: any) {
+    const dataString = JSON.stringify(data);
+    localStorage.setItem('obj', dataString);
   }
 }

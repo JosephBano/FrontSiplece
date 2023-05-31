@@ -1,4 +1,4 @@
-<button type="button" class="btn-config" data-bs-toggle="modal" data-bs-target="#crudModal">
+<button type="button" class="btn-config" (click)="buttonPressed()" data-bs-toggle="modal" data-bs-target="#crudModal">
     <span class="material-symbols-outlined icon-large">
     edit_square
   </span>
@@ -20,7 +20,7 @@
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
 
           <mat-tab label="Crear">
-            <app-crear-elemento></app-crear-elemento>
+            <app-crear-elemento [sourceComponentAgg]="sourceComponent"></app-crear-elemento>
           </mat-tab>
 
           <mat-tab label="Editar">
@@ -34,9 +34,7 @@
 
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+      
     </div>
   </div>
 </div>

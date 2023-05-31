@@ -1,18 +1,21 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent
+export class DashboardComponent implements OnInit
 {
-
   mostrarEtiquetas: boolean = true;
   buttonContenido: string = 'Ocultar';
 
+  constructor(private ds: DataService) { }
 
-  constructor() { }
+  ngOnInit(): void {
+    this.ds.setLocalStorage( [{}] )
+  }
 
   toggleVisibilidadEtiquetas() {
     this.mostrarEtiquetas = !this.mostrarEtiquetas;

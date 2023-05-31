@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 @Component({
   selector: 'app-crud-button',
@@ -7,5 +7,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 })
 export class CRUDButtonComponent {
 
+  @Input() sourceComponent!: string;
 
+  buttonPressed() {
+    console.log(`Button was accessed from ${this.sourceComponent}`);
+  }
+  
 }

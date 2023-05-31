@@ -1,4 +1,7 @@
-<p>crear-elemento works!</p>
-<h1>holaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-</h1>
+<form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="descripcion">Descripcion</label>
+    <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+  </div>
+  <button type="submit" class="btn btn-primary">Crear Institucion</button>
+</form>

@@ -15,6 +15,8 @@ export class CriteriosComponent implements OnInit {
   criterioControl = new FormControl({value: '', disabled: true});
   modeloId!: string | null;
 
+  myComponentId = 'criterio';
+
   constructor(private criteriosService: CriteriosService, private updateService: UpdateService) { }
 
   ngOnInit() {
