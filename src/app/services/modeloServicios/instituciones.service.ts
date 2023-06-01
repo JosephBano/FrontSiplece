@@ -24,4 +24,9 @@ export class InstitucionesService {
     this.instituciones.push(institucion);
     return of(this.instituciones);
   }
+
+  checkIfDescriptionExists(descripcion: string): Observable<boolean> {
+    const exists = this.instituciones.some(inst => inst.descripcion === descripcion);
+    return of(exists);
+  }
 }

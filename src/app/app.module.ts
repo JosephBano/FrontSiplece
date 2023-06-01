@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -63,7 +64,8 @@ import { EliminarElementoComponent } from './components/dashboard/crudbutton/eli
     MatCardModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
+    NgbAlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

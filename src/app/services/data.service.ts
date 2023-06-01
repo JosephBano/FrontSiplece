@@ -9,4 +9,8 @@ export class DataService {
     const dataString = JSON.stringify(data);
     localStorage.setItem('obj', dataString);
   }
+
+  setLocalStorageIdentificator(data: string) {
+    localStorage.setItem('identificator', data);
+  }
 }

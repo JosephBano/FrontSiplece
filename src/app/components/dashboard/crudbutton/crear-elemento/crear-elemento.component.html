@@ -1,7 +1,14 @@
 <form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="descripcion">Descripcion</label>
-    <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+  <div class="form-group mt-3">
+    <label for="descripcion">Nombre {{sourceComponentAgg}}</label>
+      <input 
+      type="text" 
+      class="form-control" 
+      id="descripcion" 
+      formControlName="descripcion"
+      >
+    
   </div>
-  <button type="submit" class="btn btn-primary">Crear Institucion</button>
+  <button type="submit" class="btn btn-primary mt-2">Crear {{sourceComponentAgg}}</button>
+  <button #CloseBtn type="button" class="btn-close d-none" data-bs-dismiss="modal" aria-label="Close"></button>
 </form>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
+import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-crud-button',
   templateUrl: './crudbutton.component.html',
@@ -8,8 +8,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 export class CRUDButtonComponent {
 
   @Input() sourceComponent!: string;
+  
+  constructor (private ds: DataService) {  }
 
   buttonPressed() {
+    this.ds.setLocalStorageIdentificator(this.sourceComponent);
     console.log(`Button was accessed from ${this.sourceComponent}`);
   }
   
