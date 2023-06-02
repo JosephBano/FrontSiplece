@@ -1,14 +1,29 @@
-<form [formGroup]="institucionForm" (ngSubmit)="onSubmit()">
-  <div class="form-group mt-3">
-    <label for="descripcion">Nombre {{sourceComponentAgg}}</label>
+<form [formGroup]="elementForm" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group mt-3 mb-2">
+    <label class="form-label" for="descripcion">Nombre {{identificator}}</label>
       <input 
       type="text" 
       class="form-control" 
       id="descripcion" 
+      placeholder="{{transformPlaceHolde(identificator)}}"
       formControlName="descripcion"
       >
     
+      <span class="text-danger ml-1"
+      *ngIf="elementForm.get('descripcion')?.errors?.['required'] && elementForm.get('descripcion')?.touched">  
+      La descripcion es <strong>requerida!</strong>
+      <br>
+      </span>
+      <span class="{{elementForm.invalid ? 'text-secondary' : 'text-success'}} ml-1">
+        La descripcion debe tener minimo <strong>10 caracteres!</strong>
+      </span>
+
   </div>
-  <button type="submit" class="btn btn-primary mt-2">Crear {{sourceComponentAgg}}</button>
-  <button #CloseBtn type="button" class="btn-close d-none" data-bs-dismiss="modal" aria-label="Close"></button>
+
+  <button type="submit" class="btn btn-primary mt-4" [disabled]="elementForm.invalid">Crear {{identificator}}</button>
+  
+  <!--No visible en el componente-->
+  <button #CloseBtn type="button" class="btn-close d-none" data-bs-dismiss="modal" aria-label="Close" ></button>
+
 </form>

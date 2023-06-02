@@ -1,7 +1,8 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Instituciones } from 'src/app/models/instituciones.model';
+import { DataService } from 'src/app/services/data.service';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 
 @Component({
@@ -12,49 +13,86 @@ import { InstitucionesService } from 'src/app/services/modeloServicios/instituci
 export class CrearElementoComponent {
 
   @ViewChild('CloseBtn') myButton!: ElementRef;
-  @Input() sourceComponentAgg!: string;
-  institucionForm!: FormGroup;
-  arr = ['institucion', 'modelo', 'criterio', 'subCriterio', 'indicador']
+  elementForm!: FormGroup;
+  identificator!: string;
+  objData!: any[];
 
-  constructor(private fb: FormBuilder, private institucionesService: InstitucionesService, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder, private institucionesService: InstitucionesService, private toastr: ToastrService, private ds: DataService ) { 
+    
+  }
 
   ngOnInit(): void {
-    this.institucionForm = this.fb.group({
-      descripcion: ['', Validators.required]
+    this.initializeParameters();
+
+    this.elementForm = this.fb.group({
+      descripcion: ['', [Validators.required, Validators.minLength(10)]]
     });
+
   }
 
-  onSubmit(): void {
-    console.log(this.sourceComponentAgg);
-    
-    this.buttonClicked()
+  //Funcionalidades
+
+  initializeParameters() {
+    this.ds.getObj().subscribe(data => {
+      this.objData = data;
+    })
+    this.ds.getIdentificator().subscribe(data => {
+      this.identificator = data;
+    })
   }
 
+  onSubmit(): void {        
 
-  createInstitucion(): void {
-    if (this.institucionForm && this.institucionForm.valid) {
-      const descripcion = this.institucionForm.get('descripcion')!.value;
-
-      this.institucionesService.checkIfDescriptionExists(descripcion).subscribe(exists => {
-        if (exists) {
-          this.toastr.error('Este nombre ya se encuentra en la base de datos')
-          console.log('error sing in');
-          
-        } else {
-          this.toastr.success('Institucion creada correctamente');
-          console.log('Institucion creada correctamente!');
-          
-          const newInstitucion = new Instituciones();
-          newInstitucion.descripcion = descripcion;
-          this.institucionesService.postInstituciones(newInstitucion).subscribe();
-        }
-      });
-    } else if (this.institucionForm.get('descripcion')!.value.length > 30) {
-      console.log('La descripción no debe tener más de 30 caracteres');
+    switch(this.identificator){
+      case 'institucion':
+        this.createInstitucion();
+        break;
+      case 'modelo':
+        console.log('estoy en el componente modelo HP');
+        
+        break;
+      case 'criterio':
+        break;
+      case 'subCriterio':
+        break;
     }
+    
+    //Cierra la aplicacion y setea los parametros por defecto si hay error o si ya se envio la solicitud post
+    this.buttonClicked();
   }
 
   buttonClicked() {
+    this.setDefautlIdentificator();
     this.myButton.nativeElement.click();
+    this.elementForm.get('descripcion')?.setValue('');
   }
+
+  setDefautlIdentificator(){
+    this.ds.setIdentificator('');
+  }
+
+  transformPlaceHolde(text: string) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  //Creacion de elementos
+  createInstitucion(): void {
+    const institucion: Instituciones = {
+      descripcion: this.elementForm.value.descripcion,
+    }
+
+    this.institucionesService.postInstituciones(institucion).subscribe(data => {
+      this.toastr.success('Institucion creada con exito!');
+      console.log(data);
+    }, error => {
+      this.toastr.error('No se ha podido crear la institucion!');
+      console.log(error);
+    })
+    
+  }
+
+  createModelo(): void {
+    
+  }
+
 }
