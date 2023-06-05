@@ -9,7 +9,7 @@ import { CrearElementoComponent } from './crear-elemento/crear-elemento.componen
 export class CRUDButtonComponent {
 
   @Input() sourceComponent!: string;
-  @ViewChild(CrearElementoComponent) resetElement!: CrearElementoComponent;
+  @ViewChild(CrearElementoComponent) updateDataService!: CrearElementoComponent;
   
   constructor (private ds: DataService) {  }
 
@@ -19,7 +19,6 @@ export class CRUDButtonComponent {
 
   setDefaultCrudElements() {
     this.ds.setIdentificator('');
-    this.resetElement.buttonClicked();
   }
   
 }

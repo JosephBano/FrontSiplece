@@ -25,4 +25,9 @@ export class ModeloService {
     return of(modelos);
   }
 
+  postModelos(institucion: Modelo): Observable<Modelo[]> {
+    this.modelos.push(institucion);
+    return of(this.modelos);
+  }
+
 }

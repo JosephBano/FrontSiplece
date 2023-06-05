@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit
   constructor(private ds: DataService) { }
 
   ngOnInit(): void {
-    this.ds.addObj( [{}] )
   }
 
   toggleVisibilidadEtiquetas() {

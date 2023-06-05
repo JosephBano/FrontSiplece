@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private objStore: any[] = [];
-  private objSubject: BehaviorSubject<any[]> = new BehaviorSubject(this.objStore);
+  private objStore: {institucion: string, modelo: string, criterio: string, subCriterio: string} = {institucion: "0", modelo: "0", criterio: "0", subCriterio: "0"};
+  private objSubject: BehaviorSubject<{institucion: string, modelo: string, criterio: string, subCriterio: string}> = new BehaviorSubject(this.objStore);
   
   private identificador: string = '';
   private identificadorSubject: BehaviorSubject<string> = new BehaviorSubject(this.identificador);
@@ -17,9 +17,9 @@ export class DataService {
     this.identificadorSubject.next(this.identificador);
   }
 
-  addObj(data: any) {
-    this.objStore.push(data);
-    this.objSubject.next(this.objStore)
+  setObj(data: {institucion: string, modelo: string, criterio: string, subCriterio: string}) {
+    this.objStore = data;
+    this.objSubject.next(this.objStore);
   }
 
   getObj() {

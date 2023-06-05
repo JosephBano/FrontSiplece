@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +13,16 @@ export class UpdateService {
   private criterioSelectedSource = new BehaviorSubject<string | null>(null);
   private subCriterioSelectedSource = new BehaviorSubject<string | null>(null);
 
+  private refreshRequestedSource = new Subject<void>();
+
   //Observable string streams
 
   institucionSelected$ = this.institucionSelectedSource.asObservable();
   modeloSelected$ = this.modeloSelectedSource.asObservable();
   criterioSelected$ = this.criterioSelectedSource.asObservable();
   subCriterioSelected$ = this.subCriterioSelectedSource.asObservable();
+
+  refreshRequested$ = this.refreshRequestedSource.asObservable();
 
   //Comandos de mensajes servicio 
 
@@ -43,5 +47,10 @@ export class UpdateService {
   
   selectSubCriterio(id: string | null) {
     this.subCriterioSelectedSource.next(id);
+  }
+
+
+  requestRefresh() {
+    this.refreshRequestedSource.next();
   }
 }
