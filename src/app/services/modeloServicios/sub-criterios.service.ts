@@ -38,4 +38,9 @@ export class SubCriteriosService {
     const subCriterio = this.subCriterio.filter(e => e.criterioId === criterioId);
     return of(subCriterio);
   }
+
+  postSubCriterios(subcriterio: SubCriterio): Observable<SubCriterio[]> {
+    this.subCriterio.push(subcriterio);
+    return of(this.subCriterio);
+  }
 }

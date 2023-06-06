@@ -43,8 +43,6 @@ export class ModeloComponent implements OnInit{
     ).subscribe((data) => {
       this.modelos = data;
     });
-    console.log("hola");
-    
   }
 
   actualizarModeloSeleccionado() {
@@ -54,7 +52,7 @@ export class ModeloComponent implements OnInit{
   }
 
   HandlerRefresh() {
-    this.updateService.refreshRequested$.subscribe(() => {
+    this.updateService.refreshRequestedModelo$.subscribe(() => {
       this.actualizarModelosDeInstitucionSeleccionada();
       this.actualizarModeloSeleccionado();
     })
@@ -62,7 +60,7 @@ export class ModeloComponent implements OnInit{
   
   agregarIdentificadorDS() {
     this.modeloControl.valueChanges.subscribe((value) => {
-      this.ds.setObj({institucion: "0", modelo: value?.toString() ?? "0", criterio: "0", subCriterio: "0"})
+      this.ds.setObj(value?.toString() ?? "0", 2);
     });
   }
 }

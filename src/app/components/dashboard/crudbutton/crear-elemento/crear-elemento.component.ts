@@ -1,11 +1,15 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Criterio } from 'src/app/models/criterios.model';
 import { Instituciones } from 'src/app/models/instituciones.model';
 import { Modelo } from 'src/app/models/modelo.model';
+import { SubCriterio } from 'src/app/models/subCriterios.model';
 import { DataService } from 'src/app/services/data.service';
+import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
+import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { UpdateService } from 'src/app/services/update-service.service';
 
 @Component({
@@ -22,8 +26,10 @@ export class CrearElementoComponent {
 
   idInstitucion = 3; //dar ids de prueba
   idModelo = 5; //dar ids de prueba
+  idCriterio = 9;
+  idsubCriterio = 17;
 
-  constructor(private fb: FormBuilder, private institucionesService: InstitucionesService, private modeloService: ModeloService ,private toastr: ToastrService, private ds: DataService, private updateService: UpdateService) { 
+  constructor(private fb: FormBuilder, private institucionesService: InstitucionesService, private modeloService: ModeloService, private criterioService: CriteriosService, private subCriterioService: SubCriteriosService, private toastr: ToastrService, private ds: DataService, private updateService: UpdateService) { 
     
   }
 
@@ -57,15 +63,19 @@ export class CrearElementoComponent {
         break;
       case 'modelo':
         this.createModelo();
+        this.refreshModelo();
         break;
       case 'criterio':
+        this.createCriterio();
+        this.refreshCriterio();
         break;
       case 'subCriterio':
+        this.createSubCriterio();
+        this.refreshSubCriterio();
         break;
     }
     
     //Cierra la aplicacion y setea los parametros por defecto si hay error o si ya se envio la solicitud post
-    this.refresh();
     this.handlerbuttonClicked();
   }
 
@@ -83,8 +93,15 @@ export class CrearElementoComponent {
     return text.charAt(0).toUpperCase() + text.slice(1);
   }
 
-  refresh() {
-    this.updateService.requestRefresh();
+  //refreshers
+  refreshModelo() {
+    this.updateService.requestRefreshModelo();
+  }
+  refreshCriterio() {
+    this.updateService.requestRefreshCriterio();
+  }
+  refreshSubCriterio() {
+    this.updateService.requestRefreshSubCriterio();
   }
 
   //Creacion de elementos
@@ -120,6 +137,42 @@ export class CrearElementoComponent {
       console.log(data);
     }, error => {
       this.toastr.error('No se ha podido crear el Modelo!');
+      console.log(error);
+    })
+  }
+
+  createCriterio(): void {
+    const criterio: Criterio = {
+      id: this.idCriterio.toString(),
+      descripcion: this.elementForm.value.descripcion,
+      modeloId: this.objData.modelo
+    }
+
+    this.idCriterio++;
+
+    this.criterioService.postCriterios(criterio).subscribe(data => {
+      this.toastr.success('Criterio creado con exito!');
+      console.log(data);
+    }, error => {
+      this.toastr.error('No se ha podido crear el criterio!');
+      console.log(error);
+    })
+  }
+
+  createSubCriterio(): void {
+    const subcriterio: SubCriterio = {
+      id: this.idsubCriterio.toString(),
+      descripcion: this.elementForm.value.descripcion,
+      criterioId: this.objData.criterio
+    }
+
+    this.idsubCriterio++;
+
+    this.subCriterioService.postSubCriterios(subcriterio).subscribe(data => {
+      this.toastr.success('SubCriterio creado con exito!');
+      console.log(data);
+    }, error => {
+      this.toastr.error('No se ha podido crear el SubCriterio!');
       console.log(error);
     })
   }

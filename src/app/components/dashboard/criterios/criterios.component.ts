@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { of, switchMap } from 'rxjs';
 import { Criterio } from 'src/app/models/criterios.model';
+import { DataService } from 'src/app/services/data.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { UpdateService } from 'src/app/services/update-service.service';
 
@@ -17,9 +18,16 @@ export class CriteriosComponent implements OnInit {
 
   myComponentId = 'criterio';
 
-  constructor(private criteriosService: CriteriosService, private updateService: UpdateService) { }
+  constructor(private criteriosService: CriteriosService, private updateService: UpdateService, private ds: DataService) { }
 
   ngOnInit() {
+    this.actualizarCriteriosDeModeloSeleccionada();
+    this.actualizarCriterioSeleccionado();
+    this.agregarIdentificadorDS();
+    this.HandlerRefresh();
+  }
+
+  actualizarCriteriosDeModeloSeleccionada() {
     this.updateService.modeloSelected$.pipe(
       switchMap(id => {
         this.modeloId = id;
@@ -34,9 +42,24 @@ export class CriteriosComponent implements OnInit {
     ).subscribe((data) => {
       this.criterios = data;
     });
+  }
 
+  actualizarCriterioSeleccionado(){
     this.criterioControl.valueChanges.subscribe((value) => {
       this.updateService.selectCriterio(value || null);
     });
+  }
+
+  agregarIdentificadorDS() {
+    this.criterioControl.valueChanges.subscribe((value) => {
+      this.ds.setObj(value?.toString() ?? "0", 3)
+    });
+  }
+
+  HandlerRefresh() {
+    this.updateService.refreshRequestedCriterio$.subscribe(() => {
+      this.actualizarCriteriosDeModeloSeleccionada();
+      this.actualizarCriterioSeleccionado();
+    })
   }
 }

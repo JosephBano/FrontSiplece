@@ -13,17 +13,23 @@ export class UpdateService {
   private criterioSelectedSource = new BehaviorSubject<string | null>(null);
   private subCriterioSelectedSource = new BehaviorSubject<string | null>(null);
 
-  private refreshRequestedSource = new Subject<void>();
-
+  //
+  private refreshRequestedModelo = new Subject<void>();
+  private refreshRequestedCriterio = new Subject<void>();
+  private refreshRequestedSubCriterio = new Subject<void>();
+  
   //Observable string streams
 
   institucionSelected$ = this.institucionSelectedSource.asObservable();
   modeloSelected$ = this.modeloSelectedSource.asObservable();
   criterioSelected$ = this.criterioSelectedSource.asObservable();
   subCriterioSelected$ = this.subCriterioSelectedSource.asObservable();
-
-  refreshRequested$ = this.refreshRequestedSource.asObservable();
-
+  
+  //
+  refreshRequestedModelo$ = this.refreshRequestedModelo.asObservable();
+  refreshRequestedCriterio$ = this.refreshRequestedCriterio.asObservable();
+  refreshRequestedSubCriterio$ = this.refreshRequestedSubCriterio.asObservable();
+  
   //Comandos de mensajes servicio 
 
   selectInstitucion(id: string | null) {
@@ -49,8 +55,16 @@ export class UpdateService {
     this.subCriterioSelectedSource.next(id);
   }
 
-
-  requestRefresh() {
-    this.refreshRequestedSource.next();
+  // refreshers
+  requestRefreshModelo() {
+    this.refreshRequestedModelo.next();
+  }
+  
+  requestRefreshCriterio() {
+    this.refreshRequestedCriterio.next();
+  }
+  
+  requestRefreshSubCriterio() {
+    this.refreshRequestedSubCriterio.next();
   }
 }

@@ -17,8 +17,22 @@ export class DataService {
     this.identificadorSubject.next(this.identificador);
   }
 
-  setObj(data: {institucion: string, modelo: string, criterio: string, subCriterio: string}) {
-    this.objStore = data;
+  setObj(data: string, identificador: number) {
+    switch(identificador) {
+      case 1: 
+        this.objStore.institucion = data;
+        break;
+      case 2:
+        this.objStore.modelo = data;
+        break;
+      case 3:
+        this.objStore.criterio = data;
+        break;
+      case 4: 
+        this.objStore.subCriterio = data;
+        break;
+    }
+
     this.objSubject.next(this.objStore);
   }
 

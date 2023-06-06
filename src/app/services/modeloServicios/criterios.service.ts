@@ -22,4 +22,9 @@ export class CriteriosService {
     const criterio = this.criterios.filter(c => c.modeloId === modelosId);
     return of(criterio);
   }
+
+  postCriterios(criterio: Criterio): Observable<Criterio[]> {
+    this.criterios.push(criterio);
+    return of(this.criterios);
+  }
 }

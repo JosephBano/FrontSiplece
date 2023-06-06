@@ -38,7 +38,7 @@ export class InstitucionesComponent implements OnInit {
 
   agregarIdentificadorDS() {
     this.institucionControl.valueChanges.subscribe((value) => {
-      this.ds.setObj({institucion: value?.toString() ?? '0', modelo: "0", criterio: "0", subCriterio: "0"})
+      this.ds.setObj(value?.toString() ?? '0', 1)
     });
   }
 }
