@@ -24,10 +24,7 @@ export class CrearElementoComponent {
   identificator!: string;
   objData!: {institucion: string, modelo: string, criterio: string, subCriterio: string};
 
-  idInstitucion = 3; //dar ids de prueba
-  idModelo = 5; //dar ids de prueba
-  idCriterio = 9;
-  idsubCriterio = 17;
+  fechaActual = new Date();
 
   constructor(private fb: FormBuilder, private institucionesService: InstitucionesService, private modeloService: ModeloService, private criterioService: CriteriosService, private subCriterioService: SubCriteriosService, private toastr: ToastrService, private ds: DataService, private updateService: UpdateService) { 
     
@@ -37,7 +34,8 @@ export class CrearElementoComponent {
     
     this.initializeParameters();
     this.elementForm = this.fb.group({
-      descripcion: ['', [Validators.required, Validators.minLength(10)]]
+      detalle: ['', [Validators.required, Validators.minLength(10)]],
+      siglas: ['', Validators.required]
     });
 
   }
@@ -107,13 +105,11 @@ export class CrearElementoComponent {
   //Creacion de elementos
   createInstitucion(): void {
     const institucion: Instituciones = {
-      id: this.idInstitucion.toString(),
-      descripcion: this.elementForm.value.descripcion,
+      Detalle: this.elementForm.value.detalle,
+      Siglas: this.elementForm.value.siglas
     }
 
-    this.idInstitucion++;
-
-    this.institucionesService.postInstituciones(institucion).subscribe(data => {
+    this.institucionesService.postInstitucion(institucion).subscribe(data => {
       this.toastr.success('Institucion creada con exito!');
       console.log('Institucion creada con exito!');
     }, error => {
@@ -125,14 +121,12 @@ export class CrearElementoComponent {
 
   createModelo(): void {
     const modelo: Modelo = {
-      id: this.idModelo.toString(),
-      descripcion: this.elementForm.value.descripcion,
-      institucionId: this.objData.institucion
+      idInstitucion: this.objData.institucion,
+      Detalle: this.elementForm.value.detalle,
+      Anio: this.fechaActual.getFullYear(),
     }
 
-    this.idModelo++;
-
-    this.modeloService.postModelos(modelo).subscribe(data => {
+    this.modeloService.postModelo(modelo).subscribe(data => {
       this.toastr.success('Modelo creado con exito!');
       console.log(data);
     }, error => {
@@ -143,12 +137,9 @@ export class CrearElementoComponent {
 
   createCriterio(): void {
     const criterio: Criterio = {
-      id: this.idCriterio.toString(),
       descripcion: this.elementForm.value.descripcion,
       modeloId: this.objData.modelo
     }
-
-    this.idCriterio++;
 
     this.criterioService.postCriterios(criterio).subscribe(data => {
       this.toastr.success('Criterio creado con exito!');
@@ -161,12 +152,9 @@ export class CrearElementoComponent {
 
   createSubCriterio(): void {
     const subcriterio: SubCriterio = {
-      id: this.idsubCriterio.toString(),
       descripcion: this.elementForm.value.descripcion,
       criterioId: this.objData.criterio
     }
-
-    this.idsubCriterio++;
 
     this.subCriterioService.postSubCriterios(subcriterio).subscribe(data => {
       this.toastr.success('SubCriterio creado con exito!');

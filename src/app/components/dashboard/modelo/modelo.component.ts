@@ -34,8 +34,8 @@ export class ModeloComponent implements OnInit{
         this.institucionId = id;
         this.modeloControl.reset({ value: '', disabled: true });
         if (id) {
-          this.modeloControl.enable();
-          return this.modelosService.getModelos(id);
+          this.modeloControl.enable(); 
+          return this.modelosService.getModelos();
         } else {
           return of([]);
         }
@@ -43,6 +43,13 @@ export class ModeloComponent implements OnInit{
     ).subscribe((data) => {
       this.modelos = data;
     });
+  }
+
+  getModelos(){
+    const modelosfinal;
+    this.modelosService.getModelos().forEach( e => {
+
+    })
   }
 
   actualizarModeloSeleccionado() {

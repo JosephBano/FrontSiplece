@@ -1,6 +1,8 @@
 export class Modelo {
-    id?: string;
-    descripcion?: string;
-    institucionId?: string;
+    IdModelo?: string;
+    idInstitucion?: string;
+    Detalle?: string;
+    Anio?: number;
+    Activo?: string;
 }
     

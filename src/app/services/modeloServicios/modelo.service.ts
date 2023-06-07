@@ -1,33 +1,32 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Modelo } from '../../models/modelo.model';
-import { Observable, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModeloService {
+  private readonly API_URL = 'https://localhost:7094/api/Modelo'; 
 
-  private modelos: Modelo[] = [
-    { id: '1', descripcion: 'Modelo 1', institucionId: '1' },
-    { id: '2', descripcion: 'Modelo 2', institucionId: '1' },
-    { id: '3', descripcion: 'Modelo 3', institucionId: '2' },
-    { id: '4', descripcion: 'Modelo 4', institucionId: '2' },
-  ];
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  
   constructor(private http: HttpClient) { }
 
-  /*getModelo(id: string): Observable<Modelo> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Modelo>(url);
-  }*/
-  getModelos(institucionId: string): Observable<Modelo[]> {
-    const modelos = this.modelos.filter(m => m.institucionId === institucionId);
-    return of(modelos);
-  }
+  getModelos(): Observable<Modelo[]> {
+    return this.http.get<Modelo[]>(this.API_URL);
+  }  
 
-  postModelos(institucion: Modelo): Observable<Modelo[]> {
-    this.modelos.push(institucion);
-    return of(this.modelos);
+  postModelo(modelo: Modelo): Observable<Modelo> {
+    return this.http.post<Modelo>(this.API_URL, modelo, this.httpOptions);
   }
-
+  
+  //Getbyid
+  getModelosIdInstitucion(id: string): Observable<Modelo[]> {
+    return this.getModelos().pipe(
+      map(modelos => modelos.filter(e => e.idInstitucion?.toString() === id))
+    );
+  }
 }

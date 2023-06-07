@@ -1,5 +1,7 @@
 export class Instituciones {
-    id?: string;
-    descripcion?: string;
+    IdInstitucion?: string;
+    Detalle?: string;
+    Siglas?: string;
+    Activo?: string;
 }
     

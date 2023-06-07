@@ -1,22 +1,38 @@
 <form [formGroup]="elementForm" (ngSubmit)="onSubmit()">
   
   <div class="form-group mt-3 mb-2">
-    <label class="form-label" for="descripcion">Nombre {{identificator}}</label>
+    <label class="form-label" for="detalle">Nombre {{identificator}}</label>
       <input 
       type="text" 
       class="form-control" 
-      id="descripcion" 
+      id="detalle" 
       placeholder="{{transformPlaceHolde(identificator)}}"
-      formControlName="descripcion"
+      formControlName="detalle"
       >
     
       <span class="text-danger ml-1"
-      *ngIf="elementForm.get('descripcion')?.errors?.['required'] && elementForm.get('descripcion')?.touched">  
-      La descripcion es <strong>requerida!</strong>
+      *ngIf="elementForm.get('detalle')?.errors?.['required'] && elementForm.get('detalle')?.touched">  
+      El nombre es <strong>requerida!</strong>
       <br>
       </span>
-      <span class="{{elementForm.invalid ? 'text-secondary' : 'text-success'}} ml-1">
-        La descripcion debe tener minimo <strong>10 caracteres!</strong>
+      <span class="{{elementForm.get('detalle')?.errors?.['minlength'] ? 'text-secondary' : 'text-success'}} ml-1">
+        El nombre debe tener minimo <strong>10 caracteres!</strong>
+        <br>
+        <br>
+      </span>
+
+      <label class="form-label" for="siglas">Siglas {{identificator}}</label>
+      <input 
+      type="text" 
+      class="form-control" 
+      id="siglas" 
+      placeholder="{{'Siglas ' + identificator.toUpperCase()}}"
+      formControlName="siglas"
+      >
+    
+      <span class="text-danger ml-1"
+      *ngIf="elementForm.get('siglas')?.errors?.['required'] && elementForm.get('siglas')?.touched">  
+      Las siglas son <strong>requeridas!</strong>
       </span>
 
   </div>

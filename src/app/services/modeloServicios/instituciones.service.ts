@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Instituciones } from '../../models/instituciones.model';
 import { Observable, of } from 'rxjs';
 
@@ -7,26 +7,19 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class InstitucionesService {
-  private readonly API_URL = ''; 
+  private readonly API_URL = 'https://localhost:7094/api/Institucion'; 
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) { }
 
-  private instituciones: Instituciones[] = [
-    { id: '1', descripcion: 'Institucion 1' },
-    { id: '2', descripcion: 'Institucion 2' },
-  ];
-  
   getInstituciones(): Observable<Instituciones[]> {
-    return of(this.instituciones);
+    return this.http.get<Instituciones[]>(this.API_URL);
   }
 
-  postInstituciones(institucion: Instituciones): Observable<Instituciones[]> {
-    this.instituciones.push(institucion);
-    return of(this.instituciones);
-  }
-
-  checkIfDescriptionExists(descripcion: string): Observable<boolean> {
-    const exists = this.instituciones.some(inst => inst.descripcion === descripcion);
-    return of(exists);
+  postInstitucion(institucion: Instituciones): Observable<Instituciones> {
+    return this.http.post<Instituciones>(this.API_URL, institucion, this.httpOptions);
   }
 }
