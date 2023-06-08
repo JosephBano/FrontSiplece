@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-11">
+  <div class="col-md-9">
     <label>Institucion</label>
     <div class="input-group mb-3 d-flex">
       <select [formControl]="institucionControl" class="form-select form-select-lg">
@@ -11,7 +11,9 @@
     </div>  
   </div>
   
-  <div class="col-md-1 mt-4 d-flex justify-content-center">
-    <app-crud-button [sourceComponent]="myComponentId"></app-crud-button>
+  <div class="col-md-3 mt-4 d-flex justify-content-center">
+    <app-agregar-institucion class="ml-3"></app-agregar-institucion>
+    <app-editar-institucion class="ml-3"></app-editar-institucion>
+    <app-eliminar-institucion class="ml-3"></app-eliminar-institucion>
   </div>
 </div>

@@ -1,6 +1,6 @@
 export class Modelo {
     IdModelo?: string;
-    idInstitucion?: string;
+    IdInstitucion?: string;
     Detalle?: string;
     Anio?: number;
     Activo?: string;

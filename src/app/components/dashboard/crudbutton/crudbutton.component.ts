@@ -9,7 +9,6 @@ import { CrearElementoComponent } from './crear-elemento/crear-elemento.componen
 export class CRUDButtonComponent {
 
   @Input() sourceComponent!: string;
-  @ViewChild(CrearElementoComponent) updateDataService!: CrearElementoComponent;
   
   constructor (private ds: DataService) {  }
 

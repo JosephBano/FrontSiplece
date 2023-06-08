@@ -16,7 +16,7 @@ export class InstitucionesComponent implements OnInit {
   institucionControl = new FormControl('');
   myComponentId = 'institucion';
 
-  constructor(private institucionesService: InstitucionesService, private updateService: UpdateService, private ds: DataService) { }
+  constructor(private institucionesService: InstitucionesService, private updateService: UpdateService, private ds: DataService, private us: UpdateService) { }
 
   ngOnInit(): void {
     this.cargarInstituciones();
@@ -40,5 +40,12 @@ export class InstitucionesComponent implements OnInit {
     this.institucionControl.valueChanges.subscribe((value) => {
       this.ds.setObj(value?.toString() ?? '0', 1)
     });
+  }
+
+  HandlerRefreshDS() {
+    this.us.refreshRequestedInstitucion$.subscribe(() => {
+      this.cargarInstituciones();
+      this.actualizarInstitucionSeleccionada();
+    })
   }
 }

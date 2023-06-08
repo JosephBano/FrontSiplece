@@ -31,6 +31,12 @@ import { CRUDButtonComponent } from './components/dashboard/crudbutton/crudbutto
 import { CrearElementoComponent } from './components/dashboard/crudbutton/crear-elemento/crear-elemento.component';
 import { EditarElementoComponent } from './components/dashboard/crudbutton/editar-elemento/editar-elemento.component';
 import { EliminarElementoComponent } from './components/dashboard/crudbutton/eliminar-elemento/eliminar-elemento.component';
+import { AgregarInstitucionComponent } from './components/dashboard/instituciones/agregar-institucion/agregar-institucion.component';
+import { EditarInstitucionComponent } from './components/dashboard/instituciones/editar-institucion/editar-institucion.component';
+import { EliminarInstitucionComponent } from './components/dashboard/instituciones/eliminar-institucion/eliminar-institucion.component';
+import { AgregarModeloComponent } from './components/dashboard/modelo/agregar-modelo/agregar-modelo.component';
+import { EditarModeloComponent } from './components/dashboard/modelo/editar-modelo/editar-modelo.component';
+import { EliminarModeloComponent } from './components/dashboard/modelo/eliminar-modelo/eliminar-modelo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +52,12 @@ import { EliminarElementoComponent } from './components/dashboard/crudbutton/eli
     CrearElementoComponent,
     EditarElementoComponent,
     EliminarElementoComponent,
+    AgregarInstitucionComponent,
+    EditarInstitucionComponent,
+    EliminarInstitucionComponent,
+    AgregarModeloComponent,
+    EditarModeloComponent,
+    EliminarModeloComponent,
   ],
   imports: [
     BrowserModule,

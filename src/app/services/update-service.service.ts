@@ -14,6 +14,7 @@ export class UpdateService {
   private subCriterioSelectedSource = new BehaviorSubject<string | null>(null);
 
   //
+  private refreshRequestedInstitucion = new Subject<void>();
   private refreshRequestedModelo = new Subject<void>();
   private refreshRequestedCriterio = new Subject<void>();
   private refreshRequestedSubCriterio = new Subject<void>();
@@ -26,6 +27,7 @@ export class UpdateService {
   subCriterioSelected$ = this.subCriterioSelectedSource.asObservable();
   
   //
+  refreshRequestedInstitucion$ = this.refreshRequestedInstitucion.asObservable();
   refreshRequestedModelo$ = this.refreshRequestedModelo.asObservable();
   refreshRequestedCriterio$ = this.refreshRequestedCriterio.asObservable();
   refreshRequestedSubCriterio$ = this.refreshRequestedSubCriterio.asObservable();
@@ -56,6 +58,10 @@ export class UpdateService {
   }
 
   // refreshers
+  requesRefreshInstitucion(){
+    this.refreshRequestedModelo.next();
+  }
+
   requestRefreshModelo() {
     this.refreshRequestedModelo.next();
   }

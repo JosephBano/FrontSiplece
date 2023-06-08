@@ -45,13 +45,6 @@ export class ModeloComponent implements OnInit{
     });
   }
 
-  getModelos(){
-    const modelosfinal;
-    this.modelosService.getModelos().forEach( e => {
-
-    })
-  }
-
   actualizarModeloSeleccionado() {
     this.modeloControl.valueChanges.subscribe((value) => {
       this.updateService.selectModelo(value || null); 

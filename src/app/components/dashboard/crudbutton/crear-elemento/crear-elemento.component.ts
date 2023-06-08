@@ -78,13 +78,8 @@ export class CrearElementoComponent {
   }
 
   handlerbuttonClicked() {
-    this.setDefautlIdentificator();
     this.myButton.nativeElement.click();
     this.elementForm.get('descripcion')?.setValue('');
-  }
-
-  setDefautlIdentificator(){
-    this.ds.setIdentificator('');
   }
 
   transformPlaceHolde(text: string) {
@@ -121,7 +116,7 @@ export class CrearElementoComponent {
 
   createModelo(): void {
     const modelo: Modelo = {
-      idInstitucion: this.objData.institucion,
+      IdInstitucion: this.objData.institucion,
       Detalle: this.elementForm.value.detalle,
       Anio: this.fechaActual.getFullYear(),
     }

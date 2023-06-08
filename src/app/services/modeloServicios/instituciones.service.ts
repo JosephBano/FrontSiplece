@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Instituciones } from '../../models/instituciones.model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,21 @@ export class InstitucionesService {
   getInstituciones(): Observable<Instituciones[]> {
     return this.http.get<Instituciones[]>(this.API_URL);
   }
+  
+  getInstitucioneById(id: string): Observable<Instituciones[]> {
+    return this.http.get<Instituciones[]>(this.API_URL + `/FindOne/${id}`);
+  }
 
   postInstitucion(institucion: Instituciones): Observable<Instituciones> {
     return this.http.post<Instituciones>(this.API_URL, institucion, this.httpOptions);
   }
+
+  updateInstitucion(institucion: Instituciones): Observable<Instituciones> {
+    return this.http.put<Instituciones>(this.API_URL, institucion, this.httpOptions);
+  }
+
+  deleteInstitucion(id: string): Observable<any> {
+    return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
+  }
+  
 }
