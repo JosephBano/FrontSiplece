@@ -1,5 +1,7 @@
 export class SubCriterio {
-    id?: string;
-    descripcion?: string;
-    criterioId?: string;
+    IdSubCriterio?: string;
+    IdCriterio?: string;
+    Detalle?: string;
+    Orden?: string;
+    Activo?: string;
 }

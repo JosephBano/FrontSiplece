@@ -27,16 +27,6 @@ import { CriteriosComponent } from './components/dashboard/criterios/criterios.c
 import { SubCriteriosComponent } from './components/dashboard/sub-criterios/sub-criterios.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { IndicadoresComponent } from './components/dashboard/indicadores/indicadores.component';
-import { CRUDButtonComponent } from './components/dashboard/crudbutton/crudbutton.component';
-import { CrearElementoComponent } from './components/dashboard/crudbutton/crear-elemento/crear-elemento.component';
-import { EditarElementoComponent } from './components/dashboard/crudbutton/editar-elemento/editar-elemento.component';
-import { EliminarElementoComponent } from './components/dashboard/crudbutton/eliminar-elemento/eliminar-elemento.component';
-import { AgregarInstitucionComponent } from './components/dashboard/instituciones/agregar-institucion/agregar-institucion.component';
-import { EditarInstitucionComponent } from './components/dashboard/instituciones/editar-institucion/editar-institucion.component';
-import { EliminarInstitucionComponent } from './components/dashboard/instituciones/eliminar-institucion/eliminar-institucion.component';
-import { AgregarModeloComponent } from './components/dashboard/modelo/agregar-modelo/agregar-modelo.component';
-import { EditarModeloComponent } from './components/dashboard/modelo/editar-modelo/editar-modelo.component';
-import { EliminarModeloComponent } from './components/dashboard/modelo/eliminar-modelo/eliminar-modelo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,17 +37,7 @@ import { EliminarModeloComponent } from './components/dashboard/modelo/eliminar-
     CriteriosComponent,
     SubCriteriosComponent,
     InicioComponent,
-    IndicadoresComponent,
-    CRUDButtonComponent,
-    CrearElementoComponent,
-    EditarElementoComponent,
-    EliminarElementoComponent,
-    AgregarInstitucionComponent,
-    EditarInstitucionComponent,
-    EliminarInstitucionComponent,
-    AgregarModeloComponent,
-    EditarModeloComponent,
-    EliminarModeloComponent,
+    IndicadoresComponent
   ],
   imports: [
     BrowserModule,

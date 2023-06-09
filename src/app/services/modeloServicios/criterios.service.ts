@@ -1,30 +1,39 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Criterio } from '../../models/criterios.model';
+import { Modelo } from 'src/app/models/modelo.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CriteriosService {
 
-  private criterios: Criterio[] = [
-    { id: '1', descripcion: 'Criterio 1', modeloId: '1'},
-    { id: '2', descripcion: 'Criterio 2', modeloId: '1'},
-    { id: '3', descripcion: 'Criterio 3', modeloId: '2'},
-    { id: '4', descripcion: 'Criterio 4', modeloId: '2'},
-    { id: '5', descripcion: 'Criterio 5', modeloId: '3'},
-    { id: '6', descripcion: 'Criterio 6', modeloId: '3'},
-    { id: '7', descripcion: 'Criterio 7', modeloId: '4'},
-    { id: '8', descripcion: 'Criterio 8', modeloId: '4'},
-  ];
-  getCriterios(modelosId: string): Observable<Criterio[]> {
-    const criterio = this.criterios.filter(c => c.modeloId === modelosId);
-    return of(criterio);
+  private readonly API_URL = 'https://localhost:7094/api/Criterio'; 
+  
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  
+  constructor(private http: HttpClient) { }
+  
+  getCriterios(): Observable<Criterio[]> {
+    return this.http.get<Criterio[]>(this.API_URL);
   }
 
-  postCriterios(criterio: Criterio): Observable<Criterio[]> {
-    this.criterios.push(criterio);
-    return of(this.criterios);
+  getCriterioById(id: string): Observable<Criterio> {
+    return this.http.get<Criterio>(this.API_URL + `/FindOne/${id}`);
+  }
+
+  postCriterios(criterio: Criterio): Observable<Criterio> {
+    return this.http.post<Criterio>(this.API_URL, criterio, this.httpOptions);
+  }
+
+  updateCriterio(criterio: Criterio): Observable<Criterio> {
+    return this.http.put<Modelo>(this.API_URL, criterio, this.httpOptions);
+  }
+
+  deleteCriterio(id: string): Observable<any> {
+    return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
 }

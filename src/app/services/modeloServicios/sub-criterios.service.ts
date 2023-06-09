@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubCriterio } from '../../models/subCriterios.model';
 import { Observable, of } from 'rxjs';
@@ -8,39 +8,31 @@ import { Observable, of } from 'rxjs';
 })
 export class SubCriteriosService {
 
-  private subCriterio: SubCriterio[] = [
-    { id: '1', descripcion: 'SubCriterio 1', criterioId: '1' },
-    { id: '2', descripcion: 'SubCriterio 2', criterioId: '1' },
-    { id: '3', descripcion: 'SubCriterio 3', criterioId: '2' },
-    { id: '4', descripcion: 'SubCriterio 4', criterioId: '2' },
-    { id: '5', descripcion: 'SubCriterio 5', criterioId: '3' },
-    { id: '6', descripcion: 'SubCriterio 6', criterioId: '3' },
-    { id: '7', descripcion: 'SubCriterio 7', criterioId: '4' },
-    { id: '8', descripcion: 'SubCriterio 8', criterioId: '4' },
-    { id: '9', descripcion: 'SubCriterio 9', criterioId: '5' },
-    { id: '10', descripcion: 'SubCriterio 10', criterioId: '5' },
-    { id: '11', descripcion: 'SubCriterio 11', criterioId: '6' },
-    { id: '12', descripcion: 'SubCriterio 12', criterioId: '6' },
-    { id: '13', descripcion: 'SubCriterio 13', criterioId: '7' },
-    { id: '14', descripcion: 'SubCriterio 14', criterioId: '7' },
-    { id: '15', descripcion: 'SubCriterio 15', criterioId: '8' },
-    { id: '16', descripcion: 'SubCriterio 16', criterioId: '8' },
-  ];
+  private readonly API_URL = 'https://localhost:7094/api/SubCriterio'; 
 
-  constructor( private http: HttpClient) { }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   
-  /*getSubCriterio(id: string): Observable<Criterio> {
-    const url = `${this.API_URL}/${id}`;
-    return this.http.get<Criterio>(url);
-  }*/
+  constructor(private http: HttpClient) { }
 
-  getSubCriterio(criterioId: string): Observable<SubCriterio[]> {
-    const subCriterio = this.subCriterio.filter(e => e.criterioId === criterioId);
-    return of(subCriterio);
+  getSubCriterio(): Observable<SubCriterio[]> {
+    return this.http.get<SubCriterio[]>(this.API_URL);
+  }  
+
+  getSubCriterioById(id: string): Observable<SubCriterio> {
+    return this.http.get<SubCriterio>(this.API_URL + `/FindOne/${id}`);
   }
 
-  postSubCriterios(subcriterio: SubCriterio): Observable<SubCriterio[]> {
-    this.subCriterio.push(subcriterio);
-    return of(this.subCriterio);
+  postSubCriterio(subcriterio: SubCriterio): Observable<SubCriterio> {
+    return this.http.post<SubCriterio>(this.API_URL, subcriterio, this.httpOptions);
+  }
+
+  updateSubCriterio(subcriterio: SubCriterio): Observable<SubCriterio> {
+    return this.http.put<SubCriterio>(this.API_URL, subcriterio, this.httpOptions);
+  }
+
+  deleteSubCriterio(id: string): Observable<any> {
+    return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
 }

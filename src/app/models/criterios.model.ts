@@ -1,5 +1,7 @@
 export class Criterio {
-    id?: string;
-    descripcion?: string;
-    modeloId?: string;
+    IdCriterio?: string;
+    IdModelo?: string;
+    Detalle?: string;
+    Orden?: string;
+    Activo?: string;
 }

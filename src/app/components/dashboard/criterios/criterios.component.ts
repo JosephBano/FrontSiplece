@@ -16,8 +16,6 @@ export class CriteriosComponent implements OnInit {
   criterioControl = new FormControl({value: '', disabled: true});
   modeloId!: string | null;
 
-  myComponentId = 'criterio';
-
   constructor(private criteriosService: CriteriosService, private updateService: UpdateService, private ds: DataService) { }
 
   ngOnInit() {
@@ -34,7 +32,7 @@ export class CriteriosComponent implements OnInit {
         this.criterioControl.reset({value: '', disabled: true});
         if (id) {
           this.criterioControl.enable();
-          return this.criteriosService.getCriterios(id);
+          return this.criteriosService.getCriterios();
         } else {
           return of([]);
         }
@@ -50,16 +48,16 @@ export class CriteriosComponent implements OnInit {
     });
   }
 
-  agregarIdentificadorDS() {
-    this.criterioControl.valueChanges.subscribe((value) => {
-      this.ds.setObj(value?.toString() ?? "0", 3)
-    });
-  }
-
   HandlerRefresh() {
     this.updateService.refreshRequestedCriterio$.subscribe(() => {
       this.actualizarCriteriosDeModeloSeleccionada();
       this.actualizarCriterioSeleccionado();
     })
+  }
+
+  agregarIdentificadorDS() {
+    this.criterioControl.valueChanges.subscribe((value) => {
+      this.ds.setObj(value?.toString() ?? "0", 3)
+    });
   }
 }

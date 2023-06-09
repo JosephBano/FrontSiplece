@@ -1,28 +1,16 @@
 <app-navbar></app-navbar>
 <div class="container">
   <div class="row mt-4">    
-    
-    <!-- <div class="d-flex mb-3">
-      <button mat-mini-fab class="item-position mt-3" color="primary" (click)="toggleVisibilidadEtiquetas()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <div class="item-position">
-        <label class="mt-3">{{buttonContenido}}</label>
-      </div>
-    </div> -->
 
-    <app-instituciones *ngIf="mostrarEtiquetas"></app-instituciones>
+    <app-instituciones></app-instituciones>
 
-    <app-modelo *ngIf="mostrarEtiquetas"></app-modelo>
+    <app-modelo></app-modelo>
     
-    <app-criterios *ngIf="mostrarEtiquetas"></app-criterios>
+    <app-criterios></app-criterios>
       
-    <app-sub-criterios *ngIf="mostrarEtiquetas"></app-sub-criterios>
+    <app-sub-criterios></app-sub-criterios>
     
-    <app-indicadores *ngIf="mostrarEtiquetas"></app-indicadores>
-    
-    <mat-divider class="mt-4"></mat-divider>
-    
+    <app-indicadores></app-indicadores>
     
   </div>
 </div>

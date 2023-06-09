@@ -16,9 +16,6 @@ export class ModeloComponent implements OnInit{
   modeloControl = new FormControl({ value: '', disabled: true });
   institucionId!: string | null;
   
-
-  myComponentId = 'modelo';
-
   constructor(private modelosService: ModeloService, private updateService: UpdateService, private ds: DataService) {}
 
   ngOnInit() {

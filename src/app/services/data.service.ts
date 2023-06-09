@@ -6,16 +6,8 @@ import { BehaviorSubject, filter, Observable } from 'rxjs';
 })
 export class DataService {
 
-  private objStore: {institucion: string, modelo: string, criterio: string, subCriterio: string} = {institucion: "0", modelo: "0", criterio: "0", subCriterio: "0"};
-  private objSubject: BehaviorSubject<{institucion: string, modelo: string, criterio: string, subCriterio: string}> = new BehaviorSubject(this.objStore);
-  
-  private identificador: string = '';
-  private identificadorSubject: BehaviorSubject<string> = new BehaviorSubject(this.identificador);
-
-  setIdentificator(data: string) {
-    this.identificador = data;
-    this.identificadorSubject.next(this.identificador);
-  }
+  private objStore: {institucion: string, modelo: string, criterio: string, subCriterio: string, indicador: string} = {institucion: "0", modelo: "0", criterio: "0", subCriterio: "0", indicador: "0"};
+  private objSubject: BehaviorSubject<{institucion: string, modelo: string, criterio: string, subCriterio: string, indicador: string}> = new BehaviorSubject(this.objStore);
 
   setObj(data: string, identificador: number) {
     switch(identificador) {
@@ -31,6 +23,9 @@ export class DataService {
       case 4: 
         this.objStore.subCriterio = data;
         break;
+      case 5: 
+        this.objStore.indicador = data;
+        break;
     }
 
     this.objSubject.next(this.objStore);
@@ -39,9 +34,4 @@ export class DataService {
   getObj() {
     return this.objSubject.asObservable();
   }
-
-  getIdentificator() {
-    return this.identificadorSubject.asObservable();
-  }
-
 }

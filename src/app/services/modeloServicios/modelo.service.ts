@@ -20,8 +20,8 @@ export class ModeloService {
     return this.http.get<Modelo[]>(this.API_URL);
   }  
 
-  getModeloById(id: string): Observable<Modelo[]> {
-    return this.http.get<Modelo[]>(this.API_URL + `/FindOne/${id}`);
+  getModeloById(id: string): Observable<Modelo> {
+    return this.http.get<Modelo>(this.API_URL + `/FindOne/${id}`);
   }
 
   postModelo(modelo: Modelo): Observable<Modelo> {

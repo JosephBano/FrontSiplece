@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../models/subCriterios.model';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { FormControl } from '@angular/forms';
-import { switchMap } from 'rxjs/operators';
 import { UpdateService } from 'src/app/services/update-service.service';
-import { of } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -17,8 +16,6 @@ export class SubCriteriosComponent implements OnInit {
   subCriterioControl = new FormControl({value: '', disabled: true});
   criterioId!: string | null;
 
-  myComponentId = 'subCriterio';
-
   constructor(private subCriteriosService: SubCriteriosService, private updateService: UpdateService, private ds: DataService) {}
 
   ngOnInit() {
@@ -29,13 +26,13 @@ export class SubCriteriosComponent implements OnInit {
   }
 
   actualizarCriteriosDelModeloSeleccionado() {
-    this.updateService.criterioSelected$.pipe(
+    this.updateService.subCriterioSelected$.pipe(
       switchMap(id => {
         this.criterioId = id;
         this.subCriterioControl.reset({value: '', disabled: true});
         if (id) {
           this.subCriterioControl.enable();
-          return this.subCriteriosService.getSubCriterio(id);
+          return this.subCriteriosService.getSubCriterio();
         } else {
           return of([]);
         }
@@ -51,16 +48,16 @@ export class SubCriteriosComponent implements OnInit {
     });
   }
   
-  agregarIdentificadorDS() {
-    this.subCriterioControl.valueChanges.subscribe((value) => {
-      this.ds.setObj(value?.toString() ?? "0", 4);
-    });
-  }
-
   HandlerRefresh() {
     this.updateService.refreshRequestedSubCriterio$.subscribe(() => {
       this.actualizarCriteriosDelModeloSeleccionado();
       this.actualizarCriterioSeleccionado();
     })
+  }
+  
+  agregarIdentificadorDS() {
+    this.subCriterioControl.valueChanges.subscribe((value) => {
+      this.ds.setObj(value?.toString() ?? "0", 4);
+    });
   }
 }
