@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { of, switchMap } from 'rxjs';
+import { distinctUntilChanged, of, switchMap } from 'rxjs';
 import { Indicador } from 'src/app/models/indicador.model';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { UpdateService } from 'src/app/services/update-service.service';
@@ -22,11 +22,10 @@ export class IndicadoresComponent implements OnInit {
     this.actualizarIndicadorDeSubCriterioSeleccionada();
     this.actualizarIndicadorSeleccionado();
     this.agregarIdentificadorDS();
-    this.HandlerRefresh();
   }
 
   actualizarIndicadorDeSubCriterioSeleccionada() {
-    this.updateService.indicadorSelected$.pipe(
+    this.updateService.subCriterioSelected$.pipe(
       switchMap(id => {
         this.subCriterioId = id;
         this.indicadorControl.reset({value: '', disabled: true});
@@ -43,16 +42,11 @@ export class IndicadoresComponent implements OnInit {
   }
 
   actualizarIndicadorSeleccionado(){
-    this.indicadorControl.valueChanges.subscribe((value) => {
+    this.indicadorControl.valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe((value) => {
       this.updateService.selectIndicador(value || null);
     });
-  }
-
-  HandlerRefresh() {
-    this.updateService.refreshRequestedIndicador$.subscribe(() => {
-      this.actualizarIndicadorDeSubCriterioSeleccionada();
-      this.actualizarIndicadorSeleccionado();
-    })
   }
 
   agregarIdentificadorDS() {

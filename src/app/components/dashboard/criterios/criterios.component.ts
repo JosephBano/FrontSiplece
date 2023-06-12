@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { of, switchMap } from 'rxjs';
+import { distinctUntilChanged, of, switchMap } from 'rxjs';
 import { Criterio } from 'src/app/models/criterios.model';
 import { DataService } from 'src/app/services/data.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
@@ -22,7 +22,6 @@ export class CriteriosComponent implements OnInit {
     this.actualizarCriteriosDeModeloSeleccionada();
     this.actualizarCriterioSeleccionado();
     this.agregarIdentificadorDS();
-    this.HandlerRefresh();
   }
 
   actualizarCriteriosDeModeloSeleccionada() {
@@ -43,17 +42,13 @@ export class CriteriosComponent implements OnInit {
   }
 
   actualizarCriterioSeleccionado(){
-    this.criterioControl.valueChanges.subscribe((value) => {
-      this.updateService.selectCriterio(value || null);
+    this.criterioControl.valueChanges.pipe(
+        distinctUntilChanged()
+    ).subscribe((value) => {
+        this.updateService.selectCriterio(value || null);
     });
-  }
+}
 
-  HandlerRefresh() {
-    this.updateService.refreshRequestedCriterio$.subscribe(() => {
-      this.actualizarCriteriosDeModeloSeleccionada();
-      this.actualizarCriterioSeleccionado();
-    })
-  }
 
   agregarIdentificadorDS() {
     this.criterioControl.valueChanges.subscribe((value) => {

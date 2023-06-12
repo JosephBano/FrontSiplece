@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { FormControl } from '@angular/forms';
 import { UpdateService } from 'src/app/services/update-service.service';
-import { switchMap, of } from 'rxjs';
+import { switchMap, of, distinctUntilChanged } from 'rxjs';
 import { Modelo } from 'src/app/models/modelo.model';
 import { DataService } from 'src/app/services/data.service';
 @Component({
@@ -22,7 +22,6 @@ export class ModeloComponent implements OnInit{
     this.actualizarModelosDeInstitucionSeleccionada();
     this.actualizarModeloSeleccionado();
     this.agregarIdentificadorDS();
-    this.HandlerRefresh();
   }
 
   actualizarModelosDeInstitucionSeleccionada() {
@@ -43,16 +42,11 @@ export class ModeloComponent implements OnInit{
   }
 
   actualizarModeloSeleccionado() {
-    this.modeloControl.valueChanges.subscribe((value) => {
+    this.modeloControl.valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe((value) => {
       this.updateService.selectModelo(value || null); 
     });
-  }
-
-  HandlerRefresh() {
-    this.updateService.refreshRequestedModelo$.subscribe(() => {
-      this.actualizarModelosDeInstitucionSeleccionada();
-      this.actualizarModeloSeleccionado();
-    })
   }
   
   agregarIdentificadorDS() {

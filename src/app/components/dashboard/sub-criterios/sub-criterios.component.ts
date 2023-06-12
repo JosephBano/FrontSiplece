@@ -3,7 +3,7 @@ import { SubCriterio } from '../../../models/subCriterios.model';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { FormControl } from '@angular/forms';
 import { UpdateService } from 'src/app/services/update-service.service';
-import { of, switchMap } from 'rxjs';
+import { distinctUntilChanged, of, switchMap } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -22,11 +22,10 @@ export class SubCriteriosComponent implements OnInit {
     this.actualizarCriteriosDelModeloSeleccionado();
     this.actualizarCriterioSeleccionado();
     this.agregarIdentificadorDS();
-    this.HandlerRefresh();
   }
 
   actualizarCriteriosDelModeloSeleccionado() {
-    this.updateService.subCriterioSelected$.pipe(
+    this.updateService.criterioSelected$.pipe(
       switchMap(id => {
         this.criterioId = id;
         this.subCriterioControl.reset({value: '', disabled: true});
@@ -43,16 +42,11 @@ export class SubCriteriosComponent implements OnInit {
   }
   
   actualizarCriterioSeleccionado() {
-    this.subCriterioControl.valueChanges.subscribe((value) => {
+    this.subCriterioControl.valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe((value) => {
       this.updateService.selectSubCriterio(value || null);
     });
-  }
-  
-  HandlerRefresh() {
-    this.updateService.refreshRequestedSubCriterio$.subscribe(() => {
-      this.actualizarCriteriosDelModeloSeleccionado();
-      this.actualizarCriterioSeleccionado();
-    })
   }
   
   agregarIdentificadorDS() {

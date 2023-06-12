@@ -41,11 +41,4 @@ export class InstitucionesComponent implements OnInit {
       this.ds.setObj(value?.toString() ?? '0', 1)
     });
   }
-
-  HandlerRefreshDS() {
-    this.us.refreshRequestedInstitucion$.subscribe(() => {
-      this.cargarInstituciones();
-      this.actualizarInstitucionSeleccionada();
-    })
-  }
 }
