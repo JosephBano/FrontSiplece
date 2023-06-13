@@ -1,12 +1,4 @@
-.item-content {
-    background-color: #A2AFF4;
-    padding: 1px 3rem; 
-    border-radius: 10%;
+.btn-custom {
+    margin-right: 10px;
+    padding: .5rem 3rem;
 }
-
-.item-position {
-    margin: 10px 10px;
-}
-.d-flex {
-    flex-direction: row-reverse;
-} 
