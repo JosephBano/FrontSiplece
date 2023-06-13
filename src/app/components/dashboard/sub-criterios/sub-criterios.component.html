@@ -1,16 +1,11 @@
-<div class="row">
-    <div class="col-md-9">
-      <label>Sub Criterio</label>
-      <div class="input-group mb-3 d-flex">
-        <select [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg">
-          <option value="" [selected]="true" [disabled]="true">Seleccione un sub criterio...</option>
-          <option *ngFor="let subCriterio of subCriterios" [value]="subCriterio.IdCriterio">
-            {{ subCriterio.Detalle }}
-          </option>
-        </select>
-      </div>
-    </div>
-  
-    <div class="col-md-3 mt-4 d-flex justify-content-center">
-    </div>
-  </div>
+<div class="input-group mb-3">
+  <label class="input-group-text" style="width: 110px;" for="select">Sub Criterio</label>
+  <select id="select" [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg">
+    <option value="" [selected]="true" [disabled]="true">Seleccione un sub criterio...</option>
+    <ng-container *ngFor="let subCriterio of subCriterios">
+      <option *ngIf="subCriterio.IdCriterio == criterioId" [value]="subCriterio.IdCriterio">
+        {{ subCriterio.Detalle }}
+      </option>
+    </ng-container>
+  </select>
+</div>

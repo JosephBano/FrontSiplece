@@ -16,7 +16,7 @@ export class InstitucionesComponent implements OnInit {
   institucionControl = new FormControl('');
   myComponentId = 'institucion';
 
-  constructor(private institucionesService: InstitucionesService, private updateService: UpdateService, private ds: DataService, private us: UpdateService) { }
+  constructor(private institucionesService: InstitucionesService, private updateService: UpdateService, private ds: DataService) { }
 
   ngOnInit(): void {
     this.cargarInstituciones();

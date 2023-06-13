@@ -1,15 +1,11 @@
-<div class="row">
-    <div class="col-md-9">
-      <label>Criterio</label>
-      <div class="input-group mb-3 d-flex">
-        <select [formControl]="criterioControl" [disabled]="!modeloId" class="form-select form-select-lg">
-          <option value="" [selected]="true" [disabled]="true">Seleccione un criterio...</option>
-          <ng-container *ngFor="let criterio of criterios">
-            <option *ngIf="criterio.IdModelo == modeloId" [value]="criterio.IdCriterio">
-              {{ criterio.Detalle }}
-            </option>
-          </ng-container>
-        </select>
-      </div>
-    </div>
-  </div>
+<div class="input-group mb-3 d-flex">
+  <label class="input-group-text"style="width: 110px;">Criterio</label>
+  <select [formControl]="criterioControl" [disabled]="!modeloId" class="form-select form-select-lg">
+    <option value="" [selected]="true" [disabled]="true">Seleccione un criterio...</option>
+    <ng-container *ngFor="let criterio of criterios">
+      <option *ngIf="criterio.IdModelo == modeloId" [value]="criterio.IdCriterio">
+        {{ criterio.Detalle }}
+      </option>
+    </ng-container>
+  </select>
+</div>
