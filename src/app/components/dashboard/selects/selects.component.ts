@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { DataService } from '../../../services/data.service';
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-selects',
@@ -9,9 +7,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class SelectsComponent implements OnInit
 {
-  detalleInd: any;
-
-  constructor(private ds: DataService, private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit(): void {
     

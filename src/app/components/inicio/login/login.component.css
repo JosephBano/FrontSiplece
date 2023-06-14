@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.row {
+    width: 100%;
+}
+
+hr {
+    border-width: 3px;
+    max-width: 65px;
+    border-color: aqua;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.3em;
+    color: white;
+}
+
+h3 {
+    font-family: 'Monstserrat', sans-serif;
+}
+
+.h3-login {
+    text-align: start;
+    font-size: 1.5em;
+    
+}
+
+.card-padding {
+    padding: 2.5rem;
+}
+
+.form-item {
+    text-align: start; 
+    margin: 0 10px 1rem 10px;
+}
+
+.btn-login {
+    background-color: #1F295B;
+    border-color: #1F295B;
+}
+
+.text-start {
+    text-align: start;
+}
+
+.pt-3 {
+    padding-top: 10px;
+}
