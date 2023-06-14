@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubCriterio } from '../../../models/subCriterios.model';
+import { SubCriterio } from '../../../../models/subCriterios.model';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { FormControl } from '@angular/forms';
 import { UpdateService } from 'src/app/services/update-service.service';
