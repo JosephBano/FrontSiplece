@@ -5,16 +5,18 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectsComponent } from './components/dashboard/selects/selects.component';
+import { TestComponent } from './components/dashboard/test/test.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/inicio', pathMatch: 'full'},
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path:'inicio',  component: InicioComponent, children: [
     { path: '', component: LoginComponent},
   ]},
   { path:'dashboard', component: DashboardComponent, children: [
     { path: '', component: SelectsComponent},
     { path: 'detalle', component: DetalleIndicadorComponent},
+    { path: 'test', component: TestComponent },
   ]},
   { path:'**', redirectTo:'/dashboard', pathMatch:'full' },
 ];

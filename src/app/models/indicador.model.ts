@@ -1,9 +1,10 @@
 export class Indicador {
     IdIndicador?: string;
-    IdSubCriterio?: string;
+    IdSubcriterio?: string;
     IdTipoEvaluacion?: string;
     IdIndicadorValoracion?: string;
     Detalle?: string;
-    orden?: string;
+    Orden?: string;
+    Activo?: string;
     valoracion?: string;
 }

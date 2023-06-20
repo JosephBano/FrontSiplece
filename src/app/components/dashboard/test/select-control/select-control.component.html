@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Estado</th>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let indicador of indicadores">
+            <th scope="row">{{indicador.Orden}}</th>
+            <td>{{indicador.Detalle}}</td>
+            <td>Cuantitativa</td>
+            <td>Vacio</td>
+        </ng-container>
+    </tbody>
+</table>
+
+<button (click)="slicks()">Mostrar</button>

@@ -3,7 +3,7 @@
   <select [formControl]="indicadorControl" [disabled]="!subCriterioId" class="form-select form-select-lg">
     <option value="" [selected]="true" [disabled]="true">Seleccione un indicador...</option>
     <ng-container *ngFor="let indicador of indicadores">
-      <option *ngIf="indicador.IdSubCriterio == subCriterioId" [value]="indicador.IdIndicador">
+      <option *ngIf="indicador.IdSubcriterio == subCriterioId" [value]="indicador.IdIndicador">
         {{ indicador.Detalle }}
       </option>
     </ng-container>

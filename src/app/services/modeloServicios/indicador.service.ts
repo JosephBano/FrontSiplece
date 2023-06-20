@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 })
 export class IndicadorService {
 
-  private readonly API_URL = 'https://localhost:7094/api/'; 
+  private readonly API_URL = 'https://localhost:7094/api/Indicador'; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

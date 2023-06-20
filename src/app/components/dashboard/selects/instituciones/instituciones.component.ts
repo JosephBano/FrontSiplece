@@ -14,7 +14,6 @@ export class InstitucionesComponent implements OnInit {
 
   instituciones: Instituciones[] = [];
   institucionControl = new FormControl('');
-  myComponentId = 'institucion';
 
   constructor(private institucionesService: InstitucionesService, private updateService: UpdateService, private ds: DataService) { }
 

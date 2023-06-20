@@ -1,5 +1,5 @@
 export class SubCriterio {
-    IdSubCriterio?: string;
+    IdSubcriterio?: string;
     IdCriterio?: string;
     Detalle?: string;
     Orden?: string;

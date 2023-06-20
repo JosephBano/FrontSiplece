@@ -3,7 +3,7 @@
   <select id="select" [formControl]="subCriterioControl" [disabled]="!criterioId" class="form-select form-select-lg">
     <option value="" [selected]="true" [disabled]="true">Seleccione un sub criterio...</option>
     <ng-container *ngFor="let subCriterio of subCriterios">
-      <option *ngIf="subCriterio.IdCriterio == criterioId" [value]="subCriterio.IdCriterio">
+      <option *ngIf="subCriterio.IdCriterio == criterioId" [value]="subCriterio.IdSubcriterio">
         {{ subCriterio.Detalle }}
       </option>
     </ng-container>

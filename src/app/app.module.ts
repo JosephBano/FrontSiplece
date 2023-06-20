@@ -30,6 +30,8 @@ import { IndicadoresComponent } from './components/dashboard/selects/indicadores
 import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectsComponent } from './components/dashboard/selects/selects.component';
+import { TestComponent } from './components/dashboard/test/test.component';
+import { SelectControlComponent } from './components/dashboard/test/select-control/select-control.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,8 @@ import { SelectsComponent } from './components/dashboard/selects/selects.compone
     IndicadoresComponent,
     DetalleIndicadorComponent,
     LoginComponent,
+    TestComponent,
+    SelectControlComponent,
   ],
   imports: [
     BrowserModule,
