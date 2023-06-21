@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Criterio } from 'src/app/models/criterios.model';
+import { Instituciones } from 'src/app/models/instituciones.model';
 import { Modelo } from 'src/app/models/modelo.model';
 import { SubCriterio } from 'src/app/models/subCriterios.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
+import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 
@@ -16,12 +18,10 @@ export class TestComponent implements OnInit {
   
   selects: FormGroup;
 
+  instituciones: Instituciones[] = [];
   modelos: Modelo[] = [];
   criterios: Criterio[] = [];
   subCriterios: SubCriterio[] = [];
-
-  criterioControl = new FormControl();
-  scriterioControl = new FormControl();
 
   institucionID = "1"; // variable que setea la institucion
   modeloId!: string;
@@ -31,6 +31,7 @@ export class TestComponent implements OnInit {
   displayIndicador = false;
   
   constructor(private fb: FormBuilder, 
+              private institucionService: InstitucionesService,
               private modeloService: ModeloService,
               private criterioService: CriteriosService,
               private subcriterioService: SubCriteriosService
@@ -43,6 +44,11 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.institucionService.getInstituciones().subscribe(data => {
+      this.instituciones = data;
+    })
+    console.log(this.instituciones);
+    
     this.getData();
   }
 
@@ -60,23 +66,23 @@ export class TestComponent implements OnInit {
 
   modeloChange(){
     this.modeloId = this.selects.value.modelo;
+    this.displayIndicador = false;
   }
 
   criterioChange(){
     this.criterioId = this.selects.value.criterio;
+    this.displayIndicador = false;
+    this.selects.value.subcriterio = '';
   }
 
   subcriterioChange() {
     this.subcriterioId = this.selects.value.subcriterio;
+    this.selects.value.subcriterio = '';
+    this.displayIndicador = false;
   }
 
   onSubmit() {
     this.displayIndicador = true;
-    console.log(this.subCriterios);
-    
-    console.log(this.modeloId, this.criterioId, this.subcriterioId);
-    
   }
-
 
 }

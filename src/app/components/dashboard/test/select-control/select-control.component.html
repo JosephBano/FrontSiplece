@@ -1,18 +1,21 @@
-<table>
+<table class="table table-hover">
     <thead>
-        <th scope="col">#</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Estado</th>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Descripcion</th>
+        <th scope="col" class="text-center">Tipo</th>
+        <th scope="col" class="text-center">Estado</th>
     </thead>
     <tbody>
         <ng-container *ngFor="let indicador of indicadores">
-            <th scope="row">{{indicador.Orden}}</th>
-            <td>{{indicador.Detalle}}</td>
-            <td>Cuantitativa</td>
-            <td>Vacio</td>
+            <tr 
+                *ngIf="indicador.IdSubcriterio == IdSubCriterio" 
+                (click)="handleRowClick(indicador.IdIndicador)"
+                [class.table-active]="indicador === selectedIndicador">
+                <th scope="row" class="text-center">{{indicador.Orden}}</th>
+                <td>{{indicador.Detalle}}</td>
+                <td class="text-center">Cuantitativa</td>
+               <td>Vacio</td>
+            </tr>
         </ng-container>
     </tbody>
 </table>
-
-<button (click)="slicks()">Mostrar</button>

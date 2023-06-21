@@ -11,6 +11,8 @@ import { IndicadorService } from 'src/app/services/modeloServicios/indicador.ser
 export class SelectControlComponent implements OnInit{
 
   indicadores: Indicador[] = [];
+  @Input() IdSubCriterio = "";
+  selectedIndicador: any;
 
   constructor(private indicadorService: IndicadorService) { }
 
@@ -20,7 +22,10 @@ export class SelectControlComponent implements OnInit{
     })    
   }
 
-  slicks(){
-    console.log(this.indicadores);
+  handleRowClick(indicador: any) {
+    this.selectedIndicador = indicador;
+    console.log('Row clicked:', indicador);
+    // Add your custom logic or function call
   }
+  
 }
