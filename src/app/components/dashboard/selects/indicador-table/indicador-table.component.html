@@ -1,0 +1,25 @@
+<div class="card">
+    <div class=card-body>
+        <table class="table table-hover">
+            <thead>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Descripcion</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Estado</th>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let indicador of indicadores">
+                    <tr 
+                    *ngIf="indicador.IdSubcriterio == IdSubCriterio" 
+                    (click)="handleRowClick(indicador.IdIndicador)"
+                    [class.table-active]="indicador === selectedIndicador">
+                        <th scope="row" class="text-center">{{indicador.Orden}}</th>
+                        <td>{{indicador.Detalle}}</td>
+                        <td class="text-center">Cuantitativa</td>
+                        <td class="text-center">Vacio</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

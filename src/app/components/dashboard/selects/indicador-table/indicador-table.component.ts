@@ -1,20 +1,22 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Indicador } from 'src/app/models/indicador.model';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 
 @Component({
-  selector: 'app-select-control',
-  templateUrl: './select-control.component.html',
-  styleUrls: ['./select-control.component.css']
+  selector: 'app-indicador-table',
+  templateUrl: './indicador-table.component.html',
+  styleUrls: ['./indicador-table.component.css']
 })
-export class SelectControlComponent implements OnInit{
+export class IndicadorTableComponent implements OnInit{
 
   indicadores: Indicador[] = [];
   @Input() IdSubCriterio = "";
   selectedIndicador: any;
 
-  constructor(private indicadorService: IndicadorService) { }
+  constructor(private indicadorService: IndicadorService,
+              private route: Router)
+  { }
 
   ngOnInit(): void {
     this.indicadorService.getIndicador().subscribe(data => {
@@ -24,8 +26,7 @@ export class SelectControlComponent implements OnInit{
 
   handleRowClick(indicador: any) {
     this.selectedIndicador = indicador;
-    console.log('Row clicked:', indicador);
-    // Add your custom logic or function call
+    this.route.navigate(['dashboard/detalle', this.selectedIndicador])
   }
   
 }

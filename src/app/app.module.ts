@@ -21,33 +21,21 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
-import { InstitucionesComponent } from './components/dashboard/selects/instituciones/instituciones.component';
-import { ModeloComponent } from './components/dashboard/selects/modelo/modelo.component';
-import { CriteriosComponent } from './components/dashboard/selects/criterios/criterios.component';
-import { SubCriteriosComponent } from './components/dashboard/selects/sub-criterios/sub-criterios.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { IndicadoresComponent } from './components/dashboard/selects/indicadores/indicadores.component';
 import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectsComponent } from './components/dashboard/selects/selects.component';
-import { TestComponent } from './components/dashboard/test/test.component';
-import { SelectControlComponent } from './components/dashboard/test/select-control/select-control.component';
+import { IndicadorTableComponent } from './components/dashboard/selects/indicador-table/indicador-table.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SelectsComponent,
     NavbarComponent,
-    InstitucionesComponent,
-    ModeloComponent,
-    CriteriosComponent,
-    SubCriteriosComponent,
     InicioComponent,
-    IndicadoresComponent,
     DetalleIndicadorComponent,
     LoginComponent,
-    TestComponent,
-    SelectControlComponent,
+    IndicadorTableComponent,
   ],
   imports: [
     BrowserModule,
