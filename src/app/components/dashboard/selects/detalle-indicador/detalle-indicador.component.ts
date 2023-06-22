@@ -1,44 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { Indicador } from '../../../../models/indicador.model';
-import { InicioComponent } from 'src/app/components/inicio/inicio.component';
 
 @Component({
   selector: 'app-detalle-indicador',
   templateUrl: './detalle-indicador.component.html',
   styleUrls: ['./detalle-indicador.component.css']
 })
-export class DetalleIndicadorComponent implements OnInit{
-
-  indicadorID: any;
+export class DetalleIndicadorComponent implements OnInit {
   indicador!: Indicador;
-
-  strTituloIndicador: any = '';
-  strTipoIndicador: any = '';
+  strTituloIndicador = '';
+  strTipoIndicador = '';
   
   constructor(
     private route: ActivatedRoute,
     private indicadorService: IndicadorService,
-  ) { } 
-  
+    private cdr: ChangeDetectorRef,
+  ) { }
+   
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const indicadorID = params['id'];
-      this.indicadorID = indicadorID;
-    })
-    this.indicadorService.getIndicadorById(this.indicadorID).subscribe(data => {
-      this.indicador = data;
-      this.cargaDeDatos()
-    })
-    
+      this.getIndicadorById(indicadorID);
+    });
   }
 
-  cargaDeDatos(){
-    console.log(this.indicador);
-    
-    this.strTituloIndicador = this.indicador.Detalle ;
-    if(this.indicador.IdTipoEvaluacion == "1") this.strTipoIndicador = 'Cuantitativo';
-    else this.strTipoIndicador = 'Cualitativo'
+  getIndicadorById(id: string): void {
+    this.indicadorService.getIndicadorById(id).subscribe(
+      data => {
+        if (data && data.length > 0) {
+          this.indicador = data[0]; 
+          if (this.indicador) {
+            this.cargaDeDatos();
+          }
+        }
+      }
+    );
   }
+
+  cargaDeDatos(): void {
+    console.log(this.indicador);
+    this.strTituloIndicador = this.indicador.Detalle || '';
+
+    console.log(this.strTituloIndicador);
+    this.cdr.detectChanges();  // Forzar la detección de cambios
+
+    this.strTipoIndicador = this.indicador.IdTipoEvaluacion === "1" ? 'Cuantitativo' : 'Cualitativo';
+  }
+  
 }

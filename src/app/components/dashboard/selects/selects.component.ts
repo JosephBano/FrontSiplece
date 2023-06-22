@@ -58,6 +58,8 @@ export class SelectsComponent implements OnInit
     })
     this.criterioService.getCriterios().subscribe(data => {
       this.criterios = data;
+      console.log(this.criterios);
+      
     })
     this.subcriterioService.getSubCriterio().subscribe(data => {
       this.subCriterios = data;
