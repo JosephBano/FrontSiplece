@@ -7,7 +7,7 @@ import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/dashboard/selector/selector.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   { path:'inicio',  component: InicioComponent, children: [
     { path: '', component: LoginComponent},
   ]},
