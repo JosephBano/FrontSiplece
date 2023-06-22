@@ -10,11 +10,11 @@ import { ModeloService } from "src/app/services/modeloServicios/modelo.service";
 import { SubCriteriosService } from "src/app/services/modeloServicios/sub-criterios.service";
 
 @Component({
-  selector: 'app-selects',
-  templateUrl: './selects.component.html',
-  styleUrls: ['./selects.component.css']
+  selector: 'app-selector',
+  templateUrl: './selector.component.html',
+  styleUrls: ['./selector.component.css']
 })
-export class SelectsComponent implements OnInit
+export class SelectorComponent implements OnInit
 {
   selects: FormGroup;
 

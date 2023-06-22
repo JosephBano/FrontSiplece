@@ -22,15 +22,15 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
-import { SelectsComponent } from './components/dashboard/selects/selects.component';
-import { IndicadorTableComponent } from './components/dashboard/selects/indicador-table/indicador-table.component';
+import { SelectorComponent } from './components/dashboard/selector/selector.component';
+import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    SelectsComponent,
+    SelectorComponent,
     NavbarComponent,
     InicioComponent,
     DetalleIndicadorComponent,

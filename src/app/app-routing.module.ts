@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
-import { SelectsComponent } from './components/dashboard/selects/selects.component';
+import { SelectorComponent } from './components/dashboard/selector/selector.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -12,7 +12,7 @@ const routes: Routes = [
     { path: '', component: LoginComponent},
   ]},
   { path:'dashboard', component: DashboardComponent, children: [
-    { path: '', component: SelectsComponent},
+    { path: '', component: SelectorComponent},
     { path: 'detalle/:id', component: DetalleIndicadorComponent},
   ]},
 ];
