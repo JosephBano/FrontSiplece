@@ -1,1 +1,59 @@
-<p>modal-evidencias works!</p>
+<span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    note_add
+</span>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Subir archivos</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <!--Inicio del Contenido de Modal-->
+
+            <div class="text-start">
+              <label for="detalleEvidencias" class="fw-semibold">Evidencias</label>
+              <div class="ml-1">                
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    <p>PEDI aprobado y vigente durante el periodo de evaluación (captado a través del aplicativo SIIES)</p>
+                  </li>
+                  <li class="list-group-item">
+                    <p>Evidencias del control y evaluación del cumplimento del POA  (actas o informes de las acciones de control con sus resultados, informes de evaluación, actas de reuniones, etc.) (captadas a través del aplicativo SIIES).</p>
+                  </li>
+                  <li class="list-group-item">
+                    <p>Normativa interna sobre el sistema de planificación (captada a través del aplicativo SIIES).</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            
+            
+            
+            <div class="text-start">
+              <label for="file" class="fw-semibold">Subir Evidencias</label>
+              <input type="file" id="file" (change)="onFileSelected($event)" multiple class="form-control">
+            </div>
+        
+            <div class="mt-4">
+              <h4>Archivos seleccionados:</h4>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let file of files">
+                  {{ file.name }}       
+                </li>
+              </ul>
+            </div>
+            
+            <!--Fin del Contenido de Modal-->
+          </div>
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!files.length" data-bs-dismiss="modal">Subir Archivos</button>
+    </div>
+</div>
+    </div>
+</div>  
