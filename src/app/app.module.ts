@@ -26,6 +26,7 @@ import { DetalleIndicadorComponent } from './components/dashboard/selector/detal
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/dashboard/selector/selector.component';
 import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
+import { ModalEvidenciasComponent } from './components/dashboard/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { IndicadorTableComponent } from './components/dashboard/selector/indicad
     DetalleIndicadorComponent,
     LoginComponent,
     IndicadorTableComponent,
+    ModalEvidenciasComponent,
   ],
   imports: [
     BrowserModule,
