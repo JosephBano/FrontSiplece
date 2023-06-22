@@ -18,7 +18,8 @@ export class SelectorComponent implements OnInit
 {
   selects: FormGroup;
 
-  instituciones: Instituciones[] = [];
+  institucion: Instituciones[] = [];
+  srtTituloInstitucion: string = '';
   modelos: Modelo[] = [];
   criterios: Criterio[] = [];
   subCriterios: SubCriterio[] = [];
@@ -45,21 +46,19 @@ export class SelectorComponent implements OnInit
 
   ngOnInit(): void {
     this.institucionService.getInstituciones().subscribe(data => {
-      this.instituciones = data;
+      this.institucion = data.filter( e => e.IdInstitucion == this.institucionID);
+      this.getData();
     })
-    console.log(this.instituciones);
-    
-    this.getData();
   }
 
   getData(){
+    this.srtTituloInstitucion = this.institucion[0].Detalle || '';
+    
     this.modeloService.getModelos().subscribe(data => {
       this.modelos = data;
     })
     this.criterioService.getCriterios().subscribe(data => {
       this.criterios = data;
-      console.log(this.criterios);
-      
     })
     this.subcriterioService.getSubCriterio().subscribe(data => {
       this.subCriterios = data;
