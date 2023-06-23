@@ -29,6 +29,9 @@ export class SelectorComponent implements OnInit
   criterioId!: string;
   subcriterioId!: string;
 
+  isCriterioDisabled = true;
+  isSubcriterioDisabled = true;
+
   displayIndicador = false;
   
   constructor(private fb: FormBuilder, 
@@ -53,7 +56,7 @@ export class SelectorComponent implements OnInit
 
   getData(){
     this.srtTituloInstitucion = this.institucion[0].Detalle || '';
-    
+
     this.modeloService.getModelos().subscribe(data => {
       this.modelos = data;
     })
@@ -67,18 +70,20 @@ export class SelectorComponent implements OnInit
 
   modeloChange(){
     this.modeloId = this.selects.value.modelo;
+    if(this.modeloId != '') this.isCriterioDisabled = false;
     this.displayIndicador = false;
+    this.selects.value.criterio = '';
   }
 
   criterioChange(){
     this.criterioId = this.selects.value.criterio;
+    if(this.criterioId !== '') this.isSubcriterioDisabled = false
     this.displayIndicador = false;
     this.selects.value.subcriterio = '';
   }
 
   subcriterioChange() {
     this.subcriterioId = this.selects.value.subcriterio;
-    this.selects.value.subcriterio = '';
     this.displayIndicador = false;
   }
 
