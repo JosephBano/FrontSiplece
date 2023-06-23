@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            
+            <!--Navbar -->
+            <div class="mb-3">
+                <ul class="nav nav-tabs">
+                    
+                    <li class="nav-item">
+                        <span class="nav-link" [class.active]="activeTab === 'Instituciones'"
+                        (click)="setActiveTab('Instituciones')">Instituciones</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" [class.active]="activeTab === 'Modelos'"
+                        (click)="setActiveTab('Modelos')">Modelos</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" [class.active]="activeTab === 'Criterios'"
+                        (click)="setActiveTab('Criterios')">Criterios</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" [class.active]="activeTab === 'Sub-Criterios'"
+                        (click)="setActiveTab('Sub-Criterios')">Sub-Criterios</span>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link" [class.active]="activeTab === 'Indicadores'"
+                        (click)="setActiveTab('Indicadores')">Indicadores</span>
+                    </li>
+                </ul>
+            </div>
+        
+            <!--Display components-->
+            <div class="mb-3">
+                <ng-container *ngIf="activeTab === 'Instituciones'">
+                    <app-institucion></app-institucion>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'Modelos'">
+                    <app-modelo></app-modelo>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'Criterios'">
+                    <app-criterio></app-criterio>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'Sub-Criterios'">
+                    <app-sub-criterio></app-sub-criterio>
+                </ng-container>
+                <ng-container *ngIf="activeTab === 'Indicadores'">
+                    <app-indicadores></app-indicadores>
+                </ng-container>
+            </div>
+
+      </div>
+    </div>
+  </div>

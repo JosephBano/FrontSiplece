@@ -27,7 +27,13 @@ import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/dashboard/selector/selector.component';
 import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
 import { ModalEvidenciasComponent } from './components/dashboard/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
-import { TablasComponent } from './components/dashboard/tablas/tablas.component';
+import { TablasComponent } from './components/panel/tablas/tablas.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +46,12 @@ import { TablasComponent } from './components/dashboard/tablas/tablas.component'
     IndicadorTableComponent,
     ModalEvidenciasComponent,
     TablasComponent,
+    PanelComponent,
+    InstitucionComponent,
+    ModeloComponent,
+    CriterioComponent,
+    SubCriterioComponent,
+    IndicadoresComponent,
   ],
   imports: [
     BrowserModule,
