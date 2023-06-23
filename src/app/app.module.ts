@@ -34,6 +34,8 @@ import { ModeloComponent } from './components/panel/tablas/modelo/modelo.compone
 import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
 import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
 import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
+import { InstitucionPipe } from './pipes/SortAndFilter/institucion.pipe';
+import { SortableInstitucionDirective } from './directive/sortable-institucion.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +54,8 @@ import { IndicadoresComponent } from './components/panel/tablas/indicadores/indi
     CriterioComponent,
     SubCriterioComponent,
     IndicadoresComponent,
+    InstitucionPipe,
+    SortableInstitucionDirective,
   ],
   imports: [
     BrowserModule,
