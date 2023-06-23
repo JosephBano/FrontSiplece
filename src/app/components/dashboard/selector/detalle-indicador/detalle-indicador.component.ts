@@ -41,12 +41,7 @@ export class DetalleIndicadorComponent implements OnInit {
   }
 
   cargaDeDatos(): void {
-    console.log(this.indicador);
     this.strTituloIndicador = this.indicador.Detalle || '';
-
-    console.log(this.strTituloIndicador);
-    this.cdr.detectChanges();  // Forzar la detección de cambios
-
     this.strTipoIndicador = this.indicador.IdTipoEvaluacion === "1" ? 'Cuantitativo' : 'Cualitativo';
   }
   

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Criterio } from "src/app/models/criterios.model";
 import { Instituciones } from "src/app/models/instituciones.model";
 import { Modelo } from "src/app/models/modelo.model";
@@ -29,9 +29,7 @@ export class SelectorComponent implements OnInit
   criterioId!: string;
   subcriterioId!: string;
 
-  isCriterioDisabled = true;
-  isSubcriterioDisabled = true;
-
+  disabledButton = true;
   displayIndicador = false;
   
   constructor(private fb: FormBuilder, 
@@ -41,9 +39,9 @@ export class SelectorComponent implements OnInit
               private subcriterioService: SubCriteriosService
               ) {
     this.selects = this.fb.group({
-      modelo: ['', Validators.required],
-      criterio: ['', Validators.required],
-      subcriterio: ['', Validators.required]
+      modelo: new FormControl({value: '', disabled: false}),
+      criterio: new FormControl({value: '', disabled: true}),
+      subcriterio: new FormControl({value: '', disabled: true}),
     })
   }
 
@@ -69,22 +67,38 @@ export class SelectorComponent implements OnInit
   }
 
   modeloChange(){
-    this.modeloId = this.selects.value.modelo;
-    if(this.modeloId != '') this.isCriterioDisabled = false;
+    this.modeloId = this.selects.get('modelo')?.value;
+    if (this.modeloId) {
+      this.selects.get('criterio')?.enable();
+    } else {
+      this.selects.get('criterio')?.disable();
+      this.selects.get('subcriterio')?.disable();
+    }
     this.displayIndicador = false;
-    this.selects.value.criterio = '';
+    this.criterioChange();
   }
 
   criterioChange(){
-    this.criterioId = this.selects.value.criterio;
-    if(this.criterioId !== '') this.isSubcriterioDisabled = false
     this.displayIndicador = false;
-    this.selects.value.subcriterio = '';
+    this.criterioId = this.selects.get('criterio')?.value;
+    if (this.criterioId) {
+      this.selects.get('subcriterio')?.enable();
+      this.selects.get('subcriterio')?.setValue('');
+    } else {
+      this.selects.get('subcriterio')?.disable();
+    }
+    this.subcriterioChange();
   }
 
   subcriterioChange() {
-    this.subcriterioId = this.selects.value.subcriterio;
     this.displayIndicador = false;
+    this.subcriterioId = this.selects.get('subcriterio')?.value;
+    if(this.subcriterioId !== '') {
+      this.disabledButton = false;
+    } else {
+      this.disabledButton = true;
+      this.selects.get('subcriterio')?.setValue('')
+    }
   }
 
   onSubmit() {
