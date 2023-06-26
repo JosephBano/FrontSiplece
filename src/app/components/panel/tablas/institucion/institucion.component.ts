@@ -1,7 +1,6 @@
-import { Component, OnInit, PipeTransform, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Instituciones } from '../../../../models/instituciones.model';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
-import { filter } from 'rxjs';
 import {
   SortableInstitucionDirective,
   SortEvent,
@@ -22,6 +21,8 @@ export class InstitucionComponent implements OnInit {
   @ViewChildren(SortableInstitucionDirective)
   headers!: QueryList<SortableInstitucionDirective>;
 
+  checkboxDeleteValue: boolean = false;
+
   constructor (
     private insititucionService: InstitucionesService,
   ) { }
@@ -33,7 +34,12 @@ export class InstitucionComponent implements OnInit {
     })  
   }
 
-  onSort({ column, direction }:SortEvent) {
+  checkboxDeleteOnChange(){
+    console.log(this.checkboxDeleteValue);
+    
+  }
+
+  onSort({ column, direction }: SortEvent) {
     this.headers.forEach( header => {
       if(header.sortable !== column) {
         header.direction = '';
@@ -53,6 +59,8 @@ export class InstitucionComponent implements OnInit {
 
   editarIconSpan(institucion: Instituciones) {
   }
-  elminarIconSpan(institucion: Instituciones){
+  eliminarIconSpan(institucion: Instituciones){
+  }
+  restoreInstitucion(institucion: Instituciones){
   }
 }

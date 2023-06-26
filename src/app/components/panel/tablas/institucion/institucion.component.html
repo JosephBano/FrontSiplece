@@ -1,26 +1,59 @@
-<div class="form-group">
-    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
+
+<!--Buscador, checkbox y Agregar Button-->
+<div class="row g-0 text-end mb-1">
+    <div class="col-md-8 col-sm-12">
+        <div class="form-group">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="d-flex justify-content-end">
+            <div class="form-check mt-2">
+                <input type="checkbox" [(ngModel)]="checkboxDeleteValue" (change)="checkboxDeleteOnChange()" class="form-check-input" value="" id="TablaDelets">
+                <label for="TablaDelets" class="form-check-label">Eliminados</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary">Agregar</button>
+    </div>
 </div>
-<table class="table table-hover">
+
+<!--Tabla de datos-->
+<table class="table table-hover table-bordered">
     <thead class="thead-light">
         <tr>
             <th scope="col" width="5%" class="text-center">ID</th>
-            <th scope="col" appSortableInstitucion="name" (sort)="onSort($event)">Nombre</th>
-            <th width="15%" class="text-center">Siglas</th>
+            <th sortable="Detalle" scope="col" (sort)="onSort($event)">Nombre</th>
+            <th sortable="Siglas" scope="col" (sort)="onSort($event)" width="15%">Siglas</th>
             <th width="10%" class="text-center">Opciones</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let institucion of Instituciones | institucion:filter">
-            <td class="text-center">{{institucion.IdInstitucion}}</td>
-            <td>{{institucion.Detalle}}</td>
-            <td class="text-center">{{institucion.Siglas}}</td>
-            <td>
-                <div class="d-flex justify-content-evenly">
+        <ng-container *ngFor="let institucion of Instituciones | institucion:filter" >
+            <tr *ngIf="institucion.Activo == '1'" [class.d-none]="checkboxDeleteValue">
+                <td class="text-center">{{institucion.IdInstitucion}}</td>
+                <td>{{institucion.Detalle}}</td>
+                <td class="">{{institucion.Siglas}}</td>
+                <td>
+                    <div class="d-flex justify-content-evenly">
                         <span class="material-symbols-outlined icon-size" (click)="editarIconSpan(institucion)">edit</span>
-                        <span class="material-symbols-outlined icon-size" (click)="elminarIconSpan(institucion)">delete</span>
-                </div>
-            </td>
-        </tr>
+                        <span class="material-symbols-outlined icon-size" (click)="eliminarIconSpan(institucion)">delete</span>
+                    </div>
+                </td>
+            </tr>
+            <ng-container *ngIf="checkboxDeleteValue">             
+                <tr *ngIf="institucion.Activo == '0'" class="table-danger">
+                    <td class="text-center">{{institucion.IdInstitucion}}</td>
+                    <td>{{institucion.Detalle}}</td>
+                    <td class="">{{institucion.Siglas}}</td>
+                    <td>
+                        <div class="d-flex justify-content-evenly">
+                            <span class="material-symbols-outlined icon-size" (click)="restoreInstitucion(institucion)">restore_from_trash</span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
     </tbody>
 </table>
