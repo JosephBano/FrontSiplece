@@ -34,11 +34,6 @@ export class InstitucionComponent implements OnInit {
     })  
   }
 
-  checkboxDeleteOnChange(){
-    console.log(this.checkboxDeleteValue);
-    
-  }
-
   onSort({ column, direction }: SortEvent) {
     this.headers.forEach( header => {
       if(header.sortable !== column) {

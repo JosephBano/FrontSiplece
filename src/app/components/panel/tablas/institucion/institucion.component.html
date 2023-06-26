@@ -9,13 +9,13 @@
     <div class="col-md-2">
         <div class="d-flex justify-content-end">
             <div class="form-check mt-2">
-                <input type="checkbox" [(ngModel)]="checkboxDeleteValue" (change)="checkboxDeleteOnChange()" class="form-check-input" value="" id="TablaDelets">
+                <input type="checkbox" [(ngModel)]="checkboxDeleteValue" class="form-check-input" value="" id="TablaDelets">
                 <label for="TablaDelets" class="form-check-label">Eliminados</label>
             </div>
         </div>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-primary">Agregar</button>
+        <app-opciones-tabla [switecher]="1"></app-opciones-tabla>
     </div>
 </div>
 
@@ -37,8 +37,8 @@
                 <td class="">{{institucion.Siglas}}</td>
                 <td>
                     <div class="d-flex justify-content-evenly">
-                        <span class="material-symbols-outlined icon-size" (click)="editarIconSpan(institucion)">edit</span>
-                        <span class="material-symbols-outlined icon-size" (click)="eliminarIconSpan(institucion)">delete</span>
+                        <app-opciones-tabla [switecher]="2" [institucionx]="institucion"></app-opciones-tabla>
+                        <app-opciones-tabla [switecher]="3" [institucionx]="institucion"></app-opciones-tabla>
                     </div>
                 </td>
             </tr>
