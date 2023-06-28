@@ -2,7 +2,7 @@ export class Modelo {
     IdModelo?: string;
     IdInstitucion?: string;
     Detalle?: string;
-    Anio?: number;
+    Anio?: string;
     Activo?: string;
 }
     

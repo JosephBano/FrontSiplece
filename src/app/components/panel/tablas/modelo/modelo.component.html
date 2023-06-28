@@ -1,1 +1,245 @@
-<p>modelo works!</p>
+<div class="row g-0 text-end mb-1">
+    <div class="col-md-8 col-sm-12">
+        <div class="form-group">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="">
+            <div class="form-group mt-2">
+                <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
+                <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <!--Boton Agregar-->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModalModelo">Agregar</button>
+    </div>
+</div>
+
+<!--Tabla de datos-->
+<table class="table table-hover table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" width="25%">Institucion</th>
+            <th scope="col" width="10%" class="text-center">Año</th>
+            <th scope="col" width="10%" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let modelo of Modelos | modelo:filter" >
+            <tr *ngIf="modelo.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                <td>{{modelo.Detalle}}</td>
+                <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                <td class="text-center">{{modelo.Anio}}</td>
+                <td>
+                    <div class="d-flex justify-content-evenly">
+                        <!--Boton Editar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalModelo" (click)="cargarDatosEditar(modelo)">edit</span>
+                        <!--Boton Eliminar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalModelo" (click)="cargarDatosEliminar(modelo)">delete</span>
+                    </div>
+                </td>
+            </tr>
+            <ng-container *ngIf="checkboxDeshabilitarValue">             
+                <tr *ngIf="modelo.Activo == '0'" class="table-danger">
+                    <td>{{modelo.Detalle}}</td>
+                    <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                    <td class="text-center">{{modelo.Anio}}</td>
+                    <td>
+                        <div class="d-flex justify-content-evenly">
+                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalModelo" (click)="cargarDatosEditar(modelo)">history</span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
+
+<!--Agregar Modal-->
+<div class="modal fade" id="crearModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <form [formGroup]="agregar">
+                    <div class="row mb-3">
+                        <select formControlName="institucion" class="form-control" >
+                            <option value="" selected disabled >Instituciones...</option>
+                            <ng-container *ngFor="let institucion of Instituciones">
+                                <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="AnioAgregar" class="col-sm-2 col-form-label text-center">Año</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="AnioAgregar" formControlName="anio" placeholder="2023">
+                        </div>
+                    </div>
+                </form>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <!--Botones modal-->
+            <div class="modal-footer">
+                <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarModelo()" [disabled]="agregar.invalid">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Editar Modal-->
+<div class="modal fade" id="editModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <form [formGroup]="editar">
+                    <input type="text" class="d-none" readonly formControlName="id">
+                    <div class="row mb-3">
+                        <select formControlName="institucion" class="form-control" >
+                            <option value="" selected disabled >Instituciones...</option>
+                            <ng-container *ngFor="let institucion of Instituciones">
+                                <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
+                            </ng-container>
+                        </select>
+                    </div> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="AnioEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="AnioEditar" formControlName="anio" placeholder="2023">
+                        </div>
+                    </div>        
+
+                </form>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="editarModelo()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Borrar Modal-->
+<div class="modal fade" id="deleteModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Modelo</h3>
+
+                <form [formGroup]="eliminar">
+                    <input type="text" readonly class="d-none" id="IdInstitucionEditar" formControlName="id" value="id"> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="institucionModelo" formControlName="institucion" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="anioEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="anioEditar" formControlName="anio" placeholder="2023">
+                        </div>
+                    </div>        
+                </form>
+
+                <p class="text-danger">Usted esta por deshabilitar este Modelo, tenga en cuenta que más tarde podra recuperar esta información</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarInstitucion()">Deshabilitar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Restablecer Modal-->
+<div class="modal fade" id="restablecerModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Eliminar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Institucion</h3>
+
+                <form [formGroup]="editar">
+                    <input type="text" readonly class="d-none" id="IdInstitucionEditar" formControlName="id" value="id"> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="institucionModelo" formControlName="institucion" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="anioEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="anioEditar" formControlName="anio" placeholder="2023">
+                        </div>
+                    </div>       
+                </form>
+
+                <p class="text-success">Usted esta por restablecer este Modelo, podrá volver a verla en el panel principal</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success " (click)="editarModelo()">Restablecer</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,16 +6,17 @@
             <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="d-flex justify-content-end">
-            <div class="form-check mt-2">
-                <input type="checkbox" [(ngModel)]="checkboxDeleteValue" class="form-check-input" value="" id="TablaDelets">
-                <label for="TablaDelets" class="form-check-label">Eliminados</label>
+    <div class="col-md-2 col-sm-6">
+        <div class="">
+            <div class="form-group mt-2">
+                <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
+                <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
             </div>
         </div>
     </div>
-    <div class="col-md-2">
-        <app-opciones-tabla [switecher]="1"></app-opciones-tabla>
+    <div class="col-md-2 col-sm-6">
+        <!--Boton Agregar-->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModalInstitucion">Agregar</button>
     </div>
 </div>
 
@@ -23,33 +24,32 @@
 <table class="table table-hover table-bordered">
     <thead class="thead-light">
         <tr>
-            <th scope="col" width="5%" class="text-center">ID</th>
-            <th sortable="Detalle" scope="col" (sort)="onSort($event)">Nombre</th>
-            <th sortable="Siglas" scope="col" (sort)="onSort($event)" width="15%">Siglas</th>
-            <th width="10%" class="text-center">Opciones</th>
+            <th scope="col">Nombre</th>
+            <th scope="col" width="15%">Siglas</th>
+            <th scope="col" width="10%" class="text-center">Opciones</th>
         </tr>
     </thead>
     <tbody>
         <ng-container *ngFor="let institucion of Instituciones | institucion:filter" >
-            <tr *ngIf="institucion.Activo == '1'" [class.d-none]="checkboxDeleteValue">
-                <td class="text-center">{{institucion.IdInstitucion}}</td>
+            <tr *ngIf="institucion.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
                 <td>{{institucion.Detalle}}</td>
                 <td class="">{{institucion.Siglas}}</td>
                 <td>
                     <div class="d-flex justify-content-evenly">
-                        <app-opciones-tabla [switecher]="2" [institucionx]="institucion"></app-opciones-tabla>
-                        <app-opciones-tabla [switecher]="3" [institucionx]="institucion"></app-opciones-tabla>
+                        <!--Boton Editar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalInstitucion" (click)="cargarDatosEditar(institucion)">edit</span>
+                        <!--Boton Eliminar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalInstitucion" (click)="cargarDatosEliminar(institucion)">delete</span>
                     </div>
                 </td>
             </tr>
-            <ng-container *ngIf="checkboxDeleteValue">             
+            <ng-container *ngIf="checkboxDeshabilitarValue">             
                 <tr *ngIf="institucion.Activo == '0'" class="table-danger">
-                    <td class="text-center">{{institucion.IdInstitucion}}</td>
                     <td>{{institucion.Detalle}}</td>
                     <td class="">{{institucion.Siglas}}</td>
                     <td>
                         <div class="d-flex justify-content-evenly">
-                            <span class="material-symbols-outlined icon-size" (click)="restoreInstitucion(institucion)">restore_from_trash</span>
+                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalInstitucion" (click)="cargarDatosEditar(institucion)">history</span>
                         </div>
                     </td>
                 </tr>
@@ -57,3 +57,179 @@
         </ng-container>
     </tbody>
 </table>
+
+
+<!--Agregar Modal-->
+<div class="modal fade" id="crearModalInstitucion" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <form [formGroup]="agregar">
+                    <div class="mb-3 row">
+                        <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="SiglasAgregar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="SiglasAgregar" formControlName="siglas" placeholder="ISTPET">
+                        </div>
+                    </div>
+                </form>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <!--Botones modal-->
+            <div class="modal-footer">
+                <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarInstitucion()" [disabled]="agregar.invalid">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Editar Modal-->
+<div class="modal fade" id="editModalInstitucion" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <form [formGroup]="editar">
+                    <div class="mb-3 row text-end d-none">
+                        <label for="IdInstitucionEditar" class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="IdInstitucionEditar"
+                            formControlName="id" value="id">
+                        </div>
+                    </div>  
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="DetalleEditar" formControlName="detalle" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="SiglasEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="SiglasEditar" formControlName="siglas" placeholder="ISTPET">
+                        </div>
+                    </div>        
+
+                </form>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="editarInstitucion()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Borrar Modal-->
+<div class="modal fade" id="deleteModalInstitucion" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Institucion</h3>
+
+                <form [formGroup]="eliminar">
+                    <div class="mb-3 row text-end d-none">
+                        <label for="IdInstitucionEditar" class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="IdInstitucionEditar"
+                            formControlName="id" value="id">
+                        </div>
+                    </div>  
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="SiglasEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="SiglasEditar" formControlName="siglas" placeholder="ISTPET">
+                        </div>
+                    </div>        
+                </form>
+
+                <p class="text-danger">Usted esta por eliminar esta Institucion, tenga en cuenta que más tarde podra recuperar esta información</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarInstitucion()">Deshabilitar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Restablecer Modal-->
+<div class="modal fade" id="restablecerModalInstitucion" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Eliminar Institucion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Institucion</h3>
+
+                <form [formGroup]="editar">
+                    <div class="mb-3 row text-end d-none">
+                        <label for="IdInstitucionEditar" class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="IdInstitucionEditar"
+                            formControlName="id" value="id">
+                        </div>
+                    </div>  
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="SiglasEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="SiglasEditar" formControlName="siglas" placeholder="ISTPET">
+                        </div>
+                    </div>        
+                </form>
+
+                <p class="text-success">Usted esta por restablecer esta Institucion, podrá volver a verla en el panel principal</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success " (click)="editarInstitucion()">Restablecer</button>
+            </div>
+        </div>
+    </div>
+</div>
