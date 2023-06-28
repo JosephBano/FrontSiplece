@@ -37,6 +37,9 @@ import { IndicadoresComponent } from './components/panel/tablas/indicadores/indi
 import { InstitucionPipe } from './pipes/SortAndFilter/institucion.pipe';
 import { ModeloPipe } from './pipes/SortAndFilter/modelo.pipe';
 import { DefaultPipe } from './pipes/default.pipe';
+import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
+import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
+import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +61,9 @@ import { DefaultPipe } from './pipes/default.pipe';
     InstitucionPipe,
     ModeloPipe,
     DefaultPipe,
+    CriterioPipe,
+    SubCriterioPipe,
+    IndicadorPipe,
   ],
   imports: [
     BrowserModule,
