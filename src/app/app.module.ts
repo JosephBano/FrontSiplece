@@ -40,6 +40,7 @@ import { DefaultPipe } from './pipes/default.pipe';
 import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
 import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
 import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
+import { PanelSideNavBarComponent } from './components/panel-side-nav-bar/panel-side-nav-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
     CriterioPipe,
     SubCriterioPipe,
     IndicadorPipe,
+    PanelSideNavBarComponent,
   ],
   imports: [
     BrowserModule,
