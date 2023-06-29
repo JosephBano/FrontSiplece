@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class TablasComponent {
 
-  activeTab: string = 'Criterios';
+  activeTab: string = 'Sub-Criterios';
 
   setActiveTab(tab: string) {
     this.activeTab = tab;
