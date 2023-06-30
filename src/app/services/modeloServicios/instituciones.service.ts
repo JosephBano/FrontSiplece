@@ -20,7 +20,7 @@ export class InstitucionesService {
   }
   
   getInstitucioneById(id: string): Observable<Instituciones[]> {
-    return this.http.get<Instituciones[]>(this.API_URL + `/FindOne/${id}`);
+    return this.http.get<[]>(`${this.API_URL}/FindOne/${id}`);
   }
 
   postInstitucion(institucion: Instituciones): Observable<Instituciones> {

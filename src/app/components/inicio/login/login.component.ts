@@ -22,6 +22,10 @@ export class LoginComponent {
   ngOnInit(): void { }
   
   log(): void {
-    //logica login
+    if(this.login.value.usuario == 'admin' && this.login.value.password == 'admin'){
+      this.router.navigate(['/dashboard']);
+    }else{
+      this.toastr.error('El Usuario o la Contraseña son incorrectas')
+    }
   }
 }

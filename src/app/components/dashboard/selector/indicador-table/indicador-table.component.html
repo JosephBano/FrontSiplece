@@ -1,0 +1,24 @@
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr class="table-secondary">
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Descripcion</th>
+            <th scope="col" class="text-center">Tipo</th>
+            <th scope="col" class="text-center">Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let indicador of indicadores">
+            <tr 
+                    *ngIf="indicador.IdSubcriterio == IdSubCriterio" 
+                    (click)="handleRowClick(indicador.IdIndicador)"
+                    [class.table-active]="indicador === selectedIndicador"
+                    class="table-infos ">
+                <th scope="row" class="text-center">{{indicador.Orden}}</th>
+                <td>{{indicador.Detalle}}</td>
+                <td class="text-center">Cuantitativa</td>
+                <td class="text-center">Vacio</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

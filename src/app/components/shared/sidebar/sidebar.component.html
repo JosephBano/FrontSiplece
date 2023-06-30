@@ -1,0 +1,41 @@
+<div class="sidebar" [class.active]="toggleState" id="side_nav">
+    <div class="header-box px-3 pt-3 pb-4 d-flex justify-content-between">
+        <h1 class="fs-4">
+            <span class="bg-light text-dark rounded shadow px-2 me-2">SIPLECE</span>
+        </h1>
+        <button class="btn d-md-none d-block close-btn px-1 py-0" (click)="toggle()">
+            <i class="fa-sharp fa-solid fa-bars-staggered"></i>
+        </button>
+    </div>
+
+    <ul class="list-unstyled px-2">
+        <li *ngFor="let item of itemsTop; index as i" [class.active]="i === activeIndex && activeList === 'top'">
+            <div class="d-block px-3 py-2" (click)="onClick(i, 'top')" [routerLink]="item.href">
+                <i [class]="item.icon"></i>
+                <a class="text-decoration-none">
+                    {{item.name}}
+                    <span *ngIf="item.alert" class="bg-light rounded-pill py-0 px-2">!</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+
+    <hr class="h-color mx-3">
+
+    <ul class="list-unstyled px-2">
+        <li *ngFor="let item of itemsBottom; index as i" [class.active]="i === activeIndex && activeList === 'bottom'">
+            <a (click)="onClick(i, 'bottom')" class="text-decoration-none px-3 py-2 d-block" [href]="item.href">
+                <i [class]="item.icon"></i>{{item.name}}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $('.open-btn').on('click', function(){
+        $('.sidebar').addClass('active');
+    })
+    $('.close-btn').on('click', function(){
+        $('.sidebar').removeClass('active');
+    })
+</script>

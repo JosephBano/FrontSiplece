@@ -20,34 +20,50 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
-import { InstitucionesComponent } from './components/dashboard/selects/instituciones/instituciones.component';
-import { ModeloComponent } from './components/dashboard/selects/modelo/modelo.component';
-import { CriteriosComponent } from './components/dashboard/selects/criterios/criterios.component';
-import { SubCriteriosComponent } from './components/dashboard/selects/sub-criterios/sub-criterios.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { IndicadoresComponent } from './components/dashboard/selects/indicadores/indicadores.component';
-import { DetalleIndicadorComponent } from './components/dashboard/selects/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
-import { SelectsComponent } from './components/dashboard/selects/selects.component';
-import { TestComponent } from './components/dashboard/test/test.component';
-import { SelectControlComponent } from './components/dashboard/test/select-control/select-control.component';
+import { SelectorComponent } from './components/dashboard/selector/selector.component';
+import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
+import { ModalEvidenciasComponent } from './components/dashboard/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { InstitucionComponent } from './components/panel/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
+import { InstitucionPipe } from './pipes/SortAndFilter/institucion.pipe';
+import { ModeloPipe } from './pipes/SortAndFilter/modelo.pipe';
+import { DefaultPipe } from './pipes/default.pipe';
+import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
+import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
+import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    SelectsComponent,
+    SelectorComponent,
     NavbarComponent,
-    InstitucionesComponent,
-    ModeloComponent,
-    CriteriosComponent,
-    SubCriteriosComponent,
     InicioComponent,
-    IndicadoresComponent,
     DetalleIndicadorComponent,
     LoginComponent,
-    TestComponent,
-    SelectControlComponent,
+    IndicadorTableComponent,
+    ModalEvidenciasComponent,
+    PanelComponent,
+    InstitucionComponent,
+    ModeloComponent,
+    SidebarComponent,
+    CriterioComponent,
+    SubCriterioComponent,
+    IndicadoresComponent,
+    InstitucionPipe,
+    ModeloPipe,
+    DefaultPipe,
+    CriterioPipe,
+    SubCriterioPipe,
+    IndicadorPipe,
   ],
   imports: [
     BrowserModule,
