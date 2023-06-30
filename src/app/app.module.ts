@@ -40,6 +40,7 @@ import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
 import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
 import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
     CriterioPipe,
     SubCriterioPipe,
     IndicadorPipe,
+    InicioPanelComponent,
   ],
   imports: [
     BrowserModule,

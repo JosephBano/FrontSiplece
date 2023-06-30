@@ -11,6 +11,7 @@ import { ModeloComponent } from './components/panel/modelo/modelo.component';
 import { CriterioComponent } from './components/panel/criterio/criterio.component';
 import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
 import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
+import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -22,7 +23,7 @@ const routes: Routes = [
     { path: 'detalle/:id', component: DetalleIndicadorComponent},
   ]},
   { path: 'panel', component: PanelComponent, children: [
-    { path: '', component: InicioComponent},
+    { path: '', component: InicioPanelComponent},
     { path: 'institucion', component: InstitucionComponent},
     { path: 'modelo', component: ModeloComponent},
     { path: 'criterio', component: CriterioComponent},

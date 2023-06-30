@@ -3,6 +3,7 @@
     min-width: 250px;
     max-width: 250px;
     height: 100vh;
+    transition: all 0.2s;
 }
 
 hr.h-color {
@@ -33,4 +34,12 @@ hr.h-color {
     #side_nav.active {
         margin-left: 0;
     }
+}
+
+.hver:hover {
+    cursor: pointer;
+}
+
+ul {
+    transition: all 0.4s;
 }

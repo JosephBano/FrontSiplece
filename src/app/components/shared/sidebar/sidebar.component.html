@@ -1,4 +1,5 @@
 <div class="sidebar" [class.active]="toggleState" id="side_nav">
+    <!--Header-->
     <div class="header-box px-3 pt-3 pb-4 d-flex justify-content-between">
         <h1 class="fs-4">
             <span class="bg-light text-dark rounded shadow px-2 me-2">SIPLECE</span>
@@ -8,14 +9,76 @@
         </button>
     </div>
 
+    <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
-        <li *ngFor="let item of itemsTop; index as i" [class.active]="i === activeIndex && activeList === 'top'">
-            <div class="d-block px-3 py-2" (click)="onClick(i, 'top')" [routerLink]="item.href">
-                <i [class]="item.icon"></i>
-                <a class="text-decoration-none">
-                    {{item.name}}
-                    <span *ngIf="item.alert" class="bg-light rounded-pill py-0 px-2">!</span>
-                </a>
+        <li class="hver" (click)="setActive(1)" [ngClass]="{'active' : activeli === 1}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
+                <span class="material-symbols-outlined">home</span>
+                <a class="text-decoration-none d-block mx-2">Inicio</a>
+            </div>
+        </li>
+    </ul>
+
+    <hr class="h-color mx-3">
+
+    <!--Periodo Opcion-->
+    <ul class="list-unstyled px-2">
+        <li class="hver" (click)="setActive(2)" [ngClass]="{'active' : activeli === 2}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
+                <span class="material-symbols-outlined">date_range</span>
+                <a class="text-decoration-none d-block mx-2">Periodo</a>
+            </div>
+        </li>
+    </ul>
+
+    <!--Tablas Opcion-->
+    <ul class="list-unstyled px-2">
+        <li class="hver" (click)="setActive(3)" (click)="toggleTablaList()" [ngClass]="{'active' : activeli === 3}">
+            <div class="d-flex px-3 py-2 align-items-center">
+                <span class="material-symbols-outlined">table_chart</span>
+                <a class="text-decoration-none d-block mx-2">Tablas</a>
+            </div>
+        </li>
+    </ul>
+    <!--Tablas Opcion --Despliegue de sub tablas-->
+    <ul class="list-unstyled px-2 my-0" *ngIf="tablasList">
+        <li class="hver" routerLink="/panel/institucion">
+            <div class="d-flex px-4 py-2 align-items-center">
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a class="text-decoration-none d-block mx-2">Instituciones</a>
+            </div>
+        </li>
+        <li class="hver" routerLink="/panel/modelo">
+            <div class="d-flex px-4 py-2 align-items-center">
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a class="text-decoration-none d-block mx-2">Modelos</a>
+            </div>
+        </li>
+        <li class="hver" routerLink="/panel/criterio">
+            <div class="d-flex px-4 py-2 align-items-center">
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a class="text-decoration-none d-block mx-2">Criterio</a>
+            </div>
+        </li>
+        <li class="hver" routerLink="/panel/subcriterio">
+            <div class="d-flex px-4 py-2 align-items-center">
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a class="text-decoration-none d-block mx-2">Sub-Criterio</a>
+            </div>
+        </li>
+        <li class="hver" routerLink="/panel/indicador">
+            <div class="d-flex px-4 py-2 align-items-center">
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a class="text-decoration-none d-block mx-2">Indicador</a>
+            </div>
+        </li>
+    </ul>
+    <!--Reportes Opcion-->
+    <ul class="list-unstyled px-2 my-2" routerLink="/panel">
+        <li class="" (click)="setActive(4)" [ngClass]="{'active' : activeli === 4}">
+            <div class="d-flex px-3 py-2 align-items-center hver">
+                <span class="material-symbols-outlined">monitoring</span>
+                <a class="text-decoration-none d-block mx-2">Reportes</a>
             </div>
         </li>
     </ul>
@@ -23,19 +86,19 @@
     <hr class="h-color mx-3">
 
     <ul class="list-unstyled px-2">
-        <li *ngFor="let item of itemsBottom; index as i" [class.active]="i === activeIndex && activeList === 'bottom'">
-            <a (click)="onClick(i, 'bottom')" class="text-decoration-none px-3 py-2 d-block" [href]="item.href">
-                <i [class]="item.icon"></i>{{item.name}}
-            </a>
+        <!--Configuracion Opcion-->
+        <li class="hver" (click)="setActive(5)" [ngClass]="{'active' : activeli === 5}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
+                <span class="material-symbols-outlined">settings</span>
+                <a class="text-decoration-none d-block mx-2">Configuración</a>
+            </div>
+        </li>
+        <!--LogOut Opcion-->
+        <li class="hver" (click)="setActive(6)" [ngClass]="{'active' : activeli === 6}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
+                <span class="material-symbols-outlined">logout</span>
+                <a class="text-decoration-none d-block mx-2">Log Out</a>
+            </div>
         </li>
     </ul>
 </div>
-
-<script>
-    $('.open-btn').on('click', function(){
-        $('.sidebar').addClass('active');
-    })
-    $('.close-btn').on('click', function(){
-        $('.sidebar').removeClass('active');
-    })
-</script>
