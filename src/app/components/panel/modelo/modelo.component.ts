@@ -16,9 +16,10 @@ export class ModeloComponent implements OnInit{
   Instituciones: Instituciones[] = [];
   Modelos: Modelo[] = [];
   Data: Modelo[] = [];
-  filter!: string;
 
+  filter!: string;
   checkboxDeshabilitarValue: boolean = false;
+  
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -39,7 +40,7 @@ export class ModeloComponent implements OnInit{
     this.agregar = this.fb.group({
       institucion: ['', [Validators.required]],
       detalle: ['', [Validators.required]],
-      anio: ['', [Validators.required]],
+      anio: [''],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
@@ -105,6 +106,7 @@ export class ModeloComponent implements OnInit{
     this.modeloService.postModelo(modelo).subscribe(
       (data) => {
         this.toastr.success('El modelo ha sido agregado correctamente!')
+        this.loadModelos();
         console.log(data);        
     }, (error) => {
       this.toastr.error('Error!, no se ha podido realizar los cambios')
@@ -114,7 +116,6 @@ export class ModeloComponent implements OnInit{
     if (this.cerrarAgregarModal) {
       this.cerrarAgregarModal.nativeElement.click();
     }
-    this.loadModelos();
   }
 
   //Editar Modelo
@@ -130,7 +131,9 @@ export class ModeloComponent implements OnInit{
     this.modeloService.updateModelo(modelo).subscribe(
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!')
-        console.log(data);        
+        this.loadInstituciones();
+        this.loadModelos();        
+        console.log(data);
     }, (error) => {
       this.toastr.error('Error!, no se ha podido realizar los cambios')
       console.log(error);
@@ -140,9 +143,6 @@ export class ModeloComponent implements OnInit{
       this.cerrarEditarModal.nativeElement.click();
       this.cerrarRestablecerModal.nativeElement.click();
     }
-
-    this.loadInstituciones();
-    this.loadModelos();
   }
 
   //eliminar Modelo
@@ -152,6 +152,7 @@ export class ModeloComponent implements OnInit{
     this.modeloService.deleteModelo(id).subscribe(
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!')
+        this.loadModelos();
         console.log(data);
       }
       , (error) => {
@@ -163,6 +164,5 @@ export class ModeloComponent implements OnInit{
       this.cerrarEliminarModal.nativeElement.click();
     }
   
-    this.loadModelos();
   }
 }
