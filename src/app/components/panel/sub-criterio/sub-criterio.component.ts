@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { SubCriterio } from '../../../../models/subCriterios.model';
+import { SubCriterio } from '../../../models/subCriterios.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';

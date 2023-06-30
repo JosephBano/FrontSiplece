@@ -5,11 +5,15 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/dashboard/selector/selector.component';
-import { TablasComponent } from './components/panel/tablas/tablas.component';
 import { PanelComponent } from './components/panel/panel.component';
+import { InstitucionComponent } from './components/panel/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/inicio', pathMatch: 'full'},
+  { path: '', redirectTo: '/panel', pathMatch: 'full'},
   { path:'inicio',  component: InicioComponent, children: [
     { path: '', component: LoginComponent},
   ]},
@@ -18,9 +22,14 @@ const routes: Routes = [
     { path: 'detalle/:id', component: DetalleIndicadorComponent},
   ]},
   { path: 'panel', component: PanelComponent, children: [
-    { path: '', component: TablasComponent}
+    { path: '', component: InicioComponent},
+    { path: 'institucion', component: InstitucionComponent},
+    { path: 'modelo', component: ModeloComponent},
+    { path: 'criterio', component: CriterioComponent},
+    { path: 'subcriterio', component: SubCriterioComponent},
+    { path: 'indicador', component: IndicadoresComponent},
   ]},
-  { path: '**', redirectTo: '/dashboard'}
+  { path: '**', redirectTo: '/panel'}
 ];
 
 @NgModule({

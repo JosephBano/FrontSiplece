@@ -20,27 +20,26 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NavbarComponent } from './components/dashboard/navbar/navbar.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/dashboard/selector/selector.component';
 import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
 import { ModalEvidenciasComponent } from './components/dashboard/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
-import { TablasComponent } from './components/panel/tablas/tablas.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
-import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
-import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
-import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
-import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
+import { InstitucionComponent } from './components/panel/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
 import { InstitucionPipe } from './pipes/SortAndFilter/institucion.pipe';
 import { ModeloPipe } from './pipes/SortAndFilter/modelo.pipe';
 import { DefaultPipe } from './pipes/default.pipe';
 import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
 import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
 import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
-import { PanelSideNavBarComponent } from './components/panel-side-nav-bar/panel-side-nav-bar.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,10 +51,10 @@ import { PanelSideNavBarComponent } from './components/panel-side-nav-bar/panel-
     LoginComponent,
     IndicadorTableComponent,
     ModalEvidenciasComponent,
-    TablasComponent,
     PanelComponent,
     InstitucionComponent,
     ModeloComponent,
+    SidebarComponent,
     CriterioComponent,
     SubCriterioComponent,
     IndicadoresComponent,
@@ -65,7 +64,6 @@ import { PanelSideNavBarComponent } from './components/panel-side-nav-bar/panel-
     CriterioPipe,
     SubCriterioPipe,
     IndicadorPipe,
-    PanelSideNavBarComponent,
   ],
   imports: [
     BrowserModule,
