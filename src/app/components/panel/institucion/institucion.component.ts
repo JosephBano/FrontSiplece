@@ -1,5 +1,5 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren, ElementRef } from '@angular/core';
-import { Instituciones } from '../../../models/instituciones.model';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Institucion } from '../../../models/institucion.model';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -11,8 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InstitucionComponent implements OnInit {
 
-  Instituciones: Instituciones[] = [];
-  Data: Instituciones[] = [];
+  Instituciones: Institucion[] = [];
+  Data: Institucion[] = [];
   filter!: string;
 
   checkboxDeshabilitarValue: boolean = false;
@@ -59,13 +59,13 @@ export class InstitucionComponent implements OnInit {
     })  
   }
 
-  cargarDatosEditar(institucion: Instituciones){
+  cargarDatosEditar(institucion: Institucion){
     this.editar.get('id')?.setValue(institucion.IdInstitucion);
     this.editar.get('detalle')?.setValue(institucion.Detalle);
     this.editar.get('siglas')?.setValue(institucion.Siglas);
   }
 
-  cargarDatosEliminar(institucion: Instituciones) {
+  cargarDatosEliminar(institucion: Institucion) {
     this.eliminar.get('id')?.setValue(institucion.IdInstitucion);
     this.eliminar.get('detalle')?.setValue(institucion.Detalle);
     this.eliminar.get('siglas')?.setValue(institucion.Siglas);
@@ -73,7 +73,7 @@ export class InstitucionComponent implements OnInit {
 
   //Agregar Insitucion
   agregarInstitucion() {
-    const institucion: Instituciones = {
+    const institucion: Institucion = {
       Detalle: this.agregar.value.detalle,
       Siglas: this.agregar.value.siglas.toUpperCase(),
     }
@@ -94,7 +94,7 @@ export class InstitucionComponent implements OnInit {
   //editar Institucion
 
   editarInstitucion(){
-    const institucion: Instituciones = {
+    const institucion: Institucion = {
       IdInstitucion: this.editar.value.id,
       Detalle: this.editar.value.detalle,
       Siglas: this.editar.value.siglas.toUpperCase(),

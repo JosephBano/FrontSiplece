@@ -1,4 +1,4 @@
-export class Modelo {
+export interface Modelo {
     IdModelo?: string;
     IdInstitucion?: string;
     Detalle?: string;

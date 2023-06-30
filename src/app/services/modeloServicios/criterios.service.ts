@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Criterio } from '../../models/criterios.model';
+import { Criterio } from '../../models/criterio.model';
 import { Modelo } from 'src/app/models/modelo.model';
 
 @Injectable({

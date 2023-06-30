@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Criterio } from "src/app/models/criterios.model";
-import { Instituciones } from "src/app/models/instituciones.model";
+import { Criterio } from "src/app/models/criterio.model";
+import { Institucion } from "src/app/models/institucion.model";
 import { Modelo } from "src/app/models/modelo.model";
-import { SubCriterio } from "src/app/models/subCriterios.model";
+import { SubCriterio } from "src/app/models/subCriterio.model";
 import { CriteriosService } from "src/app/services/modeloServicios/criterios.service";
 import { InstitucionesService } from "src/app/services/modeloServicios/instituciones.service";
 import { ModeloService } from "src/app/services/modeloServicios/modelo.service";
@@ -18,7 +18,7 @@ export class SelectorComponent implements OnInit
 {
   selects: FormGroup;
 
-  institucion: Instituciones[] = [];
+  institucion: Institucion[] = [];
   srtTituloInstitucion: string = '';
   modelos: Modelo[] = [];
   criterios: Criterio[] = [];

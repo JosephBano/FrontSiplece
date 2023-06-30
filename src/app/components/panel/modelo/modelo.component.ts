@@ -1,10 +1,10 @@
-import { Component, ViewChildren, QueryList, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Modelo } from 'src/app/models/modelo.model';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
-import { Instituciones } from 'src/app/models/instituciones.model';
+import { Institucion } from 'src/app/models/institucion.model';
 
 @Component({
   selector: 'app-modelo',
@@ -13,7 +13,7 @@ import { Instituciones } from 'src/app/models/instituciones.model';
 })
 export class ModeloComponent implements OnInit{
 
-  Instituciones: Instituciones[] = [];
+  Instituciones: Institucion[] = [];
   Modelos: Modelo[] = [];
   Data: Modelo[] = [];
 

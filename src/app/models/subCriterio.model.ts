@@ -1,4 +1,4 @@
-export class SubCriterio {
+export interface SubCriterio {
     IdSubcriterio?: string;
     IdCriterio?: string;
     Detalle?: string;
