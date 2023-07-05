@@ -1,6 +1,6 @@
 export interface Indicador {
     IdIndicador?: string;
-    IdSubcriterio?: string;
+    IdSubCriterio?: string;
     IdTipoEvaluacion?: string;
     Detalle?: string;
     Orden?: string;

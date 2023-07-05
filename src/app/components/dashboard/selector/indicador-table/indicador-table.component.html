@@ -10,7 +10,7 @@
     <tbody>
         <ng-container *ngFor="let indicador of indicadores">
             <tr 
-                    *ngIf="indicador.IdSubcriterio == IdSubCriterio" 
+                    *ngIf="indicador.IdSubCriterio == IdSubCriterio" 
                     (click)="handleRowClick(indicador.IdIndicador)"
                     [class.table-active]="indicador === selectedIndicador"
                     class="table-infos ">

@@ -15,7 +15,6 @@ export class SubCriterioComponent {
 
   SubCriterios: SubCriterio[] = [];
   Criterios: Criterio[] = [];
-  Data: SubCriterio[] = [];
   filter!: string;
 
   checkboxDeshabilitarValue: boolean = false;
@@ -64,7 +63,6 @@ export class SubCriterioComponent {
   loadSubCriterios(): void {
     this.subcriterioService.getSubCriterio().subscribe( data => {
       this.SubCriterios = data;
-      this.Data = data;
     })
   }
 
@@ -80,14 +78,14 @@ export class SubCriterioComponent {
   }
 
   cargarDatosEditar(subcriterio: SubCriterio){
-    this.editar.get('id')?.setValue(subcriterio.IdSubcriterio);
+    this.editar.get('id')?.setValue(subcriterio.IdSubCriterio);
     this.editar.get('criterio')?.setValue(subcriterio.IdCriterio);
     this.editar.get('detalle')?.setValue(subcriterio.Detalle);
     this.editar.get('orden')?.setValue(subcriterio.Orden);
   }
 
   cargarDatosEliminar(subcriterio: SubCriterio){
-    this.eliminar.get('id')?.setValue(subcriterio.IdSubcriterio);
+    this.eliminar.get('id')?.setValue(subcriterio.IdSubCriterio);
     this.eliminar.get('criterio')?.setValue(this.getCriterioName(subcriterio.IdCriterio));
     this.eliminar.get('detalle')?.setValue(subcriterio.Detalle);
     this.eliminar.get('orden')?.setValue(subcriterio.Orden);
@@ -120,7 +118,7 @@ export class SubCriterioComponent {
   //Editar
   editarSubCriterio(): void {
     const subcriterio: SubCriterio = {
-      IdSubcriterio: this.editar.value.id,
+      IdSubCriterio: this.editar.value.id,
       IdCriterio: this.editar.value.criterio,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
