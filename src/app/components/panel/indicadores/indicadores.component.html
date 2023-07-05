@@ -1,5 +1,24 @@
-<!--Tabla de datos-->
+<div class="row g-0 text-end mb-1">
+    <div class="col-md-8 col-sm-12">
+        <div class="form-group">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="">
+            <div class="form-group mt-2">
+                <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
+                <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <!--Boton Agregar-->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModalIndicador">Agregar</button>
+    </div>
+</div>
 
+<!--Tabla de datos-->
 <table class="table table-hover table-bordered">
     <thead class="thead-light">
         <tr>
@@ -17,17 +36,284 @@
                 <td>{{indicador.Detalle}}</td>
                 <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
                 <td>{{indicador.Orden}}</td>
-                <td>{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
+                <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
                 <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
                 <td>
                     <div class="d-flex justify-content-evenly">
                         <!--Boton Editar-->
-                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalIndicador">edit</span>
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalIndicador" (click)="setPreEditar(indicador)">edit</span>
                         <!--Boton Eliminar-->
-                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalIndicador">delete</span>
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalIndicador" (click)="setPreEliminar(indicador)">delete</span>
                     </div>
                 </td>
             </tr>
+            <ng-container *ngIf="checkboxDeshabilitarValue">
+                <tr *ngIf="indicador.Activo == '0'" class="table-danger">
+                    <td>{{indicador.Detalle}}</td>
+                <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
+                <td>{{indicador.Orden}}</td>
+                <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
+                <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
+                <td>
+                    <div class="d-flex justify-content-evenly">
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalIndicador" (click)="setPreEditar(indicador)">history</span>
+                    </div>
+                </td>
+                </tr>
+            </ng-container>
         </ng-container>
     </tbody>
 </table>
+
+<!--Agregar Modal-->
+<div class="modal fade" id="crearModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Indicador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+                <div class="container">
+
+                    
+                    <form [formGroup]="agregar">
+                        <!--Subcriterio opcion-->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label text-center" width="90px">Sub-Criterio</label>
+                            <div class="col-sm-10">
+                                <select formControlName="subcriterio" class="form-control" >
+                                    <option value="" selected disabled >Sub-Criterios...</option>
+                                    <ng-container *ngFor="let subcriterio of SubCriterios">
+                                        <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdCriterio">{{subcriterio.Detalle}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Nombre-->
+                        <div class="mb-3 row">
+                            <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
+                            </div>
+                        </div>
+                        <!--Orden-->
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2 col-form-label text-center">Orden</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
+                            </div> 
+                        </div>
+                        <!--Tipo de Evaluacion-->
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-2 col-form-label text-center">Tipo de Evaluacion</label>
+                            <div class="col-sm-10 mt-2">
+                            <ng-container *ngFor="let tipo of TipoEvaluaciones">
+                                <div class="d-flex mx-4">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="tipoagregar" formControlName="tipoagregar" [value]="tipo.IdTipoEvaluacion">
+                                        <label for="" class="form-check-label">{{tipo.Detalle}} </label>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <!--Fin Contenido Modal-->
+            </div>
+            <!--Botones modal-->
+            <div class="modal-footer">
+                <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarIndicador()" [disabled]="agregar.invalid">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Editar Modal-->
+<div class="modal fade" id="editModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Indicador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <div class="container">
+                    <form [formGroup]="editar">   
+                        <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id">   
+                        <!--Subcriterio opcion-->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label text-center">Sub-Criterio</label>
+                            <div class="col-sm-10">
+                                <select formControlName="subcriterio" class="form-control" >
+                                    <ng-container *ngFor="let subcriterio of SubCriterios">
+                                        <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdSubCriterio">{{subcriterio.Detalle}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Nombre-->
+                        <div class="mb-3 row">
+                            <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
+                            </div>
+                        </div>
+                        <!--Orden-->
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-2 col-form-label text-center">Orden</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
+                            </div> 
+                        </div>
+                        <!--Tipo de Evaluacion-->
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-2 col-form-label text-center">Tipo de Evaluacion</label>
+                            <div class="col-sm-10 mt-2">
+                            <ng-container *ngFor="let tipo of TipoEvaluaciones">
+                                <div class="d-flex mx-4">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="tipoeditar" formControlName="tipoeditar" [value]="tipo.IdTipoEvaluacion">
+                                        <label for="" class="form-check-label">{{tipo.Detalle}} </label>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-2 col-form-label text-center">Valoracion</label>
+                            <div class="col-sm-10 mt-2">
+                            <ng-container *ngFor="let valor of Valoraciones">
+                                <div class="d-flex mx-4">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="valoracion" formControlName="valoracion" [value]="valor.IdValoracion">
+                                        <label for="" class="form-check-label">{{valor.Detalle}} </label>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="editarIndicador()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Borrar Modal-->
+<div class="modal fade" id="deleteModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Sub-Criterio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Indicador</h3>
+
+                <form [formGroup]="eliminar">
+                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Infraestructura Básica">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="" class="col-sm-2 col-form-label text-center">Criterio</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="" formControlName="subcriterio" placeholder="Criterio">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Tipo Evaluacion</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="tipodel" placeholder="1,2,3...">
+                        </div>
+                    </div> 
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Orden</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="1,2,3...">
+                        </div>
+                    </div>        
+                </form>
+
+                <p class="text-danger">Usted esta por deshabilitar este Indicador, tenga en cuenta que más tarde podra recuperar esta información más adelante.</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarIndicador()">Deshabilitar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Restablecer Modal-->
+<div class="modal fade" id="restablecerModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Restablecer Indicador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Indicador</h3>
+
+                <form [formGroup]="editar">
+                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Infraestructura Básica">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="" class="col-sm-2 col-form-label text-center">Criterio</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="" formControlName="subcriterio" placeholder="Criterio">
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Tipo Evaluacion</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="tipoeditar" placeholder="1,2,3...">
+                        </div>
+                    </div> 
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Orden</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="1,2,3...">
+                        </div>
+                    </div>             
+                </form>
+
+                <p class="text-success">Usted esta por restablecer este Indicador, podrá volver a verlo en el panel principal</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success " (click)="editarIndicador()">Restablecer</button>
+            </div>
+        </div>
+    </div>
+</div>
