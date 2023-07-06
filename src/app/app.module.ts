@@ -44,6 +44,7 @@ import { EvidenciasComponent } from './components/panel/evidencias/evidencias.co
 import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
 import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
 import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
+import { EvidenciaPipe } from './pipes/SortAndFilter/evidencia.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +73,7 @@ import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidenci
     ElementoFundamentalComponent,
     ElementoPipe,
     EvidenciaComponent,
+    EvidenciaPipe,
   ],
   imports: [
     BrowserModule,

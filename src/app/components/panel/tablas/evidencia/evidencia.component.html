@@ -1,1 +1,266 @@
-<p>evidencia works!</p>
+<div class="row g-0 text-end mb-1">
+    <div class="col-md-8 col-sm-12">
+        <div class="form-group">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="">
+            <div class="form-group mt-2">
+                <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
+                <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <!--Boton Agregar-->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModalEvidencia">Agregar</button>
+    </div>
+</div>
+
+<!--Tabla de datos-->
+<table class="table table-hover table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col" width="25%">Descripción</th>
+            <th scope="col" width="30%">ElementoFundamental</th>
+            <th scope="col" width="10%" class="text-center">Periodo</th>
+            <th scope="col" width="5%" class="text-center">Orden</th>
+            <th scope="col" width="10%" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let evidencia of Evidencias | evidencia:filter">
+            <tr *ngIf="evidencia.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                <td>{{evidencia.Detalle}}</td>
+                <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
+                <td>{{evidencia.Orden}}</td>
+                <td>
+                    <div class="d-flex justify-content-evenly">
+                        <!--Boton Editar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalEvidencia" (click)="setPreEditar(evidencia)">edit</span>
+                        <!--Boton Eliminar-->
+                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalEvidencia" (click)="setPreEliminar(evidencia)">delete</span>
+                    </div>
+                </td>
+            </tr>
+            <ng-container *ngIf="checkboxDeshabilitarValue">
+                <tr *ngIf="evidencia.Activo == '0'" class="table-danger">
+                    <td>{{evidencia.Detalle}}</td>
+                    <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                    <td class="text-center">{{getDetallePeriodo(evidencia.IdEvidencia)}}</td>
+                    <td>{{evidencia.Orden}}</td>
+                    <td>
+                        <div class="d-flex justify-content-evenly">
+                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalEvidencia" (click)="setPreRestablecer(evidencia)">history</span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
+
+<!--Agregar Modal-->
+<div class="modal fade" id="crearModalEvidencia" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evidencia</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+                <div class="container">
+                    
+                    <form [formGroup]="agregar">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label text-center">Elemento</label>
+                            <div class="col-sm-9">
+                                <select formControlName="elemento" class="form-control" >
+                                    <option value="" selected disabled >Elementos Fundamentales...</option>
+                                    <ng-container *ngFor="let elemento of Elementos">
+                                        <option *ngIf="elemento.Activo == '1'" [value]="elemento.IdIndicador">{{elemento.Detalle}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="DetalleAgregar" class="col-sm-3 col-form-label text-start">Descripción</label>
+                            <div class="col-sm-9 ml-1">
+                                <textarea type="" class="form-control" id="DetalleAgregar" cols="25" rows="5" formControlName="detalle" placeholder="Descripción de la Evidencia..."></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label text-center">Periodo</label>
+                            <div class="col-sm-9 mt-2">
+                            <ng-container *ngFor="let periodo of Periodos">
+                                <div class="d-flex mx-4">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="periodoAdd" formControlName="periodoAdd" [value]="periodo.IdPeriodo">
+                                        <label for="" class="form-check-label">{{periodo.Detalle}} </label>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label text-center">Orden</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" formControlName="orden" placeholder="0">
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <!--Fin Contenido Modal-->
+            </div>
+            <!--Botones modal-->
+            <div class="modal-footer">
+                <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="agregarEvidencia()" [disabled]="agregar.invalid">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Editar Modal-->
+<div class="modal fade" id="editModalEvidencia" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Evidencia</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <div class="container">
+                    <form [formGroup]="editar">  
+                        <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id">   
+
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label text-center">Evidencia</label>
+                            <div class="col-sm-9">
+                                <select formControlName="elemento" class="form-control" >
+                                    <option value="" selected disabled >Elementos Fundamentales...</option>
+                                    <ng-container *ngFor="let elemento of Elementos">
+                                        <option *ngIf="elemento.Activo == '1'" [value]="elemento.IdIndicador">{{elemento.Detalle}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="DetalleAgregar" class="col-sm-3 col-form-label text-start">Descripción</label>
+                            <div class="col-sm-9 ml-1">
+                                <textarea type="" class="form-control" id="DetalleAgregar" cols="25" rows="5" formControlName="detalle" placeholder="Descripción la evidencia..."></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="" class="col-sm-3 col-form-label text-center">Ponderación</label>
+                            <div class="col-sm-9 mt-2">
+                            <ng-container *ngFor="let tipo of Periodos">
+                                <div class="d-flex mx-4">
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="periodoEdit" formControlName="periodoEdit" [value]="tipo.IdPeriodo">
+                                        <label for="" class="form-check-label">{{tipo.Detalle}} </label>
+                                    </div>
+                                </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-3 col-form-label text-center">Orden</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" formControlName="orden" placeholder="0">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="editarEvidencia()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Borrar Modal-->
+<div class="modal fade" id="deleteModalEvidencia" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Evidencia</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <h3>Evidencia</h3>
+
+                <form [formGroup]="eliminar">   
+                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
+                    <div class="mb-3 row text-end">
+                        <label for="DetalleEditar" class="col-sm-3 col-form-label text-center">Descripción</label>
+                        <div class="col-sm-9">
+                            <textarea readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Infraestructura Básica" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="" class="col-sm-3 col-form-label text-center">Indicador</label>
+                        <div class="col-sm-9">
+                            <textarea readonly class="form-control-plaintext" id="DetalleEditar" formControlName="elemento" placeholder="Infraestructura Básica" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-3 col-form-label text-center">Periodo</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="periodo" placeholder="1,2,3...">
+                        </div>
+                    </div> 
+                    <div class="mb-3 row text-end">
+                        <label for="ordenEditar" class="col-sm-3 col-form-label text-center">Orden</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="1,2,3...">
+                        </div>
+                    </div>  
+                </form>
+
+                <p class="text-danger">Usted esta por deshabilitar este Indicador, tenga en cuenta que más tarde podra recuperar esta información más adelante.</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarEvidencia()">Deshabilitar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Restablecer Modal-->
+<div class="modal fade" id="restablecerModalEvidencia" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Restablecer Evidencia</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--Inicio Contenido Modal-->
+
+                <p class="text-success">Usted esta por restablecer esta Evidencia, podrá volver a verlo en el panel principal</p>
+
+                <!--Fin Contenido Modal-->
+            </div>
+            <div class="modal-footer">
+                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success " (click)="restablecerEvidencia()">Restablecer</button>
+            </div>
+        </div>
+    </div>
+</div>
