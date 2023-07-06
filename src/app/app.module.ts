@@ -27,11 +27,11 @@ import { SelectorComponent } from './components/panel/evidencias/selector/select
 import { IndicadorTableComponent } from './components/panel/evidencias/selector/indicador-table/indicador-table.component';
 import { ModalEvidenciasComponent } from './components/panel/evidencias/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { InstitucionComponent } from './components/panel/institucion/institucion.component';
-import { ModeloComponent } from './components/panel/modelo/modelo.component';
-import { CriterioComponent } from './components/panel/criterio/criterio.component';
-import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
-import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
+import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
 import { InstitucionPipe } from './pipes/SortAndFilter/institucion.pipe';
 import { ModeloPipe } from './pipes/SortAndFilter/modelo.pipe';
 import { DefaultPipe } from './pipes/default.pipe';
@@ -41,6 +41,7 @@ import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
+import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { EvidenciasComponent } from './components/panel/evidencias/evidencias.co
     IndicadorPipe,
     InicioPanelComponent,
     EvidenciasComponent,
+    ElementoFundamentalComponent,
   ],
   imports: [
     BrowserModule,

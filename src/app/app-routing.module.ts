@@ -5,11 +5,11 @@ import { DetalleIndicadorComponent } from './components/panel/evidencias/selecto
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { InstitucionComponent } from './components/panel/institucion/institucion.component';
-import { ModeloComponent } from './components/panel/modelo/modelo.component';
-import { CriterioComponent } from './components/panel/criterio/criterio.component';
-import { SubCriterioComponent } from './components/panel/sub-criterio/sub-criterio.component';
-import { IndicadoresComponent } from './components/panel/indicadores/indicadores.component';
+import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
+import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Institucion } from '../../../models/institucion.model';
+import { Institucion } from '../../../../models/institucion.model';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
