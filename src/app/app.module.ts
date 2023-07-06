@@ -42,6 +42,7 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
+import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,7 @@ import { ElementoFundamentalComponent } from './components/panel/tablas/elemento
     InicioPanelComponent,
     EvidenciasComponent,
     ElementoFundamentalComponent,
+    ElementoPipe,
   ],
   imports: [
     BrowserModule,

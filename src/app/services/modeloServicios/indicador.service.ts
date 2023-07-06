@@ -35,12 +35,4 @@ export class IndicadorService {
   deleteIndicador(id: string): Observable<any> {
     return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
-
-  // Handle errors
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
 }
