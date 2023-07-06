@@ -12,6 +12,7 @@ import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub
 import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
+import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'criterio', component: CriterioComponent},
     { path: 'subcriterio', component: SubCriterioComponent},
     { path: 'indicador', component: IndicadoresComponent},
+    { path: 'elementos', component: ElementoFundamentalComponent},
   ]},
   { path: '**', redirectTo: '/panel'}
 ];

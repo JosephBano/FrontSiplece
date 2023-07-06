@@ -72,10 +72,16 @@
                         <a class="text-decoration-none d-block mx-2">Sub-Criterio</a>
                     </div>
                 </li>
-                <li class="hver mb-3" routerLink="/panel/indicador" (click)="setActive('', 'indicador');" [ngClass]="{'active' : activeSubli === 'indicador'}">
+                <li class="hver" routerLink="/panel/indicador" (click)="setActive('', 'indicador');" [ngClass]="{'active' : activeSubli === 'indicador'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Indicador</a>
+                    </div>
+                </li>
+                <li class="hver mb-3" routerLink="/panel/elementos" (click)="setActive('', 'elementos');" [ngClass]="{'active' : activeSubli === 'elementos'}">
+                    <div class="d-flex px-4 py-2 align-items-center">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                        <a class="text-decoration-none d-block mx-2">Elementos Fundamentales</a>
                     </div>
                 </li>
             </ul>
