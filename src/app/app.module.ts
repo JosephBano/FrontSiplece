@@ -43,6 +43,7 @@ import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-pan
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
 import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
+import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
     EvidenciasComponent,
     ElementoFundamentalComponent,
     ElementoPipe,
+    EvidenciaComponent,
   ],
   imports: [
     BrowserModule,

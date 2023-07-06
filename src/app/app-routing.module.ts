@@ -13,6 +13,7 @@ import { IndicadoresComponent } from './components/panel/tablas/indicadores/indi
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
+import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -21,18 +22,17 @@ const routes: Routes = [
   ]},
   { path: 'panel', component: PanelComponent, children: [
     { path: '', component: InicioPanelComponent},
-
-    { path: 'evidencias', component: EvidenciasComponent, children: [
-      { path: '', component: SelectorComponent},
-      { path: 'detalle/:id', component: DetalleIndicadorComponent},
-    ]},
-    
     { path: 'institucion', component: InstitucionComponent},
     { path: 'modelo', component: ModeloComponent},
     { path: 'criterio', component: CriterioComponent},
     { path: 'subcriterio', component: SubCriterioComponent},
     { path: 'indicador', component: IndicadoresComponent},
     { path: 'elementos', component: ElementoFundamentalComponent},
+    { path: 'evidencia', component: EvidenciaComponent},
+    { path: 'evidencias', component: EvidenciasComponent, children: [
+      { path: '', component: SelectorComponent},
+      { path: 'detalle/:id', component: DetalleIndicadorComponent},
+    ]},
   ]},
   { path: '**', redirectTo: '/panel'}
 ];
