@@ -2,7 +2,7 @@
     background: #C6E0FF;
     min-width: 250px;
     max-width: 250px;
-    height: 100vh;
+    height: 100%;
     transition: all 0.2s;
 }
 
@@ -10,7 +10,7 @@ hr.h-color {
     background: #fff;
 }
 
-.sidebar li.active {
+.active {
     background: #eee;
     border-radius: 8px;
 }
@@ -42,4 +42,9 @@ hr.h-color {
 
 ul {
     transition: all 0.4s;
+}
+
+.animate-sublist {
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
 }

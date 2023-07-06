@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
-import { Indicador } from '../../../../models/indicador.model';
+import { Indicador } from '../../../../../models/indicador.model';
 
 @Component({
   selector: 'app-detalle-indicador',

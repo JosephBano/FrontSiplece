@@ -26,7 +26,7 @@ export class IndicadorTableComponent implements OnInit{
 
   handleRowClick(indicador: any) {
     this.selectedIndicador = indicador;
-    this.route.navigate(['dashboard/detalle', this.selectedIndicador])
+    this.route.navigate(['panel/evidencias/detalle', this.selectedIndicador])
   }
   
 }

@@ -23,7 +23,7 @@ export class LoginComponent {
   
   log(): void {
     if(this.login.value.usuario == 'admin' && this.login.value.password == 'admin'){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/panel']);
     }else{
       this.toastr.error('El Usuario o la Contraseña son incorrectas')
     }

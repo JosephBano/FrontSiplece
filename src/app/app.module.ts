@@ -19,14 +19,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { DetalleIndicadorComponent } from './components/dashboard/selector/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './components/panel/evidencias/selector/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
-import { SelectorComponent } from './components/dashboard/selector/selector.component';
-import { IndicadorTableComponent } from './components/dashboard/selector/indicador-table/indicador-table.component';
-import { ModalEvidenciasComponent } from './components/dashboard/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
+import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
+import { IndicadorTableComponent } from './components/panel/evidencias/selector/indicador-table/indicador-table.component';
+import { ModalEvidenciasComponent } from './components/panel/evidencias/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { InstitucionComponent } from './components/panel/institucion/institucion.component';
 import { ModeloComponent } from './components/panel/modelo/modelo.component';
@@ -41,10 +40,10 @@ import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
 import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-panel.component';
+import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     SelectorComponent,
     NavbarComponent,
     InicioComponent,
@@ -66,6 +65,7 @@ import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-pan
     SubCriterioPipe,
     IndicadorPipe,
     InicioPanelComponent,
+    EvidenciasComponent,
   ],
   imports: [
     BrowserModule,
