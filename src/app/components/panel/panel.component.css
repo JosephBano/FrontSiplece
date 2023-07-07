@@ -1,19 +1,8 @@
-#side_nav {
-    background: #C6E0FF;
-    min-width: 250px;
-    max-width: 250px;
-}
-
 .content {
     min-height: 100vh;
     width: 100%;
 }
 
-@media (max-width: 767px) {
-    #side_nav {
-        margin-left: -250px;
-        position: fixed;
-        min-height: 100vh;
-        z-index: 1;
-    }
+.main-container {
+    background: #eee;
 }

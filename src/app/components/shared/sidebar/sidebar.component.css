@@ -1,17 +1,27 @@
 #side_nav {
-    background: #C6E0FF;
+    background: #1F295B;
     min-width: 250px;
     max-width: 250px;
     height: 100%;
     transition: all 0.2s;
 }
 
+.logo-blanco img{
+    height: 50px;
+}
+
+#side_nav span, #side_nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
 hr.h-color {
-    background: #fff;
+    background: #eee;
+    padding: 1px;
 }
 
 .active {
-    background: #eee;
+    background: hsla(228, 30%, 63%, 0.726);
     border-radius: 8px;
 }
 
@@ -43,4 +53,15 @@ hr.h-color {
 .animate-sublist {
     transition: 0.3s ease-out;
     overflow: hidden;
+}
+
+.close-btn {
+    display: inline-block;
+    margin-top: 2px;
+    line-height: 1;
+    right: 0 !important;
+    top: 0 !important;
+    position: absolute !important;
+    opacity: 0.5 !important;
+    box-sizing: border-box;
 }

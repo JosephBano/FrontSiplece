@@ -26,8 +26,8 @@ export class SidebarComponent implements OnDestroy, OnInit{
     });
   }
   ngOnInit(): void {
-    this.route.navigate(['/panel/parametros']);
-    this.activeli = 'parametros';
+    this.route.navigate(['/panel/evidencias']);
+    this.activeli = 'evidencias';
   }
 
   ngOnDestroy(): void {

@@ -9,10 +9,15 @@
     width: 100%;
 }
 
+.logo-blanco img{
+    height: 50px;
+}
+
 h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.3em;
+    font-size: 1.5em;
     color: white;
+    margin: 0;
 }
 
 h3 {
@@ -39,7 +44,7 @@ h3 {
 
 .centrar-logo {
     background: #1F295B;
-    padding: 1rem 3rem .1rem;
+    padding: .3rem 6rem;
     border: solid 1px #1F295B;
     border-radius: 10px;
     position: relative;
@@ -67,4 +72,10 @@ h3 {
     text-align: center;
     padding: 10px 0;
     color: #eee;
+}
+
+hr.h-color {
+    background: #eee;
+    padding: 1px;
+    margin: 0;
 }

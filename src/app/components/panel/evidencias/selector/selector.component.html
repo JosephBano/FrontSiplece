@@ -1,8 +1,12 @@
-<div class="container">
-  <div class="row mt-4 justify-content-center">
+<div class="contenedor-flotante">
+  <div class="row justify-content-center">
     <div class="col-md-9">
 
-      <h2 class="text-center">{{srtTituloInstitucion}}</h2>
+      <div class="d-flex justify-content-center">
+        <div class="contenedor-titulo">
+          <h3 class="text-center">Subida de Evidencias</h3>
+        </div>
+      </div>
 
       <form [formGroup]="selects">
 
@@ -36,8 +40,10 @@
           </select>
         </div>
       
-        <button type="submit" (click)="onSubmit()" [disabled]="disabledButton" class="btn btn-primary">Mostrar Indicadores</button>
-        
+        <div class="btn-custom">
+          <button type="submit" (click)="onSubmit()" [disabled]="disabledButton" class="btn">Mostrar Indicadores</button>
+        </div>
+          
       </form>
       
       <div class="mt-4">
