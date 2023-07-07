@@ -45,6 +45,10 @@ import { ElementoFundamentalComponent } from './components/panel/tablas/elemento
 import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
 import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
 import { EvidenciaPipe } from './pipes/SortAndFilter/evidencia.pipe';
+import { ParametrosComponent } from './components/panel/parametros/parametros.component';
+import { TablasComponent } from './components/panel/tablas/tablas.component';
+import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
+import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +78,10 @@ import { EvidenciaPipe } from './pipes/SortAndFilter/evidencia.pipe';
     ElementoPipe,
     EvidenciaComponent,
     EvidenciaPipe,
+    ParametrosComponent,
+    TablasComponent,
+    MenuTablasComponent,
+    VistaParametrosComponent,
   ],
   imports: [
     BrowserModule,

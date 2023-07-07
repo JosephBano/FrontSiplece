@@ -14,6 +14,10 @@ import { InicioPanelComponent } from './components/panel/inicio-panel/inicio-pan
 import { EvidenciasComponent } from './components/panel/evidencias/evidencias.component';
 import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
 import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
+import { TablasComponent } from './components/panel/tablas/tablas.component';
+import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
+import { ParametrosComponent } from './components/panel/parametros/parametros.component';
+import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -22,13 +26,19 @@ const routes: Routes = [
   ]},
   { path: 'panel', component: PanelComponent, children: [
     { path: '', component: InicioPanelComponent},
-    { path: 'institucion', component: InstitucionComponent},
-    { path: 'modelo', component: ModeloComponent},
-    { path: 'criterio', component: CriterioComponent},
-    { path: 'subcriterio', component: SubCriterioComponent},
-    { path: 'indicador', component: IndicadoresComponent},
-    { path: 'elementos', component: ElementoFundamentalComponent},
-    { path: 'evidencia', component: EvidenciaComponent},
+    { path: 'tablas', component: TablasComponent, children: [
+      { path: '', component: MenuTablasComponent},
+      { path: 'institucion', component: InstitucionComponent},
+      { path: 'modelo', component: ModeloComponent},
+      { path: 'criterio', component: CriterioComponent},
+      { path: 'subcriterio', component: SubCriterioComponent},
+      { path: 'indicador', component: IndicadoresComponent},
+      { path: 'elementos', component: ElementoFundamentalComponent},
+      { path: 'evidencia', component: EvidenciaComponent},
+    ]},
+    { path: 'parametros', component: ParametrosComponent, children: [
+      {path: '', component: VistaParametrosComponent},
+    ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
       { path: 'detalle/:id', component: DetalleIndicadorComponent},

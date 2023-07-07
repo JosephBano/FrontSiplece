@@ -40,11 +40,7 @@ hr.h-color {
     cursor: pointer;
 }
 
-ul {
-    transition: all 0.4s;
-}
-
 .animate-sublist {
-    transition: max-height 0.3s ease-out;
+    transition: 0.3s ease-out;
     overflow: hidden;
 }

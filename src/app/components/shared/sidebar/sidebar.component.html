@@ -31,7 +31,7 @@
     <ul class="list-unstyled px-2">
         <!--Parametros Opcion-->
         <li class="hver" (click)="setActive('parametros', '')" [ngClass]="{'active' : activeli === 'parametros'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/parametros">
                 <span class="material-symbols-outlined">tune</span>
                 <a class="text-decoration-none d-block mx-2">Parametros</a>
             </div>
@@ -39,7 +39,7 @@
 
         <!--Tablas Opcion-->
         <li class="hver" >
-            <div class="hver" [ngClass]="{'active' : activeli === 'tablas'}">
+            <div class="hver" routerLink="/panel/tablas" [ngClass]="{'active' : activeli === 'tablas'}">
                 <div class="d-flex px-3 py-2 align-items-center" (click)="setActive('tablas', '');">
                     <span class="material-symbols-outlined">table_chart</span>
                     <a class="text-decoration-none d-block mx-2">Tablas</a>
@@ -47,44 +47,44 @@
             </div>
 
             <!--Tablas Opcion --Despliegue de sub tablas-->
-            <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': tablasList ? '100%' : '0'}">
+            <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': tablasList ? '300px' : '0'}">
                 <!-- <li class="hver" routerLink="/panel/institucion" (click)="setActive('', 'institucion');" [ngClass]="{'active' : activeSubli === 'institucion'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Instituciones</a>
                     </div>
                 </li> -->
-                <li class="hver mt-1" routerLink="/panel/modelo" (click)="setActive('', 'modelo');" [ngClass]="{'active' : activeSubli === 'modelo'}">
+                <li class="hver mt-1" routerLink="/panel/tablas/modelo" (click)="setActive('', 'modelo');" [ngClass]="{'active' : activeSubli === 'modelo'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Modelos</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/criterio" (click)="setActive('', 'criterio');" [ngClass]="{'active' : activeSubli === 'criterio'}">
+                <li class="hver" routerLink="/panel/tablas/criterio" (click)="setActive('', 'criterio');" [ngClass]="{'active' : activeSubli === 'criterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Criterio</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/subcriterio" (click)="setActive('', 'subcriterio');" [ngClass]="{'active' : activeSubli === 'subcriterio'}">
+                <li class="hver" routerLink="/panel/tablas/subcriterio" (click)="setActive('', 'subcriterio');" [ngClass]="{'active' : activeSubli === 'subcriterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Sub-Criterio</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/indicador" (click)="setActive('', 'indicador');" [ngClass]="{'active' : activeSubli === 'indicador'}">
+                <li class="hver" routerLink="/panel/tablas/indicador" (click)="setActive('', 'indicador');" [ngClass]="{'active' : activeSubli === 'indicador'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Indicador</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/elementos" (click)="setActive('', 'elementos');" [ngClass]="{'active' : activeSubli === 'elementos'}">
+                <li class="hver" routerLink="/panel/tablas/elementos" (click)="setActive('', 'elementos');" [ngClass]="{'active' : activeSubli === 'elementos'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Elementos Fundamentales</a>
                     </div>
                 </li>
-                <li class="hver mb-3" routerLink="/panel/evidencia" (click)="setActive('', 'evidencias');" [ngClass]="{'active' : activeSubli === 'evidencias'}">
+                <li class="hver mb-3" routerLink="/panel/tablas/evidencia" (click)="setActive('', 'evidencias');" [ngClass]="{'active' : activeSubli === 'evidencias'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Evidencias</a>
