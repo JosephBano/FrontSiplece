@@ -1,38 +1,41 @@
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 offset-lg-3">
+        <div class="col-lg-6 col-md-8 offset-md-2 offset-lg-3">
 
-            <div class="text-center">
-                <h1>SIPLECE</h1>
+            <div class="d-flex justify-content-center">
+                <div class="text-center align-middle centrar-logo ">
+                    <h1 class="fw-bold">SIPLECE</h1>
+                </div>
             </div>
-            <br>
 
             <div class="card text-center card-padding">
-                <h3 class="h3-login">Login</h3>
-                <br>
                 <form [formGroup]="login" (ngSubmit)=log()>
-                    <div class="form-group form-item">
-                        <input type="text" class="form-control" placeholder="Usuario" formControlName="usuario">
+                    <div class="contenedor-item">
+                        <input type="text" class="item" placeholder="Usuario" formControlName="usuario">
                         <span class="text-danger ml-2" 
                         *ngIf="login.get('usuario')?.errors?.['required'] && login.get('usuario')!.touched">
                             El usuario es <strong>requerido</strong>
                         </span>
                     </div>
-                    <div class="form-group form-item" >
-                        <input type="password" class="form-control" placeholder="Contraseña" formControlName="password">
+                    <div class="contenedor-item" >
+                        <input type="password" class="item" placeholder="Contraseña" formControlName="password">
                         <span class="text-danger ml-2" 
                         *ngIf="login.get('password')?.hasError('required') && login.get('password')!.touched">
                             La Contraseña es <strong>requerida</strong>
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="contenedor-item">
                         <div class="d-flex flex-row-reverse">    
-                            <button class="btn btn-primary mr-2 btn-login" [disabled]="login.invalid" type="submit">Aceptar</button>                        
+                            <button class="btn-login" [disabled]="login.invalid" type="submit">Aceptar</button>                        
                         </div>
                     </div>
-                    
                 </form>
             </div>
         </div>
+        
+    </div>
+    <div class="alinear-creditos">
+        <span class="text-center">©2023 </span>
+        <span class="text-center">Instituto Superior Tecnológico Mayor Pedro Traversari</span>
     </div>
 </div>

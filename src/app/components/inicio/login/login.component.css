@@ -9,12 +9,6 @@
     width: 100%;
 }
 
-hr {
-    border-width: 3px;
-    max-width: 65px;
-    border-color: aqua;
-}
-
 h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 2.3em;
@@ -25,30 +19,52 @@ h3 {
     font-family: 'Monstserrat', sans-serif;
 }
 
-.h3-login {
-    text-align: start;
-    font-size: 1.5em;
-    
-}
 
 .card-padding {
-    padding: 2.5rem;
+    margin-top: -30px;
+    padding: 2.5rem 1rem 1.5rem;
 }
 
-.form-item {
-    text-align: start; 
-    margin: 0 10px 1rem 10px;
-}
 
 .btn-login {
+    margin-top: 1rem;
+    color: white;
+    font-size: 18px;
+    width: 100%;
     background-color: #1F295B;
-    border-color: #1F295B;
+    padding: .3rem 0;
+    border: solid 1px #1F295B;
+    border-radius: 5px;
 }
 
-.text-start {
-    text-align: start;
+.centrar-logo {
+    background: #1F295B;
+    padding: 1rem 3rem .1rem;
+    border: solid 1px #1F295B;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
 }
 
-.pt-3 {
-    padding-top: 10px;
+.contenedor-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.item {
+    border: solid 1px rgba(186,186,186,0.68);
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.alinear-creditos{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #eee;
 }
