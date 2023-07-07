@@ -1,1 +1,32 @@
-<p>vista-parametros works!</p>
+<div class="row">
+    <div class="col-lg-6 mb-3">
+        <div class="card">
+            <div class="card-header" (click)="ToggleFocusCard('periodo')">
+                <h3 class="card-title">Periodo</h3>
+            </div>
+            <div class="card-body" [hidden]="!showPeriodo">
+                <app-periodo></app-periodo>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+        <div class="card">
+            <div class="card-header" (click)="ToggleFocusCard('ponderacion')">
+                <h3 class="card-title">Poderaciones</h3>
+            </div>
+            <div class="card-body" [hidden]="!showPonderacion">
+                <app-ponderacion></app-ponderacion>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+        <div class="card">
+            <div class="card-header" (click)="ToggleFocusCard('tipoEvaluacion')">
+                <h3 class="card-title">Tipos Evaluaciones</h3>
+            </div>
+            <div class="card-body" [hidden]="!showTipoEvaluacion">
+                <app-tipo-evaluacion></app-tipo-evaluacion>
+            </div>
+        </div>
+    </div>
+</div>

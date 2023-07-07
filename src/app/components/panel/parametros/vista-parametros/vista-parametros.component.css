@@ -1,0 +1,14 @@
+.card-header {
+    cursor: pointer;
+}
+.card-body {
+    transition: 20s ease-out all;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.card-body:not([hidden]) {
+    max-height: 500px; 
+    opacity: 1;
+}

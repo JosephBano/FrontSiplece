@@ -49,6 +49,9 @@ import { ParametrosComponent } from './components/panel/parametros/parametros.co
 import { TablasComponent } from './components/panel/tablas/tablas.component';
 import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
 import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
+import { PeriodoComponent } from './components/panel/parametros/periodo/periodo.component';
+import { PonderacionComponent } from './components/panel/parametros/ponderacion/ponderacion.component';
+import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-evaluacion/tipo-evaluacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +85,9 @@ import { VistaParametrosComponent } from './components/panel/parametros/vista-pa
     TablasComponent,
     MenuTablasComponent,
     VistaParametrosComponent,
+    PeriodoComponent,
+    PonderacionComponent,
+    TipoEvaluacionComponent,
   ],
   imports: [
     BrowserModule,
