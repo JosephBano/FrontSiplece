@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToggleBarService } from 'src/app/services/toggle-bar.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,9 +17,11 @@ export class SidebarComponent implements OnDestroy, OnInit{
   activeSubli: string = '';
 
   tablasList: boolean = false;
+  variableCompartida!: string;
 
   constructor(
     private toggleService: ToggleBarService,
+    private dataService: DataService,
     private route: Router,
     ) {
     this.subscription = this.toggleService.toggle$.subscribe(state => {
@@ -26,8 +29,17 @@ export class SidebarComponent implements OnDestroy, OnInit{
     });
   }
   ngOnInit(): void {
-    this.route.navigate(['/panel/evidencias']);
-    this.activeli = 'evidencias';
+    this.dataService.getActiveLiOrder1().subscribe(
+      (data) => {
+        this.activeli = data;
+        this.setActive();
+      }
+    )
+    this.dataService.getActiveLiOrder2().subscribe(
+      (data) => {
+        this.activeSubli = data;
+      }
+    )
   }
 
   ngOnDestroy(): void {
@@ -38,11 +50,28 @@ export class SidebarComponent implements OnDestroy, OnInit{
     this.toggleService.toggle();
   }
 
-  setActive(tabIndex: string, tabSubIndex: string) {
-    if(tabIndex !== '') this.activeli = tabIndex;
-    this.activeSubli = tabSubIndex;
-    if(tabIndex !== 'tablas' && tabIndex !== '') this.tablasList = false;
-    else if(tabIndex === 'tablas') this.tablasList = !this.tablasList;
-    else this.tablasList = true;
+  setActive() {
+    if(this.activeli === 'tablas') {
+      this.tablasList = true;
+    }
+    else {
+      this.tablasList = false;
+      this.dataService.actualizarActiveLiOrder2('');
+    }
+  }
+
+  activeLogOut(){
+    this.activeli = 'logout';
+  }
+
+  tablasToggleHandler(){
+    if(this.tablasList) {
+      this.tablasList = false;
+    }
+    else{
+      if(this.activeli === 'tablas') {
+        this.tablasList = true;
+      }
+    }
   }
 }

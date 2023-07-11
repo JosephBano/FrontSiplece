@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { Indicador } from '../../../../../models/indicador.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -16,11 +17,12 @@ export class DetalleIndicadorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private indicadorService: IndicadorService,
-    private cdr: ChangeDetectorRef,
+    private dataService: DataService,
   ) { }
    
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('evidencias');
     this.route.params.subscribe(params => {
       const indicadorID = params['id'];
       this.getIndicadorById(indicadorID);

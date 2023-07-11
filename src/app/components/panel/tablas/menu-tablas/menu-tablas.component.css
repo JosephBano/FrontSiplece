@@ -1,0 +1,42 @@
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  .icon-size:hover {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 700,
+      'GRAD' 0,
+      'opsz' 48
+    }
+  
+  .icon-size {
+      cursor: pointer;
+      font-size: 30px;
+  }
+
+.contenedor-flotante {
+    border-radius: 20px;
+    background: #fff;
+    padding: 1rem 1rem;
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+.btn-custom button{
+    padding: .3rem 1rem;
+    background: #1F295B;
+    color: #fff;
+    border: solid 1px #1F295B;
+} 

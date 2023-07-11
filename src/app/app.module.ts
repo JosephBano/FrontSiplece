@@ -27,7 +27,6 @@ import { SelectorComponent } from './components/panel/evidencias/selector/select
 import { IndicadorTableComponent } from './components/panel/evidencias/selector/indicador-table/indicador-table.component';
 import { ModalEvidenciasComponent } from './components/panel/evidencias/selector/detalle-indicador/modal-evidencias/modal-evidencias.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
 import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
 import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
 import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
@@ -52,6 +51,7 @@ import { VistaParametrosComponent } from './components/panel/parametros/vista-pa
 import { PeriodoComponent } from './components/panel/parametros/periodo/periodo.component';
 import { PonderacionComponent } from './components/panel/parametros/ponderacion/ponderacion.component';
 import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-evaluacion/tipo-evaluacion.component';
+import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +63,6 @@ import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-eval
     IndicadorTableComponent,
     ModalEvidenciasComponent,
     PanelComponent,
-    InstitucionComponent,
     ModeloComponent,
     SidebarComponent,
     CriterioComponent,
@@ -88,6 +87,7 @@ import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-eval
     PeriodoComponent,
     PonderacionComponent,
     TipoEvaluacionComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     BrowserModule,

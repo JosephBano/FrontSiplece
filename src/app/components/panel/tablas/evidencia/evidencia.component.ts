@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { PeriodoService } from 'src/app/services/modeloServicios/periodo.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-evidencia',
@@ -37,6 +38,7 @@ export class EvidenciaComponent implements OnInit{
     private evidenciaService: EvidenciaService,
     private elementoService: ElementoFundamentalService,
     private periodoService: PeriodoService,
+    private dataService: DataService,
   ) {
     this.agregar = this.fb.group({
       elemento: ['', Validators.required],
@@ -61,6 +63,7 @@ export class EvidenciaComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('evidencia');
     this.loadEvidencia();
     this.loadElementosFundamentales();
     this.loadPeriodos();

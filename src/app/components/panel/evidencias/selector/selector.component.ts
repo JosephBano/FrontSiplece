@@ -4,6 +4,7 @@ import { Criterio } from "src/app/models/criterio.model";
 import { Institucion } from "src/app/models/institucion.model";
 import { Modelo } from "src/app/models/modelo.model";
 import { SubCriterio } from "src/app/models/subCriterio.model";
+import { DataService } from "src/app/services/data.service";
 import { CriteriosService } from "src/app/services/modeloServicios/criterios.service";
 import { InstitucionesService } from "src/app/services/modeloServicios/instituciones.service";
 import { ModeloService } from "src/app/services/modeloServicios/modelo.service";
@@ -35,6 +36,7 @@ export class SelectorComponent implements OnInit
   constructor(private fb: FormBuilder, 
               private institucionService: InstitucionesService,
               private modeloService: ModeloService,
+              private dataService: DataService,
               private criterioService: CriteriosService,
               private subcriterioService: SubCriteriosService
               ) {
@@ -46,6 +48,7 @@ export class SelectorComponent implements OnInit
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('evidencias');
     this.institucionService.getInstituciones().subscribe(data => {
       this.institucion = data.filter( e => e.IdInstitucion == this.institucionID);
       this.getData();

@@ -7,25 +7,24 @@ import { Indicador } from '../models/indicador.model';
 })
 export class DataService {
 
-  private objStore: Indicador = {
-    IdIndicador: '',
-    IdSubcriterio: '',
-    IdTipoEvaluacion: '',
-    IdIndicadorValoracion: '',
-    Detalle: '',
-    Orden: '',
-    Activo: '',
-    valoracion: '',
-  };
+  private activeListOrder1: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private activeListOrder2: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  private objSubject: BehaviorSubject<Indicador> = new BehaviorSubject(this.objStore);
+  constructor() { }
 
-  setObj(data: Indicador) {
-    this.objStore = data
-    this.objSubject.next(this.objStore);
+  getActiveLiOrder1(): Observable<string> {
+    return this.activeListOrder1.asObservable();
   }
 
-  getObj() {
-    return this.objSubject.asObservable();
+  getActiveLiOrder2(): Observable<string> {
+    return this.activeListOrder2.asObservable();
+  }
+
+  actualizarActiveLiOrder1(nuevoValor: any): void {
+    this.activeListOrder1.next(nuevoValor);
+  }
+  
+  actualizarActiveLiOrder2(nuevoValor: any): void {
+    this.activeListOrder2.next(nuevoValor);
   }
 }

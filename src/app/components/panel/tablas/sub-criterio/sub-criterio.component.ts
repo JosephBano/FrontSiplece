@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { Criterio } from 'src/app/models/criterio.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-sub-criterio',
@@ -33,6 +34,7 @@ export class SubCriterioComponent {
     private toastr: ToastrService,
     private subcriterioService: SubCriteriosService,
     private criterioService: CriteriosService,
+    private dataService: DataService,
   )
   {
     this.agregar = this.fb.group({
@@ -55,6 +57,7 @@ export class SubCriterioComponent {
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('subcriterio');
     this.loadSubCriterios();
     this.loadCriterios();
   }

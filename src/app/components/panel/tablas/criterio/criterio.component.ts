@@ -5,6 +5,7 @@ import { Criterio } from 'src/app/models/criterio.model';
 import { Modelo } from 'src/app/models/modelo.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
+import { DataService } from '../../../../services/data.service';
 
 @Component({
   selector: 'app-criterio',
@@ -34,6 +35,7 @@ export class CriterioComponent {
     private toastr: ToastrService,
     private modeloService: ModeloService,
     private criterioService: CriteriosService,
+    private dataService: DataService,
   )
   {
     this.agregar = this.fb.group({
@@ -56,6 +58,7 @@ export class CriterioComponent {
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('criterio')
     this.loadCriterios();
     this.loadModelos();
   }

@@ -7,6 +7,7 @@ import { IndicadorService } from 'src/app/services/modeloServicios/indicador.ser
 import { ElementoFundamentalService } from '../../../../services/modeloServicios/elemento-fundamental.service';
 import { Ponderacion } from '../../../../models/ponderacion.model';
 import { PonderacionService } from 'src/app/services/modeloServicios/ponderacion.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-elemento-fundamental',
@@ -36,6 +37,7 @@ export class ElementoFundamentalComponent implements OnInit{
     private toastr: ToastrService,
     private elementoService: ElementoFundamentalService,
     private indicadorService: IndicadorService,
+    private dataService: DataService,
     private ponderacionService: PonderacionService,
   ) {
     this.agregar = this.fb.group({
@@ -61,6 +63,7 @@ export class ElementoFundamentalComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('elemento');
     this.loadElementosFundamentales();
     this.loadIndicadores();
     this.loadPonderaciones();

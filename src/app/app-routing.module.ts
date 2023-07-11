@@ -5,7 +5,6 @@ import { DetalleIndicadorComponent } from './components/panel/evidencias/selecto
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { InstitucionComponent } from './components/panel/tablas/institucion/institucion.component';
 import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
 import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
 import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
@@ -18,6 +17,7 @@ import { TablasComponent } from './components/panel/tablas/tablas.component';
 import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
 import { ParametrosComponent } from './components/panel/parametros/parametros.component';
 import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
+import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -28,7 +28,6 @@ const routes: Routes = [
     { path: '', component: InicioPanelComponent},
     { path: 'tablas', component: TablasComponent, children: [
       { path: '', component: MenuTablasComponent},
-      { path: 'institucion', component: InstitucionComponent},
       { path: 'modelo', component: ModeloComponent},
       { path: 'criterio', component: CriterioComponent},
       { path: 'subcriterio', component: SubCriterioComponent},
@@ -36,6 +35,7 @@ const routes: Routes = [
       { path: 'elementos', component: ElementoFundamentalComponent},
       { path: 'evidencia', component: EvidenciaComponent},
     ]},
+    { path: 'configuracion', component: ConfiguracionComponent},
     { path: 'parametros', component: ParametrosComponent, children: [
       {path: '', component: VistaParametrosComponent},
     ]},

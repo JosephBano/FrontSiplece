@@ -9,6 +9,7 @@ import { TipoEvaluacion } from '../../../../models/tipo-evaluacion.model';
 import { Valoracion } from '../../../../models/valoracion.model';
 import { TipoEvaluacionService } from 'src/app/services/modeloServicios/tipo-evaluacion.service';
 import { ValoracionService } from 'src/app/services/modeloServicios/valoracion.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-indicadores',
@@ -41,6 +42,7 @@ export class IndicadoresComponent implements OnInit{
     private subcriterioService: SubCriteriosService,
     private tipoService: TipoEvaluacionService,
     private valoracionService: ValoracionService,
+    private dataService: DataService,
   ) {
     this.agregar = this.fb.group({
       subcriterio: ['', Validators.required],
@@ -67,6 +69,7 @@ export class IndicadoresComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('indicador');
     this.loadIndicadores();
     this.loadSubCriterios();
     this.loadTipoEvaluaciones();

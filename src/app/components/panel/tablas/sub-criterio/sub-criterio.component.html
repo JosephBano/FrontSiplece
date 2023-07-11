@@ -1,63 +1,65 @@
-<div class="row g-0 text-end mb-1">
-    <div class="col-md-8 col-sm-12">
-        <div class="form-group">
-            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-6">
-        <div class="">
-            <div class="form-group mt-2">
-                <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
-                <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+<div class="contenedor-flotante">
+    <div class="row g-0 text-end mb-1">
+        <div class="col-md-8 col-sm-12">
+            <div class="form-group">
+                <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
             </div>
         </div>
+        <div class="col-md-2 col-sm-6">
+            <div class="">
+                <div class="form-group mt-2">
+                    <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
+                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-6 btn-custom">
+            <!--Boton Agregar-->
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalSubCriterio">Agregar</button>
+        </div>
     </div>
-    <div class="col-md-2 col-sm-6">
-        <!--Boton Agregar-->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModalSubCriterio">Agregar</button>
-    </div>
-</div>
 
-<!--Tabla de datos-->
-<table class="table table-hover table-bordered">
-    <thead class="thead-light">
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col" width="25%">Criterio</th>
-            <th scope="col" width="10%" class="text-center">Orden</th>
-            <th scope="col" width="10%" class="text-center">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let subcriterio of SubCriterios | subCriterio:filter" >
-            <tr *ngIf="subcriterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                <td>{{subcriterio.Detalle}}</td>
-                <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
-                <td class="text-center">{{subcriterio.Orden}}</td>
-                <td>
-                    <div class="d-flex justify-content-evenly">
-                        <!--Boton Editar-->
-                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">edit</span>
-                        <!--Boton Eliminar-->
-                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" (click)="cargarDatosEliminar(subcriterio)">delete</span>
-                    </div>
-                </td>
+    <!--Tabla de datos-->
+    <table class="table table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col" width="25%">Criterio</th>
+                <th scope="col" width="10%" class="text-center">Orden</th>
+                <th scope="col" width="10%" class="text-center">Opciones</th>
             </tr>
-            <ng-container *ngIf="checkboxDeshabilitarValue">             
-                <tr *ngIf="subcriterio.Activo == '0'" class="table-danger">
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let subcriterio of SubCriterios | subCriterio:filter" >
+                <tr *ngIf="subcriterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
                     <td>{{subcriterio.Detalle}}</td>
                     <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
                     <td class="text-center">{{subcriterio.Orden}}</td>
                     <td>
                         <div class="d-flex justify-content-evenly">
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">history</span>
+                            <!--Boton Editar-->
+                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">edit</span>
+                            <!--Boton Eliminar-->
+                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" (click)="cargarDatosEliminar(subcriterio)">delete</span>
                         </div>
                     </td>
                 </tr>
+                <ng-container *ngIf="checkboxDeshabilitarValue">             
+                    <tr *ngIf="subcriterio.Activo == '0'" class="table-danger">
+                        <td>{{subcriterio.Detalle}}</td>
+                        <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
+                        <td class="text-center">{{subcriterio.Orden}}</td>
+                        <td>
+                            <div class="d-flex justify-content-evenly">
+                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">history</span>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
             </ng-container>
-        </ng-container>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 
 <!--Agregar Modal-->
 <div class="modal fade" id="crearModalSubCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">

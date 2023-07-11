@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { Institucion } from 'src/app/models/institucion.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-modelo',
@@ -35,6 +36,7 @@ export class ModeloComponent implements OnInit{
     private toastr: ToastrService,
     private modeloService: ModeloService,
     private institucionService: InstitucionesService,
+    private dataService: DataService,
   )
   {
     this.agregar = this.fb.group({
@@ -57,6 +59,7 @@ export class ModeloComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder2('modelo');
     this.loadModelos();
     this.loadInstituciones();
   }
