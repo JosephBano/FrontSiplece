@@ -20,19 +20,21 @@ export class VistaParametrosComponent implements OnInit{
   }
 
   ToggleFocusCard(card: string): void {
-    this.showPeriodo = false;
-    this.showPonderacion = false;
-    this.showTipoEvaluacion = false;
-
     switch(card) {
       case 'periodo':
-        this.showPeriodo = true;
+        this.showPeriodo = !this.showPeriodo;
+        this.showPonderacion = false;
+        this.showTipoEvaluacion = false;
         break;
       case 'ponderacion':
-        this.showPonderacion = true;
+        this.showPonderacion = !this.showPonderacion;
+        this.showPeriodo = false;
+        this.showTipoEvaluacion = false;
         break;
       case 'tipoEvaluacion':
-        this.showTipoEvaluacion = true;
+        this.showTipoEvaluacion = !this.showTipoEvaluacion;
+        this.showPeriodo = false;
+        this.showPonderacion = false;
         break;
     }
   }
