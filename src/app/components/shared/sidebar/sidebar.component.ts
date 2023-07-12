@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleBarService } from 'src/app/services/toggle-bar.service';
 import { DataService } from '../../../services/data.service';
@@ -22,7 +21,6 @@ export class SidebarComponent implements OnDestroy, OnInit{
   constructor(
     private toggleService: ToggleBarService,
     private dataService: DataService,
-    private route: Router,
     ) {
     this.subscription = this.toggleService.toggle$.subscribe(state => {
       this.toggleState = state;

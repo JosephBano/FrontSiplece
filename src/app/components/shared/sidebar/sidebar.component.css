@@ -33,7 +33,7 @@ hr.h-color {
     color: #000;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 990px) {
     #side_nav {
         margin-left: -250px;
         position: fixed;
@@ -41,7 +41,7 @@ hr.h-color {
         z-index: 1;
     }
 
-    #side_nav.active {
+    #side_nav.actives {
         margin-left: 0;
     }
 }

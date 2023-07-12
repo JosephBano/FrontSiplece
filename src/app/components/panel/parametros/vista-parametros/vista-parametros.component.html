@@ -1,31 +1,54 @@
 <div class="row">
-    <div class="col-lg-6 mb-3">
-        <div class="card">
-            <div class="card-header" (click)="ToggleFocusCard('periodo')">
-                <h3 class="card-title">Periodo</h3>
+    <div class="col-lg-6  mb-3">
+        <div class="contenedor-modulo">
+            <div class="modulo-header" [ngClass]="showPeriodo ? 'modulo-header-show' : ''" (click)="ToggleFocusCard('periodo')">
+                <div class="modulo-header-icon">
+                    <span class="material-symbols-outlined icon-size">date_range</span>
+                </div>
+                <div class="modulo-header-titulo">
+                    <h3 class="texto-header">Periodo</h3>
+                </div>
             </div>
-            <div class="card-body" [hidden]="!showPeriodo">
-                <app-periodo></app-periodo>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6 mb-3">
-        <div class="card">
-            <div class="card-header" (click)="ToggleFocusCard('ponderacion')">
-                <h3 class="card-title">Poderaciones</h3>
-            </div>
-            <div class="card-body" [hidden]="!showPonderacion">
-                <app-ponderacion></app-ponderacion>
+            <div class="animate-body modulo-body" [ngStyle]="{'max-height': showPeriodo ? '1000px' : '0'}">
+                <hr>
+                <div class="modulo-body-component">
+                    <app-periodo></app-periodo>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-6 mb-3">
-        <div class="card">
-            <div class="card-header" (click)="ToggleFocusCard('tipoEvaluacion')">
-                <h3 class="card-title">Tipos Evaluaciones</h3>
+        <div class="contenedor-modulo">
+            <div class="modulo-header" [ngClass]="showPonderacion ? 'modulo-header-show':''" (click)="ToggleFocusCard('ponderacion')">
+                <div class="modulo-header-icon">
+                    <span class="material-symbols-outlined icon-size">equalizer</span>
+                </div>
+                <div class="modulo-header-titulo">
+                    <h3 class="texto-header">Poderaciones</h3>
+                </div>
             </div>
-            <div class="card-body" [hidden]="!showTipoEvaluacion">
-                <app-tipo-evaluacion></app-tipo-evaluacion>
+            <div class="animate-body modulo-body" [ngStyle]="{'max-height': showPonderacion ? '1000px' : '0'}">
+                <hr>
+                <div class="modulo-body-component">
+                    <app-ponderacion></app-ponderacion>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+        <div class="contenedor-modulo">
+            <div class="modulo-header" [ngClass]="showTipoEvaluacion ? 'modulo-header-show':''" (click)="ToggleFocusCard('tipoEvaluacion')">
+                <div class="modulo-header-icon">
+                    <span class="material-symbols-outlined icon-size">checklist_rtl</span>
+                </div>
+                <div class="modulo-header-titulo">
+                    <h3 class="texto-header">Tipos Evaluaciones</h3>
+                </div>
+            </div>
+            <div class="animate-body modulo-body" [ngStyle]="{'max-height': showTipoEvaluacion ? '1000px' : '0'}">
+                <div class="modulo-body-component">
+                    <app-tipo-evaluacion></app-tipo-evaluacion>
+                </div>
             </div>
         </div>
     </div>

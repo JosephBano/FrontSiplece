@@ -76,6 +76,9 @@ export class PeriodoComponent implements OnInit{
         console.log(error);
         this.toastr.error('No se ha podido ejecutar los cambios!');
       }
-    )
+    );
+
+    this.cambiar.value.idPeriodo = '';
+    this.toggleEditMenu();
   }
 }

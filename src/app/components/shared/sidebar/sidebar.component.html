@@ -1,10 +1,10 @@
-<div class="sidebar" [class.active]="toggleState" id="side_nav">
+<div class="sidebar" [class.actives]="toggleState" id="side_nav">
     <!--Header-->
     <div class="px-3 pt-3 pb-2 d-flex justify-content-center">
         <div class="logo-blanco">
             <img src="https://servicios.istpet.edu.ec/appEstudiantes/template/img/logo-blanco.png" alt="logo_blanco" >
         </div>
-            <button class="btn d-md-none close-btn" (click)="toggle()">
+            <button class="btn d-lg-none close-btn" (click)="toggle()">
             <span class="material-symbols-outlined">close</span>
         </button>
     </div>
@@ -13,13 +13,13 @@
 
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
-        <li class="hver" [ngClass]="{'active' : activeli === 'inicio'}">
+        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'inicio'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
                 <span class="material-symbols-outlined">home</span>
                 <a class="text-decoration-none d-block mx-2">Inicio</a>
             </div>
         </li>
-        <li class="hver" [ngClass]="{'active' : activeli === 'evidencias'}">
+        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'evidencias'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/evidencias">
                 <span class="material-symbols-outlined">description</span>
                 <a class="text-decoration-none d-block mx-2">Evidencias</a>
@@ -32,7 +32,7 @@
 
     <ul class="list-unstyled px-2">
         <!--Parametros Opcion-->
-        <li class="hver" [ngClass]="{'active' : activeli === 'parametros'}">
+        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'parametros'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/parametros">
                 <span class="material-symbols-outlined">tune</span>
                 <a class="text-decoration-none d-block mx-2">Parametros</a>
@@ -50,37 +50,37 @@
 
             <!--Tablas Opcion --Despliegue de sub tablas-->
             <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': tablasList ? '300px' : '0'}">
-                <li class="hver mt-1" routerLink="/panel/tablas/modelo" [ngClass]="{'active' : activeSubli === 'modelo'}">
+                <li class="hver mt-1" (click)="toggle()" routerLink="/panel/tablas/modelo" [ngClass]="{'active' : activeSubli === 'modelo'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Modelos</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
+                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Criterio</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/tablas/subcriterio" [ngClass]="{'active' : activeSubli === 'subcriterio'}">
+                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/subcriterio" [ngClass]="{'active' : activeSubli === 'subcriterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Sub-Criterio</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/tablas/indicador" [ngClass]="{'active' : activeSubli === 'indicador'}">
+                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/indicador" [ngClass]="{'active' : activeSubli === 'indicador'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="d-block mx-2">Indicador</a>
                     </div>
                 </li>
-                <li class="hver" routerLink="/panel/tablas/elementos" [ngClass]="{'active' : activeSubli === 'elemento'}">
+                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/elementos" [ngClass]="{'active' : activeSubli === 'elemento'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Elementos Fundamentales</a>
                     </div>
                 </li>
-                <li class="hver mb-3" routerLink="/panel/tablas/evidencia" [ngClass]="{'active' : activeSubli === 'evidencia'}">
+                <li class="hver mb-3" (click)="toggle()" routerLink="/panel/tablas/evidencia" [ngClass]="{'active' : activeSubli === 'evidencia'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Evidencias</a>
@@ -90,7 +90,7 @@
         </li>
 
         <!--Reportes Opcion-->
-        <li class="" routerLink="/panel" [ngClass]="{'active' : activeli === 'reportes'}">
+        <li class="hver" (click)="toggle()" routerLink="/panel" [ngClass]="{'active' : activeli === 'reportes'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">monitoring</span>
                 <a class="text-decoration-none d-block mx-2">Reportes</a>
@@ -102,14 +102,14 @@
 
     <ul class="list-unstyled px-2">
         <!--Configuracion Opcion-->
-        <li class="hver" [ngClass]="{'active' : activeli === 'configuracion'}">
+        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'configuracion'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/configuracion">
                 <span class="material-symbols-outlined">settings</span>
                 <a class="text-decoration-none d-block mx-2">Configuración</a>
             </div>
         </li>
         <!--LogOut Opcion-->
-        <li class="hver" (click)="activeLogOut()" [ngClass]="{'active' : activeli === 'logout'}">
+        <li class="hver" (click)="activeLogOut(); toggle()" [ngClass]="{'active' : activeli === 'logout'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/inicio">
                 <span class="material-symbols-outlined">logout</span>
                 <a class="text-decoration-none d-block mx-2">Log Out</a>

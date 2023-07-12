@@ -1,19 +1,19 @@
 <div class="container">
-    <div class="row">
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <label for="" class="col-form-label">Periodo Activo</label>
+    <div class="contenedor-pactivo">
+        <div class="label-periodo-activo">
+            <label for="" class="">Periodo Activo</label>
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="input-periodo-activo">
             <ng-container *ngFor="let periodo of Periodos">
                 <ng-container *ngIf="periodo.Activo == '1'">
-                    <input type="text" readonly class="form-control-plaintext fs-5" [value]="periodo.Detalle">
+                    <input type="text" readonly class="form-control-plaintext contenedor-input fs-5" [value]="periodo.Detalle">
                 </ng-container>
             </ng-container>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="span-periodo-activo">
             <div class="d-flex justify-content-center">
                 <div class="align-items-center">
-                    <div class="mt-2 contenedor-editbtn">
+                    <div class="contenedor-editbtn">
                         <span class="material-symbols-outlined icon-size" (click)="toggleEditMenu()">edit</span>
                     </div>
                 </div>
@@ -21,14 +21,14 @@
         </div>
     </div>
     
-    <div class="animate-sublist" [ngStyle]="{'max-height': toggleCambioPeriodo ? '300px' : '0'}">
+    <div class="animate-body" [ngStyle]="{'max-height': toggleCambioPeriodo ? '300px' : '0'}">
         <hr>
         <p class="fw-bolder">Establezca el nuevo periodo activo</p>
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2 mb-2">
                 <span class="col-form-label">Periodos disponibles</span>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-10 mb-2">
                 <form [formGroup]="cambiar">
                     <ng-container *ngFor="let tipo of Periodos">
                         <ng-container *ngIf="tipo.Activo != '1'">
@@ -43,7 +43,7 @@
                 </form>
             </div>
             <div class="contenedor-btn">
-                <button class="btn btn-custom" (click)="cambiarPeriodo()" [disabled]="cambiar.invalid">Aplicar</button>
+                <button class="btn btn-custom" [ngClass]="cambiar.invalid ? 'btn-invalid': ''"  (click)="cambiarPeriodo()" [disabled]="cambiar.invalid">Aplicar</button>
             </div>
         </div>
     </div>

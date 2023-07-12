@@ -26,8 +26,8 @@ h3 {
 
 
 .card-padding {
-    margin-top: -30px;
-    padding: 2.5rem 1rem 1.5rem;
+    margin-top: -60px;
+    padding: 5rem 1rem 1.5rem;
 }
 
 
@@ -44,7 +44,7 @@ h3 {
 
 .centrar-logo {
     background: #1F295B;
-    padding: .3rem 6rem;
+    padding: .3rem 7.5rem;
     border: solid 1px #1F295B;
     border-radius: 10px;
     position: relative;
@@ -55,7 +55,14 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 10px;
+    margin: 0 1rem 10px;
+}
+
+.contenedor-item-btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: .5rem;
 }
 
 .item {
@@ -67,11 +74,12 @@ h3 {
 
 .alinear-creditos{
     position: fixed;
+    font-size: 12px;
     bottom: 0;
     width: 100%;
     text-align: center;
     padding: 10px 0;
-    color: #eee;
+    color: #c4c4c4;
 }
 
 hr.h-color {
