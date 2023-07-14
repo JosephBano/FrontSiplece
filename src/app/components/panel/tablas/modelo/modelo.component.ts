@@ -59,6 +59,7 @@ export class ModeloComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('modelo');
     this.loadModelos();
     this.loadInstituciones();

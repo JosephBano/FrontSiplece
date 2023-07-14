@@ -63,6 +63,7 @@ export class EvidenciaComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('evidencia');
     this.loadEvidencia();
     this.loadElementosFundamentales();

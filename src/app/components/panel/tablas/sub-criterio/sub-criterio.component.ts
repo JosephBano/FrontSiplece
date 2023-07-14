@@ -57,6 +57,7 @@ export class SubCriterioComponent {
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('subcriterio');
     this.loadSubCriterios();
     this.loadCriterios();

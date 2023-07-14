@@ -58,6 +58,7 @@ export class CriterioComponent {
   }
 
   ngOnInit(): void {
+    this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('criterio')
     this.loadCriterios();
     this.loadModelos();
