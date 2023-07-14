@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { ElementoFundamental } from 'src/app/models/elemento-fundamental.model';
+import { Evidencia } from '../../../../../../models/evidencia.model';
+import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 
 @Component({
   selector: 'app-modal-evidencias',
@@ -9,9 +12,12 @@ import { ToastrService } from 'ngx-toastr';
 export class ModalEvidenciasComponent implements OnInit{
 
   files: File[] = [];
+  @Input() elemento: any;
+  Evidencias: Evidencia[] = [];
 
   constructor(
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private evidenciaService: EvidenciaService,
   ) { }
 
   ngOnInit(): void {
@@ -29,5 +35,16 @@ export class ModalEvidenciasComponent implements OnInit{
   onUpload() {
     this.toastr.success("Archivos subidos con exito")
     this.files = []
+  }
+
+  openModal() {
+    this.evidenciaService.getEvidencia().subscribe(
+      (data) => {
+        this.Evidencias = data.filter( e => e.IdElemento == this.elemento);
+        console.log(data);
+        console.log(this.Evidencias);
+        
+      }
+    )
   }
 }

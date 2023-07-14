@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { Indicador } from '../../../../../models/indicador.model';
 import { DataService } from 'src/app/services/data.service';
+import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
+import { ElementoFundamental } from 'src/app/models/elemento-fundamental.model';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -11,6 +13,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class DetalleIndicadorComponent implements OnInit {
   indicador!: Indicador;
+  Elementos: ElementoFundamental[] = []; 
+
   strTituloIndicador = '';
   strTipoIndicador = '';
   
@@ -18,6 +22,7 @@ export class DetalleIndicadorComponent implements OnInit {
     private route: ActivatedRoute,
     private indicadorService: IndicadorService,
     private dataService: DataService,
+    private elementoService: ElementoFundamentalService,
   ) { }
    
 
@@ -26,7 +31,16 @@ export class DetalleIndicadorComponent implements OnInit {
     this.route.params.subscribe(params => {
       const indicadorID = params['id'];
       this.getIndicadorById(indicadorID);
+      this.loadElementosById(indicadorID);
     });
+  }
+
+  loadElementosById(id: any){    
+    this.elementoService.getElementoFundamental().subscribe(
+      (data) => {
+        this.Elementos = data.filter( e => e.IdIndicador == id);
+      }
+    )
   }
 
   getIndicadorById(id: string): void {

@@ -41,66 +41,21 @@
             <table class="table">
                 <thead class="table-secondary">
                   <tr>
-                    <th scope="col" class="wide-column-orden">Orden</th>
+                    <th scope="col" class="wide-column-orden text-center">Orden</th>
                     <th scope="col"  colspan="2" class="wide-column-descripcion">Descripción</th>
                     <th scope="col" class="wide-column-estado">Evidencia</th>
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td colspan="2" class="wide-column">La planificación estratégica es pertinente con la realidad del entorno institucional y, especialmente, con sus necesidades de transformación, en cuya satisfacción puede actuar la institución. Lo anterior debe reflejarse, apropiadamente, en el diagnóstico contenido en el PEDI.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-
-                  </tr>
-                  <tr class="table-success">
-                    <th scope="row">2</th>
-                    <td colspan="2" class="wide-column">La visión y los objetivos estratégicos del PEDI conforman una propuesta relevante de desarrollo académico de la institución en el más amplio sentido, cuyo logro reclama de la acción coherente, inteligente y esforzada de autoridades, profesores, trabajadores y estudiantes.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2" class="wide-column">El PEDI es coherente internamente, y se expresa; por ejemplo, en la correspondencia de la misión y visión institucionales con las conclusiones del diagnóstico interno y externo o, también, que el logro de los objetivos estratégicos planificados garantice alcanzar la visión, y así sucesivamente.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="row">4</th>
-                    <td colspan="2" class="wide-column">El PEDI orienta con claridad el desarrollo estratégico de las funciones sustantivas a través de la misión, visión y objetivos estratégicos. En el PEDI deben quedar establecidos los niveles de progreso anuales que se deben alcanzar en el cumplimiento de los objetivos estratégicos.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="row">5</th>
-                    <td colspan="2" class="wide-column">El POA debe construirse de manera articulada con el PEDI, a efectos de que su cumplimiento garantice que se alcancen los niveles de progreso previstos en el logro de los objetivos del PEDI para ese año. </td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="row">6</th>
-                    <td colspan="2" class="wide-column">El POA es la guía operativa del trabajo cotidiano de la institución y su cumplimiento se controla con la periodicidad establecida en la normativa citada, a efectos de tomar acciones correctivas. </td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-
+                  <ng-container *ngFor="let elemento of Elementos">
+                    <ng-container *ngIf="elemento.IdPonderacion == '1'">
+                      <tr>
+                        <th scope="row" class="text-center">{{elemento.Orden}}</th>
+                        <td scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
+                        <td class="text-center"><app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias></td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
                 </tbody>
             </table>
             
@@ -116,60 +71,15 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <tr class="table-success">
-                    <th scope="row">1</th>
-                    <td colspan="2" class="wide-column">Existe una normativa interna, aprobada y vigente, enmarcada en las normas nacionales, sobre el sistema de planificación que establece, al menos, los procedimientos para la elaboración, seguimiento, control y evaluación de la planificación, y la participación en ella de los diferentes actores. En caso de que la institución se gestione por procesos, el manual elaborado para normarlos, si cumple con las exigencias de este tipo de documento e incluye el ámbito de este indicador, equivale a la normativa que aquí se solicita.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td colspan="2" class="wide-column">La planificación estratégica ha sido construida con el aporte de actores relevantes del entorno y la participación de representantes de las dependencias institucionales, y de otros actores institucionales relevantes</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2" class="wide-column">El PEDI y/o el POA se actualizan cuando lo aconsejan las modificaciones ocurridas en las condiciones para su ejecución, se detectan claros errores en su elaboración o, como se indica al final de la Descripción, dar respuesta a nuevas exigencias en el ámbito de la calidad del desempeño institucional. Las modificaciones deben ser sustentadas, autorizadas y registradas, siguiendo el procedimiento establecido en la normativa interna sobre el sistema de planificación.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr class="table-success">
-                    <th scope="row">4</th>
-                    <td colspan="2" class="wide-column">El responsable institucional encargado puede explicar cómo está normado que funcione el sistema de planificación, cómo está funcionando, nivel de cumplimiento que se logra de las actividades del POA, dificultades en la aplicación del sistema y acciones correctivas al respecto.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="row">5</th>
-                    <td colspan="2" class="wide-column">Los responsables de cada área o dependencia institucional pueden explicar, sobre su área, el contenido de la planificación, sus fundamentos, cómo se está procediendo, el estado de su cumplimento, dificultades y deficiencias y acciones correctivas adoptadas. </td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="row">6</th>
-                    <td colspan="2" class="wide-column">En la web institucional está el PEDI y los POA que le corresponden hasta la fecha. Los integrantes de la comunidad educativa conocen la misión y visión institucionales, que se divulgan apropiadamente, y cuáles son las actividades del POA con las que ellos se relacionan por su rol en la institución y cómo marcha su cumplimiento.</td>
-                    
-                    <td class="text-center">
-                      <app-modal-evidencias></app-modal-evidencias>
-                    </td>
-                  </tr>
-
+                  <ng-container *ngFor="let elemento of Elementos">
+                    <ng-container *ngIf="elemento.IdPonderacion == '2'">
+                      <tr>
+                        <th scope="row" class="text-center">{{elemento.Orden}}</th>
+                        <td scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
+                        <td class="text-center"><app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias></td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
                 </tbody>
             </table>
   

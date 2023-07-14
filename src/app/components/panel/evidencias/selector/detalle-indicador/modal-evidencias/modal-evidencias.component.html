@@ -1,4 +1,4 @@
-<span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="openModal()">
     note_add
 </span>
 
@@ -17,21 +17,16 @@
               <label for="detalleEvidencias" class="fw-semibold">Evidencias</label>
               <div class="ml-1">                
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <p>PEDI aprobado y vigente durante el periodo de evaluación (captado a través del aplicativo SIIES)</p>
-                  </li>
-                  <li class="list-group-item">
-                    <p>Evidencias del control y evaluación del cumplimento del POA  (actas o informes de las acciones de control con sus resultados, informes de evaluación, actas de reuniones, etc.) (captadas a través del aplicativo SIIES).</p>
-                  </li>
-                  <li class="list-group-item">
-                    <p>Normativa interna sobre el sistema de planificación (captada a través del aplicativo SIIES).</p>
-                  </li>
+                  <ng-container *ngFor="let evidencia of Evidencias">
+                    <ng-container *ngIf="evidencia.Activo">
+                      <li class="list-group-item">
+                        <p>{{evidencia.Detalle}}</p>
+                      </li>
+                    </ng-container>
+                  </ng-container>
                 </ul>
               </div>
             </div>
-
-            
-            
             
             <div class="text-start">
               <label for="file" class="fw-semibold">Subir Evidencias</label>
