@@ -17,10 +17,14 @@ export class ModeloComponent implements OnInit{
   Instituciones: Institucion[] = [];
   Modelos: Modelo[] = [];
   Data: Modelo[] = [];
-
+  
   filter!: string;
   checkboxDeshabilitarValue: boolean = false;
+  currentYear!: string;  
   
+  moreSettings: boolean = false;
+  valueFilter: string = '0';
+  tablafilter!: FormGroup;
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -39,10 +43,13 @@ export class ModeloComponent implements OnInit{
     private dataService: DataService,
   )
   {
+    const currentDate = new Date();
+    this.currentYear = currentDate.getFullYear().toString();        
+
     this.agregar = this.fb.group({
       institucion: ['', [Validators.required]],
       detalle: ['', [Validators.required]],
-      anio: [''],
+      anio: [this.currentYear, [Validators.required]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
@@ -56,6 +63,10 @@ export class ModeloComponent implements OnInit{
       detalle: ['', [Validators.required]],
       anio: ['', [Validators.required]],
     })
+
+    this.tablafilter = this.fb.group({
+      filter: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -66,6 +77,16 @@ export class ModeloComponent implements OnInit{
   }
 
   //Otras funcionalidades
+
+  moreSettingsHandler(){
+    this.moreSettings = !this.moreSettings
+  }
+
+  OnChangeFilter() {
+    this.valueFilter = this.tablafilter.value.filter;
+    console.log(this.valueFilter);
+  }
+  
   loadModelos(): void {
     this.modeloService.getModelos().subscribe( data => {
       this.Modelos = data;

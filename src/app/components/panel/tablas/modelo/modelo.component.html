@@ -1,64 +1,120 @@
 <div class="contenedor-flotante">
-    <div class="row g-0 text-end mb-1">
-        <div class="col-md-8 col-sm-12">
-            <div class="form-group">
-                <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
-            </div>
+    <div class="text-end">
+        <div class="form-group buscador mb-2">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busqueda por nombre">
+            <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
+                <span class="material-symbols-outlined">filter_list</span>
+            </button>
         </div>
-        <div class="col-md-2 col-sm-6">
-            <div class="">
-                <div class="form-group mt-2">
-                    <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
-                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+        <div class="contenedor-options" [ngClass]="moreSettings ? 'contenedor-options_show' : 'contenedor-options_hidden'">
+                <div class="select-div">
+                    <div class="select-filter">
+                        <form [formGroup]="tablafilter" class="select-filter">
+                            <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
+                                <option value="" selected disabled>Filtrado por Institucion</option>
+                                <option value="0">Todas las Instituciones</option>
+                                <ng-container *ngFor="let filtro of Instituciones">
+                                    <option [value]="filtro.IdInstitucion">{{filtro.Detalle}}</option>
+                                </ng-container>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
+                        <span class="material-symbols-outlined">settings_backup_restore</span>
+                    </div>
+                </div>
+                
+            <div class="contenedor-botones">
+                <div class="contenedor-toggle">
+                    <span>Deshabilitados</span>
+                    <div class="contenedor-button_toggle">
+                        <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelets">
+                        <label for="TablaDelets" class="button-toggle"></label>
+                    </div>
+                </div>
+                <div class="btn-custom">
+                    <!--Boton Agregar-->
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalModelo">Agregar</button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2 col-sm-6 btn-custom">
-            <!--Boton Agregar-->
-            <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalModelo">Agregar</button>
         </div>
     </div>
 
     <!--Tabla de datos-->
-    <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col" width="25%">Institucion</th>
-                <th scope="col" width="10%" class="text-center">Año</th>
-                <th scope="col" width="10%" class="text-center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let modelo of Modelos | modelo:filter" >
-                <tr *ngIf="modelo.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                    <td>{{modelo.Detalle}}</td>
-                    <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
-                    <td class="text-center">{{modelo.Anio}}</td>
-                    <td>
-                        <div class="d-flex justify-content-evenly">
-                            <!--Boton Editar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalModelo" (click)="cargarDatosEditar(modelo)">edit</span>
-                            <!--Boton Eliminar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalModelo" (click)="cargarDatosEliminar(modelo)">delete</span>
-                        </div>
-                    </td>
+    <div class="table-wrapper">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" width="25%" class="text-center">Institucion</th>
+                    <th scope="col" width="10%" class="text-center">Año</th>
+                    <th scope="col" width="10%" class="text-center">Opciones</th>
                 </tr>
-                <ng-container *ngIf="checkboxDeshabilitarValue">             
-                    <tr *ngIf="modelo.Activo == '0'" class="table-danger">
-                        <td>{{modelo.Detalle}}</td>
-                        <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
-                        <td class="text-center">{{modelo.Anio}}</td>
-                        <td>
-                            <div class="d-flex justify-content-evenly">
-                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalModelo" (click)="cargarDatosEditar(modelo)">history</span>
-                            </div>
-                        </td>
-                    </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="valueFilter == '0'">
+                    <ng-container *ngFor="let modelo of Modelos | modelo:filter" >
+                        <tr *ngIf="modelo.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                            <td>{{modelo.Detalle}}</td>
+                            <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                            <td class="text-center">{{modelo.Anio}}</td>
+                            <td>
+                                <div class="d-flex justify-content-evenly">
+                                    <!--Boton Editar-->
+                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalModelo" (click)="cargarDatosEditar(modelo)">edit</span>
+                                    <!--Boton Eliminar-->
+                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalModelo" (click)="cargarDatosEliminar(modelo)">delete</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <ng-container *ngIf="checkboxDeshabilitarValue">             
+                            <tr *ngIf="modelo.Activo == '0'" class="table-danger">
+                                <td>{{modelo.Detalle}}</td>
+                                <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                                <td class="text-center">{{modelo.Anio}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalModelo" (click)="cargarDatosEditar(modelo)">history</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
-        </tbody>
-    </table>
+                <ng-container *ngIf="valueFilter != '0'">
+                    <ng-container *ngFor="let modelo of Modelos | modelo:filter" >
+                        <ng-container *ngIf="modelo.IdInstitucion == valueFilter">
+                            <tr *ngIf="modelo.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                                <td>{{modelo.Detalle}}</td>
+                                <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                                <td class="text-center">{{modelo.Anio}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <!--Boton Editar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalModelo" (click)="cargarDatosEditar(modelo)">edit</span>
+                                        <!--Boton Eliminar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalModelo" (click)="cargarDatosEliminar(modelo)">delete</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="checkboxDeshabilitarValue">             
+                                <tr *ngIf="modelo.Activo == '0'" class="table-danger">
+                                    <td>{{modelo.Detalle}}</td>
+                                    <td>{{getInstitucionName(modelo.IdInstitucion)}}</td>
+                                    <td class="text-center">{{modelo.Anio}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-evenly">
+                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalModelo" (click)="cargarDatosEditar(modelo)">history</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--Agregar Modal-->
@@ -72,14 +128,18 @@
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
 
+                <div class="container">
                 <form [formGroup]="agregar">
                     <div class="row mb-3">
-                        <select formControlName="institucion" class="form-control" >
-                            <option value="" selected disabled >Instituciones...</option>
-                            <ng-container *ngFor="let institucion of Instituciones">
-                                <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
-                            </ng-container>
-                        </select>
+                        <label for="" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <div class="col-sm-10">
+                            <select formControlName="institucion" class="form-control" >
+                                <option value="" selected disabled >Instituciones...</option>
+                                <ng-container *ngFor="let institucion of Instituciones">
+                                    <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
@@ -90,17 +150,20 @@
                     <div class="mb-3 row">
                         <label for="AnioAgregar" class="col-sm-2 col-form-label text-center">Año</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="AnioAgregar" formControlName="anio" placeholder="2023">
+                            <input type="number" class="form-control" formControlName="anio" maxlength="4" pattern="[0-9]*">
                         </div>
                     </div>
                 </form>
+            </div>
 
                 <!--Fin Contenido Modal-->
             </div>
             <!--Botones modal-->
             <div class="modal-footer">
                 <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarModelo()" [disabled]="agregar.invalid">Agregar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="agregarModelo()" [disabled]="agregar.invalid">Agregar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -117,15 +180,19 @@
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
 
+                <div class="container">
                 <form [formGroup]="editar">
                     <input type="text" class="d-none" readonly formControlName="id">
                     <div class="row mb-3">
-                        <select formControlName="institucion" class="form-control" >
-                            <option value="" selected disabled >Instituciones...</option>
-                            <ng-container *ngFor="let institucion of Instituciones">
-                                <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
-                            </ng-container>
-                        </select>
+                        <label for="" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <div class="col-sm-10">
+                            <select formControlName="institucion" class="form-control" >
+                                <option value="" selected disabled >Instituciones...</option>
+                                <ng-container *ngFor="let institucion of Instituciones">
+                                    <option *ngIf="institucion.Activo == '1'" [value]="institucion.IdInstitucion">{{institucion.Detalle}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
                     </div> 
                     <div class="mb-3 row text-end">
                         <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
@@ -141,12 +208,15 @@
                     </div>        
 
                 </form>
+                </div>
 
                 <!--Fin Contenido Modal-->
             </div>
             <div class="modal-footer">
                 <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="editarModelo()">Editar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="editarModelo()">Editar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -156,33 +226,33 @@
 <div class="modal fade" id="deleteModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Modelo</h1>
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Deshabilitar Modelo</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
 
-                <h3>Modelo</h3>
+                <h3 class="text-center fw-bolder">Modelo</h3>
 
                 <form [formGroup]="eliminar">
                     <input type="text" readonly class="d-none" id="IdInstitucionEditar" formControlName="id" value="id"> 
                     <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center fw-bolder">Nombre</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
                         </div>
                     </div>
                     <div class="mb-3 row text-end">
-                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center fw-bolder">Institucion</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="institucionModelo" formControlName="institucion" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="institucionModelo" formControlName="institucion" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
                         </div>
                     </div>
                     <div class="mb-3 row text-end">
-                        <label for="anioEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <label for="anioEditar" class="col-sm-2 col-form-label text-center fw-bolder">Siglas</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="anioEditar" formControlName="anio" placeholder="2023">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="anioEditar" formControlName="anio" placeholder="2023">
                         </div>
                     </div>        
                 </form>
@@ -210,26 +280,26 @@
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
 
-                <h3>Institucion</h3>
+                <h3 class="text-center fw-bolder">Modelo</h3>
 
                 <form [formGroup]="editar">
                     <input type="text" readonly class="d-none" id="IdInstitucionEditar" formControlName="id" value="id"> 
                     <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
+                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center fw-bolder">Nombre</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
                         </div>
                     </div>
                     <div class="mb-3 row text-end">
-                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center">Institucion</label>
+                        <label for="institucionModelo" class="col-sm-2 col-form-label text-center fw-bolder">Institucion</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="institucionModelo" formControlName="institucion" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="institucionModelo" formControlName="institucion">
                         </div>
                     </div>
                     <div class="mb-3 row text-end">
-                        <label for="anioEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
+                        <label for="anioEditar" class="col-sm-2 col-form-label text-center fw-bolder">Siglas</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="anioEditar" formControlName="anio" placeholder="2023">
+                            <input type="text" readonly class="form-control-plaintext text-center" id="anioEditar" formControlName="anio" placeholder="2023">
                         </div>
                     </div>       
                 </form>

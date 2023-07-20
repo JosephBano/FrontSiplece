@@ -41,7 +41,7 @@
 
         <!--Tablas Opcion-->
         <li class="hver" >
-            <div class="hver" routerLink="/panel/tablas" (click)="tablasToggleHandler()" [ngClass]="{'active' : activeli === 'tablas'}">
+            <div class="hver" routerLink="/panel/tablas" (click)="tablasToggleHandler(); toggle();" [ngClass]="{'active' : activeli === 'tablas'}">
                 <div class="d-flex px-3 py-2 align-items-center">
                     <span class="material-symbols-outlined">table_chart</span>
                     <a class="text-decoration-none d-block mx-2">Tablas</a>
