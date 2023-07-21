@@ -1,64 +1,120 @@
 <div class="contenedor-flotante">
-    <div class="row g-0 text-end mb-1">
-        <div class="col-md-8 col-sm-12">
-            <div class="form-group">
-                <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
-            </div>
+    <div class="text-end">
+        <div class="form-group buscador mb2">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
+            <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
+                <span class="material-symbols-outlined">filter_list</span>
+            </button>
         </div>
-        <div class="col-md-2 col-sm-6">
-            <div class="">
-                <div class="form-group mt-2">
-                    <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
-                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+        <div class="contenedor-options" [ngClass]="moreSettings ? 'contenedor-options_show' : 'contenedor-options_hidden'">
+            <div class="select-div">
+                <div class="select-filter">
+                    <form [formGroup]="tablafilter" class="select-filter">
+                        <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
+                            <option value="" selected disabled>Filtrado por Modelo</option>
+                            <option value="0">Todos los Modelos</option>
+                            <ng-container *ngFor="let filtro of Modelos">
+                                <option [value]="filtro.IdInstitucion">{{filtro.Detalle}}</option>
+                            </ng-container>
+                        </select>
+                    </form>
+                </div>
+                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
+                    <span class="material-symbols-outlined">settings_backup_restore</span>
                 </div>
             </div>
+            
+        <div class="contenedor-botones">
+            <div class="contenedor-toggle">
+                <span>Deshabilitados</span>
+                <div class="contenedor-button_toggle">
+                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelets">
+                    <label for="TablaDelets" class="button-toggle"></label>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 btn-custom">
+                <!--Boton Agregar-->
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalCriterio">Agregar</button>
+            </div>
         </div>
-        <div class="col-md-2 col-sm-6 btn-custom">
-            <!--Boton Agregar-->
-            <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalCriterio">Agregar</button>
         </div>
     </div>
 
     <!--Tabla de datos-->
-    <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col" width="25%">Modelo</th>
-                <th scope="col" width="10%" class="text-center">Orden</th>
-                <th scope="col" width="10%" class="text-center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let criterio of Criterios | criterio:filter" >
-                <tr *ngIf="criterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                    <td>{{criterio.Detalle}}</td>
-                    <td>{{getModeloName(criterio.IdModelo)}}</td>
-                    <td class="text-center">{{criterio.Orden}}</td>
-                    <td>
-                        <div class="d-flex justify-content-evenly">
-                            <!--Boton Editar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalCriterio" (click)="cargarDatosEditar(criterio)">edit</span>
-                            <!--Boton Eliminar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalCriterio" (click)="cargarDatosEliminar(criterio)">delete</span>
-                        </div>
-                    </td>
+    <div class="table-wrapper">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" width="25%">Modelo</th>
+                    <th scope="col" width="10%" class="text-center">Orden</th>
+                    <th scope="col" width="10%" class="text-center">Opciones</th>
                 </tr>
-                <ng-container *ngIf="checkboxDeshabilitarValue">             
-                    <tr *ngIf="criterio.Activo == '0'" class="table-danger">
-                        <td>{{criterio.Detalle}}</td>
-                        <td>{{getModeloName(criterio.IdModelo)}}</td>
-                        <td class="text-center">{{criterio.Orden}}</td>
-                        <td>
-                            <div class="d-flex justify-content-evenly">
-                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalCriterio" (click)="cargarDatosEditar(criterio)">history</span>
-                            </div>
-                        </td>
-                    </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="valueFilter == '0'">
+                    <ng-container *ngFor="let criterio of Criterios | criterio:filter" >
+                            <tr *ngIf="criterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                                <td>{{criterio.Detalle}}</td>
+                                <td>{{getModeloName(criterio.IdModelo)}}</td>
+                                <td class="text-center">{{criterio.Orden}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <!--Boton Editar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalCriterio" (click)="cargarDatosEditar(criterio)">edit</span>
+                                        <!--Boton Eliminar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalCriterio" (click)="cargarDatosEliminar(criterio)">delete</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="checkboxDeshabilitarValue">             
+                                <tr *ngIf="criterio.Activo == '0'" class="table-danger">
+                                    <td>{{criterio.Detalle}}</td>
+                                    <td>{{getModeloName(criterio.IdModelo)}}</td>
+                                    <td class="text-center">{{criterio.Orden}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-evenly">
+                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalCriterio" (click)="cargarDatosEditar(criterio)">history</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                        </ng-container>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
-        </tbody>
-    </table>
+                <ng-container *ngIf="valueFilter != '0'">
+                    <ng-container *ngFor="let criterio of Criterios | criterio:filter" >
+                        <ng-container *ngIf="criterio.IdModelo == valueFilter">
+                            <tr *ngIf="criterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                                <td>{{criterio.Detalle}}</td>
+                                <td>{{getModeloName(criterio.IdModelo)}}</td>
+                                <td class="text-center">{{criterio.Orden}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <!--Boton Editar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalCriterio" (click)="cargarDatosEditar(criterio)">edit</span>
+                                        <!--Boton Eliminar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalCriterio" (click)="cargarDatosEliminar(criterio)">delete</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="checkboxDeshabilitarValue">             
+                                <tr *ngIf="criterio.Activo == '0'" class="table-danger">
+                                    <td>{{criterio.Detalle}}</td>
+                                    <td>{{getModeloName(criterio.IdModelo)}}</td>
+                                    <td class="text-center">{{criterio.Orden}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-evenly">
+                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalCriterio" (click)="cargarDatosEditar(criterio)">history</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--Agregar Modal-->

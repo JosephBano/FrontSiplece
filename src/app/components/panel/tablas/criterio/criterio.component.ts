@@ -17,9 +17,13 @@ export class CriterioComponent {
   Criterios: Criterio[] = [];
   Modelos: Modelo[] = [];
   Data: Criterio[] = [];
+  
   filter!: string;
-
   checkboxDeshabilitarValue: boolean = false;
+
+  moreSettings: boolean = false;
+  valueFilter: string = '0';
+  tablafilter!: FormGroup;
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -55,6 +59,10 @@ export class CriterioComponent {
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
+
+    this.tablafilter = this.fb.group({
+      filter: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -65,6 +73,16 @@ export class CriterioComponent {
   }
 
   //Otras funcionalidades
+
+  moreSettingsHandler(){
+    this.moreSettings = !this.moreSettings
+  }
+
+  OnChangeFilter() {
+    this.valueFilter = this.tablafilter.value.filter;
+    console.log(this.valueFilter);
+  }
+  
   loadCriterios(): void {
     this.criterioService.getCriterios().subscribe( data => {
       this.Criterios = data;
