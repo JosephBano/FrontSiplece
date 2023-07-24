@@ -1,7 +1,7 @@
 <div class="contenedor-flotante">
     <div class="text-end">
         <div class="form-group buscador mb-2">
-            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
             <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
                 <span class="material-symbols-outlined">filter_list</span>
             </button>
@@ -9,7 +9,7 @@
         <div class="contenedor-options" [ngClass]="moreSettings ? 'contenedor-options_show' : 'contenedor-options_hidden'">
             <div class="select-div">
                 <div class="select-filter">
-                    <form [formGroup]="tablafilter" class="select-filter">
+                    <form [formGroup]="tablafilter">
                         <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
                             <option value="" selected disabled>Filtrado por Modelo</option>
                             <option value="0">Todos los Modelos</option>
@@ -28,11 +28,11 @@
             <div class="contenedor-toggle">
                 <span>Deshabilitados</span>
                 <div class="contenedor-button_toggle">
-                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelets">
-                    <label for="TablaDelets" class="button-toggle"></label>
+                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelete">
+                    <label for="TablaDelete" class="button-toggle"></label>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-6 btn-custom">
+            <div class="btn-custom">
                 <!--Boton Agregar-->
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalCriterio">Agregar</button>
             </div>

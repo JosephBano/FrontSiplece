@@ -9,7 +9,7 @@
         <div class="contenedor-options" [ngClass]="moreSettings ? 'contenedor-options_show' : 'contenedor-options_hidden'">
                 <div class="select-div">
                     <div class="select-filter">
-                        <form [formGroup]="tablafilter" class="select-filter">
+                        <form [formGroup]="tablafilter">
                             <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
                                 <option value="" selected disabled>Filtrado por Institucion</option>
                                 <option value="0">Todas las Instituciones</option>
