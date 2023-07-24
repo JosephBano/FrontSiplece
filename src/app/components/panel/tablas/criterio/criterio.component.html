@@ -1,6 +1,6 @@
 <div class="contenedor-flotante">
     <div class="text-end">
-        <div class="form-group buscador mb2">
+        <div class="form-group buscador mb-2">
             <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre o siglas">
             <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
                 <span class="material-symbols-outlined">filter_list</span>
@@ -14,7 +14,7 @@
                             <option value="" selected disabled>Filtrado por Modelo</option>
                             <option value="0">Todos los Modelos</option>
                             <ng-container *ngFor="let filtro of Modelos">
-                                <option [value]="filtro.IdInstitucion">{{filtro.Detalle}}</option>
+                                <option [value]="filtro.IdModelo">{{filtro.Detalle}}</option>
                             </ng-container>
                         </select>
                     </form>
@@ -83,7 +83,7 @@
                 </ng-container>
                 <ng-container *ngIf="valueFilter != '0'">
                     <ng-container *ngFor="let criterio of Criterios | criterio:filter" >
-                        <ng-container *ngIf="criterio.IdModelo == valueFilter">
+                        <ng-container *ngIf="criterio.IdModelo== valueFilter">
                             <tr *ngIf="criterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
                                 <td>{{criterio.Detalle}}</td>
                                 <td>{{getModeloName(criterio.IdModelo)}}</td>

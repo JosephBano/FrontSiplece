@@ -80,7 +80,6 @@ export class CriterioComponent {
 
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
-    console.log(this.valueFilter);
   }
   
   loadCriterios(): void {

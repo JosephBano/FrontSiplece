@@ -165,7 +165,7 @@
         transition: 0.1s;
         top: 50%;
         left: 50%;
-        transform: translate(-110%, -70%);
+        transform: translate(-110%, -69%);
   }
   
   input:checked + .button-toggle {
@@ -173,7 +173,7 @@
   }
   
   input:checked + .button-toggle::before {
-        transform: translate(0%, -70%);
+        transform: translate(0%, -69%);
   }
   
   .input-check {
@@ -182,10 +182,10 @@
   
   @media (max-width: 767px) {
         input:checked + .button-toggle::before {
-              transform: translate(0%, -69%);
+              transform: translate(0%, -70%);
         }
         .button-toggle::before {
-              transform: translate(-110%, -69%);
+              transform: translate(-110%, -70%);
         }
   }
   /*Toggle button fin*/
