@@ -47,13 +47,18 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos">
+                  <ng-container *ngFor="let elemento of Elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '1'">
-                      <tr>
+                      <tr (click)="selectedElement = (selectedElement === i ? null : i)">
                         <th scope="row" class="text-center">{{elemento.Orden}}</th>
                         <td scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
                         <td class="text-center"><app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias></td>
                       </tr>
+                      <ng-container *ngIf="selectedElement === i">
+                        <div class="contenido">
+                          <p>Aqui se agregara la informacion y estado de evidencias subidas</p>
+                        </div>
+                      </ng-container>
                     </ng-container>
                   </ng-container>
                 </tbody>
