@@ -21,10 +21,14 @@ export class IndicadoresComponent implements OnInit{
   SubCriterios: SubCriterio[] = [];
   TipoEvaluaciones: TipoEvaluacion[] = [];
   Valoraciones: Valoracion[] = [];
+  
   filter!: string;
-
   checkboxDeshabilitarValue: boolean = false;
   selectedTipos!: number;
+
+  moreSettings: boolean = false;
+  valueFilter: string = '0';
+  tablafilter!: FormGroup;
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -66,6 +70,10 @@ export class IndicadoresComponent implements OnInit{
       orden: ['', Validators.required],
       tipodel: ['', Validators.required],
     })
+
+    this.tablafilter = this.fb.group({
+      filter: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -78,6 +86,14 @@ export class IndicadoresComponent implements OnInit{
   }
 
   //Load Data
+  moreSettingsHandler(){
+    this.moreSettings = !this.moreSettings
+  }
+
+  OnChangeFilter() {
+    this.valueFilter = this.tablafilter.value.filter;
+  }
+  
   loadIndicadores(){
     this.indicadorService.getIndicador().subscribe(
       (data) => {
