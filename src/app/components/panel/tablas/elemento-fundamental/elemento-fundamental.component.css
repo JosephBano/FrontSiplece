@@ -3,15 +3,9 @@
     'FILL' 0,
     'wght' 300,
     'GRAD' 0,
-    'opsz' 48
-  }
-
-.material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' 0,
-    'opsz' 48
+    'opsz' 48;
+      cursor: pointer;
+      font-size: 30px;
 }
 
 .icon-size:hover {
@@ -21,24 +15,203 @@
       'GRAD' 0,
       'opsz' 48
 }
-  
-.icon-size {
-      cursor: pointer;
-      font-size: 30px;
-}
 
 .contenedor-flotante {
+      padding: 3rem;
       border-radius: 20px;
       background: #fff;
       padding: 1rem 1rem;
       box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
       -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
       -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
-  }
-  
-  .btn-custom button{
+}
+
+.contenedor-options_show {
+      visibility: visible;
+      opacity: 1;
+      max-height: 200px;
+      transition: visibility .1s, max-height .6s;
+}
+
+.contenedor-options_hidden {
+      visibility: hidden;
+      opacity: 0;
+      max-height: 0px;
+      transition: visibility 0s linear 0.3s, opacity 0.3s, max-height .6s;  
+}
+
+.contenedor-botones {
+      display: flex;
+}
+
+@media (max-width: 767px) {
+      .contenedor-botones {
+            width: 100%;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            margin: 3px 0;
+      }
+}
+
+/*Barra buscador*/
+.buscador {
+      display: flex;
+      width: 100%;
+      font-size: 30px;
+}
+
+.buscador button {
+      margin-left: 5px;
+      color: #fff;
+      border: none;
+      width: 40px;
+      border-radius: 5px;
+}
+
+.selected-button {
+      transition: ease-in 0.1s;
+      background: #3d51b4;
+      box-shadow: 0px -0px 10px -1px rgba(0,0,0,0.4) inset;
+      -webkit-box-shadow: 0px -0px 10px -1px rgba(0,0,0,0.4) inset;
+      -moz-box-shadow: 0px -0px 10px -1px rgba(0,0,0,0.4) inset;
+}
+
+.unselected-button {
+      transition: ease-in 0.1s;
+      background: #1F295B;
+}
+
+/*Select filter*/
+.contenedor-options{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin: .3rem 0;
+}
+
+.select-div {
+      display: flex;
+      width: 100%;
+}
+
+.select-filter {
+      margin: 0;
+      width: 100%;
+}
+
+.restore-filter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 37px;
+      border: none;
+      background: #1F295B;
+      border-radius: 5px;
+      margin-left: 3px;
+}
+
+.material-symbols-outlined {
+      margin: 0;
+}
+@media (max-width: 767px) {
+      .contenedor-options{
+            flex-direction: column;
+            justify-content: center;
+      }
+}
+
+.restore-filter span {
+      margin: 0;
+      color: #fff;
+      margin-left: 2px;
+}
+
+/*Toggle button inicio*/
+.contenedor-toggle {
+      display: flex;
+      align-items: center;
+      margin: .3px;
+      padding: 0 1rem;
+}
+
+.contenedor-toggle span {
+      font-size: 12px;
+      margin: 0 5px;
+}
+
+.contenedor-button_toggle {
+      margin-top: 5px;
+      position: relative;
+}
+
+.button-toggle {
+      background-color: #d2d2d2;
+      width: 40px;
+      height: 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.2s;
+}
+
+.button-toggle::before {
+      position: absolute;
+      content: '';
+      background-color: #fff;
+      width: 18px;
+      height: 18px;
+      border-radius: 200px;
+      margin: 1px;
+      transition: 0.1s;
+      top: 50%;
+      left: 50%;
+      transform: translate(-110%, -70%);
+}
+
+input:checked + .button-toggle {
+      background-color: #1F295B;
+}
+
+input:checked + .button-toggle::before {
+      transform: translate(0%, -70%);
+}
+
+.input-check {
+      display: none;
+}
+
+@media (max-width: 767px) {
+      input:checked + .button-toggle::before {
+            transform: translate(0%, -69%);
+      }
+      .button-toggle::before {
+            transform: translate(-110%, -69%);
+      }
+}
+/*Toggle button fin*/
+
+/*Agregar button*/
+.btn-custom button{
       padding: .3rem 1rem;
       background: #1F295B;
       color: #fff;
       border: solid 1px #1F295B;
-  } 
+} 
+
+/*Inicio Estilos tabla*/
+
+tr th{
+      background: #eee;
+}
+
+table, tr, th {
+      border: 1px solid #eee;
+}
+
+@media (max-width:454px) {
+      .table-wrapper {
+            overflow-y: scroll;
+            overflow-x: scroll;
+      }
+  }
+/*Fin Estilos tabla*/

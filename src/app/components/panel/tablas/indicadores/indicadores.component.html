@@ -31,7 +31,7 @@
                         <label for="TablaDelete" class="button-toggle"></label> 
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 btn-custom">
+                <div class="btn-custom">
                     <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalIndicador">Agregar</button>
                 </div>
             </div>
@@ -39,54 +39,21 @@
     </div>
 
     <!--Tabla de datos-->
-    <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col" width="20%">Sub-Criterio</th>
-                <th scope="col" width="5%" class="text-center">Orden</th>
-                <th scope="col" width="10%" class="text-center">Tipo</th>
-                <th scope="col" width="5%" class="text-center">Valoración</th>
-                <th scope="col" width="10%" class="text-center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngIf="valueFilter == '0'">
-                <ng-container *ngFor="let indicador of Indicadores | indicador:filter">
-                    <tr *ngIf="indicador.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                        <td>{{indicador.Detalle}}</td>
-                        <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
-                        <td>{{indicador.Orden}}</td>
-                        <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
-                        <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
-                        <td>
-                            <div class="d-flex justify-content-evenly">
-                                <!--Boton Editar-->
-                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalIndicador" (click)="setPreEditar(indicador)">edit</span>
-                                <!--Boton Eliminar-->
-                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalIndicador" (click)="setPreEliminar(indicador)">delete</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <ng-container *ngIf="checkboxDeshabilitarValue">
-                        <tr *ngIf="indicador.Activo == '0'" class="table-danger">
-                            <td>{{indicador.Detalle}}</td>
-                            <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
-                            <td>{{indicador.Orden}}</td>
-                            <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
-                            <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
-                            <td>
-                                <div class="d-flex justify-content-evenly">
-                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalIndicador" (click)="setPreEditar(indicador)">history</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-container>
-                </ng-container>
-            </ng-container>
-            <ng-container *ngIf="valueFilter != '0'">
-                <ng-container *ngFor="let indicador of Indicadores | indicador:filter">
-                    <ng-container *ngIf="indicador.IdSubCriterio == valueFilter">
+    <div class="table-wrapper">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" width="20%">Sub-Criterio</th>
+                    <th scope="col" width="5%" class="text-center">Orden</th>
+                    <th scope="col" width="10%" class="text-center">Tipo</th>
+                    <th scope="col" width="5%" class="text-center">Valoración</th>
+                    <th scope="col" width="10%" class="text-center">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="valueFilter == '0'">
+                    <ng-container *ngFor="let indicador of Indicadores | indicador:filter">
                         <tr *ngIf="indicador.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
                             <td>{{indicador.Detalle}}</td>
                             <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
@@ -118,9 +85,44 @@
                         </ng-container>
                     </ng-container>
                 </ng-container>
-            </ng-container>
-        </tbody>
-    </table>
+                <ng-container *ngIf="valueFilter != '0'">
+                    <ng-container *ngFor="let indicador of Indicadores | indicador:filter">
+                        <ng-container *ngIf="indicador.IdSubCriterio == valueFilter">
+                            <tr *ngIf="indicador.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                                <td>{{indicador.Detalle}}</td>
+                                <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
+                                <td>{{indicador.Orden}}</td>
+                                <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
+                                <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <!--Boton Editar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalIndicador" (click)="setPreEditar(indicador)">edit</span>
+                                        <!--Boton Eliminar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalIndicador" (click)="setPreEliminar(indicador)">delete</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="checkboxDeshabilitarValue">
+                                <tr *ngIf="indicador.Activo == '0'" class="table-danger">
+                                    <td>{{indicador.Detalle}}</td>
+                                    <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
+                                    <td>{{indicador.Orden}}</td>
+                                    <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
+                                    <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-evenly">
+                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalIndicador" (click)="setPreEditar(indicador)">history</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--Agregar Modal-->
