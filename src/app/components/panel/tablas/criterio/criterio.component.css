@@ -42,3 +42,9 @@
       color: #fff;
       border: solid 1px #1F295B;
 } 
+
+.btn-primary{
+      background-color: #1F295B;
+      color: white;
+      border: #1F295B;
+}
