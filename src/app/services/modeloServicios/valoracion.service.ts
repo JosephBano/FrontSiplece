@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Valoracion } from 'src/app/models/valoracion.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValoracionService {
-  private readonly API_URL = 'https://localhost:7094/api/Valoracion'; 
+  private readonly API_URL = environment.URL_BACKEND_VALORACION; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

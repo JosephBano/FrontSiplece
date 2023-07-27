@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Institucion } from '../../models/institucion.model';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InstitucionesService {
-  private readonly API_URL = 'https://localhost:7094/api/Institucion'; 
+  private readonly API_URL = environment.URL_BACKEND_INSTITUCIONES; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

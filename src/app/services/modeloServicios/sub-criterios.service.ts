@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubCriterio } from '../../models/subCriterio.model';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubCriteriosService {
 
-  private readonly API_URL = 'https://localhost:7094/api/SubCriterio'; 
+  private readonly API_URL = environment.URL_BACKEND_SUBCRITERIO; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

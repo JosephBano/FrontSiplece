@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Indicador } from '../../models/indicador.model';
 import { Observable, catchError, of } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IndicadorService {
 
-  private readonly API_URL = 'https://localhost:7094/api/Indicador'; 
+  private readonly API_URL = environment.URL_BACKEND_INDICADOR; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

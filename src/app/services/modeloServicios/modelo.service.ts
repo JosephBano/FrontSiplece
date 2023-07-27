@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Modelo } from '../../models/modelo.model';
 import { Observable, map } from 'rxjs';
-import { UpdateService } from '../update-service.service';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModeloService {
-  private readonly API_URL = 'https://localhost:7094/api/Modelo'; 
+  private readonly API_URL = environment.URL_BACKEND_MODELO; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
