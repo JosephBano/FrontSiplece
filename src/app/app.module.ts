@@ -52,6 +52,7 @@ import { PeriodoComponent } from './components/panel/parametros/periodo/periodo.
 import { PonderacionComponent } from './components/panel/parametros/ponderacion/ponderacion.component';
 import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-evaluacion/tipo-evaluacion.component';
 import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
+import { ContenedorComponent } from './components/panel/tablas/menu-tablas/contenedor/contenedor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,6 +89,7 @@ import { ConfiguracionComponent } from './components/panel/configuracion/configu
     PonderacionComponent,
     TipoEvaluacionComponent,
     ConfiguracionComponent,
+    ContenedorComponent,
   ],
   imports: [
     BrowserModule,
