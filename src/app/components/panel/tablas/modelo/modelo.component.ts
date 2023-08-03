@@ -7,13 +7,14 @@ import { InstitucionesService } from 'src/app/services/modeloServicios/instituci
 import { Institucion } from 'src/app/models/institucion.model';
 import { DataService } from 'src/app/services/data.service';
 
+
 @Component({
   selector: 'app-modelo',
   templateUrl: './modelo.component.html',
   styleUrls: ['./modelo.component.css']
 })
 export class ModeloComponent implements OnInit{
-
+  
   Instituciones: Institucion[] = [];
   Modelos: Modelo[] = [];
   Data: Modelo[] = [];
@@ -34,6 +35,7 @@ export class ModeloComponent implements OnInit{
   agregar!: FormGroup;
   editar!: FormGroup;
   eliminar!: FormGroup;
+ 
 
   constructor(
     private fb: FormBuilder,
@@ -85,6 +87,10 @@ export class ModeloComponent implements OnInit{
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
     console.log(this.valueFilter);
+    
+  }
+  Activo(filtro: any): boolean {
+    return filtro.Activo === 1;
   }
   
   loadModelos(): void {

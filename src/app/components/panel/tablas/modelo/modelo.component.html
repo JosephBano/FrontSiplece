@@ -14,7 +14,7 @@
                                 <option value="" selected disabled>Filtrado por Institucion</option>
                                 <option value="0">Todas las Instituciones</option>
                                 <ng-container *ngFor="let filtro of Instituciones">
-                                    <option [value]="filtro.IdInstitucion">{{filtro.Detalle}}</option>
+                                    <option [value]="filtro.IdInstitucion" *ngIf="Activo(filtro)">{{filtro.Detalle}}</option>
                                 </ng-container>
                             </select>
                         </form>

@@ -7,7 +7,7 @@
         cursor: pointer;
         font-size: 30px;
   }
-  
+ 
   .icon-size:hover {
         font-variation-settings:
         'FILL' 0,
@@ -15,8 +15,7 @@
         'GRAD' 0,
         'opsz' 48
   }
-  
-  .contenedor-flotante {
+ .contenedor-flotante {
         padding: 3rem;
         border-radius: 20px;
         background: #fff;
@@ -25,7 +24,15 @@
         -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
         -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
   }
-  
+
+/*clase boostrap*/
+.btn-primary{
+      background-color: #1F295B;
+      color: white;
+      border: #1F295B;
+}
+/**/
+ 
   .contenedor-options_show {
         visibility: visible;
         opacity: 1;
