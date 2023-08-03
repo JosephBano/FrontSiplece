@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Criterio } from 'src/app/models/criterio.model';
@@ -6,13 +6,15 @@ import { Modelo } from 'src/app/models/modelo.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { DataService } from '../../../../services/data.service';
+import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criterio',
   templateUrl: './criterio.component.html',
   styleUrls: ['./criterio.component.css']
 })
-export class CriterioComponent {
+export class CriterioComponent implements OnInit{
 
   Criterios: Criterio[] = [];
   Modelos: Modelo[] = [];
@@ -36,6 +38,8 @@ export class CriterioComponent {
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
+    private router: Router,
     private toastr: ToastrService,
     private modeloService: ModeloService,
     private criterioService: CriteriosService,
@@ -68,11 +72,30 @@ export class CriterioComponent {
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('criterio')
+    this.InitFiltro();
     this.loadCriterios();
     this.loadModelos();
   }
 
   //Otras funcionalidades
+
+  InitFiltro(){
+    this.fd.actualizarFiltroDefault('criterio');
+    this.fd.getFiltro('criterio').subscribe(
+      (data) => {
+        if (data) {
+          this.tablafilter.get('filter')?.setValue(data);
+          this.valueFilter = data;
+        }
+      }
+    )
+  }
+
+  navegarFiltro(id: string | undefined) {
+    const value = id ?? '';
+    this.fd.actualizarFiltro('subcriterio', value);
+    this.router.navigate(['/panel/tablas/subcriterio'])
+  }
 
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings

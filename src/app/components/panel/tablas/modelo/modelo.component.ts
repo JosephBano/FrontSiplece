@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
 import { Institucion } from 'src/app/models/institucion.model';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { FilterDataService } from 'src/app/services/filter-data.service';
 
 
 @Component({
@@ -39,7 +41,9 @@ export class ModeloComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
     private toastr: ToastrService,
+    private route: Router,
     private modeloService: ModeloService,
     private institucionService: InstitucionesService,
     private dataService: DataService,
@@ -79,6 +83,12 @@ export class ModeloComponent implements OnInit{
   }
 
   //Otras funcionalidades
+
+  navegarFiltro(id: string | undefined) {
+    const value = id ?? '';
+    this.fd.actualizarFiltro('criterio', value);
+    this.route.navigate(['/panel/tablas/criterio'])
+  }
 
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings

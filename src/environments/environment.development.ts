@@ -1,4 +1,3 @@
-import { Institucion } from '../app/models/institucion.model';
 export const environment = {
     URL_BACKEND: 'https://localhost:7094/api',
     URL_BACKEND_INSTITUCIONES: 'https://localhost:7094/api/Institucion',

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SubCriterio } from '../../../../models/subCriterio.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -6,13 +6,15 @@ import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criter
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { Criterio } from 'src/app/models/criterio.model';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { FilterDataService } from 'src/app/services/filter-data.service';
 
 @Component({
   selector: 'app-sub-criterio',
   templateUrl: './sub-criterio.component.html',
   styleUrls: ['./sub-criterio.component.css']
 })
-export class SubCriterioComponent {
+export class SubCriterioComponent implements OnInit{
 
   SubCriterios: SubCriterio[] = [];
   Criterios: Criterio[] = [];
@@ -35,6 +37,8 @@ export class SubCriterioComponent {
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
+    private router: Router,
     private toastr: ToastrService,
     private subcriterioService: SubCriteriosService,
     private criterioService: CriteriosService,
@@ -67,11 +71,31 @@ export class SubCriterioComponent {
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('subcriterio');
+    this.InitFiltro();
     this.loadSubCriterios();
     this.loadCriterios();
   }
 
   //Otras funcionalidades
+
+  InitFiltro(){
+    this.fd.actualizarFiltroDefault('subcriterio');
+    this.fd.getFiltro('subcriterio').subscribe(
+      (data) => {
+        if (data) {
+          this.tablafilter.get('filter')?.setValue(data);
+          this.valueFilter = data;
+        }
+      }
+    )
+  }
+
+  navegarFiltro(id: string | undefined) {
+    const value = id ?? '';
+    this.fd.actualizarFiltro('indicador', value);
+    this.router.navigate(['/panel/tablas/indicador'])
+  }
+
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings
   }
