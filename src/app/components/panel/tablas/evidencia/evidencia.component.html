@@ -1,67 +1,124 @@
 <div class="contenedor-flotante">
-    <div class="row g-0 text-end mb-1">
-        <div class="col-md-8 col-sm-12">
-            <div class="form-group">
-                <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
-            </div>
+    <div class="text-end">
+        <div class="form-group buscador mb-2">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+            <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
+                <span class="material-symbols-outlined">filter_list</span>
+            </button>
         </div>
-        <div class="col-md-2 col-sm-6">
-            <div class="">
-                <div class="form-group mt-2">
-                    <label for="TablaDelets" class="form-check-label">Deshabilitados</label>
-                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="form-check-input" value="" id="TablaDelets">
+        <div class="contenedor-options"[ngClass]="moreSettings ? 'contenedor-options_show': 'contenedor-options_hidden'">
+            <div class="select-div">
+                <div class="select-filter">
+                    <form [formGroup]="tablafilter" class="select-filter">
+                        <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
+                            <option value="" selected disabled>Filtrado por Elemento Fundamental</option>
+                            <option value="0">Todos los Elementos Fundamentales</option>
+                            <ng-container *ngFor="let filtro of Elementos">
+                                <option [value]="filtro.IdElemento">{{filtro.Detalle}}</option>
+                            </ng-container>
+                        </select>
+                    </form>
+                </div>
+                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
+                    <span class="material-symbols-outlined">settings_backup_restore</span>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2 col-sm-6 btn-custom">
-            <!--Boton Agregar-->
-            <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalEvidencia">Agregar</button>
+            <div class="contenedor-botones">
+                <div class="contenedor-toggle">
+                    <span>Desabilitados</span>
+                    <div class="contenedor-button_toggle">
+                        <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelete">
+                        <label for="TablaDelete" class="button-toggle"></label> 
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 btn-custom">
+                    <!--Boton Agregar-->
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalEvidencia">Agregar</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!--Tabla de datos-->
-    <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col" width="25%">Descripción</th>
-                <th scope="col" width="30%">ElementoFundamental</th>
-                <th scope="col" width="10%" class="text-center">Periodo</th>
-                <th scope="col" width="5%" class="text-center">Orden</th>
-                <th scope="col" width="10%" class="text-center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let evidencia of Evidencias | evidencia:filter">
-                <tr *ngIf="evidencia.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                    <td>{{evidencia.Detalle}}</td>
-                    <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
-                    <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
-                    <td>{{evidencia.Orden}}</td>
-                    <td>
-                        <div class="d-flex justify-content-evenly">
-                            <!--Boton Editar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalEvidencia" (click)="setPreEditar(evidencia)">edit</span>
-                            <!--Boton Eliminar-->
-                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalEvidencia" (click)="setPreEliminar(evidencia)">delete</span>
-                        </div>
-                    </td>
+    <div class="table-wrapper">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" width="25%">Descripción</th>
+                    <th scope="col" width="30%">ElementoFundamental</th>
+                    <th scope="col" width="10%" class="text-center">Periodo</th>
+                    <th scope="col" width="5%" class="text-center">Orden</th>
+                    <th scope="col" width="10%" class="text-center">Opciones</th>
                 </tr>
-                <ng-container *ngIf="checkboxDeshabilitarValue">
-                    <tr *ngIf="evidencia.Activo == '0'" class="table-danger">
-                        <td>{{evidencia.Detalle}}</td>
-                        <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
-                        <td class="text-center">{{getDetallePeriodo(evidencia.IdEvidencia)}}</td>
-                        <td>{{evidencia.Orden}}</td>
-                        <td>
-                            <div class="d-flex justify-content-evenly">
-                                <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalEvidencia" (click)="setPreRestablecer(evidencia)">history</span>
-                            </div>
-                        </td>
-                    </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="valueFilter == '0'">
+                    <ng-container *ngFor="let evidencia of Evidencias | evidencia:filter">
+                        <tr *ngIf="evidencia.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                            <td>{{evidencia.Detalle}}</td>
+                            <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                            <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
+                            <td>{{evidencia.Orden}}</td>
+                            <td>
+                                <div class="d-flex justify-content-evenly">
+                                    <!--Boton Editar-->
+                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalEvidencia" (click)="setPreEditar(evidencia)">edit</span>
+                                    <!--Boton Eliminar-->
+                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalEvidencia" (click)="setPreEliminar(evidencia)">delete</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <ng-container *ngIf="checkboxDeshabilitarValue">
+                            <tr *ngIf="evidencia.Activo == '0'" class="table-danger">
+                                <td>{{evidencia.Detalle}}</td>
+                                <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                                <td class="text-center">{{getDetallePeriodo(evidencia.IdEvidencia)}}</td>
+                                <td>{{evidencia.Orden}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalEvidencia" (click)="setPreRestablecer(evidencia)">history</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
-        </tbody>
-    </table>
+                <ng-container *ngIf="valueFilter != '0'">
+                    <ng-container *ngFor="let evidencia of Evidencias | evidencia:filter">
+                        <ng-container *ngIf="evidencia.IdElemento == valueFilter">
+                            <tr *ngIf="evidencia.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
+                                <td>{{evidencia.Detalle}}</td>
+                                <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                                <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
+                                <td>{{evidencia.Orden}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <!--Boton Editar-->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalEvidencia" (click)="setPreEditar(evidencia)">edit</span>
+                                        <!--Boton Eliminar-->
+                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalEvidencia" (click)="setPreEliminar(evidencia)">delete</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="checkboxDeshabilitarValue">
+                                <tr *ngIf="evidencia.Activo == '0'" class="table-danger">
+                                    <td>{{evidencia.Detalle}}</td>
+                                    <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
+                                    <td class="text-center">{{getDetallePeriodo(evidencia.IdEvidencia)}}</td>
+                                    <td>{{evidencia.Orden}}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-evenly">
+                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalEvidencia" (click)="setPreRestablecer(evidencia)">history</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--Agregar Modal-->

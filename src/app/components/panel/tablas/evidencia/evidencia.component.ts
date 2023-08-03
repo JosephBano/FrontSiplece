@@ -18,10 +18,14 @@ export class EvidenciaComponent implements OnInit{
   Evidencias: Evidencia[] = [];
   Elementos: ElementoFundamental[] = [];
   Periodos: Periodo[] = [];
+  
   filter!: string;
-
   checkboxDeshabilitarValue: boolean = false;
   restablecerEvidenciaAux!: Evidencia;
+
+  moreSettings: boolean = false;
+  valueFilter: string = '0';
+  tablafilter!: FormGroup;
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -60,6 +64,10 @@ export class EvidenciaComponent implements OnInit{
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
     })
+
+    this.tablafilter = this.fb.group({
+      filter: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -71,6 +79,14 @@ export class EvidenciaComponent implements OnInit{
   }
 
   //Load Data
+  moreSettingsHandler(){
+    this.moreSettings = !this.moreSettings
+  }
+
+  OnChangeFilter() {
+    this.valueFilter = this.tablafilter.value.filter;
+  }
+
   loadEvidencia(){
     this.evidenciaService.getEvidencia().subscribe(
       (data) => {

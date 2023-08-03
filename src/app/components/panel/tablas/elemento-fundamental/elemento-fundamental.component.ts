@@ -18,10 +18,14 @@ export class ElementoFundamentalComponent implements OnInit{
   Elementos: ElementoFundamental[] = [];
   Indicadores: Indicador[] = [];
   Ponderaciones: Ponderacion[] = [];
+  
   filter!: string;
-
   checkboxDeshabilitarValue: boolean = false;
   restablecerElementoAux!: ElementoFundamental;
+
+  moreSettings: boolean = false;
+  valueFilter: string = '0';
+  tablafilter!: FormGroup;
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
@@ -60,6 +64,10 @@ export class ElementoFundamentalComponent implements OnInit{
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
     })
+
+    this.tablafilter = this.fb.group({
+      filter: [''],
+    })
   }
 
   ngOnInit(): void {
@@ -71,6 +79,14 @@ export class ElementoFundamentalComponent implements OnInit{
   }
 
   //Load Data
+  moreSettingsHandler(){
+    this.moreSettings = !this.moreSettings
+  }
+
+  OnChangeFilter() {
+    this.valueFilter = this.tablafilter.value.filter;
+  }
+  
   loadIndicadores(){
     this.indicadorService.getIndicador().subscribe(
       (data) => {

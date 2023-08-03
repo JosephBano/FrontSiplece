@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Periodo } from 'src/app/models/periodo.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeriodoService {
 
-  private readonly API_URL = 'https://localhost:7094/api/Periodo'; 
+  private readonly API_URL = environment.URL_BACKEND_PERIODO; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

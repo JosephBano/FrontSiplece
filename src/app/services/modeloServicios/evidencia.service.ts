@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evidencia } from 'src/app/models/evidencia.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvidenciaService {
 
-  private readonly API_URL = 'https://localhost:7094/api/Evidencia'; 
+  private readonly API_URL = environment.URL_BACKEND_EVIDENCIA; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

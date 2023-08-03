@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TipoEvaluacion } from 'src/app/models/tipo-evaluacion.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoEvaluacionService {
 
-  private readonly API_URL = 'https://localhost:7094/api/TipoEvaluacion'; 
+  private readonly API_URL = environment.URL_BACKEND_TIPOEVALUACION; 
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

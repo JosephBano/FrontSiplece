@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Criterio } from '../../models/criterio.model';
 import { Modelo } from 'src/app/models/modelo.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CriteriosService {
 
-  private readonly API_URL = 'https://localhost:7094/api/Criterio'; 
+  private readonly API_URL = environment.URL_BACKEND_CRITERIO; 
   
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
