@@ -17,6 +17,7 @@
 }
 
 .contenedor-flotante {
+      max-height: 890px;
       padding: 3rem;
       border-radius: 20px;
       background: #fff;
@@ -24,6 +25,11 @@
       box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
       -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
       -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+.table-wrapper {
+      max-height: 720px;
+      overflow-y: auto;
 }
 
 .contenedor-options_show {
@@ -45,11 +51,23 @@
 }
 
 @media (max-width: 767px) {
+      .contenedor-flotante{
+            max-height: 720px;
+      }
+      .table-wrapper {
+            max-height: 640px;
+      }
       .contenedor-botones {
             width: 100%;
             justify-content: space-between;
             flex-direction: row-reverse;
             margin: 3px 0;
+      }
+}
+
+@media (max-width: 420px) {
+      .table-wrapper {
+            max-height: 450px;
       }
 }
 
@@ -210,7 +228,6 @@ table, tr, th {
 
 @media (max-width:767px) {
       .table-wrapper {
-            overflow-y: scroll;
             overflow-x: scroll;
       }
   }
