@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row">
         <ng-container *ngFor="let contenedor of Contenedores">
-            <app-contenedor [url]="contenedor.url" [titulo]="contenedor.titulo" [icono]="contenedor.icono"></app-contenedor>
+            <div class="col-lg-8 offset-lg-2">    
+                <app-contenedor [url]="contenedor.url" [titulo]="contenedor.titulo" [icono]="contenedor.icono"></app-contenedor>
+            </div>
         </ng-container>
     </div>
 </div>
