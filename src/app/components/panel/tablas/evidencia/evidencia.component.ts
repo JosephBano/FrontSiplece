@@ -8,6 +8,8 @@ import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.ser
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { PeriodoService } from 'src/app/services/modeloServicios/periodo.service';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { FilterDataService } from 'src/app/services/filter-data.service';
 
 @Component({
   selector: 'app-evidencia',
@@ -38,6 +40,8 @@ export class EvidenciaComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
+    private router: Router,
     private toastr: ToastrService,
     private evidenciaService: EvidenciaService,
     private elementoService: ElementoFundamentalService,
@@ -73,12 +77,25 @@ export class EvidenciaComponent implements OnInit{
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('evidencia');
+    this.InitFiltro();
     this.loadEvidencia();
     this.loadElementosFundamentales();
     this.loadPeriodos();
   }
 
   //Load Data
+  InitFiltro(){
+    this.fd.actualizarFiltroDefault('evidencia');
+    this.fd.getFiltro('evidencia').subscribe(
+      (data) => {
+        if (data) {
+          this.tablafilter.get('filter')?.setValue(data);
+          this.valueFilter = data;
+        }
+      }
+    )
+  }
+
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings
   }

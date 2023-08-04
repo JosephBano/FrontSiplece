@@ -43,9 +43,9 @@ export class IndicadoresComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private toastr: ToastrService,
     private fd: FilterDataService,
     private router: Router,
+    private toastr: ToastrService,
     private indicadorService: IndicadorService,
     private subcriterioService: SubCriteriosService,
     private tipoService: TipoEvaluacionService,
@@ -83,6 +83,7 @@ export class IndicadoresComponent implements OnInit{
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('indicador');
+    this.InitFiltro();
     this.loadIndicadores();
     this.loadSubCriterios();
     this.loadTipoEvaluaciones();
@@ -91,8 +92,8 @@ export class IndicadoresComponent implements OnInit{
 
   //Load Data
   InitFiltro(){
-    this.fd.actualizarFiltroDefault('subcriterio');
-    this.fd.getFiltro('subcriterio').subscribe(
+    this.fd.actualizarFiltroDefault('indicador');
+    this.fd.getFiltro('indicador').subscribe(
       (data) => {
         if (data) {
           this.tablafilter.get('filter')?.setValue(data);
@@ -104,8 +105,8 @@ export class IndicadoresComponent implements OnInit{
 
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
-    this.fd.actualizarFiltro('indicador', value);
-    this.router.navigate(['/panel/tablas/indicador'])
+    this.fd.actualizarFiltro('elemento', value);
+    this.router.navigate(['/panel/tablas/elementos'])
   }
 
   moreSettingsHandler(){

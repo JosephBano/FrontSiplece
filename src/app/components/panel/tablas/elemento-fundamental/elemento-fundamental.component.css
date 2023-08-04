@@ -208,7 +208,7 @@ table, tr, th {
       border: 1px solid #eee;
 }
 
-@media (max-width:454px) {
+@media (max-width:767px) {
       .table-wrapper {
             overflow-y: scroll;
             overflow-x: scroll;
