@@ -25,13 +25,7 @@
         -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
   }
 
-/*clase boostrap*/
-.btn-primary{
-      background-color: #1F295B;
-      color: white;
-      border: #1F295B;
-}
-/**/
+
  
   .contenedor-options_show {
         visibility: visible;

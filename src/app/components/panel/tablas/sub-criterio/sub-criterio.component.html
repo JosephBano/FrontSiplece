@@ -154,7 +154,9 @@
             <!--Botones modal-->
             <div class="modal-footer">
                 <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarSubCriterio()" [disabled]="agregar.invalid">Agregar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="agregarSubCriterio()" [disabled]="agregar.invalid">Agregar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -203,7 +205,10 @@
             </div>
             <div class="modal-footer">
                 <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="editarSubCriterio()">Editar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="editarSubCriterio()">Editar</button>
+                </div>
+                
             </div>
         </div>
     </div>

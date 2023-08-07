@@ -187,7 +187,9 @@
             <!--Botones modal-->
             <div class="modal-footer">
                 <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarIndicador()" [disabled]="agregar.invalid">Agregar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="agregarIndicador()" [disabled]="agregar.invalid">Agregar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -266,7 +268,9 @@
             </div>
             <div class="modal-footer">
                 <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="editarIndicador()">Editar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn btn-primary" (click)="editarIndicador()">Editar</button>
+                </div>
             </div>
         </div>
     </div>

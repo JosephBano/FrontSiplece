@@ -226,10 +226,15 @@
 <div class="modal fade" id="deleteModalModelo" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Deshabilitar Modelo</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+                <div class="modal-header warning-background">
+                    <span class="material-symbols-outlined warning-icon">
+                        warning
+                        </span>
+                    <div class="container contenedor-header_titulo">
+                        <h1 class="titulo-modal" id="exampleModalLabel">Deshabilitar Modelo</h1>
+                    </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
 
@@ -261,9 +266,11 @@
 
                 <!--Fin Contenido Modal-->
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer contenedor-footer">
                 <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger" (click)="eliminarInstitucion()">Deshabilitar</button>
+                <div class="btn-deshabilitar">
+                    <button type="button" class="btn" (click)="eliminarInstitucion()">Deshabilitar</button>
+                </div>
             </div>
         </div>
     </div>

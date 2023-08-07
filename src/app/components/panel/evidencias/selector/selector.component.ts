@@ -25,7 +25,7 @@ export class SelectorComponent implements OnInit
   criterios: Criterio[] = [];
   subCriterios: SubCriterio[] = [];
 
-  institucionID = "1"; // variable que setea la institucion
+  institucionID = "2"; // variable que setea la institucion
   modeloId!: string;
   criterioId!: string;
   subcriterioId!: string;
