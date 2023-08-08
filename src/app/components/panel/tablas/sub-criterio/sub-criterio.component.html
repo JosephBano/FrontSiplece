@@ -50,70 +50,37 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngIf="valueFilter == '0'">
-                    <ng-container *ngFor="let subcriterio of SubCriterios | subCriterio:filter" >
-                        <tr *ngIf="subcriterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                            <td>{{subcriterio.Detalle}}</td>
-                            <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
-                            <td class="text-center">{{subcriterio.Orden}}</td>
-                            <td>
-                                <div class="d-flex justify-content-evenly">
-                                    <!--Boton Editar-->
-                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">edit</span>
-                                    <!--Boton Eliminar-->
-                                    <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" (click)="cargarDatosEliminar(subcriterio)">delete</span>
-                                    <!--Buscar con filtro-->
+                <ng-container *ngFor="let subcriterio of SubCriterios | subCriterio:filter">
+                    <ng-container *ngIf="valueFilter == '0'|| subcriterio.IdCriterio == valueFilter">
+                      <tr *ngIf="(subcriterio.Activo == '1' && !checkboxDeshabilitarValue) || (subcriterio.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="subcriterio.Activo == '0'">
+                        <td>{{subcriterio.Detalle}}</td>
+                        <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
+                        <td class="text-center">{{subcriterio.Orden}}</td>
+                        <td>
+                          <div class="d-flex justify-content-evenly">
+                            <ng-container *ngIf="subcriterio.Activo == '1'">
+                              <!-- Botón Editar -->
+                              <span class="material-symbols-outlined icon-size" 
+                                    data-bs-toggle="modal" data-bs-target="#editModalSubCriterio" 
+                                    (click)="cargarDatosEditar(subcriterio)">edit</span>
+                              <!-- Botón Eliminar -->
+                              <span class="material-symbols-outlined icon-size" 
+                                    data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" 
+                                    (click)="cargarDatosEliminar(subcriterio)">delete</span>
+                              <!--Buscar con filtro-->
                                     <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(subcriterio.IdSubCriterio)">turn_right</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <ng-container *ngIf="checkboxDeshabilitarValue">             
-                            <tr *ngIf="subcriterio.Activo == '0'" class="table-danger">
-                                <td>{{subcriterio.Detalle}}</td>
-                                <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
-                                <td class="text-center">{{subcriterio.Orden}}</td>
-                                <td>
-                                    <div class="d-flex justify-content-evenly">
-                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">history</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
-                </ng-container>
-                <ng-container *ngIf="valueFilter != '0'">
-                    <ng-container *ngFor="let subcriterio of SubCriterios | subCriterio:filter" >
-                        <ng-container *ngIf="subcriterio.IdCriterio == valueFilter">
-                            <tr *ngIf="subcriterio.Activo == '1'" [class.d-none]="checkboxDeshabilitarValue">
-                                <td>{{subcriterio.Detalle}}</td>
-                                <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
-                                <td class="text-center">{{subcriterio.Orden}}</td>
-                                <td>
-                                    <div class="d-flex justify-content-evenly">
-                                        <!--Boton Editar-->
-                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">edit</span>
-                                        <!--Boton Eliminar-->
-                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" (click)="cargarDatosEliminar(subcriterio)">delete</span>
-                                        <!--Buscar con filtro-->
-                                        <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(subcriterio.IdSubCriterio)">turn_right</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <ng-container *ngIf="checkboxDeshabilitarValue">             
-                                <tr *ngIf="subcriterio.Activo == '0'" class="table-danger">
-                                    <td>{{subcriterio.Detalle}}</td>
-                                    <td>{{getCriterioName(subcriterio.IdCriterio)}}</td>
-                                    <td class="text-center">{{subcriterio.Orden}}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-evenly">
-                                            <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#restablecerModalSubCriterio" (click)="cargarDatosEditar(subcriterio)">history</span>
-                                        </div>
-                                    </td>
-                                </tr>
                             </ng-container>
-                        </ng-container>
+                            <ng-container *ngIf="subcriterio.Activo == '0'">
+                              <!-- Botón Restaurar -->
+                              <span class="material-symbols-outlined icon-size" 
+                                    data-bs-toggle="modal" data-bs-target="#restablecerModalSubCriterio" 
+                                    (click)="cargarDatosEditar(subcriterio)">restore</span>
+                            </ng-container>
+                          </div>
+                        </td>
+                      </tr>
                     </ng-container>
-                </ng-container>
+                  </ng-container>
             </tbody>
         </table>
     </div>
@@ -158,7 +125,9 @@
             <!--Botones modal-->
             <div class="modal-footer">
                 <button #cerrarAgregarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="agregarSubCriterio()" [disabled]="agregar.invalid">Agregar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="agregarSubCriterio()" [disabled]="agregar.invalid">Agregar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -207,7 +176,10 @@
             </div>
             <div class="modal-footer">
                 <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="editarSubCriterio()">Editar</button>
+                <div class="btn-custom">
+                    <button type="button" class="btn" (click)="editarSubCriterio()">Editar</button>
+                </div>
+                
             </div>
         </div>
     </div>

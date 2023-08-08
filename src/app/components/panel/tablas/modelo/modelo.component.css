@@ -215,3 +215,42 @@ table, tr, th {
       }
   }
 /*Fin Estilos tabla*/
+/*Estilos contenedor eliminar*/
+.warning-background {
+      background-color: #FF470D; 
+      padding: 20px; 
+}
+.warning-icon{
+      position: absolute;
+      margin-left: 30px;
+      color: white;
+      font-size: 30px;
+     
+}
+.titulo-modal {
+      margin: 0;
+}
+
+.contenedor-header_titulo {
+      display: flex;
+      justify-content: center;
+      color: white;
+}
+  
+  .warning-background h1 {
+      margin: 0; 
+}
+ 
+
+ .btn-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+}
+.contenedor-footer{
+      background-color: #FF470D; 
+}
+.btn-deshabilitar button{
+      background-color:#E63E0B ;
+      color: white;
+}

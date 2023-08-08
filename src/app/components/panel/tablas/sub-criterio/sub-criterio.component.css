@@ -26,13 +26,7 @@
         -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
   }
 
-/*Clase bootstrap*/
-  .btn-primary{
-      background-color: #1F295B;
-      border: #1F295B;
-      color: white;
-  } 
-/**/ 
+
   
   .contenedor-options_show {
         visibility: visible;
