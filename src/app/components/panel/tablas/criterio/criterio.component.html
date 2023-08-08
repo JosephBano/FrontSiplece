@@ -52,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let criterio of Criterios | criterio:filter">
+              <ng-container *ngFor="let criterio of Criterios | criterio:filter">
                     <ng-container *ngIf="valueFilter == '0'|| criterio.IdModelo == valueFilter">
                       <tr *ngIf="(criterio.Activo == '1' && !checkboxDeshabilitarValue) || (criterio.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="criterio.Activo == '0'">
                         <td>{{criterio.Detalle}}</td>
@@ -69,6 +69,8 @@
                               <span class="material-symbols-outlined icon-size" 
                                     data-bs-toggle="modal" data-bs-target="#deleteModalCriterio" 
                                     (click)="cargarDatosEliminar(criterio)">delete</span>
+                              <!--Buscar con filtro-->
+                                    <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(criterio.IdCriterio)">turn_right</span>
                             </ng-container>
                             <ng-container *ngIf="criterio.Activo == '0'">
                               <!-- Botón Restaurar -->

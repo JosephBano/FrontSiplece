@@ -10,6 +10,8 @@ import { Valoracion } from '../../../../models/valoracion.model';
 import { TipoEvaluacionService } from 'src/app/services/modeloServicios/tipo-evaluacion.service';
 import { ValoracionService } from 'src/app/services/modeloServicios/valoracion.service';
 import { DataService } from 'src/app/services/data.service';
+import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-indicadores',
@@ -41,6 +43,8 @@ export class IndicadoresComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
+    private router: Router,
     private toastr: ToastrService,
     private indicadorService: IndicadorService,
     private subcriterioService: SubCriteriosService,
@@ -79,6 +83,7 @@ export class IndicadoresComponent implements OnInit{
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('indicador');
+    this.InitFiltro();
     this.loadIndicadores();
     this.loadSubCriterios();
     this.loadTipoEvaluaciones();
@@ -86,6 +91,24 @@ export class IndicadoresComponent implements OnInit{
   }
 
   //Load Data
+  InitFiltro(){
+    this.fd.actualizarFiltroDefault('indicador');
+    this.fd.getFiltro('indicador').subscribe(
+      (data) => {
+        if (data) {
+          this.tablafilter.get('filter')?.setValue(data);
+          this.valueFilter = data;
+        }
+      }
+    )
+  }
+
+  navegarFiltro(id: string | undefined) {
+    const value = id ?? '';
+    this.fd.actualizarFiltro('elemento', value);
+    this.router.navigate(['/panel/tablas/elementos'])
+  }
+
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings
   }

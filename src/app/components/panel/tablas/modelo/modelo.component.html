@@ -71,6 +71,8 @@
                                             data-bs-toggle="modal" 
                                             [attr.data-bs-target]="'#deleteModalModelo'" 
                                             (click)="cargarDatosEliminar(modelo)">delete</span>
+                                        <!--Buscar con filtro-->
+                                    <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(modelo.IdModelo)">turn_right</span>
                                     </ng-container>
                                     <ng-container  *ngIf="modelo.Activo == '0'">
                                         <!--Boton Restaurar-->

@@ -67,6 +67,8 @@
                               <span class="material-symbols-outlined icon-size" 
                                     data-bs-toggle="modal" data-bs-target="#deleteModalSubCriterio" 
                                     (click)="cargarDatosEliminar(subcriterio)">delete</span>
+                              <!--Buscar con filtro-->
+                                    <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(subcriterio.IdSubCriterio)">turn_right</span>
                             </ng-container>
                             <ng-container *ngIf="subcriterio.Activo == '0'">
                               <!-- Botón Restaurar -->

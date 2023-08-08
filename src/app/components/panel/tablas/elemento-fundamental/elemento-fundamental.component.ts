@@ -8,6 +8,8 @@ import { ElementoFundamentalService } from '../../../../services/modeloServicios
 import { Ponderacion } from '../../../../models/ponderacion.model';
 import { PonderacionService } from 'src/app/services/modeloServicios/ponderacion.service';
 import { DataService } from 'src/app/services/data.service';
+import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-elemento-fundamental',
@@ -38,6 +40,8 @@ export class ElementoFundamentalComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
+    private fd: FilterDataService,
+    private router: Router,
     private toastr: ToastrService,
     private elementoService: ElementoFundamentalService,
     private indicadorService: IndicadorService,
@@ -73,12 +77,31 @@ export class ElementoFundamentalComponent implements OnInit{
   ngOnInit(): void {
     this.dataService.actualizarActiveLiOrder1('tablas');
     this.dataService.actualizarActiveLiOrder2('elemento');
+    this.InitFiltro();
     this.loadElementosFundamentales();
     this.loadIndicadores();
     this.loadPonderaciones();
   }
 
   //Load Data
+  InitFiltro(){
+    this.fd.actualizarFiltroDefault('elemento');
+    this.fd.getFiltro('elemento').subscribe(
+      (data) => {
+        if (data) {
+          this.tablafilter.get('filter')?.setValue(data);
+          this.valueFilter = data;
+        }
+      }
+    )
+  }
+
+  navegarFiltro(id: string | undefined) {
+    const value = id ?? '';
+    this.fd.actualizarFiltro('evidencia', value);
+    this.router.navigate(['/panel/tablas/evidencia'])
+  }
+
   moreSettingsHandler(){
     this.moreSettings = !this.moreSettings
   }
