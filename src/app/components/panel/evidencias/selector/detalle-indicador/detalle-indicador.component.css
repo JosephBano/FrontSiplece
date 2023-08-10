@@ -31,3 +31,7 @@
 .wide-column-orden {
     width: 10%;
 }
+
+.contenedor-botones {
+  cursor: pointer;
+}

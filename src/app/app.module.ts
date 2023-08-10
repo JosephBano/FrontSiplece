@@ -53,6 +53,7 @@ import { PonderacionComponent } from './components/panel/parametros/ponderacion/
 import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-evaluacion/tipo-evaluacion.component';
 import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 import { ContenedorComponent } from './components/panel/tablas/menu-tablas/contenedor/contenedor.component';
+import { EstadoEvidenciaComponent } from './components/panel/evidencias/selector/detalle-indicador/estado-evidencia/estado-evidencia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,6 +91,7 @@ import { ContenedorComponent } from './components/panel/tablas/menu-tablas/conte
     TipoEvaluacionComponent,
     ConfiguracionComponent,
     ContenedorComponent,
+    EstadoEvidenciaComponent,
   ],
   imports: [
     BrowserModule,
