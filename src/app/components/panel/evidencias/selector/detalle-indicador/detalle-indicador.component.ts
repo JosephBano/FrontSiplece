@@ -18,7 +18,8 @@ export class DetalleIndicadorComponent implements OnInit {
   strTituloIndicador = '';
   strTipoIndicador = '';
 
-  selectedElement: number | null = null;
+  selectedEsenciales: number | null = null;
+  selectedComplementarios: number | null = null;
   
   constructor(
     private route: ActivatedRoute,

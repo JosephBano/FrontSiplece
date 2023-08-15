@@ -3,35 +3,25 @@
   'FILL' 0,
   'wght' 300,
   'GRAD' 0,
-  'opsz' 48
+  'opsz' 48;
 }
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 300,
-  'GRAD' 0,
-  'opsz' 48
+.icon-size:hover {
+  cursor: pointer;
+  font-size: 30px;
 }
 .icon-size:hover {
     font-variation-settings:
-    'FILL' 0,
-    'wght' 700,
-    'GRAD' 0,
-    'opsz' 48
-  }
-
-.icon-size {
-    cursor: pointer;
-    font-size: 35px;
+    'wght' 700;
 }
 
-.wide-column-descripcion {
-    width: 80%; 
-}
-.wide-column-orden {
-    width: 10%;
+tbody {
+  border: 1px solid #eee;
 }
 
-.contenedor-botones {
-  cursor: pointer;
+tr, th, td{
+  border-bottom: 1px solid #eee;
+}
+
+.bordern {
+  border: none;
 }

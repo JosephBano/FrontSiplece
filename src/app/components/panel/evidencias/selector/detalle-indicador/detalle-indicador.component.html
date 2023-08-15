@@ -49,20 +49,24 @@
                 <tbody class="table-group-divider">
                   <ng-container *ngFor="let elemento of Elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '1'">
-                      <tr>
-                        <th scope="row" class="text-center">{{elemento.Orden}}</th>
-                        <td scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
-                        <td class="text-center">
+                      <tr [ngClass]="{'bordern': selectedEsenciales === i}">
+                        <th [ngClass]="{'bordern': selectedEsenciales === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
+                        <td [ngClass]="{'bordern': selectedEsenciales === i}" scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
+                        <td [ngClass]="{'bordern': selectedEsenciales === i}" class="text-center">
                           <div class="contenedor-botones">
                             <app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias>
-                            <span class="material-symbols-outlined" *ngIf="selectedElement !== i" (click)="selectedElement = (selectedElement === i ? null : i)">expand_more</span>
-                            <span class="material-symbols-outlined" *ngIf="selectedElement === i" (click)="selectedElement = (selectedElement === i ? null : i)">expand_less</span>
+                            <!-- Mejorar logica para mostrar cambio de iconos -->
+                            <!-- opcion1: Segun su estado rotar el span -->
+                            <!-- opcion2: bindear el contenido del span para que cambie y con esto el contenido -->
+                            <span class="material-symbols-outlined icon-size" *ngIf="selectedEsenciales !== i" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">expand_more</span>
+                            <span class="material-symbols-outlined icon-size" *ngIf="selectedEsenciales === i" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">expand_less</span>
+                            <!-- fin cambios necesarios a futuro -->
                           </div>
                         </td>
                       </tr>
-                      <ng-container *ngIf="selectedElement === i">
+                      <ng-container *ngIf="selectedEsenciales === i">
                         <tr>
-                          <td scope="col" colspan="4">
+                          <td colspan="4">
                             <app-estado-evidencia></app-estado-evidencia>
                           </td>
                         </tr>
@@ -78,19 +82,37 @@
             <table class="table">
                 <thead class="table-secondary">
                   <tr>
-                    <th scope="col" class="wide-column-orden">Orden</th>
+                    <th scope="col" class="wide-column-orden text-center">Orden</th>
                     <th scope="col"  colspan="2" class="wide-column-descripcion">Descripción</th>
                     <th scope="col" class="wide-column-estado">Evidencia</th>
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos">
+                  <ng-container *ngFor="let elemento of Elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '2'">
-                      <tr>
-                        <th scope="row" class="text-center">{{elemento.Orden}}</th>
-                        <td scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
-                        <td class="text-center"><app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias></td>
+                      <tr [ngClass]="{'bordern': selectedComplementarios === i}">
+                        <th [ngClass]="{'bordern': selectedComplementarios === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
+                        <td [ngClass]="{'bordern': selectedComplementarios === i}" scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
+                        <td [ngClass]="{'bordern': selectedComplementarios === i}" class="text-center">
+                          <div class="contenedor-botones">
+                            <app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias>
+
+                            <!-- Mejorar logica para mostrar cambio de iconos -->
+                            <!-- opcion1: Segun su estado rotar el span -->
+                            <!-- opcion2: bindear el contenido del span para que cambie y con esto el contenido -->
+                            <span class="material-symbols-outlined icon-size" *ngIf="selectedComplementarios !== i" (click)="selectedComplementarios = (selectedEsenciales === i ? null : i)">expand_more</span>
+                            <span class="material-symbols-outlined icon-size" *ngIf="selectedComplementarios === i" (click)="selectedComplementarios = (selectedEsenciales !== i ? null : i)">expand_less</span>
+                            <!-- fin cambios necesarios a futuro -->
+                          </div>
+                        </td>
                       </tr>
+                      <ng-container *ngIf="selectedComplementarios === i">
+                        <tr>
+                          <td colspan="4">
+                            <app-estado-evidencia></app-estado-evidencia>
+                          </td>
+                        </tr>
+                      </ng-container>
                     </ng-container>
                   </ng-container>
                 </tbody>
