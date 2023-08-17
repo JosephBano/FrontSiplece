@@ -1,19 +1,17 @@
-FROM node:18.16.0 as build-step
+#stage 1
 
-RUN mkdir -p /app
+FROM node:18.16.0 as node
 
 WORKDIR /app
 
-COPY package.json /app
+COPY . .
 
 RUN npm install
 
-COPY . /app
-
 RUN npm run build --prod
 
-#//
+#stage 2
 
-FROM nginx:1.18.0
+FROM nginx:alpine
 
-COPY --from=build-step /app/dist/FrontSiplece /usr/share/nginx/html
+COPY --from=node /app/dist/front-end /usr/share/nginx/html
