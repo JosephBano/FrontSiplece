@@ -6,6 +6,8 @@ dockerfile
 .dockerignore
 docker-compose.yml
 
+nginx.conf
+
 # Compiled output
 /dist
 /tmp
