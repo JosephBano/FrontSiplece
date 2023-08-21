@@ -54,6 +54,8 @@ import { TipoEvaluacionComponent } from './components/panel/parametros/tipo-eval
 import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 import { ContenedorComponent } from './components/panel/tablas/menu-tablas/contenedor/contenedor.component';
 import { EstadoEvidenciaComponent } from './components/panel/evidencias/selector/detalle-indicador/estado-evidencia/estado-evidencia.component';
+import { CheckManagerComponent } from './components/panel/check-manager/check-manager.component';
+import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +94,8 @@ import { EstadoEvidenciaComponent } from './components/panel/evidencias/selector
     ConfiguracionComponent,
     ContenedorComponent,
     EstadoEvidenciaComponent,
+    CheckManagerComponent,
+    TablaIndicadoresComponent,
   ],
   imports: [
     BrowserModule,
