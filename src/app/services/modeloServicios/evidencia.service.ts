@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Evidencia } from 'src/app/models/evidencia.model';
+import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

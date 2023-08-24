@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Criterio } from 'src/app/models/criterio.model';
-import { Modelo } from 'src/app/models/modelo.model';
+import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
+import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { DataService } from '../../../../services/data.service';

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Periodo } from 'src/app/models/periodo.model';
+import { Periodo } from 'src/app/models/modelos-generales/periodo.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

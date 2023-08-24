@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Periodo } from '../models/periodo.model';
-import { Institucion } from '../models/institucion.model';
+import { Periodo } from '../models/modelos-generales/periodo.model';
+import { Institucion } from '../models/modelos-generales/institucion.model';
 
 @Injectable({
   providedIn: 'root'

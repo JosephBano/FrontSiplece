@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SubCriterio } from 'src/app/models/subCriterio.model';
+import { SubCriterio } from 'src/app/models/modelos-generales/subCriterio.model';
 
 @Pipe({
   name: 'subCriterio'

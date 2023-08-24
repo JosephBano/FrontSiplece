@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Indicador } from 'src/app/models/indicador.model';
+import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
 
 @Pipe({
   name: 'indicador'

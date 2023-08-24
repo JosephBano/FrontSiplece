@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Periodo } from 'src/app/models/periodo.model';
+import { Periodo } from 'src/app/models/modelos-generales/periodo.model';
 import { PeriodoService } from 'src/app/services/modeloServicios/periodo.service';
 
 @Component({

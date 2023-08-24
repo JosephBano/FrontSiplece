@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Institucion } from 'src/app/models/institucion.model';
+import { Institucion } from 'src/app/models/modelos-generales/institucion.model';
 
 @Pipe({
   name: 'institucion'

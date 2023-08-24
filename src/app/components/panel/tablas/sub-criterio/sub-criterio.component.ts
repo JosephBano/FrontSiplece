@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { SubCriterio } from '../../../../models/subCriterio.model';
+import { SubCriterio } from '../../../../models/modelos-generales/subCriterio.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
-import { Criterio } from 'src/app/models/criterio.model';
+import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { FilterDataService } from 'src/app/services/filter-data.service';

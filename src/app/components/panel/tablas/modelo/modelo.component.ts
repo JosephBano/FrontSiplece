@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Modelo } from 'src/app/models/modelo.model';
+import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
 import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
-import { Institucion } from 'src/app/models/institucion.model';
+import { Institucion } from 'src/app/models/modelos-generales/institucion.model';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { FilterDataService } from 'src/app/services/filter-data.service';

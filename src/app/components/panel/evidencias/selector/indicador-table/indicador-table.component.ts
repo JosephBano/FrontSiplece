@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Indicador } from 'src/app/models/indicador.model';
+import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 
 @Component({

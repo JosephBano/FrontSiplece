@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ElementoFundamental } from '../../../../models/elemento-fundamental.model';
-import { Indicador } from 'src/app/models/indicador.model';
+import { ElementoFundamental } from '../../../../models/modelos-generales/elemento-fundamental.model';
+import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { ElementoFundamentalService } from '../../../../services/modeloServicios/elemento-fundamental.service';
-import { Ponderacion } from '../../../../models/ponderacion.model';
+import { Ponderacion } from '../../../../models/modelos-generales/ponderacion.model';
 import { PonderacionService } from 'src/app/services/modeloServicios/ponderacion.service';
 import { DataService } from 'src/app/services/data.service';
 import { FilterDataService } from 'src/app/services/filter-data.service';

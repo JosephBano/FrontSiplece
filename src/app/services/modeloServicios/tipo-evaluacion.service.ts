@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TipoEvaluacion } from 'src/app/models/tipo-evaluacion.model';
+import { TipoEvaluacion } from 'src/app/models/modelos-generales/tipo-evaluacion.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
