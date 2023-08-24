@@ -20,6 +20,7 @@ export class TablaIndicadoresComponent implements OnInit{
   Indicadores: Indicador[] = [];
 
   ValidatorData: boolean = false;
+  SelectedSubCriterios: boolean[][] = [];
   
   constructor (
     private criterioService: CriteriosService,
@@ -41,7 +42,7 @@ export class TablaIndicadoresComponent implements OnInit{
         this.Criterios = criteriosData;
         this.SubCriterios = subCriteriosData;
         this.Indicadores = indicadoresData;
-        this.HandlerData();
+        this.HandlerValidatorData();
       },
       (error) => {
         //error
@@ -49,35 +50,14 @@ export class TablaIndicadoresComponent implements OnInit{
     );
   }
 
-  HandlerData(){
-    
-  }
-
   HandlerValidatorData(){
     if(this.Indicadores && this.SubCriterios && this.Criterios) this.ValidatorData = true; 
   }
 
-  // <=== Aqui Acaban las tres funciones
-
-
-  loadSubCriterios(id: string){
-    this.scriterioService.getByCriterio(id).subscribe(
-      (data) => {
-        data.forEach(element => {
-          this.SubCriterios.push(element);
-        });;
-      }
-    )
+  toggleIndicator(i: number, y: number): void {
+    if (!this.SelectedSubCriterios[i]) {
+      this.SelectedSubCriterios[i] = [];
+    }
+    this.SelectedSubCriterios[i][y] = !this.SelectedSubCriterios[i][y];
   }
-
-  loadIndicadores(id: string) {
-    this.indicadorService.getBySubCriterio(id).subscribe(
-      (data) => {
-        data.forEach( element => {
-          this.Indicadores.push(element);
-        })
-      }
-    )
-  }
-
 }

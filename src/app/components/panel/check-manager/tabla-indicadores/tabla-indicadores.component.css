@@ -18,6 +18,11 @@
 
 }
 
+hr {
+    margin: 1rem 0 0;
+    color: #32383e83;
+}
+
 h4 {
     margin: 0;
     color: #fff;
@@ -34,6 +39,11 @@ h4 {
 .contenedor-criterio:last-child {
     margin-bottom: 0;
 }  
+
+.contenedor-item_button {
+    display: flex;
+    justify-content: space-between;
+}
 
 h5 {
     margin: 0;
@@ -52,12 +62,21 @@ h5 {
     border-radius: 7px;
 }
 
-.list-group-item:hover {
-    background-color: rgb(238, 238, 238);
+.hver {
     cursor: pointer;
 }
 
 .list-group .list-group-item:first-child {
     padding-top: .9rem;
     margin-top: 10px;
+}
+
+.contenedor-indicador ul li:hover {
+    cursor: pointer;
+    background: #eee;
+}
+
+.contenedor-indicador ul {
+    margin: 0 0 1rem;
+    padding: 0;
 }
