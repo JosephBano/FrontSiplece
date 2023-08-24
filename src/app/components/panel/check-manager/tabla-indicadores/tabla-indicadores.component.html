@@ -1,1 +1,33 @@
-<p>tabla-indicadores works!</p>
+<div class="contenedor-flotante">
+    <ng-container *ngIf="!ValidatorData">
+        <div class="d-flex align-items-center">
+            <strong role="status">Cargando...</strong>
+            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+          </div>
+    </ng-container>
+    <ng-container *ngIf="ValidatorData">
+        <div class="contenedor-header">
+            <h4>Seleccione un Indicador</h4>
+        </div>
+        <ng-container *ngFor="let criterio of Criterios; let i = index">
+                <div class="contenedor-criterio">
+                    <div class="contenedor-header_criterio">
+                        <h5>{{criterio.Detalle}}</h5>
+                    </div>
+                    <div class="contenedor-subcriterio">
+                        <ul class="list-group ">
+                            <ng-container *ngFor="let subcriterio of SubCriterios">
+                                <ng-container *ngIf="subcriterio.IdCriterio === criterio.IdCriterio">
+                                    <li class="list-group-item">
+                                        <div class="contenedor-item-button">
+                                            <p class="list-item">{{subcriterio.Detalle}}</p>
+                                        </div>
+                                    </li>
+                                </ng-container>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </div>
+        </ng-container> 
+    </ng-container>
+</div>
