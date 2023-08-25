@@ -21,6 +21,14 @@ export class SubCriteriosService {
     return this.http.get<SubCriterio[]>(this.API_URL);
   }  
 
+  getByCriterio(id: string): Observable<SubCriterio[]> {
+    return this.http.get<SubCriterio[]>(this.API_URL + `/GetByCriterio/${id}`);
+  }
+  
+  getByModelo(id: string): Observable<SubCriterio[]> {
+    return this.http.get<SubCriterio[]>(this.API_URL + `/GetByModelo/${id}`);
+  }
+
   getSubCriterioById(id: string): Observable<SubCriterio> {
     return this.http.get<SubCriterio>(this.API_URL + `/FindOne/${id}`);
   }

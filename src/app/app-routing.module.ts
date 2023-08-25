@@ -18,6 +18,8 @@ import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-
 import { ParametrosComponent } from './components/panel/parametros/parametros.component';
 import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
 import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
+import { CheckManagerComponent } from './components/panel/check-manager/check-manager.component';
+import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
@@ -36,6 +38,9 @@ const routes: Routes = [
       { path: 'evidencia', component: EvidenciaComponent},
     ]},
     { path: 'configuracion', component: ConfiguracionComponent},
+    { path: 'checkmanager', component: CheckManagerComponent, children: [
+      { path: '', component: TablaIndicadoresComponent},
+    ]},
     { path: 'parametros', component: ParametrosComponent, children: [
       {path: '', component: VistaParametrosComponent},
     ]},

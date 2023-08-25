@@ -35,10 +35,11 @@ hr.h-color {
 
 @media (max-width: 990px) {
     #side_nav {
+        position: relative;
         margin-left: -250px;
         position: fixed;
         min-height: 100vh;
-        z-index: 1;
+        z-index: 2;
     }
 
     #side_nav.actives {

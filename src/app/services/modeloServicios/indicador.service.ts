@@ -18,11 +18,19 @@ export class IndicadorService {
   constructor(private http: HttpClient) { }
 
   getIndicador(): Observable<Indicador[]> {
-    return this.http.get<[]>(this.API_URL);
+    return this.http.get<Indicador[]>(this.API_URL);
   }  
 
+  getBySubCriterio(id: string): Observable<Indicador[]> {
+    return this.http.get<Indicador[]>(this.API_URL + `/GetByCriterio/${id}`)
+  }
+
+  getByModelo(id: string): Observable<Indicador[]> {
+    return this.http.get<Indicador[]>(this.API_URL + `/GetByModelo/${id}`)
+  }
+
   getIndicadorById(id: string): Observable<Indicador[]> {
-    return this.http.get<[]>(`${this.API_URL}/FindOne/${id}`)
+    return this.http.get<Indicador[]>(`${this.API_URL}/FindOne/${id}`)
   }
   
   postIndicador(indicador: Indicador): Observable<Indicador> {

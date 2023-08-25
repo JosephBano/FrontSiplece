@@ -1,0 +1,82 @@
+.contenedor-flotante {
+    position: relative;
+    border-radius: 20px;
+    background: #fff;
+    padding: 1rem 1rem;
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+.contenedor-header {
+    position: relative;
+    background: #1F295B;
+    margin: 0 auto .5rem;
+    padding: .3rem 1rem;
+    width: fit-content;
+    border-radius: 7px;
+
+}
+
+hr {
+    margin: 1rem 0 0;
+    color: #32383e83;
+}
+
+h4 {
+    margin: 0;
+    color: #fff;
+}
+
+.list-item {
+    margin: 0;
+}
+
+.contenedor-criterio:not(:last-child) {
+    margin-bottom: 1rem;
+}
+  
+.contenedor-criterio:last-child {
+    margin-bottom: 0;
+}  
+
+.contenedor-item_button {
+    display: flex;
+    justify-content: space-between;
+}
+
+h5 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    color: #000;
+}
+
+.contenedor-header_criterio {
+    position: absolute;
+    z-index: 1;
+    background: #eee;
+    margin: 0 auto 0 1.5rem;
+    padding: 0 1rem;
+    width: fit-content;
+    border-radius: 7px;
+}
+
+.hver {
+    cursor: pointer;
+}
+
+.list-group .list-group-item:first-child {
+    padding-top: .9rem;
+    margin-top: 10px;
+}
+
+.contenedor-indicador ul li:hover {
+    cursor: pointer;
+    background: #eee;
+}
+
+.contenedor-indicador ul {
+    margin: 0 0 1rem;
+    padding: 0;
+}

@@ -22,6 +22,10 @@ export class CriteriosService {
     return this.http.get<Criterio[]>(this.API_URL);
   }
 
+  getByModelo(id: string): Observable<Criterio[]> {
+    return this.http.get<Criterio[]>(this.API_URL + `/GetByModelo/${id}`);
+  }
+
   getCriterioById(id: string): Observable<Criterio> {
     return this.http.get<Criterio>(this.API_URL + `/FindOne/${id}`);
   }
