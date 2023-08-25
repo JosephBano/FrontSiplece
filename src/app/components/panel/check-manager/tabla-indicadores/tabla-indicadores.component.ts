@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
-import { Criterio } from '../../../../models/criterio.model';
-import { SubCriterio } from '../../../../models/subCriterio.model';
+import { Criterio } from '../../../../models/modelos-generales/criterio.model';
+import { SubCriterio } from '../../../../models/modelos-generales/subCriterio.model';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
-import { Indicador } from 'src/app/models/indicador.model';
+import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { forkJoin } from 'rxjs';
 
