@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Ponderacion } from 'src/app/models/ponderacion.model';
+import { Ponderacion } from 'src/app/models/modelos-generales/ponderacion.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

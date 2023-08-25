@@ -1,12 +1,12 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { Indicador } from 'src/app/models/indicador.model';
-import { SubCriterio } from '../../../../models/subCriterio.model';
+import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
+import { SubCriterio } from '../../../../models/modelos-generales/subCriterio.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
-import { TipoEvaluacion } from '../../../../models/tipo-evaluacion.model';
-import { Valoracion } from '../../../../models/valoracion.model';
+import { TipoEvaluacion } from '../../../../models/modelos-generales/tipo-evaluacion.model';
+import { Valoracion } from '../../../../models/modelos-generales/valoracion.model';
 import { TipoEvaluacionService } from 'src/app/services/modeloServicios/tipo-evaluacion.service';
 import { ValoracionService } from 'src/app/services/modeloServicios/valoracion.service';
 import { DataService } from 'src/app/services/data.service';

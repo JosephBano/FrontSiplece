@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ElementoFundamental } from 'src/app/models/elemento-fundamental.model';
+import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Institucion } from '../../models/institucion.model';
+import { Institucion } from '../../models/modelos-generales/institucion.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 

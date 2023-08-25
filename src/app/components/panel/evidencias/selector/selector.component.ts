@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Criterio } from "src/app/models/criterio.model";
-import { Institucion } from "src/app/models/institucion.model";
-import { Modelo } from "src/app/models/modelo.model";
-import { SubCriterio } from "src/app/models/subCriterio.model";
+import { Criterio } from "src/app/models/modelos-generales/criterio.model";
+import { Institucion } from "src/app/models/modelos-generales/institucion.model";
+import { Modelo } from "src/app/models/modelos-generales/modelo.model";
+import { SubCriterio } from "src/app/models/modelos-generales/subCriterio.model";
 import { DataService } from "src/app/services/data.service";
 import { CriteriosService } from "src/app/services/modeloServicios/criterios.service";
 import { InstitucionesService } from "src/app/services/modeloServicios/instituciones.service";

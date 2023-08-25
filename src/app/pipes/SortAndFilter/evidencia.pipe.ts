@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Evidencia } from 'src/app/models/evidencia.model';
+import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
 
 @Pipe({
   name: 'evidencia'

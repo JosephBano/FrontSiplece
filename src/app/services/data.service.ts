@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
-import { Indicador } from '../models/indicador.model';
+import { Indicador } from '../models/modelos-generales/indicador.model';
 
 @Injectable({
   providedIn: 'root'

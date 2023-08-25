@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { ElementoFundamental } from 'src/app/models/elemento-fundamental.model';
-import { Evidencia } from 'src/app/models/evidencia.model';
-import { Periodo } from '../../../../models/periodo.model';
+import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
+import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
+import { Periodo } from '../../../../models/modelos-generales/periodo.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
