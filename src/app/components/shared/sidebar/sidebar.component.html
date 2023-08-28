@@ -118,7 +118,7 @@
         </li>
         <!--LogOut Opcion-->
         <li class="hver" (click)="activeLogOut(); toggle()" [ngClass]="{'active' : activeli === 'logout'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/inicio">
+            <div class="d-flex px-3 py-2 align-items-center" (click)="logout()">
                 <span class="material-symbols-outlined">logout</span>
                 <a class="text-decoration-none d-block mx-2">Log Out</a>
             </div>

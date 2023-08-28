@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoginToken } from 'src/app/models/logintoken.model';
 import { GlobalDataService } from 'src/app/services/global-data.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +15,14 @@ export class LoginComponent {
   loading = false;
   login: FormGroup;
 
+  cdInstitucion = "ISTPET";
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private gdata: GlobalDataService,
+    private loginService: LoginService,
     ) 
     {
     this.login = this.fb.group({
@@ -29,11 +34,25 @@ export class LoginComponent {
   ngOnInit(): void { }
   
   log(): void {
-    if(this.login.value.usuario == 'admin' && this.login.value.password == 'admin'){
-      this.router.navigate(['/panel']);
-      this.gdata.actualizarNombreUsuario('Joseph Andrés Baño Naranjo');
-    }else{
-      this.toastr.error('El Usuario o la Contraseña son incorrectas');
+    const user: LoginToken = {
+      correo: this.login.value.usuario,
+      contrasenia: this.login.value.password,
+      codigoInstitucion: this.cdInstitucion,
     }
+
+    this.loginService.login(user).subscribe(data => {
+      if(data.access_Token) {
+        this.loginService.setLocalStorage(data.access_Token);
+        this.router.navigate(['/panel']);
+        console.log(this.loginService.getTokenDecoded());
+      }else {
+        this.login.get('password')?.setValue('');
+        this.toastr.error("Acceso denegado. Correo o contraseña incorrectos!");
+      }
+    }, error => {
+      console.log(error);
+      this.login.reset();
+        this.toastr.error(error.error.message);
+    })
   }
 }

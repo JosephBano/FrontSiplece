@@ -1,23 +1,24 @@
-const BASE_URL = 'https://localhost:7094/api';
+const BASE_URL_SIPLECE = 'https://localhost:7094/api';
+const BASE_URL_SEGURIDAD = 'https:/localhost:7177/api';
 const BASE_RUTA_PANEL = '/panel';
 const BASE_RUTA_TABLAS = `${BASE_RUTA_PANEL}/tablas`;
 
 export const environment = {
     /*URL's Controladores BackEnd */
-    URL_BACKEND: BASE_URL,
-    URL_BACKEND_INSTITUCIONES: `${BASE_URL}/Institucion`,
-    URL_BACKEND_MODELO: `${BASE_URL}/Modelo`,
-    URL_BACKEND_CRITERIO: `${BASE_URL}/Criterio`,
-    URL_BACKEND_SUBCRITERIO: `${BASE_URL}/Subcriterio`,
-    URL_BACKEND_INDICADOR: `${BASE_URL}/Indicador`,
-    URL_BACKEND_VALORACION: `${BASE_URL}/Valoracion`,
-    URL_BACKEND_INDICADORVALORACION: `${BASE_URL}/IndicadorValoracion`,
-    URL_BACKEND_ELEMENTOFUNDAMENTAL: `${BASE_URL}/ElementoFundamental`,
-    URL_BACKEND_TIPOEVALUACION: `${BASE_URL}/TipoEvaluacion`,
-    URL_BACKEND_PERIODO: `${BASE_URL}/Periodo`,
-    URL_BACKEND_PONDERACION: `${BASE_URL}/Ponderacion`,
-    URL_BACKEND_EVIDENCIA: `${BASE_URL}/Evidencia`,
-    URL_BACKEND_ARCHIVOEVIDENCIA: `${BASE_URL}/ArchivoEvidencia`,
+    URL_BACKEND: BASE_URL_SIPLECE,
+    URL_BACKEND_INSTITUCIONES: `${BASE_URL_SIPLECE}/Institucion`,
+    URL_BACKEND_MODELO: `${BASE_URL_SIPLECE}/Modelo`,
+    URL_BACKEND_CRITERIO: `${BASE_URL_SIPLECE}/Criterio`,
+    URL_BACKEND_SUBCRITERIO: `${BASE_URL_SIPLECE}/Subcriterio`,
+    URL_BACKEND_INDICADOR: `${BASE_URL_SIPLECE}/Indicador`,
+    URL_BACKEND_VALORACION: `${BASE_URL_SIPLECE}/Valoracion`,
+    URL_BACKEND_INDICADORVALORACION: `${BASE_URL_SIPLECE}/IndicadorValoracion`,
+    URL_BACKEND_ELEMENTOFUNDAMENTAL: `${BASE_URL_SIPLECE}/ElementoFundamental`,
+    URL_BACKEND_TIPOEVALUACION: `${BASE_URL_SIPLECE}/TipoEvaluacion`,
+    URL_BACKEND_PERIODO: `${BASE_URL_SIPLECE}/Periodo`,
+    URL_BACKEND_PONDERACION: `${BASE_URL_SIPLECE}/Ponderacion`,
+    URL_BACKEND_EVIDENCIA: `${BASE_URL_SIPLECE}/Evidencia`,
+    URL_BACKEND_ARCHIVOEVIDENCIA: `${BASE_URL_SIPLECE}/ArchivoEvidencia`,
 
     /*Rutas Generales*/
     RUTA_INICIO: '/inicio',
@@ -36,4 +37,7 @@ export const environment = {
         RUTA_PANEL_EVIDENCIAS: `${BASE_RUTA_PANEL}/evidencias`,
             /*Rutas hijas evidencias */
             RUTA_PANEL_EV_DETALLE: `${BASE_RUTA_PANEL}/evidencias/detalle/:`,
+    /*URL's Controlador seguridad */
+    URL_SEGURIDAD: BASE_URL_SEGURIDAD,
+    URL_SEG_TOKEN: `${BASE_URL_SEGURIDAD}/Token`,
 };

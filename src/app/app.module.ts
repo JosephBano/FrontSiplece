@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,6 +56,8 @@ import { ContenedorComponent } from './components/panel/tablas/menu-tablas/conte
 import { EstadoEvidenciaComponent } from './components/panel/evidencias/selector/detalle-indicador/estado-evidencia/estado-evidencia.component';
 import { CheckManagerComponent } from './components/panel/check-manager/check-manager.component';
 import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { AddTokenInterceptor } from './helpers/add-token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +119,9 @@ import { TablaIndicadoresComponent } from './components/panel/check-manager/tabl
     ToastrModule.forRoot(),
     NgbAlertModule
   ],
-  providers: [],
+  providers: [JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

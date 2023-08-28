@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleBarService } from 'src/app/services/toggle-bar.service';
 import { DataService } from '../../../services/data.service';
+import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,11 +23,14 @@ export class SidebarComponent implements OnDestroy, OnInit{
   constructor(
     private toggleService: ToggleBarService,
     private dataService: DataService,
+    private loginService: LoginService,
+    private route: Router,
     ) {
     this.subscription = this.toggleService.toggle$.subscribe(state => {
       this.toggleState = state;
     });
   }
+  
   ngOnInit(): void {
     this.dataService.getActiveLiOrder1().subscribe(
       (data) => {
@@ -71,5 +76,10 @@ export class SidebarComponent implements OnDestroy, OnInit{
         this.tablasList = true;
       }
     }
+  }
+
+  logout(){
+    this.loginService.removeLocalStorage();
+    this.route.navigate(["/inicio"]);
   }
 }
