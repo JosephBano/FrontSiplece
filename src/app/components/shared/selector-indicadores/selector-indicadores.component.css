@@ -1,0 +1,36 @@
+.contenedor-flotante {
+    border-radius: 20px;
+    background: #fff;
+    padding: 1rem 1rem;
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+.contenedor-titulo h3 {
+    color: #fff;
+    margin: 0;
+}
+.contenedor-titulo {
+    background: #1F295B;
+    width: 300px;
+    border: solid 1px #1F295B;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.btn-custom button{
+    width: 100%;
+    padding: .5rem 3rem;
+    background: #1F295B;
+    color: #fff;
+    border: solid 1px #1F295B;
+}
+
+.input-group-text {
+    width: 110px;
+}
+
+h3 {
+    margin: 0 0 1rem;
+}

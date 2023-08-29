@@ -24,7 +24,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { DetalleIndicadorComponent } from './components/shared/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
-import { IndicadorTableComponent } from './components/panel/evidencias/selector/indicador-table/indicador-table.component';
+import { IndicadorTableComponent } from './components/shared/selector-indicadores/indicador-table/indicador-table.component';
 import { ModalEvidenciasComponent } from './components/shared/detalle-indicador/modal-evidencias/modal-evidencias.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
@@ -58,6 +58,7 @@ import { CheckManagerComponent } from './components/panel/check-manager/check-ma
 import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AddTokenInterceptor } from './helpers/add-token.interceptor';
+import { SelectorIndicadoresComponent } from './components/shared/selector-indicadores/selector-indicadores.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,6 +99,7 @@ import { AddTokenInterceptor } from './helpers/add-token.interceptor';
     EstadoEvidenciaComponent,
     CheckManagerComponent,
     TablaIndicadoresComponent,
+    SelectorIndicadoresComponent,
   ],
   imports: [
     BrowserModule,
