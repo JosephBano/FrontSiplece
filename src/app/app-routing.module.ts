@@ -20,13 +20,14 @@ import { VistaParametrosComponent } from './components/panel/parametros/vista-pa
 import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 import { CheckManagerComponent } from './components/panel/check-manager/check-manager.component';
 import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
+import { authGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
   { path:'inicio',  component: InicioComponent, children: [
     { path: '', component: LoginComponent},
   ]},
-  { path: 'panel', component: PanelComponent, children: [
+  { path: 'panel', component: PanelComponent, canActivate: [authGuard], children: [
     { path: '', component: InicioPanelComponent},
     { path: 'tablas', component: TablasComponent, children: [
       { path: '', component: MenuTablasComponent},
