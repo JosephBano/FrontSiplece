@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleBarService } from 'src/app/services/toggle-bar.service';
-import { DataService } from '../../../services/data.service';
+import { DataService } from '../../services/data.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 

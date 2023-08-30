@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { DetalleIndicadorComponent } from './components/shared/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './shared/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
 import { PanelComponent } from './components/panel/panel.component';
@@ -15,9 +15,6 @@ import { ElementoFundamentalComponent } from './components/panel/tablas/elemento
 import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
 import { TablasComponent } from './components/panel/tablas/tablas.component';
 import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
-import { ParametrosComponent } from './components/panel/parametros/parametros.component';
-import { VistaParametrosComponent } from './components/panel/parametros/vista-parametros/vista-parametros.component';
-import { ConfiguracionComponent } from './components/panel/configuracion/configuracion.component';
 import { CheckManagerComponent } from './components/panel/check-manager/check-manager.component';
 import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
 import { authGuard } from './helpers/auth.guard';
@@ -38,12 +35,8 @@ const routes: Routes = [
       { path: 'elementos', component: ElementoFundamentalComponent},
       { path: 'evidencia', component: EvidenciaComponent},
     ]},
-    { path: 'configuracion', component: ConfiguracionComponent},
     { path: 'checkmanager', component: CheckManagerComponent, children: [
       { path: '', component: TablaIndicadoresComponent},
-    ]},
-    { path: 'parametros', component: ParametrosComponent, children: [
-      {path: '', component: VistaParametrosComponent},
     ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
