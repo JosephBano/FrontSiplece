@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
-import { Evidencia } from '../../../../../../models/modelos-generales/evidencia.model';
+import { Evidencia } from '../../../../models/modelos-generales/evidencia.model';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 
 @Component({

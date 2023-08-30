@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { DetalleIndicadorComponent } from './components/panel/evidencias/selector/detalle-indicador/detalle-indicador.component';
+import { DetalleIndicadorComponent } from './components/shared/detalle-indicador/detalle-indicador.component';
 import { LoginComponent } from './components/inicio/login/login.component';
 import { SelectorComponent } from './components/panel/evidencias/selector/selector.component';
 import { PanelComponent } from './components/panel/panel.component';

@@ -12,6 +12,7 @@ export class IndicadorTableComponent implements OnInit{
 
   indicadores: Indicador[] = [];
   @Input() IdSubCriterio = "";
+  @Input() redireccionRol: any;
   selectedIndicador: any;
 
   constructor(private indicadorService: IndicadorService,
@@ -26,6 +27,8 @@ export class IndicadorTableComponent implements OnInit{
 
   handleRowClick(indicador: any) {
     this.selectedIndicador = indicador;
+    console.log(this.redireccionRol);
+    
     this.route.navigate(['panel/evidencias/detalle', this.selectedIndicador])
   }
   
