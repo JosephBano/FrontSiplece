@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
 import { Institucion } from 'src/app/models/modelos-generales/institucion.model';
@@ -17,6 +17,7 @@ import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criter
 })
 export class SelectorIndicadoresComponent {
   selects: FormGroup;
+  @Input() componenteRol: any; //Manejara el tipo de detalle al que redireccionara el indicador.
 
   institucion: Institucion[] = [];
   srtTituloInstitucion: string = '';
@@ -52,6 +53,9 @@ export class SelectorIndicadoresComponent {
       this.institucion = data.filter( e => e.IdInstitucion == this.institucionID);
       this.getData();
     })
+    this.selects.get('modelo')?.setValue('1');
+    this.modeloChange();
+    this.selects.get('modelo')?.disable();
   }
 
   getData(){
@@ -59,6 +63,7 @@ export class SelectorIndicadoresComponent {
 
     this.modeloService.getModelos().subscribe(data => {
       this.modelos = data;
+      
     })
     this.criterioService.getCriterios().subscribe(data => {
       this.criterios = data;
