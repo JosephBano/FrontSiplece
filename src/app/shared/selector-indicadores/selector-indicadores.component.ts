@@ -36,7 +36,6 @@ export class SelectorIndicadoresComponent {
   constructor(private fb: FormBuilder, 
               private institucionService: InstitucionesService,
               private modeloService: ModeloService,
-              private dataService: DataService,
               private criterioService: CriteriosService,
               private subcriterioService: SubCriteriosService
               ) {
@@ -48,7 +47,6 @@ export class SelectorIndicadoresComponent {
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('evidencias');
     this.institucionService.getInstituciones().subscribe(data => {
       this.institucion = data.filter( e => e.IdInstitucion == this.institucionID);
       this.getData();

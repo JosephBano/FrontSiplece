@@ -20,6 +20,8 @@ export class DetalleIndicadorComponent implements OnInit {
 
   selectedEsenciales: number | null = null;
   selectedComplementarios: number | null = null;
+
+  rolview = '2';
   
   constructor(
     private route: ActivatedRoute,

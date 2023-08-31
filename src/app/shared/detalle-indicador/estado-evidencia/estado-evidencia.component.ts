@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-estado-evidencia',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./estado-evidencia.component.css']
 })
 export class EstadoEvidenciaComponent {
-
+ @Input() idElemento: any;
 }
