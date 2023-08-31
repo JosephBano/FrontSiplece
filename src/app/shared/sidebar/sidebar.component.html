@@ -9,6 +9,18 @@
         </button>
     </div>
 
+    <hr class="h-color mx-2">
+
+    <!--Administrador Opcion-->
+    <ul class="list-unstyled px-2">
+        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'admin'}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/admin">
+                <span class="material-symbols-outlined">shield_person</span>
+                <a class="text-decoration-none d-block mx-2">Administrador</a>
+            </div>
+        </li>
+    </ul>
+    
     <hr class="h-color mx-4">
 
     <!--Inicio Opcion-->
@@ -30,21 +42,14 @@
 
     <hr class="h-color mx-4">
 
+    <!--Asignar Roles y Crear Modelos Opcion-->
     <ul class="list-unstyled px-2">
-        <!--Parametros Opcion-->
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'parametros'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/parametros">
-                <span class="material-symbols-outlined">tune</span>
-                <a class="text-decoration-none d-block mx-2">Parametros</a>
-            </div>
-        </li>
-
         <!--Tablas Opcion-->
         <li class="hver" >
             <div class="hver" routerLink="/panel/tablas" (click)="tablasToggleHandler(); toggle();" [ngClass]="{'active' : activeli === 'tablas'}">
                 <div class="d-flex px-3 py-2 align-items-center">
-                    <span class="material-symbols-outlined">table_chart</span>
-                    <a class="text-decoration-none d-block mx-2">Tablas</a>
+                    <span class="material-symbols-outlined">overview_key</span>
+                    <a class="text-decoration-none d-block mx-2">Crear Modelo</a>
                 </div>
             </div>
 
@@ -88,12 +93,23 @@
                 </li>
             </ul>
         </li>
+        <li class="hver" (click)="toggle()" routerLink="/panel/addencargado" [ngClass]="{'active' : activeli === 'addencargado'}">
+            <div class="d-flex px-3 py-2 align-items-center hver">
+                <span class="material-symbols-outlined">person_add</span>
+                <a class="text-decoration-none d-block mx-2">Asignar Encargados</a>
+            </div>
+        </li>
+    </ul>
+
+    <hr class="h-color mx-4">
+
+    <ul class="list-unstyled px-2">        
 
         <!--Check manager-->
         <li class="hver" (click)="toggle()" routerLink="/panel/checkmanager" [ngClass]="{'active' : activeli === 'checkmanager'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">Task</span>
-                <a class="text-decoration-none d-block mx-2">Supervisores</a>
+                <a class="text-decoration-none d-block mx-2">Supervisor</a>
             </div>
         </li>
         
@@ -109,13 +125,6 @@
     <hr class="h-color mx-3">
 
     <ul class="list-unstyled px-2">
-        <!--Configuracion Opcion-->
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'configuracion'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/configuracion">
-                <span class="material-symbols-outlined">settings</span>
-                <a class="text-decoration-none d-block mx-2">Configuración</a>
-            </div>
-        </li>
         <!--LogOut Opcion-->
         <li class="hver" (click)="activeLogOut(); toggle()" [ngClass]="{'active' : activeli === 'logout'}">
             <div class="d-flex px-3 py-2 align-items-center" (click)="logout()">

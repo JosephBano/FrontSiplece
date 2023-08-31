@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
-import { Indicador } from '../../../models/modelos-generales/indicador.model';
+import { Indicador } from '../../models/modelos-generales/indicador.model';
 import { DataService } from 'src/app/services/data.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
