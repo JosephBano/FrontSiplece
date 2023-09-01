@@ -54,20 +54,14 @@
                         <td [ngClass]="{'bordern': selectedEsenciales === i}" scope="row" colspan="2" class="wide-column">{{elemento.Detalle}}</td>
                         <td [ngClass]="{'bordern': selectedEsenciales === i}" class="text-center">
                           <div class="contenedor-botones">
-                            <app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias>
-                            <!-- Mejorar logica para mostrar cambio de iconos -->
-                            <!-- opcion1: Segun su estado rotar el span -->
-                            <!-- opcion2: bindear el contenido del span para que cambie y con esto el contenido -->
-                            <span class="material-symbols-outlined icon-size" *ngIf="selectedEsenciales !== i" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">expand_more</span>
-                            <span class="material-symbols-outlined icon-size" *ngIf="selectedEsenciales === i" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">expand_less</span>
-                            <!-- fin cambios necesarios a futuro -->
+                            <span class="material-symbols-outlined icon-size" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">{{ selectedEsenciales === i ? 'expand_less' : 'expand_more' }}</span>
                           </div>
                         </td>
                       </tr>
                       <ng-container *ngIf="selectedEsenciales === i">
                         <tr>
                           <td colspan="4">
-                            <app-estado-evidencia></app-estado-evidencia>
+                            <app-estado-evidencia [idElemento]="elemento.IdElemento"></app-estado-evidencia>
                           </td>
                         </tr>
                       </ng-container>
@@ -96,13 +90,7 @@
                         <td [ngClass]="{'bordern': selectedComplementarios === i}" class="text-center">
                           <div class="contenedor-botones">
                             <app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias>
-
-                            <!-- Mejorar logica para mostrar cambio de iconos -->
-                            <!-- opcion1: Segun su estado rotar el span -->
-                            <!-- opcion2: bindear el contenido del span para que cambie y con esto el contenido -->
-                            <span class="material-symbols-outlined icon-size" *ngIf="selectedComplementarios !== i" (click)="selectedComplementarios = (selectedEsenciales === i ? null : i)">expand_more</span>
-                            <span class="material-symbols-outlined icon-size" *ngIf="selectedComplementarios === i" (click)="selectedComplementarios = (selectedEsenciales !== i ? null : i)">expand_less</span>
-                            <!-- fin cambios necesarios a futuro -->
+                              <span class="material-symbols-outlined icon-size" (click)="selectedComplementarios = (selectedComplementarios === i ? null : i)">{{ selectedComplementarios === i ? 'expand_less' : 'expand_more' }}</span>
                           </div>
                         </td>
                       </tr>

@@ -1,0 +1,57 @@
+.contenedor-opciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedor-filedetalle {
+    display: flex;
+}
+
+.evidencia {
+    color:blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.material-symbols-outlined {
+    font-size: 20px;
+    margin: 0;
+}
+
+.x{
+    margin-left: 5px;
+}
+
+.x:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+label + input {
+    margin: 2px;
+}
+
+.radioinput {
+    margin-right: .4rem;
+}
+
+.icon-radio {
+    text-align: start;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.radio-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btnsubmit {
+    background: #4CAF50;
+    border: 1px solid #4CAF50;
+    border-radius:10px;
+    color: #fff;
+    margin: 0;
+}

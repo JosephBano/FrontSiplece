@@ -18,11 +18,15 @@ export class EvidenciaService {
   constructor(private http: HttpClient) { }
 
   getEvidencia(): Observable<Evidencia[]> {
-    return this.http.get<[]>(this.API_URL);
+    return this.http.get<Evidencia[]>(this.API_URL);
   }  
 
+  getByElemento(id: string): Observable<Evidencia[]> {
+    return this.http.get<Evidencia[]>(this.API_URL + `/GetByElemento/${id}`)
+  }
+
   getEvidenciaById(id: string): Observable<Evidencia[]> {
-    return this.http.get<[]>(`${this.API_URL}/FindOne/${id}`)
+    return this.http.get<Evidencia[]>(`${this.API_URL}/FindOne/${id}`)
   }
   
   postEvidencia(evidencia: Evidencia): Observable<Evidencia> {

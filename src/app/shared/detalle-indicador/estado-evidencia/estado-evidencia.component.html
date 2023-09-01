@@ -3,6 +3,17 @@
         <div class="contenedor-title">
             <h6>Evidencias Subidas</h6>
         </div>
-        <p>Aqui se agregara la informacion y estado de evidencias subidas, Aqui se agregara la informacion y estado de evidencias subidas</p>
+        <ng-container *ngFor="let evidencia of Evidencias">
+            <div class="contenedor-evidencia">
+                <ng-container *ngIf="evidencia">
+                    <div class="d-flex justify-content-betweeen">
+                        <p>{{GetMaxCharacters(evidencia.Detalle)}}<app-informacion-modal></app-informacion-modal></p>  
+                        <app-modal-evidencias [elemento]="idElemento"></app-modal-evidencias>
+                    </div>
+
+                    <app-evidencia-file-contenedor [IdEvidencia]="evidencia.IdEvidencia"></app-evidencia-file-contenedor>
+                </ng-container>
+            </div>
+        </ng-container>
     </div>
 </div>
