@@ -13,12 +13,17 @@ export class EstadoEvidenciaComponent implements OnInit {
   
   Evidencias: Evidencia[] = [];
 
+  ActiveRols= '1';
+
+  tituloStr = '';
+
   constructor (
     private evidenciaService: EvidenciaService,
   ) { }
   
   ngOnInit(): void {
     this.loadData();
+    this.loadTitle();
   }
 
   loadData() {
@@ -27,6 +32,15 @@ export class EstadoEvidenciaComponent implements OnInit {
         this.Evidencias = data.filter( e => e.Activo == '1');
       }
     )
+  }
+
+  loadTitle() {
+    switch (this.ActiveRols) {
+      case '1': this.tituloStr = 'Asignar Usuario';
+      break;
+      case '2': this.tituloStr = 'Evidencias Subidas';
+      break
+    }
   }
 
   GetMaxCharacters(cadena: string | undefined): string {

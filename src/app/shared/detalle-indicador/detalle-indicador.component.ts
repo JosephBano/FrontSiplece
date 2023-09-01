@@ -32,7 +32,6 @@ export class DetalleIndicadorComponent implements OnInit {
    
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('evidencias');
     this.route.params.subscribe(params => {
       const indicadorID = params['id'];
       this.getIndicadorById(indicadorID);

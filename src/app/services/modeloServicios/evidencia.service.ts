@@ -25,8 +25,8 @@ export class EvidenciaService {
     return this.http.get<Evidencia[]>(this.API_URL + `/GetByElemento/${id}`)
   }
 
-  getEvidenciaById(id: string): Observable<Evidencia[]> {
-    return this.http.get<Evidencia[]>(`${this.API_URL}/FindOne/${id}`)
+  getEvidenciaById(id: string): Observable<Evidencia> {
+    return this.http.get<Evidencia>(`${this.API_URL}/FindOne/${id}`)
   }
   
   postEvidencia(evidencia: Evidencia): Observable<Evidencia> {
