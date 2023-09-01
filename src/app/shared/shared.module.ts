@@ -16,7 +16,8 @@ import { EstadoEvidenciaComponent } from './detalle-indicador/estado-evidencia/e
 import { ModalEvidenciasComponent } from './detalle-indicador/modal-evidencias/modal-evidencias.component';
 import { SelectorIndicadoresComponent } from './selector-indicadores/selector-indicadores.component';
 import { IndicadorTableComponent } from '../shared/selector-indicadores/indicador-table/indicador-table.component';
-import { SupervisorCheckComponent } from './detalle-indicador/supervisor-check/supervisor-check.component';
+import { InformacionModalComponent } from './detalle-indicador/estado-evidencia/informacion-modal/informacion-modal.component';
+import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evidencia/evidencia-file-contenedor/evidencia-file-contenedor.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SupervisorCheckComponent } from './detalle-indicador/supervisor-check/s
     IndicadorTableComponent,
     EstadoEvidenciaComponent,
     ModalEvidenciasComponent,
-    SupervisorCheckComponent
+    InformacionModalComponent,
+    EvidenciaFileContenedorComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,6 @@ import { SupervisorCheckComponent } from './detalle-indicador/supervisor-check/s
     IndicadorTableComponent,
     EstadoEvidenciaComponent,
     ModalEvidenciasComponent,
-    SupervisorCheckComponent,
   ]
 })
 export class SharedModule { }

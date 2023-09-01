@@ -3,8 +3,12 @@
         <div class="contenedor-title">
             <h6>Evidencias Subidas</h6>
         </div>
-        <div class="contenedor-evidencia">
-            <app-supervisor-check [idElemento]="idElemento"></app-supervisor-check>
-        </div>
+        <ng-container *ngFor="let evidencia of Evidencias">
+            <div class="contenedor-evidencia">
+                <ng-container *ngIf="evidencia">
+                    <p>{{GetMaxCharacters(evidencia.Detalle)}}</p>
+                </ng-container>
+            </div>
+        </ng-container>
     </div>
 </div>
