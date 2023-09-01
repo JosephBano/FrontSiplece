@@ -1,0 +1,11 @@
+.informacion {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 24;
+    font-size: 17px;
+    margin: 0;
+    cursor: pointer;
+}
+

@@ -20,3 +20,7 @@
 p {
     margin: 0;
 }
+
+.contenedor-info {
+    display: flex;
+}

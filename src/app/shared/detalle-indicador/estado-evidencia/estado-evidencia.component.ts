@@ -25,7 +25,6 @@ export class EstadoEvidenciaComponent implements OnInit {
     this.evidenciaService.getByElemento(this.idElemento).subscribe(
       (data) => {
         this.Evidencias = data.filter( e => e.Activo == '1');
-        console.log(data);
       }
     )
   }
