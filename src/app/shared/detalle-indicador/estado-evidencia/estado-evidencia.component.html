@@ -6,7 +6,10 @@
         <ng-container *ngFor="let evidencia of Evidencias">
             <div class="contenedor-evidencia">
                 <ng-container *ngIf="evidencia">
-                    <p>{{GetMaxCharacters(evidencia.Detalle)}}<app-informacion-modal></app-informacion-modal></p>  
+                    <div class="d-flex justify-content-betweeen">
+                        <p>{{GetMaxCharacters(evidencia.Detalle)}}<app-informacion-modal></app-informacion-modal></p>  
+                        <app-modal-evidencias [elemento]="idElemento"></app-modal-evidencias>
+                    </div>
 
                     <app-evidencia-file-contenedor [IdEvidencia]="evidencia.IdEvidencia"></app-evidencia-file-contenedor>
                 </ng-container>

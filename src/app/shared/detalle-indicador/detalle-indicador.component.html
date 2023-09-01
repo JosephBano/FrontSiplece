@@ -55,15 +55,6 @@
                         <td [ngClass]="{'bordern': selectedEsenciales === i}" class="text-center">
                           <div class="contenedor-botones">
                             <span class="material-symbols-outlined icon-size" (click)="selectedEsenciales = (selectedEsenciales === i ? null : i)">{{ selectedEsenciales === i ? 'expand_less' : 'expand_more' }}</span>
-                            <!--Vista subir evidencia-->
-                            <ng-container *ngIf="rolview === '2'">
-                              <app-modal-evidencias [elemento]="elemento.IdElemento"></app-modal-evidencias>
-                            </ng-container>
-                            <!--vista supervisor-->
-                            <ng-container *ngIf="rolview === '3'">
-                              
-                            </ng-container>                              
-
                           </div>
                         </td>
                       </tr>
