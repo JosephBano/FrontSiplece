@@ -20,6 +20,7 @@ import { AddTokenInterceptor } from './helpers/add-token.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { TablasModule } from './components/panel/tablas/tablas.module';
 import { InicioModule } from './components/inicio/inicio.module';
+import { UsersPipe } from './pipes/users.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { InicioModule } from './components/inicio/inicio.module';
     EvidenciasComponent,
     CheckManagerComponent,
     TablaIndicadoresComponent,
+    UsersPipe,
   ],
   imports: [
     BrowserModule,
