@@ -7,7 +7,7 @@
             <div class="contenedor-evidencia">
                 <ng-container *ngIf="evidencia">
                     <div class="d-flex justify-content-betweeen">
-                        <p>{{GetMaxCharacters(evidencia.Detalle)}}<app-informacion-modal [IdEvidencia]="evidencia.IdEvidencia"></app-informacion-modal></p>
+                        <p>{{GetMaxCharacters(evidencia.Detalle)}}<app-informacion-modal [DetalleEvidencia]="evidencia.Detalle"></app-informacion-modal></p>
                         <ng-container *ngIf="ActiveRols == '2'">
                             <app-modal-evidencias [elemento]="idElemento"></app-modal-evidencias>
                         </ng-container>  
