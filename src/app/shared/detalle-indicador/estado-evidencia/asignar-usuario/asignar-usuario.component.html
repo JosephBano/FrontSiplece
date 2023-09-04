@@ -1,1 +1,10 @@
-<p>asignar-usuario works!</p>
+<div class="form-group buscador mb-2">
+    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+</div>
+
+<ng-container *ngFor="let usuario of Usuarios | user:filter">
+    <div>
+        <p>{{usuario.nombre}}</p>
+        <br>
+    </div>
+</ng-container>

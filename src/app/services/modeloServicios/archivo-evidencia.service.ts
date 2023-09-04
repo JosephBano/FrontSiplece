@@ -18,6 +18,6 @@ export class ArchivoEvidenciaService {
   constructor( private http: HttpClient ) { }
 
   GetByEvidencia(id: string): Observable<ArchivoEvidencia[]> {
-    return this.http.get<ArchivoEvidencia[]>(environment.URL_BACKEND_ARCHIVOEVIDENCIA + `/GetByEvidencia/${id}`);
+    return this.http.get<ArchivoEvidencia[]>(this.API_URL + `/GetByEvidencia/${id}`);
   }
 }

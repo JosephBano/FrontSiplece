@@ -13,7 +13,7 @@
                         </ng-container>  
                     </div>
                     <ng-container *ngIf="ActiveRols == '1'">
-                        
+                        <app-asignar-usuario [IdEvidencia]="evidencia.IdEvidencia"></app-asignar-usuario>
                     </ng-container>
                     <ng-container *ngIf="ActiveRols == '2'"> 
                         <app-evidencia-file-contenedor [IdEvidencia]="evidencia.IdEvidencia"></app-evidencia-file-contenedor>

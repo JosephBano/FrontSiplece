@@ -40,4 +40,5 @@ export const environment = {
     /*URL's Controlador seguridad */
     URL_SEGURIDAD: BASE_URL_SEGURIDAD,
     URL_SEG_TOKEN: `${BASE_URL_SEGURIDAD}/Token`,
+    URL_SEG_USUARIOS: `${BASE_URL_SEGURIDAD}/Usuario`,
 };

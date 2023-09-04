@@ -19,6 +19,7 @@ import { IndicadorTableComponent } from '../shared/selector-indicadores/indicado
 import { InformacionModalComponent } from './detalle-indicador/estado-evidencia/informacion-modal/informacion-modal.component';
 import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evidencia/evidencia-file-contenedor/evidencia-file-contenedor.component';
 import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/asignar-usuario/asignar-usuario.component';
+import { UsersPipe } from './../pipes/users.pipe';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/as
     InformacionModalComponent,
     EvidenciaFileContenedorComponent,
     AsignarUsuarioComponent,
+    UsersPipe,
   ],
   imports: [
     CommonModule,
