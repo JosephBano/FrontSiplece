@@ -18,6 +18,7 @@ import { SelectorIndicadoresComponent } from './selector-indicadores/selector-in
 import { IndicadorTableComponent } from '../shared/selector-indicadores/indicador-table/indicador-table.component';
 import { InformacionModalComponent } from './detalle-indicador/estado-evidencia/informacion-modal/informacion-modal.component';
 import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evidencia/evidencia-file-contenedor/evidencia-file-contenedor.component';
+import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/asignar-usuario/asignar-usuario.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evi
     ModalEvidenciasComponent,
     InformacionModalComponent,
     EvidenciaFileContenedorComponent,
+    AsignarUsuarioComponent,
   ],
   imports: [
     CommonModule,
