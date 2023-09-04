@@ -1,10 +1,39 @@
-<div class="form-group buscador mb-2">
-    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+
+<ng-container *ngIf="Archivos.length > 0">
+    <ul class="list-group mt-3">
+        <li class="list-group-item fw-bolder">Personal encargado de la subir la documentación</li>
+        <ng-container *ngFor="let encargado of Archivos">
+            <li class="list-group-item">{{encargado.UsuarioRegistra}}</li>
+        </ng-container>
+    </ul>
+</ng-container>
+
+<div class="contenedor-nueva">
+    <div class="contenedor-add">
+        <ng-container *ngIf="Archivos.length === 0">
+            <p>No se ha agregado ningun encargado.</p>    
+        </ng-container>
+        <ng-container *ngIf="Archivos.length > 0">
+            <p>Agregar otro encargado.</p>    
+        </ng-container>
+        <button class="agregar"><span class="material-symbols-outlined">add</span></button>
+    </div>
+    <div class="contenedor-form">
+        <ng-container *ngIf=""> <!--Aquiva la expresion para mostrar bloque-->
+        <div class="form-group buscador mb-2">
+            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+        </div>
+            <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                <ng-container *ngIf="i < 3">
+                    <div>
+                        <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                        <br>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
 </div>
 
-<ng-container *ngFor="let usuario of Usuarios | user:filter">
-    <div>
-        <p>{{usuario.nombre}}</p>
-        <br>
-    </div>
-</ng-container>
+
+
