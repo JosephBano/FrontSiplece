@@ -1,39 +1,87 @@
 
 <ng-container *ngIf="Archivos.length > 0">
     <ul class="list-group mt-3">
-        <li class="list-group-item fw-bolder">Personal encargado de la subir la documentación</li>
+        <li class="list-group-item fw-bolder">
+            <div class="d-flex justify-content-between align-items-center">
+                <p style="margin: 0;">
+                    Personal encargado de la subir la documentación
+                </p>
+                <span class="material-symbols-outlined agregar icon-hover" data-bs-target="#editarEncargado" data-bs-toggle="modal" (click)="statusFilter()">add</span>
+            </div>
+        </li>
         <ng-container *ngFor="let encargado of Archivos">
-            <li class="list-group-item">{{encargado.UsuarioRegistra}}</li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p>
+                        {{formatName(encargado.UsuarioRegistra)}}
+                    </p>
+                    <div class="d-flex">
+                        <span class="material-symbols-outlined">edit</span>
+                        <span class="material-symbols-outlined">close</span>
+                    </div>
+                </div>
+            </li>
         </ng-container>
     </ul>
 </ng-container>
 
-<div class="contenedor-nueva">
-    <div class="contenedor-add">
-        <ng-container *ngIf="Archivos.length === 0">
-            <p>No se ha agregado ningun encargado.</p>    
-        </ng-container>
-        <ng-container *ngIf="Archivos.length > 0">
-            <p>Agregar otro encargado.</p>    
-        </ng-container>
-        <button class="agregar"><span class="material-symbols-outlined">add</span></button>
-    </div>
-    <div class="contenedor-form">
-        <ng-container *ngIf=""> <!--Aquiva la expresion para mostrar bloque-->
-        <div class="form-group buscador mb-2">
-            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+
+  <!-- Modal -->
+  <div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="container">
+                <!-- -->
+                <span class="fw-bolder">Cambiar al encargado</span>
+                
+                <form [formGroup]="editarEncargado">
+                    <input type="text" list="encargados">
+                    <datalist id="encargados" *ngFor="let usuario of Usuarios">
+                        <option value="{{usuario.codigoAd}}">{{usuario.nombre + ' ' + usuario.apellido}}</option>
+                    </datalist>
+                </form>
+                <!-- -->
+            </div>
         </div>
-            <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
-                <ng-container *ngIf="i < 3">
-                    <div>
-                        <p>{{usuario.nombre}} {{usuario.apellido}}</p>
-                        <br>
-                    </div>
-                </ng-container>
-            </ng-container>
-        </ng-container>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-
-
+  <!-- Modal -->
+  <div class="modal fade" id="agregarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="container">
+                <!-- -->
+                
+                <div class="contenedor-form">
+                    <ng-container *ngIf="filterBoolean"> <!--Aquiva la expresion para mostrar bloque-->
+                        <div class="form-group buscador mb-2">
+                            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
+                        </div>
+                        <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                            <ng-container *ngIf="i < 3">
+                                <div class="contenedor-seleccionar">
+                                    <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                                    <span class="material-symbols-outlined agregar" [ngClass]="comprobarUsuario(usuario) ? 'close':'check'">{{comprobarUsuario(usuario) ? 'close':'check'}}</span>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <!-- -->
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
