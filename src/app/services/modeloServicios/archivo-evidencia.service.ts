@@ -24,4 +24,12 @@ export class ArchivoEvidenciaService {
   PostArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
     return this.http.post<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
   }
+
+  UpdateArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
+    return this.http.put<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
+  }
+
+  DeleteArchivo(id: string): Observable<any> {
+    return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
+  }
 }
