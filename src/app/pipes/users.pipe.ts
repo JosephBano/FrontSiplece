@@ -11,14 +11,10 @@ export class UsersPipe implements PipeTransform {
     
     if(value.length === 0) return value;
 
-    return value.filter((value: Usuario) => {
-      const Apellido = value.apellido?.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
-
-      const Nombre = value.nombre.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
-
-      if(Apellido || Nombre) return value;
-      return '';
-    })
+    return value.filter((usuario: Usuario) => {
+      const nombreCompleto = (usuario.nombre + ' ' + usuario.apellido).toLowerCase();
+      return nombreCompleto.includes(filter.toLowerCase());
+    });
   }
 
 }

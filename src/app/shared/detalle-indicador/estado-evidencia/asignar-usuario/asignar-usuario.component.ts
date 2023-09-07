@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evidencia.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { filter } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-asignar-usuario',
@@ -20,17 +20,30 @@ export class AsignarUsuarioComponent implements OnInit{
 
   filterBoolean: boolean = false;
 
+  fechaActual = new Date();
+
+  usuario_aux!: Usuario;
+
   editarEncargado!: FormGroup;
+  agregarEncargado!: FormGroup;
+
+  @ViewChild('btnConfAdd') btnConfAdd!: ElementRef;
+  @ViewChild('closeBtnAdd') closeBtnAdd!: ElementRef;
+
+  straddconf: string = '';
 
   constructor(
     private userService: UsuarioService,
     private archivoService: ArchivoEvidenciaService,
     private fb: FormBuilder,
+    private toastr: ToastrService,
   ) {
     this.editarEncargado = this.fb.group({
-      buscador: '',
-    }
-    )
+      nombre: '',
+    })
+    this.agregarEncargado = this.fb.group({
+      nombre: '',
+    })
    }
 
   ngOnInit(): void {
@@ -59,7 +72,49 @@ export class AsignarUsuarioComponent implements OnInit{
     return false;
   }
 
-  crearArchivo(archivoE: ArchivoEvidencia) {
-    const archivo = {}
+  obtenerFechaEnFormato() {
+    const fecha = new Date(); // Obtener la fecha actual
+    const anio = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Asegura que el mes tenga 2 dígitos
+    const dia = fecha.getDate().toString().padStart(2, '0'); // Asegura que el día tenga 2 dígitos
+    const hora = '00';
+    const minutos = '00';
+    const segundos = '00';
+  
+    return `${anio}-${mes}-${dia}T${hora}:${minutos}:${segundos}`;
+  }
+
+  agregarNuevaArchivo() {
+    const Archivo: ArchivoEvidencia= {
+      IdEvidencia: this.IdEvidencia,
+      Estado: '0',
+      FechaRegistro: this.obtenerFechaEnFormato(),
+      FechaValidacion: '',
+      UsuarioRegistra: this.usuario_aux.codigoAd,
+      UsuarioValida: '',
+      ObservacionRegistra: '',
+      ObservacionValidacion: '',
+      Activo: '1'
+    }
+
+    this.archivoService.PostArchivo(Archivo).subscribe(
+      data => { 
+        this.toastr.success('Evidencia creada con exito');
+        this.loadData();
+      }, error => {
+        this.toastr.error('Ha ocurrido un error');
+      }
+    )
+  }
+
+  addValuesfor(usuario: Usuario) {
+    if(this.comprobarUsuario(usuario)) {
+      this.toastr.warning('Este usuario ya esta asignado en esta evidencia!');
+    }
+    else {
+      this.btnConfAdd.nativeElement.click();
+      this.usuario_aux = usuario;
+      this.straddconf = this.formatName(usuario.codigoAd) ?? '';
+    }
   }
 }

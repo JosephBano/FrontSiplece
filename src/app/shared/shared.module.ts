@@ -5,6 +5,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 //Nav Components
 import { NavbarComponent } from '../shared/navbar/navbar.component';
@@ -41,6 +42,7 @@ import { UsersPipe } from './../pipes/users.pipe';
     SharedRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    ToastrModule
   ],
   exports: [
     SelectorIndicadoresComponent,

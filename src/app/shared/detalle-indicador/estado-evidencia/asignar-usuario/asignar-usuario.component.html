@@ -26,62 +26,55 @@
 </ng-container>
 
 
-  <!-- Modal -->
+  <!-- Modal agregar-->
   <div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-            <div class="container">
-                <!-- -->
-                <span class="fw-bolder">Cambiar al encargado</span>
-                
-                <form [formGroup]="editarEncargado">
-                    <input type="text" list="encargados">
-                    <datalist id="encargados" *ngFor="let usuario of Usuarios">
-                        <option value="{{usuario.codigoAd}}">{{usuario.nombre + ' ' + usuario.apellido}}</option>
-                    </datalist>
-                </form>
-                <!-- -->
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="agregarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-            <div class="container">
-                <!-- -->
-                
-                <div class="contenedor-form">
-                    <ng-container *ngIf="filterBoolean"> <!--Aquiva la expresion para mostrar bloque-->
-                        <div class="form-group buscador mb-2">
-                            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
-                        </div>
-                        <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
-                            <ng-container *ngIf="i < 3">
-                                <div class="contenedor-seleccionar">
-                                    <p>{{usuario.nombre}} {{usuario.apellido}}</p>
-                                    <span class="material-symbols-outlined agregar" [ngClass]="comprobarUsuario(usuario) ? 'close':'check'">{{comprobarUsuario(usuario) ? 'close':'check'}}</span>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <!-- -->
+                    <span class="fw-bolder">Cambiar al encargado</span>   
+                    <div class="contenedor-form">
+                        <ng-container *ngIf="filterBoolean"> <!--Aquiva la expresion para mostrar bloque-->
+                            <form [formGroup]="agregarEncargado">
+                                <div class="form-group mb-2 buscador d-flex justify-content-between">
+                                    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre" formControlName="nombre">
                                 </div>
-                            </ng-container>
+                            </form> 
+                            <div class="table-wraper">
+                                <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                                    <div class="contenedor-seleccionar">
+                                        <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                                        <span class="material-symbols-outlined agregar" [ngClass]="comprobarUsuario(usuario) ? 'close':'check'" (click)="addValuesfor(usuario)">{{comprobarUsuario(usuario) ? 'close':'check'}}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
                         </ng-container>
-                    </ng-container>
+                    </div>
+                    <!-- -->
                 </div>
-                <!-- -->
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeBtnAdd>Cerrar</button>
+            <button type="button" class="btn btn-primary">Aceptar</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Aceptar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
+<button hidden #btnConfAdd data-bs-target="#confAddUser" data-bs-toggle="modal"></button>
+
+<div class="modal fade" id="confAddUser" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <p>Se agregara un nuevo encargado <strong>{{straddconf}}</strong> para esta evidencia</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary" (click)="agregarNuevaArchivo()" data-bs-dismiss="modal">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,4 +20,8 @@ export class ArchivoEvidenciaService {
   GetByEvidencia(id: string): Observable<ArchivoEvidencia[]> {
     return this.http.get<ArchivoEvidencia[]>(this.API_URL + `/GetByEvidencia/${id}`);
   }
+
+  PostArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
+    return this.http.post<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
+  }
 }
