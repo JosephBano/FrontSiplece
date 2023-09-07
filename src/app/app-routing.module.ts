@@ -21,9 +21,7 @@ import { authGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/panel', pathMatch: 'full'},
-  { path:'inicio',  component: InicioComponent, children: [
-    { path: '', component: LoginComponent},
-  ]},
+  { path:'inicio',  component: InicioComponent, loadChildren: () => import('./components/inicio/inicio.module').then(m => m.InicioModule)},
   { path: 'panel', component: PanelComponent, canActivate: [authGuard], children: [
     { path: '', component: InicioPanelComponent},
     { path: 'tablas', component: TablasComponent, children: [
