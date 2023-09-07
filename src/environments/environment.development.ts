@@ -1,5 +1,5 @@
 const BASE_URL_SIPLECE = 'https://localhost:7094/api';
-const BASE_URL_SEGURIDAD = 'https:/localhost:7177/api';
+const BASE_URL_SEGURIDAD = 'https://localhost:7177/api';
 const BASE_RUTA_PANEL = '/panel';
 const BASE_RUTA_TABLAS = `${BASE_RUTA_PANEL}/tablas`;
 
@@ -8,8 +8,8 @@ export const environment = {
     NOMBRE_SISTEMA: "SIPLECE",
     /*URL's Controladores BackEnd */
     URL_BACKEND: BASE_URL_SIPLECE,
-    URL_BACKEND_INSTITUCIONES: `${BASE_URL_SIPLECE}/Institucion`,
-    URL_BACKEND_MODELO: `${BASE_URL_SIPLECE}/Modelo`,
+    URL_BACKEND_INSTITUCIONES: `${BASE_URL_SEGURIDAD}/Institucion`,
+    URL_BACKEND_MODELO: `${BASE_URL_SEGURIDAD}/Modelo`,
     URL_BACKEND_CRITERIO: `${BASE_URL_SIPLECE}/Criterio`,
     URL_BACKEND_SUBCRITERIO: `${BASE_URL_SIPLECE}/Subcriterio`,
     URL_BACKEND_INDICADOR: `${BASE_URL_SIPLECE}/Indicador`,
