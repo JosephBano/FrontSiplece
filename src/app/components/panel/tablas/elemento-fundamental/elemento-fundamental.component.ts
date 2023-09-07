@@ -177,6 +177,7 @@ export class ElementoFundamentalComponent implements OnInit{
   agregarElemento(){
     const elemento: ElementoFundamental = {
       IdIndicador: this.agregar.value.indicador,
+      CodigoElementoFundamental: this.agregar.value.CodigoElementoFundamental,
       IdPonderacion: this.agregar.value.ponderacionAdd,
       Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
@@ -204,6 +205,7 @@ export class ElementoFundamentalComponent implements OnInit{
   editarElemento(){
     const elemento: ElementoFundamental = {
       IdElemento: this.editar.value.id,
+      CodigoElementoFundamental: this.editar.value.codigoElementoFundamental,
       IdIndicador: this.editar.value.indicador,
       IdPonderacion: this.editar.value.ponderacionEdit,
       Orden: this.editar.value.orden,

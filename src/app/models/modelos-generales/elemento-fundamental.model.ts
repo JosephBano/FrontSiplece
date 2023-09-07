@@ -1,8 +1,9 @@
 export interface ElementoFundamental {
     IdElemento?: string;
-    IdIndicador?: string;
-    IdPonderacion?: string;
+    CodigoElementoFundamental: string,
+    IdIndicador: string;
+    IdPonderacion: string;
     Detalle?: string;
-    Orden?: string;
+    Orden: string;
     Activo?: string;
 }
