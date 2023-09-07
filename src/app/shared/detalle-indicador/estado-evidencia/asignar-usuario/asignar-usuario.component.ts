@@ -20,17 +20,19 @@ export class AsignarUsuarioComponent implements OnInit{
 
   filterBoolean: boolean = false;
 
-  fechaActual = new Date();
-
   usuario_aux!: Usuario;
+  archivo_aux!: ArchivoEvidencia;
 
   editarEncargado!: FormGroup;
   agregarEncargado!: FormGroup;
 
   @ViewChild('btnConfAdd') btnConfAdd!: ElementRef;
   @ViewChild('closeBtnAdd') closeBtnAdd!: ElementRef;
+  @ViewChild('btnConfDel') btnConfDel!: ElementRef;
+  @ViewChild('btnConfEdit') btnConfEdit!: ElementRef;
 
   straddconf: string = '';
+  strdelconf: string = '';
 
   constructor(
     private userService: UsuarioService,
@@ -73,13 +75,14 @@ export class AsignarUsuarioComponent implements OnInit{
   }
 
   obtenerFechaEnFormato() {
-    const fecha = new Date(); // Obtener la fecha actual
+    const fecha = new Date();
     const anio = fecha.getFullYear();
-    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Asegura que el mes tenga 2 dígitos
-    const dia = fecha.getDate().toString().padStart(2, '0'); // Asegura que el día tenga 2 dígitos
-    const hora = '00';
-    const minutos = '00';
-    const segundos = '00';
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const dia = fecha.getDate().toString().padStart(2, '0'); 
+    const hora = fecha.getHours().toString().padStart(2, '0');
+    const minutos = fecha.getMinutes().toString().padStart(2, '0');
+    const segundos = fecha.getSeconds().toString().padStart(2, '0');
+
   
     return `${anio}-${mes}-${dia}T${hora}:${minutos}:${segundos}`;
   }
@@ -116,5 +119,34 @@ export class AsignarUsuarioComponent implements OnInit{
       this.usuario_aux = usuario;
       this.straddconf = this.formatName(usuario.codigoAd) ?? '';
     }
+  }
+  
+  editValuesfor(usuario: Usuario) {
+    if(this.comprobarUsuario(usuario)) {
+      this.toastr.warning('Este usuario ya esta asignado en esta evidencia!');
+    }
+    else {
+      this.btnConfEdit.nativeElement.click();
+      this.usuario_aux = usuario;
+      this.straddconf = this.formatName(usuario.codigoAd) ?? '';
+    }
+  }
+
+  openModalDel(archivo: ArchivoEvidencia) {
+    this.archivo_aux = archivo;
+    this.strdelconf = archivo.UsuarioRegistra ?? '';
+    this.btnConfDel.nativeElement.click();
+  }
+
+  borrarArchivo() {
+    const id = this.archivo_aux.IdArchivoEvidencia ?? '';
+    this.archivoService.DeleteArchivo(id).subscribe(
+      data => { 
+        this.toastr.success('El encargado se ha eliminado con exito!');
+        this.loadData();
+      }, error => {
+        this.toastr.error('Ha ocurrido un error al borrar al Encargado');
+      }
+    )
   }
 }

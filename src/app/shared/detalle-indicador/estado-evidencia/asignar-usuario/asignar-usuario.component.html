@@ -16,8 +16,8 @@
                         {{formatName(encargado.UsuarioRegistra)}}
                     </p>
                     <div class="d-flex">
-                        <span class="material-symbols-outlined">edit</span>
-                        <span class="material-symbols-outlined">close</span>
+                        <span class="material-symbols-outlined" data-bs-target="#editarEncargado" data-bs-toggle="modal">edit</span>
+                        <span class="material-symbols-outlined" (click)="openModalDel(encargado)">close</span>
                     </div>
                 </div>
             </li>
@@ -25,10 +25,60 @@
     </ul>
 </ng-container>
 
+<!--Editar funcion-->
+<div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <span class="fw-bolder">Cambiar al encargado</span>   
+                    <div class="contenedor-form">
+                        <form [formGroup]="editarEncargado">
+                            <div class="form-group mb-2 buscador d-flex justify-content-between">
+                                <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre" formControlName="nombre">
+                            </div>
+                        </form> 
+                        <div class="table-wraper">
+                            <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                                <div class="contenedor-seleccionar">
+                                    <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                                    <span class="material-symbols-outlined agregar" [ngClass]="comprobarUsuario(usuario) ? 'close':'check'" (click)="editValuesfor(usuario)">{{comprobarUsuario(usuario) ? 'close':'check'}}</span>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeBtnAdd>Cerrar</button>
+            <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <!-- Modal agregar-->
-  <div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<button hidden #btnConfEdit data-bs-target="#confEditUser" data-bs-toggle="modal"></button>
+
+<div class="modal fade" id="confEditUser" aria-hidden="true" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <p>El nuevo usuario encargado de esta evidencia será <strong>{{straddconf}}</strong></p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary" (click)="agregarNuevaArchivo()" data-bs-dismiss="modal">Agregar</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Editar funcion fin-->
+
+<!-- Modal agregar-->
+<div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="container">
@@ -64,7 +114,7 @@
 
 <button hidden #btnConfAdd data-bs-target="#confAddUser" data-bs-toggle="modal"></button>
 
-<div class="modal fade" id="confAddUser" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" id="confAddUser" aria-hidden="true" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -72,9 +122,31 @@
                     <p>Se agregara un nuevo encargado <strong>{{straddconf}}</strong> para esta evidencia</p>
                     <div class="d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary" (click)="agregarNuevaArchivo()" data-bs-dismiss="modal">Agregar</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!--Fin funcion agregar-->
+
+<!--Delete Modal-->
+<button hidden #btnConfDel data-bs-target="#confDelUser" data-bs-toggle="modal"></button>
+
+<div class="modal fade" id="confDelUser" aria-hidden="true" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <p>Se eliminara al encargado <strong>{{straddconf}}</strong> para esta evidencia</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary" (click)="borrarArchivo()" data-bs-dismiss="modal">Agregar</button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Modal fin-->
