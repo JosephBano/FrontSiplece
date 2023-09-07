@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
-import { Institucion } from 'src/app/models/modelos-generales/institucion.model';
-import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
+import { Institucion } from 'src/app/models/modelosSeguridad/institucion.model';
+import { Modelo } from 'src/app/models/modelosSeguridad/modelo.model';
 import { SubCriterio } from 'src/app/models/modelos-generales/subCriterio.model';
 import { DataService } from 'src/app/services/data.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
-import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
-import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
+import { InstitucionesService } from 'src/app/services/serviciosSeguridad/instituciones.service';
+import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class SelectorIndicadoresComponent {
 
   ngOnInit(): void {
     this.institucionService.getInstituciones().subscribe(data => {
-      this.institucion = data.filter( e => e.IdInstitucion == this.institucionID);
+      this.institucion = data.filter( e => e.idInstitucion == this.institucionID);
       this.getData();
     })
     this.selects.get('modelo')?.setValue('1');
@@ -57,7 +57,7 @@ export class SelectorIndicadoresComponent {
   }
 
   getData(){
-    this.srtTituloInstitucion = this.institucion[0].Detalle || '';
+    this.srtTituloInstitucion = this.institucion[0].detalle || '';
 
     this.modeloService.getModelos().subscribe(data => {
       this.modelos = data;

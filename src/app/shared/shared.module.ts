@@ -5,6 +5,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 //Nav Components
 import { NavbarComponent } from '../shared/navbar/navbar.component';
@@ -18,6 +19,8 @@ import { SelectorIndicadoresComponent } from './selector-indicadores/selector-in
 import { IndicadorTableComponent } from '../shared/selector-indicadores/indicador-table/indicador-table.component';
 import { InformacionModalComponent } from './detalle-indicador/estado-evidencia/informacion-modal/informacion-modal.component';
 import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evidencia/evidencia-file-contenedor/evidencia-file-contenedor.component';
+import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/asignar-usuario/asignar-usuario.component';
+import { UsersPipe } from './../pipes/users.pipe';
 
 
 @NgModule({
@@ -31,12 +34,15 @@ import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evi
     ModalEvidenciasComponent,
     InformacionModalComponent,
     EvidenciaFileContenedorComponent,
+    AsignarUsuarioComponent,
+    UsersPipe,
   ],
   imports: [
     CommonModule,
     SharedRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    ToastrModule
   ],
   exports: [
     SelectorIndicadoresComponent,
