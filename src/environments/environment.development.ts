@@ -4,6 +4,8 @@ const BASE_RUTA_PANEL = '/panel';
 const BASE_RUTA_TABLAS = `${BASE_RUTA_PANEL}/tablas`;
 
 export const environment = {
+    /*Constantes del sistema*/
+    NOMBRE_SISTEMA: "SIPLECE",
     /*URL's Controladores BackEnd */
     URL_BACKEND: BASE_URL_SIPLECE,
     URL_BACKEND_INSTITUCIONES: `${BASE_URL_SIPLECE}/Institucion`,

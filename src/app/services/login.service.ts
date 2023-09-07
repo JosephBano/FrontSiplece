@@ -24,6 +24,7 @@ export class LoginService {
   }
 
   login( usuario: LoginToken): Observable<any> {
+    usuario.codigoSistema=environment.NOMBRE_SISTEMA;
     return this.http.post(environment.URL_SEG_TOKEN, usuario, this.httpOptions);
   }
 
