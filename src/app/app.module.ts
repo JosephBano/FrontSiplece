@@ -18,18 +18,28 @@ import { CheckManagerComponent } from './components/panel/check-manager/check-ma
 import { TablaIndicadoresComponent } from './components/panel/check-manager/tabla-indicadores/tabla-indicadores.component';
 import { AddTokenInterceptor } from './helpers/add-token.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { TablasModule } from './components/panel/tablas/tablas.module';
 import { InicioModule } from './components/inicio/inicio.module';
+import { TablasComponent } from './components/panel/tablas/tablas.component';
+import { MenuTablasComponent } from './components/panel/tablas/menu-tablas/menu-tablas.component';
+import { ContenedorComponent } from './components/panel/tablas/menu-tablas/contenedor/contenedor.component';
+import { ModeloComponent } from './components/panel/tablas/modelo/modelo.component';
+import { CriterioComponent } from './components/panel/tablas/criterio/criterio.component';
+import { SubCriterioComponent } from './components/panel/tablas/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from './components/panel/tablas/indicadores/indicadores.component';
+import { ElementoFundamentalComponent } from './components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
+import { EvidenciaComponent } from './components/panel/tablas/evidencia/evidencia.component';
+import { ModeloPipe } from './pipes/SortAndFilter/modelo.pipe';
+import { DefaultPipe } from './pipes/default.pipe';
+import { CriterioPipe } from './pipes/SortAndFilter/criterio.pipe';
+import { SubCriterioPipe } from './pipes/SortAndFilter/sub-criterio.pipe';
+import { IndicadorPipe } from './pipes/SortAndFilter/indicador.pipe';
+import { ElementoPipe } from './pipes/SortAndFilter/elemento.pipe';
+import { EvidenciaPipe } from './pipes/SortAndFilter/evidencia.pipe';
+import { PanelModule } from './components/panel/panel.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SelectorComponent,
-    PanelComponent,
-    InicioPanelComponent,
-    EvidenciasComponent,
-    CheckManagerComponent,
-    TablaIndicadoresComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +49,7 @@ import { InicioModule } from './components/inicio/inicio.module';
     ReactiveFormsModule,
     NgbModule, 
     HttpClientModule,
-    TablasModule,
+    PanelModule,
     SharedModule,
     InicioModule,
     ToastrModule.forRoot(),
