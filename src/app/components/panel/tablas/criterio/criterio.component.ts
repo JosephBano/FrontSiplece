@@ -141,6 +141,7 @@ export class CriterioComponent implements OnInit{
   //agregar Criterio
   agregarCriterio(): void{
     const criterio: Criterio = {
+      CodigoCriterio: this.agregar.value.codigoCriterio,
       IdModelo: this.agregar.value.modelo,
       Detalle: this.agregar.value.detalle,
       Orden: '1',
@@ -165,6 +166,7 @@ export class CriterioComponent implements OnInit{
   editarCriterio(): void {
     const criterio: Criterio = {
       IdCriterio: this.editar.value.id,
+      CodigoCriterio: this.editar.value.codigoCriterio,
       IdModelo: this.editar.value.modelo,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
