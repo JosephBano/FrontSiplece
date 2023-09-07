@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Periodo } from '../models/modelos-generales/periodo.model';
-import { Institucion } from '../models/modelos-generales/institucion.model';
+import { Institucion } from '../models/modelosSeguridad/institucion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class GlobalDataService {
   }
 
   actualizarInstitucionActual(institucion: Institucion): void {
-    const value = institucion.Detalle ?? '';
+    const value = institucion.detalle ?? '';
     this.institucionActual.next(value);
   }
 }
