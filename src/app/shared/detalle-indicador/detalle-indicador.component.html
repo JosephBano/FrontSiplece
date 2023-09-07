@@ -47,7 +47,7 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos; let i = index">
+                  <ng-container *ngFor="let elemento of elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '1'">
                       <tr [ngClass]="{'bordern': selectedEsenciales === i}">
                         <th [ngClass]="{'bordern': selectedEsenciales === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
@@ -82,7 +82,7 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos; let i = index">
+                  <ng-container *ngFor="let elemento of elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '2'">
                       <tr [ngClass]="{'bordern': selectedComplementarios === i}">
                         <th [ngClass]="{'bordern': selectedComplementarios === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
