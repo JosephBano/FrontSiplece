@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { Indicador } from '../../models/modelos-generales/indicador.model';
-import { DataService } from 'src/app/services/data.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
 import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
@@ -36,6 +35,7 @@ export class DetalleIndicadorComponent implements OnInit {
     private loginService: LoginService,
     private elementoService: ElementoFundamentalService,
     private perfilService: PerfilService,
+    //private router: Router
   ) { }
    
 
@@ -58,24 +58,26 @@ export class DetalleIndicadorComponent implements OnInit {
     const element$ = this.elementoService.getElementoFundamental().pipe(data => data);
 
     forkJoin([permission$, element$]).subscribe(([permissionsData, elementsData]) => {
-      this.elementos = elementsData.filter(e=>permissionsData.some(p=>((p.codigoPermiso===e.CodigoElementoFundamental)) && (e.IdIndicador===id)))
-      console.log(permissionsData)
-      console.log(elementsData)
-      console.log(this.elementos)
+      this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
     })
   }
 
   getIndicadorById(id: string): void {
-    this.indicadorService.getIndicadorById(id).subscribe(
-      data => {
-        if (data && data.length > 0) {
-          this.indicador = data[0]; 
-          if (this.indicador) {
-            this.cargaDeDatos();
-          }
+    /* SI TIENE ACCESO A INDICADOR DEBE CARGAR ESTO */
+    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
+    const indicator$ = this.indicadorService.getIndicadorById(id).pipe(data => data);
+    forkJoin([permission$,indicator$]).subscribe(([permissionsData,indicatorsData]) => {
+      if (indicatorsData && indicatorsData.length > 0) {        
+        const indicadores = indicatorsData.filter(i => permissionsData.some(p => p.codigoPermiso===i.CodigoIndicador))
+        this.indicador= indicadores[0]; 
+        if (this.indicador) {
+          this.cargaDeDatos(); 
+        }else{
+          /* 404 not found */
+          //this.router.navigate(['panel/evidencias/detalle', this.selectedIndicador])
         }
       }
-    );
+    })
   }
 
   cargaDeDatos(): void {

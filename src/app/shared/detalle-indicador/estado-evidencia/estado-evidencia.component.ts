@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
+import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
+import { LoginService } from 'src/app/services/login.service';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
+import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-estado-evidencia',
@@ -11,27 +16,38 @@ export class EstadoEvidenciaComponent implements OnInit {
   
   @Input() idElemento: any;
   
-  Evidencias: Evidencia[] = [];
+  evidencias: Evidencia[] = [];
+  permisoParams?: PermisoPeticion;
 
-  ActiveRols= '1';
+  //ActiveRols= '1';
+  ActiveRols= '2';
 
   tituloStr = '';
 
   constructor (
     private evidenciaService: EvidenciaService,
+    private perfilService: PerfilService,    //esta de aqui
+    private loginService: LoginService,     //y esta deben estar juntas
   ) { }
   
   ngOnInit(): void {
+    this.permisoParams = {
+      codigoModelo: this.loginService.getTokenDecoded().modelo,
+      codigoPerfil: this.loginService.getTokenDecoded().perfil,
+      codigoEstado: 'A',
+      codigoSistema: environment.NOMBRE_SISTEMA
+    }
     this.loadData();
     this.loadTitle();
   }
 
   loadData() {
-    this.evidenciaService.getByElemento(this.idElemento).subscribe(
-      (data) => {
-        this.Evidencias = data.filter( e => e.Activo == '1');
-      }
-    )
+    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
+    const evidence$ = this.evidenciaService.getByElemento(this.idElemento).pipe(data => data);
+      
+    forkJoin([permission$,evidence$]).subscribe(([permissionsData, evidencesData]) => {
+      this.evidencias = evidencesData.filter(e => permissionsData.some(p=>p.codigoPermiso===e.CodigoEvidencia) && e.Activo=='1');     
+    })
   }
 
   loadTitle() {

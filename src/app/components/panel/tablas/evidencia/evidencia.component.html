@@ -57,7 +57,7 @@
                       <tr *ngIf="(evidencia.Activo == '1' && !checkboxDeshabilitarValue) || (evidencia.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="evidencia.Activo == '0'">
                         <td>{{evidencia.Detalle}}</td>
                             <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
-                            <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
+                            <!-- <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td> -->
                             <td>{{evidencia.Orden}}</td>
                             <td>
                               <div class="d-flex justify-content-evenly">

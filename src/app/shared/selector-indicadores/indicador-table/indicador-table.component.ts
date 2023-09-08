@@ -41,7 +41,6 @@ export class IndicadorTableComponent implements OnInit{
     const indicator$ = this.indicadorService.getIndicador().pipe(data =>  data)//Cambiar a get by id subcriterio
     forkJoin([permission$, indicator$]).subscribe(([permissionsData, indicatorsData]) => {
       this.indicadores = indicatorsData.filter(i=>permissionsData.some(p=>p.codigoPermiso===i.CodigoIndicador))
-      console.log(this.indicadores);
     })
   }
 

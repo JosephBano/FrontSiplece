@@ -70,8 +70,6 @@ export class SelectorIndicadoresComponent {
     forkJoin([permission$, data$]).subscribe(([permissionsData, [criteriosData, subCriteriosData]]) => {
       this.criterios=criteriosData.filter(c=>permissionsData.some(p=>p.codigoPermiso===c.CodigoCriterio))
       this.subCriterios = subCriteriosData.filter(sc=>permissionsData.some(p=>p.codigoPermiso===sc.CodigoSubCriterio))
-      console.log(this.criterios);
-      console.log(this.subCriterios);
     });
   }
 
