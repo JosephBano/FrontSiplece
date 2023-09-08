@@ -29,15 +29,17 @@ const routes: Routes = [
       { path: 'elementos', component: ElementoFundamentalComponent},
       { path: 'evidencia', component: EvidenciaComponent},
     ]},
-    { path: 'checkmanager', component: CheckManagerComponent, children: [
+    { path: 'supervisor', component: CheckManagerComponent, children: [
       { path: '', component: TablaIndicadoresComponent},
+      { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
     ]},
     { path: 'encargados', component: AsignarEncargadosComponent, children: [
       { path: '', component: SelectAEComponent},
+      { path: 'asignar-usuarios/:id', component: DetalleIndicadorComponent},
     ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
-      { path: 'detalle/:id', component: DetalleIndicadorComponent},
+      { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
     ]},
 ];
 
