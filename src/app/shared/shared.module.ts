@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedRoutingModule } from './shared-routing.module';
-
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -39,7 +37,6 @@ import { UsersPipe } from './../pipes/users.pipe';
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
     ToastrModule
