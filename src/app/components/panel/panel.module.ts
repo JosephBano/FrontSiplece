@@ -26,6 +26,8 @@ import { EvidenciasComponent } from './evidencias/evidencias.component';
 import { InicioPanelComponent } from './inicio-panel/inicio-panel.component';
 import { PanelComponent } from './panel.component';
 import { SelectorComponent } from './evidencias/selector/selector.component';
+import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
+import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { SelectorComponent } from './evidencias/selector/selector.component';
     IndicadorPipe,
     ElementoPipe,
     EvidenciaPipe,
+    AsignarEncargadosComponent,
+    SelectAEComponent,
   ],
   imports: [
     CommonModule,

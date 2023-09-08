@@ -15,6 +15,8 @@ import { EvidenciasComponent } from './evidencias/evidencias.component';
 import { SelectorComponent } from './evidencias/selector/selector.component';
 import { DetalleIndicadorComponent } from 'src/app/shared/detalle-indicador/detalle-indicador.component';
 import { authGuard } from 'src/app/helpers/auth.guard';
+import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
+import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 
 const routes: Routes = [
   { path: '', component: InicioPanelComponent},
@@ -29,6 +31,9 @@ const routes: Routes = [
     ]},
     { path: 'checkmanager', component: CheckManagerComponent, children: [
       { path: '', component: TablaIndicadoresComponent},
+    ]},
+    { path: 'encargados', component: AsignarEncargadosComponent, children: [
+      { path: '', component: SelectAEComponent},
     ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
