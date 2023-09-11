@@ -20,7 +20,7 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
 
 const routes: Routes = [
   { path: '', component: InicioPanelComponent},
-    { path: 'tablas', component: TablasComponent, canActivate: [authGuard],children: [
+    { path: 'tablas', component: TablasComponent, children: [
       { path: '', component: MenuTablasComponent},
       { path: 'modelo', component: ModeloComponent},
       { path: 'criterio', component: CriterioComponent},
@@ -39,7 +39,7 @@ const routes: Routes = [
     ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
-      { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
+      { path: 'detalle/:id', component: DetalleIndicadorComponent},
     ]},
 ];
 

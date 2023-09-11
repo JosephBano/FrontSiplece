@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginToken } from 'src/app/models/logintoken.model';
-import { GlobalDataService } from 'src/app/services/global-data.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class LoginComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private gdata: GlobalDataService,
     private loginService: LoginService,
     ) 
     {
