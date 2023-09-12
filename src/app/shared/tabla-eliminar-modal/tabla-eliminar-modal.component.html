@@ -1,0 +1,23 @@
+<span class="material-symbols-outlined icon-size" 
+data-bs-toggle="modal" data-bs-target="#deleteModalCriterio">delete</span>
+
+<div class="modal fade" id="deleteModalCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <div class="contenedor-header">
+                        <p class="titulo">Desactivar Objeto</p>
+                    </div>
+                    <div class="contenedor-body">
+                        <span>Esta seguro que desea desactivar este <strong>{{idEliminar.Detalle}}</strong>, esto deshabilitara todos los elemento creados en este componente!</span>
+                    </div>
+                    <div class="contenedor-botones">
+                        <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-danger" (click)="getData()">Deshabilitar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

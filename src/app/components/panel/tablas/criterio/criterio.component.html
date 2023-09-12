@@ -1,13 +1,13 @@
 <div class="contenedor-flotante">
+    <div class="header-contenedor">
+        <h3>Criterios</h3>
+    </div>
     <div class="text-end">
-        <div class="form-group buscador mb-2">
-            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
-            <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
-                <span class="material-symbols-outlined">filter_list</span>
-            </button>
-        </div>
-        <div class="contenedor-options" [ngClass]="moreSettings ? 'contenedor-options_show' : 'contenedor-options_hidden'">
+        <div class="contenedor-options">
             <div class="select-div">
+                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
+                    <span class="material-symbols-outlined">delete</span>
+                </div>
                 <div class="select-filter">
                     <form [formGroup]="tablafilter">
                         <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
@@ -19,24 +19,20 @@
                         </select>
                     </form>
                 </div>
-                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
-                    <span class="material-symbols-outlined">settings_backup_restore</span>
+            </div>
+            <div class="contenedor-botones">
+                <div class="contenedor-toggle">
+                    <span>Deshabilitados</span>
+                    <div class="contenedor-button_toggle">
+                        <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelete">
+                        <label for="TablaDelete" class="button-toggle"></label>
+                    </div>
+                </div>
+                <div class="btn-custom">
+                    <!--Boton Agregar-->
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalCriterio" (click)="setModelo()">Agregar</button>
                 </div>
             </div>
-            
-        <div class="contenedor-botones">
-            <div class="contenedor-toggle">
-                <span>Deshabilitados</span>
-                <div class="contenedor-button_toggle">
-                    <input type="checkbox" [(ngModel)]="checkboxDeshabilitarValue" class="input-check" value="" id="TablaDelete">
-                    <label for="TablaDelete" class="button-toggle"></label>
-                </div>
-            </div>
-            <div class="btn-custom">
-                <!--Boton Agregar-->
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalCriterio">Agregar</button>
-            </div>
-        </div>
         </div>
     </div>
 
@@ -45,7 +41,9 @@
         <table class="table table-hover table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">
+                        <input type="search" class="buscador" [(ngModel)]="filter" placeholder="Nombre">
+                    </th>
                     <th scope="col" width="25%">Modelo</th>
                     <th scope="col" width="10%" class="text-center">Orden</th>
                     <th scope="col" width="10%" class="text-center">Opciones</th>
@@ -66,17 +64,13 @@
                                     data-bs-toggle="modal" data-bs-target="#editModalCriterio" 
                                     (click)="cargarDatosEditar(criterio)">edit</span>
                               <!-- Botón Eliminar -->
-                              <span class="material-symbols-outlined icon-size" 
-                                    data-bs-toggle="modal" data-bs-target="#deleteModalCriterio" 
-                                    (click)="cargarDatosEliminar(criterio)">delete</span>
+                                <app-tabla-eliminar-modal [idEliminar]="criterio" [objetoEliminar]="'criterio'"></app-tabla-eliminar-modal>
                               <!--Buscar con filtro-->
                                     <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(criterio.IdCriterio)">turn_right</span>
                             </ng-container>
                             <ng-container *ngIf="criterio.Activo == '0'">
                               <!-- Botón Restaurar -->
-                              <span class="material-symbols-outlined icon-size" 
-                                    data-bs-toggle="modal" data-bs-target="#restablecerModalCriterio" 
-                                    (click)="cargarDatosEditar(criterio)">restore</span>
+                                <app-tabla-restablecer-modal [idRestablecer]="criterio" [objetoRestablecer]="'criterio'"></app-tabla-restablecer-modal>
                             </ng-container>
                           </div>
                         </td>
@@ -98,30 +92,27 @@
             </div>
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
-
-                <form [formGroup]="agregar">
-                    <div class="row mb-3">
-                        <select formControlName="modelo" class="form-control" >
-                            <option value="" selected disabled >Modelos...</option>
-                            <ng-container *ngFor="let modelo of Modelos">
-                                <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
+                <div class="container">
+                    <form [formGroup]="agregar">
+                        <div class="mb-3">
+                            <label class="form-label">Modelo</label>
+                            <select formControlName="modelo" class="form-control" >
+                                <option value="" selected disabled >Modelos...</option>
+                                <ng-container *ngFor="let modelo of Modelos">
+                                    <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
+                                </ng-container>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="DetalleAgregar" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
                         </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="ordenAgregar" class="col-sm-2 col-form-label text-center">Año</label>
-                        <div class="col-sm-10">
+                        <div class="mb-3">
+                            <label for="ordenAgregar" class="form-label">Año</label>
                             <input type="text" class="form-control" id="ordenAgregar" formControlName="orden" placeholder="2023">
                         </div>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
                 <!--Fin Contenido Modal-->
             </div>
             <!--Botones modal-->
@@ -145,35 +136,28 @@
             </div>
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
-
-                <form [formGroup]="editar">
-                    <input type="text" class="d-none" readonly formControlName="id">
-                    <div class="mb-3 row">
-                        <label for="modelo" class="col-sm-2 col-form-label text-center">Modelo</label>
-                        <div class="col-sm-10">
-                        <select formControlName="modelo" class="form-control" >
-                            <option value="" selected disabled >Modelos...</option>
-                            <ng-container *ngFor="let modelo of Modelos">
-                                <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
-                            </ng-container>
-                        </select>
-                        </div>
-                    </div> 
-                    <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
+                <div class="container">   
+                    <form [formGroup]="editar">
+                        <input type="text" class="d-none" readonly formControlName="id">
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <select [disabled]="false" formControlName="modelo" class="form-control" >
+                                <option value="" selected disabled >Modelos...</option>
+                                <ng-container *ngFor="let modelo of Modelos">
+                                    <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
+                                </ng-container>
+                            </select>
+                        </div> 
+                        <div class="mb-3">
+                            <label for="DetalleEditar" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
                         </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
-                        <div class="col-sm-10">
+                        <div class="mb-3">
+                            <label for="ordenEditar" class="form-label">Siglas</label>
                             <input type="text" class="form-control" id="ordenEditar" formControlName="orden" placeholder="2023">
-                        </div>
-                    </div>        
-
-                </form>
-
+                        </div>        
+                    </form>
+                </div> 
                 <!--Fin Contenido Modal-->
             </div>
             <div class="modal-footer">
@@ -181,100 +165,6 @@
                 <div class="btn-custom">
                     <button type="button" class="btn" (click)="editarCriterio()">Editar</button>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Borrar Modal-->
-<div class="modal fade" id="deleteModalCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Criterio</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!--Inicio Contenido Modal-->
-
-                <h3>Criterio</h3>
-
-                <form [formGroup]="eliminar">
-                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
-                    <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ModeloCriterio" class="col-sm-2 col-form-label text-center">Modelo</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ModeloCriterio" formControlName="modelo" placeholder="Instituto Superior Tecnológico Mayor Pedro Traversari">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="2023">
-                        </div>
-                    </div>        
-                </form>
-
-                <p class="text-danger">Usted esta por deshabilitar este Modelo, tenga en cuenta que más tarde podra recuperar esta información</p>
-
-                <!--Fin Contenido Modal-->
-            </div>
-            <div class="modal-footer">
-                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger" (click)="eliminarCriterio()">Deshabilitar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Restablecer Modal-->
-<div class="modal fade" id="restablecerModalCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Restablecer Criterio</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!--Inicio Contenido Modal-->
-
-                <h3>Criterio</h3>
-
-                <form [formGroup]="editar">
-                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
-                    <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ModeloCriterio" class="col-sm-2 col-form-label text-center">Modelo</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ModeloCriterio" formControlName="modelo" placeholder="">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Siglas</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="">
-                        </div>
-                    </div>       
-                </form>
-
-                <p class="text-success">Usted esta por restablecer este Modelo, podrá volver a verla en el panel principal</p>
-
-                <!--Fin Contenido Modal-->
-            </div>
-            <div class="modal-footer">
-                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success " (click)="editarCriterio()">Restablecer</button>
             </div>
         </div>
     </div>

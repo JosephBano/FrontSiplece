@@ -47,7 +47,7 @@ export class CriterioComponent implements OnInit{
   )
   {
     this.agregar = this.fb.group({
-      modelo: ['', [Validators.required]],
+      modelo: [''],
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
@@ -80,7 +80,6 @@ export class CriterioComponent implements OnInit{
   //Otras funcionalidades
 
   InitFiltro(){
-    this.fd.actualizarFiltroDefault('criterio');
     this.fd.getFiltro('criterio').subscribe(
       (data) => {
         if (data) {
@@ -91,18 +90,21 @@ export class CriterioComponent implements OnInit{
     )
   }
 
+  setModelo() {
+    this.agregar.get('modelo')?.setValue(this.valueFilter);
+    this.agregar.get('modelo')?.disable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('subcriterio', value);
     this.router.navigate(['/panel/tablas/subcriterio'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.modelo = this.valueFilter;
+    this.fd.actualizarFiltro('criterio', this.valueFilter);
   }
   
   loadCriterios(): void {
@@ -126,17 +128,10 @@ export class CriterioComponent implements OnInit{
   cargarDatosEditar(criterio: Criterio){
     this.editar.get('id')?.setValue(criterio.IdCriterio);
     this.editar.get('modelo')?.setValue(criterio.IdModelo);
+    this.editar.get('modelo')?.disable();
     this.editar.get('detalle')?.setValue(criterio.Detalle);
     this.editar.get('orden')?.setValue(criterio.Orden);
   }
-
-  cargarDatosEliminar(criterio: Criterio){
-    this.eliminar.get('id')?.setValue(criterio.IdCriterio);
-    this.eliminar.get('modelo')?.setValue(this.getModeloName(criterio.IdModelo));
-    this.eliminar.get('detalle')?.setValue(criterio.Detalle);
-    this.eliminar.get('orden')?.setValue(criterio.Orden);
-  }
-
 
   //agregar Criterio
   agregarCriterio(): void{
@@ -163,6 +158,7 @@ export class CriterioComponent implements OnInit{
 
   //Editar Modelo
   editarCriterio(): void {
+    this.editar.get('modelo')?.enable();
     const criterio: Criterio = {
       IdCriterio: this.editar.value.id,
       IdModelo: this.editar.value.modelo,
@@ -188,23 +184,4 @@ export class CriterioComponent implements OnInit{
     }
   }
 
-  //eliminar Modelo
-  eliminarCriterio(): void{
-    const id = this.eliminar.value.id;
-
-    this.criterioService.deleteCriterio(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!')
-        this.loadCriterios();
-        console.log(data);
-      }
-      , (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      });
-
-    if (this.cerrarEliminarModal) {
-      this.cerrarEliminarModal.nativeElement.click();
-    } 
-  }
 }
