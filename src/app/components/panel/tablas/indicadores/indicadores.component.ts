@@ -34,8 +34,6 @@ export class IndicadoresComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
@@ -103,18 +101,20 @@ export class IndicadoresComponent implements OnInit{
     )
   }
 
+  setSubCriterio(){
+    this.agregar.get('subcriterio')?.setValue(this.valueFilter);
+    this.agregar.get('subcriterio')?.disable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('elemento', value);
     this.router.navigate(['/panel/tablas/elementos'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.subcriterio = this.valueFilter;
   }
   
   loadIndicadores(){
@@ -176,19 +176,11 @@ export class IndicadoresComponent implements OnInit{
   setPreEditar(indicador: Indicador){
     this.editar.get('id')?.setValue(indicador.IdIndicador);
     this.editar.get('subcriterio')?.setValue(indicador.IdSubCriterio);
+    this.editar.get('subcriterio')?.disable();
     this.editar.get('valoracion')?.setValue(indicador.Valoracion);
     this.editar.get('detalle')?.setValue(indicador.Detalle);
     this.editar.get('orden')?.setValue(indicador.Orden);
     this.editar.get('tipoeditar')?.setValue(indicador.IdTipoEvaluacion);
-  }
-
-  setPreEliminar(indicador: Indicador){
-    this.eliminar.get('id')?.setValue(indicador.IdIndicador);
-    this.eliminar.get('subcriterio')?.setValue(this.getDetalleSubCriterio(indicador.IdSubCriterio));
-    this.eliminar.get('valoracion')?.setValue(this.getDetalleValoracion(indicador.Valoracion));
-    this.eliminar.get('detalle')?.setValue(indicador.Detalle);
-    this.eliminar.get('orden')?.setValue(indicador.Orden);
-    this.eliminar.get('tipodel')?.setValue(this.getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion));
   }
 
   //agregar
@@ -221,6 +213,7 @@ export class IndicadoresComponent implements OnInit{
   }
   //editar
   editarIndicador(){
+    this.editar.get('subcriterio')?.enable();
     const indicador: Indicador = {
       IdIndicador: this.editar.value.id,
       IdSubCriterio: this.editar.value.subcriterio,
@@ -245,29 +238,8 @@ export class IndicadoresComponent implements OnInit{
       }
     );
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
-    }
-  }
-
-  eliminarIndicador(){
-    const id = this.eliminar.value.id;
-
-    this.indicadorService.deleteIndicador(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadIndicadores();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      }
-    );
-
-    if (this.cerrarEliminarModal){
-      this.cerrarEliminarModal.nativeElement.click();
     }
   }
 }

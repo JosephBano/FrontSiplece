@@ -7,6 +7,9 @@ import { ElementoFundamentalService } from 'src/app/services/modeloServicios/ele
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { CriterioComponent } from '../../components/panel/tablas/criterio/criterio.component';
 import { SubCriterioComponent } from 'src/app/components/panel/tablas/sub-criterio/sub-criterio.component';
+import { IndicadoresComponent } from 'src/app/components/panel/tablas/indicadores/indicadores.component';
+import { ElementoFundamentalComponent } from 'src/app/components/panel/tablas/elemento-fundamental/elemento-fundamental.component';
+import { EvidenciaComponent } from 'src/app/components/panel/tablas/evidencia/evidencia.component';
 
 @Component({
   selector: 'app-tabla-eliminar-modal',
@@ -30,8 +33,11 @@ export class TablaEliminarModalComponent{
     private scriterioService: SubCriteriosService,
     private scriterioComponent: SubCriterioComponent,
     private indicadorService: IndicadorService,
+    private indicadorComponent: IndicadoresComponent,
     private elementoService: ElementoFundamentalService,
+    private elementoComponent: ElementoFundamentalComponent,
     private evidenciaService: EvidenciaService,
+    private evidenciaComponent: EvidenciaComponent,
   ) { }
 
   getData() {    
@@ -48,24 +54,51 @@ export class TablaEliminarModalComponent{
         )
         break;
       case 'subcriterio':
-          this.scriterioService.deleteSubCriterio(this.objetoEliminar.IdSubCriterio).subscribe(
-            (data) => {
-              this.toastr.success(`Se ha eliminado el Subcriterio ${this.objetoEliminar.Detalle}, correctamente!`);
-              this.scriterioComponent.loadSubCriterios();
-            },
-            (error) => {
-              this.toastr.error(`Ha ocurrido un error al eliminar el sub-criterio ${this.objetoEliminar.Detalle}!`)
-            }
-          )
+        this.scriterioService.deleteSubCriterio(this.objetoEliminar.IdSubCriterio).subscribe(
+          (data) => {
+            this.toastr.success(`Se ha eliminado el Subcriterio ${this.objetoEliminar.Detalle}, correctamente!`);
+            this.scriterioComponent.loadSubCriterios();
+          },
+          (error) => {
+            this.toastr.error(`Ha ocurrido un error al eliminar el sub-criterio ${this.objetoEliminar.Detalle}!`)
+          }
+        )
         break;
       case 'indicador':
+        this.indicadorService.deleteIndicador(this.objetoEliminar.IdIndicador).subscribe(
+          (data) => {
+            this.toastr.success(`Se ha eliminado el Indicador ${this.objetoEliminar.Detalle}, correctamente!`);
+            this.indicadorComponent.loadIndicadores();
+          },
+          (error) => {
+            this.toastr.error(`Ha ocurrido un error al eliminar el indicador ${this.objetoEliminar.Detalle}!`)
+          }
+        )
         break;
       case 'elemento':
-          break;
+        this.elementoService.deleteElementoFundamental(this.objetoEliminar.IdElemento).subscribe(
+          (data) => {
+            this.toastr.success(`Se ha eliminado el Elemento Fundamental ${this.objetoEliminar.Detalle}, correctamente!`);
+            this.elementoComponent.loadElementosFundamentales();
+          },
+          (error) => {
+            this.toastr.error(`Ha ocurrido un error al eliminar el Elemento Fundamental ${this.objetoEliminar.Detalle}!`)
+          }
+        )
+        break;
       case 'evidencia':
+        this.evidenciaService.deleteEvidencia(this.objetoEliminar.IdEvidencia).subscribe(
+          (data) => {
+            this.toastr.success(`Se ha eliminado la Evidencia ${this.objetoEliminar.Detalle}, correctamente!`);
+            this.evidenciaComponent.loadEvidencia();
+          },
+          (error) => {
+            this.toastr.error(`Ha ocurrido un error al eliminar la Evidencia ${this.objetoEliminar.Detalle}!`)
+          }
+        )
         break;
       default:
-        this.toastr.error('Erro en el componente generico')
+        this.toastr.error('Error en el componente generico')
     }
 
     this.cerrarEliminarModal.nativeElement.click();

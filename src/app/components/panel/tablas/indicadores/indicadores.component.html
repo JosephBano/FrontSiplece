@@ -1,13 +1,13 @@
 <div class="contenedor-flotante">
+    <div class="header-contenedor">
+        <h3>Indicadores</h3>
+    </div>
     <div class="text-end">
-        <div class="form-group buscador mb-2">
-            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre">
-            <button [ngClass]="moreSettings ? 'selected-button': 'unselected-button'" (click)="moreSettingsHandler()">
-                <span class="material-symbols-outlined">filter_list</span>
-            </button>
-        </div>
-        <div class="contenedor-options"[ngClass]="moreSettings ? 'contenedor-options_show': 'contenedor-options_hidden'">
+        <div class="contenedor-options">
             <div class="select-div">
+                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
+                    <span class="material-symbols-outlined">delete</span>
+                </div>
                 <div class="select-filter">
                     <form [formGroup]="tablafilter" class="select-filter">
                         <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
@@ -19,9 +19,6 @@
                         </select>
                     </form>
                 </div>
-                <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
-                    <span class="material-symbols-outlined">settings_backup_restore</span>
-                </div>
             </div>
             <div class="contenedor-botones">
                 <div class="contenedor-toggle">
@@ -32,7 +29,8 @@
                     </div>
                 </div>
                 <div class="btn-custom">
-                    <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalIndicador">Agregar</button>
+                    <!--Boton Agregar-->
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#crearModalIndicador" (click)="setSubCriterio()">Agregar</button>
                 </div>
             </div>
         </div>
@@ -43,7 +41,9 @@
         <table class="table table-hover table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">
+                        <input type="search" class="buscador" [(ngModel)]="filter" placeholder="Nombre">
+                    </th>
                     <th scope="col" width="20%">Sub-Criterio</th>
                     <th scope="col" width="5%" class="text-center">Orden</th>
                     <th scope="col" width="10%" class="text-center">Tipo</th>
@@ -54,37 +54,32 @@
             <tbody>
                 <ng-container *ngFor="let indicador of Indicadores | indicador:filter">
                     <ng-container *ngIf="valueFilter == '0'|| indicador.IdSubCriterio == valueFilter">
-                      <tr *ngIf="(indicador.Activo == '1' && !checkboxDeshabilitarValue) || (indicador.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="indicador.Activo == '0'">
+                        <tr *ngIf="(indicador.Activo == '1' && !checkboxDeshabilitarValue) || (indicador.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="indicador.Activo == '0'">
                             <td>{{indicador.Detalle}}</td>
                             <td>{{getDetalleSubCriterio(indicador.IdSubCriterio)}}</td>
                             <td>{{indicador.Orden}}</td>
                             <td class="text-center">{{getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion)}}</td>
                             <td>{{getDetalleValoracion(indicador.Valoracion)}}</td>
                             <td>
-                      <div class="d-flex justify-content-evenly">
-                        <ng-container *ngIf="indicador.Activo == '1'">
-                          <!-- Botón Editar -->
-                          <span class="material-symbols-outlined icon-size" 
-                                data-bs-toggle="modal" data-bs-target="#editModalIndicador" 
-                                (click)="setPreEditar(indicador)">edit</span>
-                          <!-- Botón Eliminar -->
-                          <span class="material-symbols-outlined icon-size" 
-                                data-bs-toggle="modal" data-bs-target="#deleteModalIndicador" 
-                                (click)="setPreEliminar(indicador)">delete</span>
-                          <!--Buscar con filtro-->
-                                <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(indicador.IdIndicador)">turn_right</span>
-                        </ng-container>
-                        <ng-container *ngIf="indicador.Activo == '0'">
-                          <!-- Botón Restaurar -->
-                          <span class="material-symbols-outlined icon-size" 
-                                data-bs-toggle="modal" data-bs-target="#restablecerModalIndicador" 
-                                (click)="setPreEditar(indicador)">restore</span>
-                        </ng-container>
-                      </div>
-                    </td>
-                  </tr>
+                                <div class="d-flex justify-content-evenly">
+                                    <ng-container *ngIf="indicador.Activo == '1'">
+                                        <!-- Botón Editar -->
+                                        <span class="material-symbols-outlined icon-size" data-bs-toggle="modal" data-bs-target="#editModalIndicador" (click)="setPreEditar(indicador)">edit</span>
+                                    <!-- Botón Eliminar -->
+                                    <app-tabla-eliminar-modal [handlerEliminar]="'indicador'" [objetoEliminar]="indicador"></app-tabla-eliminar-modal>
+                                        <!--Buscar con filtro-->
+                                        <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(indicador.IdIndicador)">turn_right</span>
+                                    </ng-container>
+
+                                    <!-- Botón Restaurar -->
+                                    <ng-container *ngIf="indicador.Activo == '0'">
+                                        <app-tabla-restablecer-modal [idRestablecer]="indicador" [objetoRestablecer]="'indicador'"></app-tabla-restablecer-modal>
+                                    </ng-container>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </ng-container>
-              </ng-container>
             </tbody>
         </table>
     </div>
@@ -236,112 +231,6 @@
                 <div class="btn-custom">
                     <button type="button" class="btn btn-primary" (click)="editarIndicador()">Editar</button>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Borrar Modal-->
-<div class="modal fade" id="deleteModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Deshabilitar Sub-Criterio</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!--Inicio Contenido Modal-->
-
-                <h3>Indicador</h3>
-
-                <form [formGroup]="eliminar">
-                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
-                    <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Infraestructura Básica">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="" class="col-sm-2 col-form-label text-center">Criterio</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="" formControlName="subcriterio" placeholder="Criterio">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Tipo Evaluacion</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="tipodel" placeholder="1,2,3...">
-                        </div>
-                    </div> 
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Orden</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="1,2,3...">
-                        </div>
-                    </div>        
-                </form>
-
-                <p class="text-danger">Usted esta por deshabilitar este Indicador, tenga en cuenta que más tarde podra recuperar esta información más adelante.</p>
-
-                <!--Fin Contenido Modal-->
-            </div>
-            <div class="modal-footer">
-                <button #cerrarEliminarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger" (click)="eliminarIndicador()">Deshabilitar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Restablecer Modal-->
-<div class="modal fade" id="restablecerModalIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Restablecer Indicador</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!--Inicio Contenido Modal-->
-
-                <h3>Indicador</h3>
-
-                <form [formGroup]="editar">
-                    <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id"> 
-                    <div class="mb-3 row text-end">
-                        <label for="DetalleEditar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="DetalleEditar" formControlName="detalle" placeholder="Infraestructura Básica">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="" class="col-sm-2 col-form-label text-center">Criterio</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="" formControlName="subcriterio" placeholder="Criterio">
-                        </div>
-                    </div>
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Tipo Evaluacion</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="tipoeditar" placeholder="1,2,3...">
-                        </div>
-                    </div> 
-                    <div class="mb-3 row text-end">
-                        <label for="ordenEditar" class="col-sm-2 col-form-label text-center">Orden</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control-plaintext" id="ordenEditar" formControlName="orden" placeholder="1,2,3...">
-                        </div>
-                    </div>             
-                </form>
-
-                <p class="text-success">Usted esta por restablecer este Indicador, podrá volver a verlo en el panel principal</p>
-
-                <!--Fin Contenido Modal-->
-            </div>
-            <div class="modal-footer">
-                <button #cerrarRestablecerModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success " (click)="editarIndicador()">Restablecer</button>
             </div>
         </div>
     </div>

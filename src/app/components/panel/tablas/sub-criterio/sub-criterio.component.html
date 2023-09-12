@@ -6,10 +6,10 @@
         <div class="contenedor-options">
             <div class="select-div">
                 <div class="restore-filter" (click)="tablafilter.get('filter')?.setValue('0'); valueFilter = '0'">
-                    <span class="material-symbols-outlined">settings_backup_restore</span>
+                    <span class="material-symbols-outlined">delete</span>
                 </div>
                 <div class="select-filter">
-                    <form [formGroup]="tablafilter" class="select-filter">
+                    <form [formGroup]="tablafilter">
                         <select class="form-control select-filter" formControlName="filter" (change)="OnChangeFilter()">
                             <option value="" selected disabled>Filtrado por Criterio</option>
                             <option value="0">Todos los Criterios</option>
@@ -41,9 +41,9 @@
         <table class="table table-hover table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col"><div class="form-group buscador mb-2">
+                    <th scope="col">
                         <input type="search" class="buscador" [(ngModel)]="filter" placeholder="Nombre">
-                    </div></th>
+                    </th>
                     <th scope="col" width="25%">Criterio</th>
                     <th scope="col" width="10%" class="text-center">Orden</th>
                     <th scope="col" width="10%" class="text-center">Opciones</th>
