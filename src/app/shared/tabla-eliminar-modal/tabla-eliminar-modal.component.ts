@@ -1,13 +1,12 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CriteriosService } from '../../services/modeloServicios/criterios.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { FilterDataService } from 'src/app/services/filter-data.service';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { CriterioComponent } from '../../components/panel/tablas/criterio/criterio.component';
+import { SubCriterioComponent } from 'src/app/components/panel/tablas/sub-criterio/sub-criterio.component';
 
 @Component({
   selector: 'app-tabla-eliminar-modal',
@@ -16,8 +15,8 @@ import { CriterioComponent } from '../../components/panel/tablas/criterio/criter
 })
 export class TablaEliminarModalComponent{
 
+  @Input() handlerEliminar!: any;
   @Input() objetoEliminar!: any;
-  @Input() idEliminar!: any;
 
   
   @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
@@ -29,17 +28,18 @@ export class TablaEliminarModalComponent{
     private criterioService: CriteriosService,
     private criterioComponent: CriterioComponent, 
     private scriterioService: SubCriteriosService,
+    private scriterioComponent: SubCriterioComponent,
     private indicadorService: IndicadorService,
     private elementoService: ElementoFundamentalService,
     private evidenciaService: EvidenciaService,
   ) { }
 
-  getData() {
-    switch (this.objetoEliminar) {
+  getData() {    
+    switch (this.handlerEliminar) {
       case 'criterio':
-        this.criterioService.deleteCriterio(this.idEliminar.IdCriterio).subscribe(
+        this.criterioService.deleteCriterio(this.objetoEliminar.IdCriterio).subscribe(
           (data) => {
-            this.toastr.success(`Se ha eliminado el Criterio ${this.idEliminar.Detalle} correctamente!`);
+            this.toastr.success(`Se ha eliminado el Criterio ${this.objetoEliminar.Detalle} correctamente!`);
             this.criterioComponent.loadCriterios();
           },
           (error) => {
@@ -48,7 +48,15 @@ export class TablaEliminarModalComponent{
         )
         break;
       case 'subcriterio':
-
+          this.scriterioService.deleteSubCriterio(this.objetoEliminar.IdSubCriterio).subscribe(
+            (data) => {
+              this.toastr.success(`Se ha eliminado el Subcriterio ${this.objetoEliminar.Detalle}, correctamente!`);
+              this.scriterioComponent.loadSubCriterios();
+            },
+            (error) => {
+              this.toastr.error(`Ha ocurrido un error al eliminar el sub-criterio ${this.objetoEliminar.Detalle}!`)
+            }
+          )
         break;
       case 'indicador':
         break;
@@ -57,6 +65,7 @@ export class TablaEliminarModalComponent{
       case 'evidencia':
         break;
       default:
+        this.toastr.error('Erro en el componente generico')
     }
 
     this.cerrarEliminarModal.nativeElement.click();

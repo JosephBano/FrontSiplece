@@ -18,7 +18,6 @@ export class CriterioComponent implements OnInit{
 
   Criterios: Criterio[] = [];
   Modelos: Modelo[] = [];
-  Data: Criterio[] = [];
   
   filter!: string;
   checkboxDeshabilitarValue: boolean = false;
@@ -29,8 +28,6 @@ export class CriterioComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
@@ -80,6 +77,7 @@ export class CriterioComponent implements OnInit{
   //Otras funcionalidades
 
   InitFiltro(){
+    this.fd.actualizarFiltroDefault('criterio');
     this.fd.getFiltro('criterio').subscribe(
       (data) => {
         if (data) {
@@ -104,13 +102,11 @@ export class CriterioComponent implements OnInit{
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
     this.agregar.value.modelo = this.valueFilter;
-    this.fd.actualizarFiltro('criterio', this.valueFilter);
   }
   
   loadCriterios(): void {
     this.criterioService.getCriterios().subscribe( data => {
       this.Criterios = data;
-      this.Data = data;
     })
   }
 
@@ -178,10 +174,8 @@ export class CriterioComponent implements OnInit{
       console.log(error);
     });
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
     }
   }
-
 }

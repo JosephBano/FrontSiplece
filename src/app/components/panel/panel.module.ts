@@ -66,6 +66,13 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
     ReactiveFormsModule,
     PanelRoutingModule,
   ],
+  providers: [
+    CriterioComponent,
+    SubCriterioComponent,
+    IndicadoresComponent,
+    ElementoFundamentalComponent,
+    EvidenciaComponent,
+  ],
   exports: []
 })
 export class PanelModule { }

@@ -64,7 +64,7 @@
                                     data-bs-toggle="modal" data-bs-target="#editModalCriterio" 
                                     (click)="cargarDatosEditar(criterio)">edit</span>
                               <!-- Botón Eliminar -->
-                                <app-tabla-eliminar-modal [idEliminar]="criterio" [objetoEliminar]="'criterio'"></app-tabla-eliminar-modal>
+                                <app-tabla-eliminar-modal [objetoEliminar]="criterio" [handlerEliminar]="'criterio'"></app-tabla-eliminar-modal>
                               <!--Buscar con filtro-->
                                     <span class="material-symbols-outlined icon-size" (click)="navegarFiltro(criterio.IdCriterio)">turn_right</span>
                             </ng-container>

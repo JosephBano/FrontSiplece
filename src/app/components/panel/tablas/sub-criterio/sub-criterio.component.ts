@@ -28,8 +28,6 @@ export class SubCriterioComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
@@ -90,18 +88,20 @@ export class SubCriterioComponent implements OnInit{
     )
   }
 
+  setCriterio() {
+    this.agregar.get('criterio')?.setValue(this.valueFilter);
+    this.agregar.get('criterio')?.disable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('indicador', value);
     this.router.navigate(['/panel/tablas/indicador'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.criterio = this.valueFilter;
   }
 
   loadSubCriterios(): void {
@@ -124,17 +124,10 @@ export class SubCriterioComponent implements OnInit{
   cargarDatosEditar(subcriterio: SubCriterio){
     this.editar.get('id')?.setValue(subcriterio.IdSubCriterio);
     this.editar.get('criterio')?.setValue(subcriterio.IdCriterio);
+    this.editar.get('criterio')?.disable();
     this.editar.get('detalle')?.setValue(subcriterio.Detalle);
     this.editar.get('orden')?.setValue(subcriterio.Orden);
   }
-
-  cargarDatosEliminar(subcriterio: SubCriterio){
-    this.eliminar.get('id')?.setValue(subcriterio.IdSubCriterio);
-    this.eliminar.get('criterio')?.setValue(this.getCriterioName(subcriterio.IdCriterio));
-    this.eliminar.get('detalle')?.setValue(subcriterio.Detalle);
-    this.eliminar.get('orden')?.setValue(subcriterio.Orden);
-  }
-
 
   //agregar
   agregarSubCriterio(): void{
@@ -161,6 +154,7 @@ export class SubCriterioComponent implements OnInit{
 
   //Editar
   editarSubCriterio(): void {
+    this.editar.get('criterio')?.enable();
     const subcriterio: SubCriterio = {
       IdSubCriterio: this.editar.value.id,
       IdCriterio: this.editar.value.criterio,
@@ -180,29 +174,8 @@ export class SubCriterioComponent implements OnInit{
       console.log(error);
     });
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
     }
-  }
-
-  //eliminar
-  eliminarSubCriterio(): void{
-    const id = this.eliminar.value.id;
-
-    this.subcriterioService.deleteSubCriterio(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!')
-        this.loadSubCriterios();
-        console.log(data);
-      }
-      , (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      });
-
-    if (this.cerrarEliminarModal) {
-      this.cerrarEliminarModal.nativeElement.click();
-    } 
   }
 }

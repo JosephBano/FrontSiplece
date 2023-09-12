@@ -7,6 +7,8 @@ import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.ser
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { Criterio } from '../../models/modelos-generales/criterio.model';
+import { SubCriterioComponent } from 'src/app/components/panel/tablas/sub-criterio/sub-criterio.component';
+import { SubCriterio } from 'src/app/models/modelos-generales/subCriterio.model';
 
 @Component({
   selector: 'app-tabla-restablecer-modal',
@@ -26,6 +28,7 @@ export class TablaRestablecerModalComponent {
     private criterioService: CriteriosService,
     private criterioComponent: CriterioComponent, 
     private scriterioService: SubCriteriosService,
+    private scriterioComponent: SubCriterioComponent,
     private indicadorService: IndicadorService,
     private elementoService: ElementoFundamentalService,
     private evidenciaService: EvidenciaService,
@@ -36,7 +39,7 @@ export class TablaRestablecerModalComponent {
       case 'criterio':
         const criterio: Criterio = Object.assign({}, this.idRestablecer, {
           Activo: '1'
-        })
+        });
         this.criterioService.updateCriterio(criterio).subscribe(
           (data) => {
             this.toastr.success(`Se ha restablecido el Criterio ${this.idRestablecer.Detalle} correctamente!`);
@@ -48,7 +51,18 @@ export class TablaRestablecerModalComponent {
         )
         break;
       case 'subcriterio':
-
+          const subcriterio: SubCriterio = Object.assign({}, this.idRestablecer, {
+            Activo: '1'
+          });
+          this.scriterioService.updateSubCriterio(subcriterio).subscribe(
+            (data) => {
+              this.toastr.success(`Se ha restablecido el Sub-Criterio ${this.idRestablecer.Detalle} correctamente!`);
+              this.scriterioComponent.loadSubCriterios();
+            }, 
+            (error) => {
+              this.toastr.error(`Ha ocurrido un error al restablecer el criterio ${this.objetoRestablecer.Detalle}!`);
+            }
+          )
         break;
       case 'indicador':
         break;
