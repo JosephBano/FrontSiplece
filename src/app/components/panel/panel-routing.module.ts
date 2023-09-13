@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioPanelComponent } from './inicio-panel/inicio-panel.component';
 import { TablasComponent } from './tablas/tablas.component';
 import { MenuTablasComponent } from './tablas/menu-tablas/menu-tablas.component';
-import { ModeloComponent } from './tablas/modelo/modelo.component';
 import { CriterioComponent } from './tablas/criterio/criterio.component';
 import { SubCriterioComponent } from './tablas/sub-criterio/sub-criterio.component';
 import { IndicadoresComponent } from './tablas/indicadores/indicadores.component';
@@ -22,7 +21,6 @@ const routes: Routes = [
   { path: '', component: InicioPanelComponent},
     { path: 'tablas', component: TablasComponent, children: [
       { path: '', component: MenuTablasComponent},
-      { path: 'modelo', component: ModeloComponent},
       { path: 'criterio', component: CriterioComponent},
       { path: 'subcriterio', component: SubCriterioComponent},
       { path: 'indicador', component: IndicadoresComponent},

@@ -12,7 +12,7 @@ import { FilterDataService } from 'src/app/services/filter-data.service';
 @Component({
   selector: 'app-sub-criterio',
   templateUrl: './sub-criterio.component.html',
-  styleUrls: ['./sub-criterio.component.css']
+  styleUrls: ['./sub-criterio.component.css', '../../panel.component.css']
 })
 export class SubCriterioComponent implements OnInit{
 
@@ -31,7 +31,6 @@ export class SubCriterioComponent implements OnInit{
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,

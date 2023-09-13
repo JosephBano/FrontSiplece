@@ -55,13 +55,7 @@
 
             <!--Tablas Opcion --Despliegue de sub tablas-->
             <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': tablasList ? '300px' : '0'}">
-                <li class="hver mt-1" (click)="toggle()" routerLink="/panel/tablas/modelo" [ngClass]="{'active' : activeSubli === 'modelo'}">
-                    <div class="d-flex px-4 py-2 align-items-center">
-                        <span class="material-symbols-outlined">chevron_right</span>
-                        <a class="text-decoration-none d-block mx-2">Modelos</a>
-                    </div>
-                </li>
-                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
+                <li class="hver mt-1" (click)="toggle()" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Criterio</a>

@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-indicadores',
   templateUrl: './indicadores.component.html',
-  styleUrls: ['./indicadores.component.css']
+  styleUrls: ['./indicadores.component.css', '../../panel.component.css']
 })
 export class IndicadoresComponent implements OnInit{
   Indicadores: Indicador[] = [];
@@ -37,7 +37,6 @@ export class IndicadoresComponent implements OnInit{
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -115,24 +114,24 @@ export class IndicadoresComponent implements OnInit{
       (data) => {
         this.Indicadores = data;
       }
-      )
-    }
+    )
+  }
     
-    loadSubCriterios(){
-      this.subcriterioService.getSubCriterio().subscribe(
+  loadSubCriterios(){
+    this.subcriterioService.getSubCriterio().subscribe(
+    (data) => {
+      this.SubCriterios = data;
+    }
+    )
+  }
+    
+  loadTipoEvaluaciones(){
+    this.tipoService.getTipoEvaluacion().subscribe(
       (data) => {
-        this.SubCriterios = data;
+        this.TipoEvaluaciones = data;
       }
-      )
-    }
-    
-    loadTipoEvaluaciones(){
-      this.tipoService.getTipoEvaluacion().subscribe(
-        (data) => {
-          this.TipoEvaluaciones = data;
-        }
-        )
-      }
+    )
+  }
       
   loadValoraciones() {
     this.valoracionService.getValoracion().subscribe(

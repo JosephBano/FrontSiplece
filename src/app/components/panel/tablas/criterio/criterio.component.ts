@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-criterio',
   templateUrl: './criterio.component.html',
-  styleUrls: ['./criterio.component.css']
+  styleUrls: ['./criterio.component.css', '../../panel.component.css']
 })
 export class CriterioComponent implements OnInit{
 
@@ -31,7 +31,6 @@ export class CriterioComponent implements OnInit{
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,

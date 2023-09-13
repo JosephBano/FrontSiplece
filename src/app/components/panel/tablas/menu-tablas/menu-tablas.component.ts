@@ -9,7 +9,6 @@ import { DataService } from 'src/app/services/data.service';
 export class MenuTablasComponent implements OnInit{
 
   Contenedores = [
-    {url: 'modelo', titulo: 'Modelos', icono: 'menu_book'},
     {url: 'criterio', titulo: 'Criterios', icono: 'description'},
     {url: 'subcriterio', titulo: 'Sub-Criterios', icono: 'inventory_2'},
     {url: 'indicador', titulo: 'Indicadores', icono: 'list'},

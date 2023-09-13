@@ -16,7 +16,6 @@ import { ElementoFundamentalComponent } from './tablas/elemento-fundamental/elem
 import { IndicadoresComponent } from './tablas/indicadores/indicadores.component';
 import { SubCriterioComponent } from './tablas/sub-criterio/sub-criterio.component';
 import { CriterioComponent } from './tablas/criterio/criterio.component';
-import { ModeloComponent } from './tablas/modelo/modelo.component';
 import { ContenedorComponent } from './tablas/menu-tablas/contenedor/contenedor.component';
 import { MenuTablasComponent } from './tablas/menu-tablas/menu-tablas.component';
 import { TablasComponent } from './tablas/tablas.component';
@@ -42,7 +41,6 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
     TablasComponent,
     MenuTablasComponent,
     ContenedorComponent,
-    ModeloComponent,
     CriterioComponent,
     SubCriterioComponent,
     IndicadoresComponent,
