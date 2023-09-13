@@ -43,6 +43,23 @@ export class TablaRestablecerModalComponent {
     private evidenciaComponent: EvidenciaComponent,
   ) { }
   
+  getId() {
+    switch (this.objetoRestablecer) {
+      case 'criterio':
+        return this.idRestablecer.IdCriterio + this.objetoRestablecer;
+      case 'subcriterio':
+        return this.idRestablecer.IdSubCriterio+ this.objetoRestablecer;
+      case 'indicador':
+        return this.idRestablecer.IdIndicador+ this.objetoRestablecer;
+      case 'elemento':
+        return this.idRestablecer.IdElemento+ this.objetoRestablecer;
+      case 'evidencia':
+        return this.idRestablecer.IdEvidencia+ this.objetoRestablecer;
+      default:
+        return 0;
+    }
+  }
+  
   getData() {
     switch (this.objetoRestablecer) {
       case 'criterio':

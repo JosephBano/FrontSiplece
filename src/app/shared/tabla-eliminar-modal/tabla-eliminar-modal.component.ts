@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { CriteriosService } from '../../services/modeloServicios/criterios.service';
 import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
@@ -18,11 +18,12 @@ import { EvidenciaComponent } from 'src/app/components/panel/tablas/evidencia/ev
 })
 export class TablaEliminarModalComponent{
 
-  @Input() handlerEliminar!: any;
-  @Input() objetoEliminar!: any;
-
+  @Input() handlerEliminar: any;
+  @Input() objetoEliminar: any;
   
   @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
+
+  Objeto: any;
 
   private readonly def_path = 'panel/tablas/';
 
@@ -39,6 +40,23 @@ export class TablaEliminarModalComponent{
     private evidenciaService: EvidenciaService,
     private evidenciaComponent: EvidenciaComponent,
   ) { }
+
+  getId() {
+    switch (this.handlerEliminar) {
+      case 'criterio':
+        return this.objetoEliminar.IdCriterio + this.handlerEliminar;
+      case 'subcriterio':
+        return this.objetoEliminar.IdSubCriterio+ this.handlerEliminar;
+      case 'indicador':
+        return this.objetoEliminar.IdIndicador+ this.handlerEliminar;
+      case 'elemento':
+        return this.objetoEliminar.IdElemento+ this.handlerEliminar;
+      case 'evidencia':
+        return this.objetoEliminar.IdEvidencia+ this.handlerEliminar;
+      default:
+        return 0;
+    }
+  }
 
   getData() {    
     switch (this.handlerEliminar) {
