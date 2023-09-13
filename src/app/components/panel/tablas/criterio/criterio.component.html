@@ -97,7 +97,7 @@
                         <div class="mb-3">
                             <label class="form-label">Modelo</label>
                             <select formControlName="modelo" class="form-control" >
-                                <option value="" selected disabled >Modelos...</option>
+                                <option value="0" selected disabled >Modelos...</option>
                                 <ng-container *ngFor="let modelo of Modelos">
                                     <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
                                 </ng-container>

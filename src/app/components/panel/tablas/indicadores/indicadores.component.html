@@ -96,39 +96,30 @@
             <div class="modal-body">
                 <!--Inicio Contenido Modal-->
                 <div class="container">
-
-                    
                     <form [formGroup]="agregar">
                         <!--Subcriterio opcion-->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label text-center" width="90px">Sub-Criterio</label>
-                            <div class="col-sm-10">
-                                <select formControlName="subcriterio" class="form-control" >
-                                    <option value="" selected disabled >Sub-Criterios...</option>
-                                    <ng-container *ngFor="let subcriterio of SubCriterios">
-                                        <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdCriterio">{{subcriterio.Detalle}}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Sub-Criterio</label>
+                            <select formControlName="subcriterio" class="form-control" >
+                                <option value="0" selected disabled >Sub-Criterios...</option>
+                                <ng-container *ngFor="let subcriterio of SubCriterios">
+                                    <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdCriterio">{{subcriterio.Detalle}}</option>
+                                </ng-container>
+                            </select>
                         </div>
                         <!--Nombre-->
-                        <div class="mb-3 row">
-                            <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
-                            </div>
+                        <div class="mb-3">
+                            <label for="DetalleAgregar" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
                         </div>
                         <!--Orden-->
-                        <div class="row mb-3">
-                            <label for="" class="col-sm-2 col-form-label text-center">Orden</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
-                            </div> 
+                        <div class="mb-3">
+                            <label for="" class="form-label">Orden</label>
+                            <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
                         </div>
                         <!--Tipo de Evaluacion-->
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-2 col-form-label text-center">Tipo de Evaluacion</label>
-                            <div class="col-sm-10 mt-2">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Tipo de Evaluacion</label>
                             <ng-container *ngFor="let tipo of TipoEvaluaciones">
                                 <div class="d-flex mx-4">
                                     <div class="form-check">
@@ -136,11 +127,9 @@
                                         <label for="" class="form-check-label">{{tipo.Detalle}} </label>
                                     </div>
                                 </div>
-                                </ng-container>
-                            </div>
+                            </ng-container>
                         </div>
                     </form>
-                    
                 </div>
                 <!--Fin Contenido Modal-->
             </div>
@@ -170,34 +159,27 @@
                     <form [formGroup]="editar">   
                         <input type="text" readonly class="d-none" id="IdEditar" formControlName="id" value="id">   
                         <!--Subcriterio opcion-->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label text-center">Sub-Criterio</label>
-                            <div class="col-sm-10">
-                                <select formControlName="subcriterio" class="form-control" >
-                                    <ng-container *ngFor="let subcriterio of SubCriterios">
-                                        <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdSubCriterio">{{subcriterio.Detalle}}</option>
-                                    </ng-container>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Sub-Criterio</label>
+                            <select formControlName="subcriterio" class="form-control" >
+                                <ng-container *ngFor="let subcriterio of SubCriterios">
+                                    <option *ngIf="subcriterio.Activo == '1'" [value]="subcriterio.IdSubCriterio">{{subcriterio.Detalle}}</option>
+                                </ng-container>
+                            </select>
                         </div>
                         <!--Nombre-->
-                        <div class="mb-3 row">
-                            <label for="DetalleAgregar" class="col-sm-2 col-form-label text-center">Nombre</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
-                            </div>
+                        <div class="mb-3">
+                            <label for="DetalleAgregar" class="form-label">Nombre</label>    
+                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Planificación estratégica y operativa">
                         </div>
                         <!--Orden-->
-                        <div class="row mb-3">
-                            <label for="" class="col-sm-2 col-form-label text-center">Orden</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
-                            </div> 
-                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Orden</label>
+                            <input type="text" class="form-control" formControlName="orden" placeholder="1, 2, 3, ...">
+                        </div> 
                         <!--Tipo de Evaluacion-->
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-2 col-form-label text-center">Tipo de Evaluacion</label>
-                            <div class="col-sm-10 mt-2">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Tipo de Evaluacion</label>
                             <ng-container *ngFor="let tipo of TipoEvaluaciones">
                                 <div class="d-flex mx-4">
                                     <div class="form-check">
@@ -205,12 +187,10 @@
                                         <label for="" class="form-check-label">{{tipo.Detalle}} </label>
                                     </div>
                                 </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="" class="col-sm-2 col-form-label text-center">Valoracion</label>
-                            <div class="col-sm-10 mt-2">
+                            </ng-container>
+                        </div>        
+                        <div class="mb-3">
+                            <label for="" class="form-label">Valoracion</label>
                             <ng-container *ngFor="let valor of Valoraciones">
                                 <div class="d-flex mx-4">
                                     <div class="form-check">
@@ -218,12 +198,10 @@
                                         <label for="" class="form-check-label">{{valor.Detalle}} </label>
                                     </div>
                                 </div>
-                                </ng-container>
-                            </div>
+                            </ng-container>
                         </div>
                     </form>
                 </div>
-
                 <!--Fin Contenido Modal-->
             </div>
             <div class="modal-footer">

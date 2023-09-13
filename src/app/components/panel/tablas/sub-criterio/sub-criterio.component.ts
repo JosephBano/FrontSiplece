@@ -44,7 +44,7 @@ export class SubCriterioComponent implements OnInit{
   )
   {
     this.agregar = this.fb.group({
-      criterio: ['', [Validators.required]],
+      criterio: ['0', [Validators.required]],
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
@@ -54,13 +54,7 @@ export class SubCriterioComponent implements OnInit{
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      criterio: ['', [Validators.required]],
-      detalle: ['', [Validators.required]],
-      orden: ['', [Validators.required]],
-    })
-
+    
     this.tablafilter = this.fb.group({
       filter: [''],
     })
@@ -90,7 +84,8 @@ export class SubCriterioComponent implements OnInit{
 
   setCriterio() {
     this.agregar.get('criterio')?.setValue(this.valueFilter);
-    this.agregar.get('criterio')?.disable();
+    if(this.valueFilter != '0') this.agregar.get('criterio')?.disable();
+    else this.agregar.get('criterio')?.enable();
   }
 
   navegarFiltro(id: string | undefined) {

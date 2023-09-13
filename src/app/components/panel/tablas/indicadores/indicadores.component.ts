@@ -64,14 +64,6 @@ export class IndicadoresComponent implements OnInit{
       orden: ['', Validators.required],
       tipoeditar: ['', Validators.required],
     })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      subcriterio: ['', Validators.required],
-      valoracion: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
-      tipodel: ['', Validators.required],
-    })
 
     this.tablafilter = this.fb.group({
       filter: [''],
@@ -103,7 +95,8 @@ export class IndicadoresComponent implements OnInit{
 
   setSubCriterio(){
     this.agregar.get('subcriterio')?.setValue(this.valueFilter);
-    this.agregar.get('subcriterio')?.disable();
+    if (this.valueFilter != '0') this.agregar.get('subcriterio')?.disable();
+    else this.agregar.get('subcriterio')?.enable();
   }
 
   navegarFiltro(id: string | undefined) {
@@ -228,8 +221,6 @@ export class IndicadoresComponent implements OnInit{
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!');
         this.loadIndicadores();
-        this.loadSubCriterios();
-        this.loadValoraciones();
         console.log(data);
       },
       (error) => {
