@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Criterio } from '../../models/modelos-generales/criterio.model';
-import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -35,7 +34,7 @@ export class CriteriosService {
   }
 
   updateCriterio(criterio: Criterio): Observable<Criterio> {
-    return this.http.put<Modelo>(this.API_URL, criterio, this.httpOptions);
+    return this.http.put<Criterio>(this.API_URL, criterio, this.httpOptions);
   }
 
   deleteCriterio(id: string): Observable<any> {

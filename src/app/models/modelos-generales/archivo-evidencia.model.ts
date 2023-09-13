@@ -1,12 +1,12 @@
 export interface ArchivoEvidencia {
     IdArchivoEvidencia?: string;
-    IdEvidencia?: string;
-    Estado?: string;
-    FechaRegistro?: string;
+    IdEvidencia: string;
+    Estado: string;
+    FechaRegistro: string;
     FechaValidacion?: string;
-    UsuarioRegistra?: string;
-    UsuarioValida?: string;
-    ObservacionRegistra?: string;
-    ObservacionValidacion?: string;
+    UsuarioRegistra: string;
+    RolValida: string;
+    Detalle?: string;
+    PathUrl?: string;
     Activo?: string;
 }

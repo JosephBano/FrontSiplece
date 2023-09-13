@@ -2,9 +2,9 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
-import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
+import { Modelo } from 'src/app/models/modelosSeguridad/modelo.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
-import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
+import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
 import { DataService } from '../../../../services/data.service';
 import { FilterDataService } from 'src/app/services/filter-data.service';
 import { Router } from '@angular/router';
@@ -111,8 +111,8 @@ export class CriterioComponent implements OnInit{
   }
 
   getModeloName(id: any){
-    const detalle = this.Modelos.find(e => e.IdModelo === id); 
-    return detalle?.Detalle;
+    const detalle = this.Modelos.find(e => e.idModelo === id); 
+    return detalle?.detalle;
   }
 
   cargarDatosEditar(criterio: Criterio){
@@ -126,6 +126,7 @@ export class CriterioComponent implements OnInit{
   //agregar Criterio
   agregarCriterio(): void{
     const criterio: Criterio = {
+      CodigoCriterio: this.agregar.value.codigoCriterio,
       IdModelo: this.agregar.value.modelo,
       Detalle: this.agregar.value.detalle,
       Orden: '1',
@@ -151,6 +152,7 @@ export class CriterioComponent implements OnInit{
     this.editar.get('modelo')?.enable();
     const criterio: Criterio = {
       IdCriterio: this.editar.value.id,
+      CodigoCriterio: this.editar.value.codigoCriterio,
       IdModelo: this.editar.value.modelo,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,

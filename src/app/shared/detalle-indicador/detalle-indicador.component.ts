@@ -1,10 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { Indicador } from '../../models/modelos-generales/indicador.model';
-import { DataService } from 'src/app/services/data.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-fundamental.model';
+import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
+import { LoginService } from 'src/app/services/login.service';
+import { environment } from 'src/environments/environment.development';
+import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -13,7 +17,9 @@ import { ElementoFundamental } from 'src/app/models/modelos-generales/elemento-f
 })
 export class DetalleIndicadorComponent implements OnInit {
   indicador!: Indicador;
-  Elementos: ElementoFundamental[] = []; 
+  elementos: ElementoFundamental[] = []; 
+
+  permisoParams?: PermisoPeticion;
 
   strTituloIndicador = '';
   strTipoIndicador = '';
@@ -26,12 +32,20 @@ export class DetalleIndicadorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private indicadorService: IndicadorService,
-    private dataService: DataService,
+    private loginService: LoginService,
     private elementoService: ElementoFundamentalService,
+    private perfilService: PerfilService,
+    //private router: Router
   ) { }
    
 
   ngOnInit(): void {
+    this.permisoParams = {
+      codigoModelo: this.loginService.getTokenDecoded().modelo,
+      codigoPerfil: this.loginService.getTokenDecoded().perfil,
+      codigoEstado: 'A',
+      codigoSistema: environment.NOMBRE_SISTEMA
+    }
     this.route.params.subscribe(params => {
       const indicadorID = params['id'];
       this.getIndicadorById(indicadorID);
@@ -39,25 +53,31 @@ export class DetalleIndicadorComponent implements OnInit {
     });
   }
 
-  loadElementosById(id: any){    
-    this.elementoService.getElementoFundamental().subscribe(
-      (data) => {
-        this.Elementos = data.filter( e => e.IdIndicador == id);
-      }
-    )
+  loadElementosById(id: string){    
+    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
+    const element$ = this.elementoService.getElementoFundamental().pipe(data => data);
+
+    forkJoin([permission$, element$]).subscribe(([permissionsData, elementsData]) => {
+      this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
+    })
   }
 
   getIndicadorById(id: string): void {
-    this.indicadorService.getIndicadorById(id).subscribe(
-      data => {
-        if (data && data.length > 0) {
-          this.indicador = data[0]; 
-          if (this.indicador) {
-            this.cargaDeDatos();
-          }
+    /* SI TIENE ACCESO A INDICADOR DEBE CARGAR ESTO */
+    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
+    const indicator$ = this.indicadorService.getIndicadorById(id).pipe(data => data);
+    forkJoin([permission$,indicator$]).subscribe(([permissionsData,indicatorsData]) => {
+      if (indicatorsData && indicatorsData.length > 0) {        
+        const indicadores = indicatorsData.filter(i => permissionsData.some(p => p.codigoPermiso===i.CodigoIndicador))
+        this.indicador= indicadores[0]; 
+        if (this.indicador) {
+          this.cargaDeDatos(); 
+        }else{
+          /* 404 not found */
+          //this.router.navigate(['panel/evidencias/detalle', this.selectedIndicador])
         }
       }
-    );
+    })
   }
 
   cargaDeDatos(): void {

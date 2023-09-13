@@ -14,7 +14,7 @@
                             <option value="" selected disabled>Filtrado por Modelo</option>
                             <option value="0">Todos los Modelos</option>
                             <ng-container *ngFor="let filtro of Modelos">
-                                <option [value]="filtro.IdModelo">{{filtro.Detalle}}</option>
+                                <option [value]="filtro.idModelo">{{filtro.detalle}}</option>
                             </ng-container>
                         </select>
                     </form>
@@ -99,7 +99,7 @@
                             <select formControlName="modelo" class="form-control" >
                                 <option value="0" selected disabled >Modelos...</option>
                                 <ng-container *ngFor="let modelo of Modelos">
-                                    <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
+                                    <option *ngIf="modelo.activo == '1'" [value]="modelo.idModelo">{{modelo.detalle}}</option>
                                 </ng-container>
                             </select>
                         </div>
@@ -144,7 +144,7 @@
                             <select [disabled]="false" formControlName="modelo" class="form-control" >
                                 <option value="" selected disabled >Modelos...</option>
                                 <ng-container *ngFor="let modelo of Modelos">
-                                    <option *ngIf="modelo.Activo == '1'" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
+                                    <option *ngIf="modelo.activo == '1'" [value]="modelo.idModelo">{{modelo.detalle}}</option>
                                 </ng-container>
                             </select>
                         </div> 

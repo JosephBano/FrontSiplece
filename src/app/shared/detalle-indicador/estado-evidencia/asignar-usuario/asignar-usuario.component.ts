@@ -92,11 +92,11 @@ export class AsignarUsuarioComponent implements OnInit{
       IdEvidencia: this.IdEvidencia,
       Estado: '0',
       FechaRegistro: this.obtenerFechaEnFormato(),
-      FechaValidacion: '',
+      // FechaValidacion: '',
       UsuarioRegistra: this.usuario_aux.codigoAd,
-      UsuarioValida: '',
-      ObservacionRegistra: '',
-      ObservacionValidacion: '',
+      RolValida: '',
+      // Detalle: '',
+      // PathUrl: '',
       Activo: '1'
     }
 

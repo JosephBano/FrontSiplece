@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginToken } from 'src/app/models/logintoken.model';
 import { LoginService } from 'src/app/services/login.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,7 @@ export class LoginComponent {
       correo: this.login.value.usuario,
       contrasenia: this.login.value.password,
       codigoInstitucion: this.cdInstitucion,
+      codigoSistema: environment.NOMBRE_SISTEMA
     }
 
     this.loginService.login(user).subscribe(data => {

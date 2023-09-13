@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Modelo } from '../../models/modelos-generales/modelo.model';
+import { Modelo } from '../../models/modelosSeguridad/modelo.model';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
@@ -26,6 +26,10 @@ export class ModeloService {
 
   postModelo(modelo: Modelo): Observable<Modelo> {
     return this.http.post<Modelo>(this.API_URL, modelo, this.httpOptions);
+  }
+
+  getModeloByCode(code: string): Observable<Modelo> {
+    return this.http.get<Modelo>(`${this.API_URL}/${code}`);
   }
 
   updateModelo(modelo: Modelo): Observable<Modelo> {

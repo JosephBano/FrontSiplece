@@ -126,10 +126,10 @@ export class EvidenciaComponent implements OnInit{
     return obj?.Detalle;
   }
 
-  getDetallePeriodo(id: any){
+  /*getDetallePeriodo(id: any){
     const obj = this.Periodos.find(e => e.IdPeriodo === id);
     return obj?.Detalle;
-  }
+  }*/
 
   //otrasFunciones
   setDefaultAgregar(){
@@ -141,9 +141,9 @@ export class EvidenciaComponent implements OnInit{
   
   setPreEditar(evidencia: Evidencia){
     this.editar.get('id')?.setValue(evidencia.IdEvidencia);
+    this.editar.get('codigoEvidencia')?.setValue(evidencia.CodigoEvidencia);
     this.editar.get('elemento')?.setValue(evidencia.IdElemento);
     this.editar.get('elemento')?.disable();
-    this.editar.get('periodoEdit')?.setValue(evidencia.IdPeriodo);
     this.editar.get('detalle')?.setValue(evidencia.Detalle);
     this.editar.get('orden')?.setValue(evidencia.Orden);
   }
@@ -152,7 +152,8 @@ export class EvidenciaComponent implements OnInit{
   agregarEvidencia(){
     const evidencia: Evidencia = {
       IdElemento: this.agregar.value.elemento,
-      IdPeriodo: this.agregar.value.periodoAdd,
+      CodigoEvidencia: this.agregar.value.codigoEvidencia,
+      // IdPeriodo: this.agregar.value.periodoAdd,
       Detalle: this.agregar.value.detalle,
       Orden: this.agregar.value.orden,
       Activo: '1',
@@ -180,8 +181,9 @@ export class EvidenciaComponent implements OnInit{
     this.editar.get('elemento')?.enable();
     const evidencia: Evidencia = {
       IdEvidencia: this.editar.value.id,
+      CodigoEvidencia: this.editar.value.codigoEvidencia,
       IdElemento: this.editar.value.elemento,
-      IdPeriodo: this.editar.value.periodoEdit,
+      // IdPeriodo: this.editar.value.periodoEdit,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
       Activo: '1',

@@ -178,12 +178,13 @@ export class IndicadoresComponent implements OnInit{
   //agregar
   agregarIndicador(){
     const indicador: Indicador = {
+      CodigoIndicador: this.agregar.value.codigoIndicador,
       IdSubCriterio: this.agregar.value.subcriterio,
       IdTipoEvaluacion: this.agregar.value.tipoagregar,
       Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
-      Valoracion: '1',
-      Activo: '1',
+      Estandar: this.editar.value.estandar,
+      Valoracion: '1'
     }
 
     this.indicadorService.postIndicador(indicador).subscribe(
@@ -208,11 +209,13 @@ export class IndicadoresComponent implements OnInit{
     this.editar.get('subcriterio')?.enable();
     const indicador: Indicador = {
       IdIndicador: this.editar.value.id,
+      CodigoIndicador: this.editar.value.codigoIndicador,
       IdSubCriterio: this.editar.value.subcriterio,
       IdTipoEvaluacion: this.editar.value.tipoeditar,
       Valoracion: this.editar.value.valoracion,
       Orden: this.editar.value.orden,
       Detalle: this.editar.value.detalle,
+      Estandar: this.editar.value.estandar,
       Activo: '1',
     }
     

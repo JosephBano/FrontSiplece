@@ -43,7 +43,6 @@
                 <tr>
                     <th scope="col" width="40%"><input type="search" class="buscador" [(ngModel)]="filter" placeholder="Descripción"></th>
                     <th scope="col" width="40%">ElementoFundamental</th>
-                    <th scope="col" width="10%" class="text-center">Periodo</th>
                     <th scope="col" width="5%" class="text-center">Orden</th>
                     <th scope="col" width="5%" class="text-center">Opciones</th>
                 </tr>
@@ -54,7 +53,6 @@
                         <tr *ngIf="(evidencia.Activo == '1' && !checkboxDeshabilitarValue) || (evidencia.Activo == '0' && checkboxDeshabilitarValue)" [class.table-danger]="evidencia.Activo == '0'">
                             <td>{{evidencia.Detalle}}</td>
                                 <td>{{getDetalleElemento(evidencia.IdElemento)}}</td>
-                                <td class="text-center">{{getDetallePeriodo(evidencia.IdPeriodo)}}</td>
                                 <td class="text-center">{{evidencia.Orden}}</td>
                                 <td>
                                     <div class="d-flex justify-content-evenly">
