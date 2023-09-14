@@ -15,7 +15,7 @@
             <select formControlName="criterio" class="form-select" (change)="criterioChange()">
               <option value="" selected disabled>Seleccione un Criterio...</option>
               <ng-container *ngFor="let criterio of criterios">
-                  <option *ngIf="criterio.IdModelo == modeloId" [value]="criterio.IdCriterio">{{criterio.Detalle}}</option>
+                  <option [value]="criterio.IdCriterio">{{criterio.Detalle}}</option>
               </ng-container>
             </select>
           </div>
@@ -25,7 +25,7 @@
             <select formControlName="subcriterio" class="form-select" (change)="subcriterioChange()">
                 <option value="" selected disabled>Seleccione un Sub-Criterio...</option>
                 <ng-container *ngFor="let subCriterio of subCriterios">
-                    <option *ngIf="subCriterio.IdCriterio == criterioId" [value]="subCriterio.IdSubCriterio">{{subCriterio.Detalle}}</option>
+                    <option [value]="subCriterio.IdSubCriterio">{{subCriterio.Detalle}}</option>
                 </ng-container>
             </select>
           </div>

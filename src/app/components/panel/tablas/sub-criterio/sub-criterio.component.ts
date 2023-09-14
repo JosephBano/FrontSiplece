@@ -125,6 +125,7 @@ export class SubCriterioComponent implements OnInit{
 
   //agregar
   agregarSubCriterio(): void{
+    this.editar.get('criterio')?.enable();
     const subcriterio: SubCriterio = {
       CodigoSubCriterio: this.agregar.value.codigoSubCriterio,
       IdCriterio: this.agregar.value.criterio,

@@ -25,12 +25,6 @@
 
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'inicio'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
-                <span class="material-symbols-outlined">home</span>
-                <a class="text-decoration-none d-block mx-2">Inicio</a>
-            </div>
-        </li>
         <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'evidencias'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/evidencias">
                 <span class="material-symbols-outlined">description</span>
@@ -87,7 +81,7 @@
                 </li>
             </ul>
         </li>
-        <li class="hver" (click)="toggle()" routerLink="/panel/encargados" [ngClass]="{'active' : activeli === 'encargados'}">
+        <li class="hver" (click)="toggle()" routerLink="/panel/encargado" [ngClass]="{'active' : activeli === 'encargado'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">person_add</span>
                 <a class="text-decoration-none d-block mx-2">Asignar Encargados</a>

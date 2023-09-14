@@ -177,6 +177,7 @@ export class IndicadoresComponent implements OnInit{
 
   //agregar
   agregarIndicador(){
+    this.editar.get('subcriterio')?.enable();
     const indicador: Indicador = {
       CodigoIndicador: this.agregar.value.codigoIndicador,
       IdSubCriterio: this.agregar.value.subcriterio,

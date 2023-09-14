@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
 import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
+import { DataService } from 'src/app/services/data.service';
 import { LoginService } from 'src/app/services/login.service';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
@@ -29,19 +30,12 @@ export class EstadoEvidenciaComponent implements OnInit {
   constructor (
     private route: Router,
     private evidenciaService: EvidenciaService,
+    private ds: DataService,
     private perfilService: PerfilService,    //esta de aqui
     private loginService: LoginService,     //y esta deben estar juntas
   ) { }
   
   ngOnInit(): void {
-
-    if(this.route.url.includes('asignar-usuarios')) this.ActiveRols = '1';
-    if(this.route.url.includes('indicador-evidencia')) this.ActiveRols = '2';
-    if(this.route.url.includes('revision-evidencia')) {
-      this.ActiveRols = '2';
-      this.subRolActivo = '1';
-    }
-
     this.permisoParams = {
       codigoModelo: this.loginService.getTokenDecoded().modelo,
       codigoPerfil: this.loginService.getTokenDecoded().perfil,
@@ -50,6 +44,16 @@ export class EstadoEvidenciaComponent implements OnInit {
     }
     this.loadData();
     this.loadTitle();
+    this.InitRoles();
+  }
+
+  InitRoles() {
+    if(this.route.url.includes('asignar-usuarios'))this.ActiveRols = '1';
+    if(this.route.url.includes('indicador-evidencia'))this.ActiveRols = '2';
+    if(this.route.url.includes('revision-evidencia')) {
+      this.ActiveRols = '2';
+      this.subRolActivo = '1';
+    }
   }
 
   loadData() {

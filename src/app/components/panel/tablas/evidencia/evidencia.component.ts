@@ -150,6 +150,7 @@ export class EvidenciaComponent implements OnInit{
 
   //agregar
   agregarEvidencia(){
+    this.editar.get('elemento')?.enable();
     const evidencia: Evidencia = {
       IdElemento: this.agregar.value.elemento,
       CodigoEvidencia: this.agregar.value.codigoEvidencia,

@@ -44,7 +44,6 @@ export class LoginComponent {
       if(data.access_Token) {
         this.loginService.setLocalStorage(data.access_Token);
         this.router.navigate(['/panel']);
-        console.log(this.loginService.getTokenDecoded());
       }else {
         this.login.get('password')?.setValue('');
         this.toastr.error("Acceso denegado. Correo o contraseña incorrectos!");

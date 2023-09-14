@@ -125,6 +125,7 @@ export class CriterioComponent implements OnInit{
 
   //agregar Criterio
   agregarCriterio(): void{
+    this.editar.get('modelo')?.enable();
     const criterio: Criterio = {
       CodigoCriterio: this.agregar.value.codigoCriterio,
       IdModelo: this.agregar.value.modelo,

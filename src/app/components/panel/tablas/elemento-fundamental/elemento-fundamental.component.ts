@@ -157,6 +157,7 @@ Elementos: ElementoFundamental[] = [];
 
   //agregar
   agregarElemento(){
+    this.editar.get('indicador')?.enable();
     const elemento: ElementoFundamental = {
       IdIndicador: this.agregar.value.indicador,
       CodigoElementoFundamental: this.agregar.value.CodigoElementoFundamental,

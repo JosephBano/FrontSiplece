@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { environment } from 'src/environments/environment.development';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
 import { forkJoin } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -24,13 +25,16 @@ export class DetalleIndicadorComponent implements OnInit {
   strTituloIndicador = '';
   strTipoIndicador = '';
 
+  rol1 = '';
+  rol2 = '';
+
   selectedEsenciales: number | null = null;
   selectedComplementarios: number | null = null;
-
-  rolview = '2';
   
   constructor(
     private route: ActivatedRoute,
+    private routeUrl: Router,
+    private ds: DataService,
     private indicadorService: IndicadorService,
     private loginService: LoginService,
     private elementoService: ElementoFundamentalService,
@@ -51,6 +55,13 @@ export class DetalleIndicadorComponent implements OnInit {
       this.getIndicadorById(indicadorID);
       this.loadElementosById(indicadorID);
     });
+    this.InitRoles();
+  }
+
+  InitRoles() {
+    if(this.routeUrl.url.includes('asignar-usuarios')) this.ds.actualizarActiveLiOrder1('encargado');
+    if(this.routeUrl.url.includes('indicador-evidencia')) this.ds.actualizarActiveLiOrder1('evidencias');
+    if(this.routeUrl.url.includes('revision-evidencia')) this.ds.actualizarActiveLiOrder1('checkmanager');
   }
 
   loadElementosById(id: string){    
