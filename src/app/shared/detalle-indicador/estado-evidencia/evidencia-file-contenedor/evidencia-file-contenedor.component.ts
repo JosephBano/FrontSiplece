@@ -16,7 +16,8 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   radiobuton!: FormGroup;
   
   //rolviewradios = '1';
-  rolviewradios = '2';
+  //rolviewradios = '2';
+  @Input() rolviewradios: any;
 
   constructor(
     private archivoService: ArchivoEvidenciaService,

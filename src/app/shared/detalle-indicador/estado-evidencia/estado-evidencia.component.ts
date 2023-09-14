@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
 import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
@@ -21,16 +22,26 @@ export class EstadoEvidenciaComponent implements OnInit {
 
   //ActiveRols= '1';
   ActiveRols= '2';
+  subRolActivo = '2';
 
   tituloStr = '';
 
   constructor (
+    private route: Router,
     private evidenciaService: EvidenciaService,
     private perfilService: PerfilService,    //esta de aqui
     private loginService: LoginService,     //y esta deben estar juntas
   ) { }
   
   ngOnInit(): void {
+
+    if(this.route.url.includes('asignar-usuarios')) this.ActiveRols = '1';
+    if(this.route.url.includes('indicador-evidencia')) this.ActiveRols = '2';
+    if(this.route.url.includes('revision-evidencia')) {
+      this.ActiveRols = '2';
+      this.subRolActivo = '1';
+    }
+
     this.permisoParams = {
       codigoModelo: this.loginService.getTokenDecoded().modelo,
       codigoPerfil: this.loginService.getTokenDecoded().perfil,

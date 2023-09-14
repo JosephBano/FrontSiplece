@@ -31,13 +31,13 @@ const routes: Routes = [
       { path: '', component: TablaIndicadoresComponent},
       { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
     ]},
-    { path: 'encargados', component: AsignarEncargadosComponent, children: [
+    { path: 'encargado', component: AsignarEncargadosComponent, children: [
       { path: '', component: SelectAEComponent},
       { path: 'asignar-usuarios/:id', component: DetalleIndicadorComponent},
     ]},
     { path: 'evidencias', component: EvidenciasComponent, children: [
       { path: '', component: SelectorComponent},
-      { path: 'detalle/:id', component: DetalleIndicadorComponent},
+      { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
     ]},
 ];
 
