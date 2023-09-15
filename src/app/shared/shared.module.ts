@@ -23,6 +23,7 @@ import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/as
 import { UsersPipe } from './../pipes/users.pipe';
 import { TablaEliminarModalComponent } from './tabla-eliminar-modal/tabla-eliminar-modal.component';
 import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-restablecer-modal.component';
+import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-
     TablaEliminarModalComponent,
     TablaRestablecerModalComponent,
     UsersPipe,
+    BotonAtrasComponent,
   ],
   imports: [
     SharedRoutingModule,
@@ -58,6 +60,7 @@ import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-
     ModalEvidenciasComponent,
     TablaEliminarModalComponent,
     TablaRestablecerModalComponent,
+    BotonAtrasComponent,
   ]
 })
 export class SharedModule { }

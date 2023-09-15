@@ -50,7 +50,7 @@ export class IndicadorTableComponent implements OnInit{
     
     switch(this.redireccionRol) {
       case 1:
-        this.route.navigate(['panel/evidencias/indicador-evidencia', this.selectedIndicador]);
+        this.route.navigate(['panel/indicador-evidencia', this.selectedIndicador]);
         break;
       case 2:
         this.route.navigate(['panel/supervisor/revision-evidencia', this.selectedIndicador]);

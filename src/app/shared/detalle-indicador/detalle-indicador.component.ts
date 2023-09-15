@@ -24,6 +24,7 @@ export class DetalleIndicadorComponent implements OnInit {
 
   strTituloIndicador = '';
   strTipoIndicador = '';
+  strEstandar = '';
 
   rol1 = '';
   rol2 = '';

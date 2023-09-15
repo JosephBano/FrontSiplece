@@ -22,7 +22,6 @@ import { TablasComponent } from './tablas/tablas.component';
 import { TablaIndicadoresComponent } from './check-manager/tabla-indicadores/tabla-indicadores.component';
 import { CheckManagerComponent } from './check-manager/check-manager.component';
 import { EvidenciasComponent } from './evidencias/evidencias.component';
-import { InicioPanelComponent } from './inicio-panel/inicio-panel.component';
 import { PanelComponent } from './panel.component';
 import { SelectorComponent } from './evidencias/selector/selector.component';
 import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
@@ -33,7 +32,6 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
   declarations: [
     SelectorComponent,
     PanelComponent,
-    InicioPanelComponent,
     EvidenciasComponent,
     CheckManagerComponent,
     TablaIndicadoresComponent,
