@@ -1,0 +1,45 @@
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 48;
+      cursor: pointer;
+      font-size: 30px;
+}
+.icon-size:hover {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48
+}
+.modal-body {
+    padding: 1rem;
+    border: 2px solid #31B165;
+    border-radius: 5px;
+}
+
+.contenedor-header {
+    text-align: center;
+    border-bottom: 2px solid #31B165;
+}
+
+.titulo {
+    font-size: 18px;
+}
+
+.contenedor-body {
+    margin: 1rem 0;
+}
+
+.contenedor-botones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.contenedor-botones button {
+    margin: 0 .5rem;
+}

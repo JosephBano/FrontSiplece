@@ -3,7 +3,7 @@
         <div class="contenedor-title">
             <h6>{{tituloStr}}</h6>
         </div>          
-        <ng-container *ngFor="let evidencia of Evidencias">
+        <ng-container *ngFor="let evidencia of evidencias">
             <div class="contenedor-evidencia">
                 <ng-container *ngIf="evidencia">
                     <div class="d-flex justify-content-betweeen">
@@ -13,11 +13,12 @@
                         </ng-container>  
                     </div>
                     <ng-container *ngIf="ActiveRols == '1'">
-
+                        <app-asignar-usuario [IdEvidencia]="evidencia.IdEvidencia"></app-asignar-usuario>
                     </ng-container>
                     <ng-container *ngIf="ActiveRols == '2'"> 
-                        <app-evidencia-file-contenedor [IdEvidencia]="evidencia.IdEvidencia"></app-evidencia-file-contenedor>
+                        <app-evidencia-file-contenedor [IdEvidencia]="evidencia.IdEvidencia" [rolviewradios]="subRolActivo"></app-evidencia-file-contenedor>
                     </ng-container>
+                    <hr>
                 </ng-container>
             </div>
         </ng-container>

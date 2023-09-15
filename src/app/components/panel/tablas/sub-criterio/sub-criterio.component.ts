@@ -12,7 +12,7 @@ import { FilterDataService } from 'src/app/services/filter-data.service';
 @Component({
   selector: 'app-sub-criterio',
   templateUrl: './sub-criterio.component.html',
-  styleUrls: ['./sub-criterio.component.css']
+  styleUrls: ['./sub-criterio.component.css', '../../panel.component.css']
 })
 export class SubCriterioComponent implements OnInit{
 
@@ -28,12 +28,9 @@ export class SubCriterioComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +43,7 @@ export class SubCriterioComponent implements OnInit{
   )
   {
     this.agregar = this.fb.group({
-      criterio: ['', [Validators.required]],
+      criterio: ['0', [Validators.required]],
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
@@ -56,13 +53,7 @@ export class SubCriterioComponent implements OnInit{
       detalle: ['', [Validators.required]],
       orden: ['', [Validators.required]],
     })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      criterio: ['', [Validators.required]],
-      detalle: ['', [Validators.required]],
-      orden: ['', [Validators.required]],
-    })
-
+    
     this.tablafilter = this.fb.group({
       filter: [''],
     })
@@ -90,18 +81,21 @@ export class SubCriterioComponent implements OnInit{
     )
   }
 
+  setCriterio() {
+    this.agregar.get('criterio')?.setValue(this.valueFilter);
+    if(this.valueFilter != '0') this.agregar.get('criterio')?.disable();
+    else this.agregar.get('criterio')?.enable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('indicador', value);
     this.router.navigate(['/panel/tablas/indicador'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.criterio = this.valueFilter;
   }
 
   loadSubCriterios(): void {
@@ -124,21 +118,16 @@ export class SubCriterioComponent implements OnInit{
   cargarDatosEditar(subcriterio: SubCriterio){
     this.editar.get('id')?.setValue(subcriterio.IdSubCriterio);
     this.editar.get('criterio')?.setValue(subcriterio.IdCriterio);
+    this.editar.get('criterio')?.disable();
     this.editar.get('detalle')?.setValue(subcriterio.Detalle);
     this.editar.get('orden')?.setValue(subcriterio.Orden);
   }
 
-  cargarDatosEliminar(subcriterio: SubCriterio){
-    this.eliminar.get('id')?.setValue(subcriterio.IdSubCriterio);
-    this.eliminar.get('criterio')?.setValue(this.getCriterioName(subcriterio.IdCriterio));
-    this.eliminar.get('detalle')?.setValue(subcriterio.Detalle);
-    this.eliminar.get('orden')?.setValue(subcriterio.Orden);
-  }
-
-
   //agregar
   agregarSubCriterio(): void{
+    this.editar.get('criterio')?.enable();
     const subcriterio: SubCriterio = {
+      CodigoSubCriterio: this.agregar.value.codigoSubCriterio,
       IdCriterio: this.agregar.value.criterio,
       Detalle: this.agregar.value.detalle,
       Orden: '1',
@@ -161,8 +150,10 @@ export class SubCriterioComponent implements OnInit{
 
   //Editar
   editarSubCriterio(): void {
+    this.editar.get('criterio')?.enable();
     const subcriterio: SubCriterio = {
       IdSubCriterio: this.editar.value.id,
+      CodigoSubCriterio: this.editar.value.codigoSubCriterio,
       IdCriterio: this.editar.value.criterio,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
@@ -180,29 +171,8 @@ export class SubCriterioComponent implements OnInit{
       console.log(error);
     });
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
     }
-  }
-
-  //eliminar
-  eliminarSubCriterio(): void{
-    const id = this.eliminar.value.id;
-
-    this.subcriterioService.deleteSubCriterio(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!')
-        this.loadSubCriterios();
-        console.log(data);
-      }
-      , (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      });
-
-    if (this.cerrarEliminarModal) {
-      this.cerrarEliminarModal.nativeElement.click();
-    } 
   }
 }

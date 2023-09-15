@@ -1,7 +1,8 @@
 export interface SubCriterio {
     IdSubCriterio?: string;
-    IdCriterio?: string;
+    CodigoSubCriterio: string
+    IdCriterio: string;
     Detalle?: string;
-    Orden?: string;
+    Orden: string;
     Activo?: string;
 }

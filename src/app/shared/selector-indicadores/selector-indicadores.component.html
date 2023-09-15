@@ -9,23 +9,13 @@
         </div>
   
         <form [formGroup]="selects">
-  
-          <div class="input-group mb-3">
-            <label class="input-group-text">Modelo</label>
-            <select formControlName="modelo" class="form-select" (change)="modeloChange()">
-                <option value="" selected disabled >Seleccione un Modelo...</option>
-                <ng-container *ngFor="let modelo of modelos">
-                    <option *ngIf="modelo.IdInstitucion == institucionID" [value]="modelo.IdModelo">{{modelo.Detalle}}</option>
-                </ng-container>
-            </select>
-          </div>
-        
+       
           <div class="input-group mb-3">
             <label class="input-group-text">Criterio</label>
             <select formControlName="criterio" class="form-select" (change)="criterioChange()">
               <option value="" selected disabled>Seleccione un Criterio...</option>
               <ng-container *ngFor="let criterio of criterios">
-                  <option *ngIf="criterio.IdModelo == modeloId" [value]="criterio.IdCriterio">{{criterio.Detalle}}</option>
+                  <option [value]="criterio.IdCriterio">{{criterio.Detalle}}</option>
               </ng-container>
             </select>
           </div>

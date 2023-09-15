@@ -1,7 +1,8 @@
 export interface Criterio {
     IdCriterio?: string;
-    IdModelo?: string;
+    CodigoCriterio: string;
+    IdModelo: string;
     Detalle?: string;
-    Orden?: string;
+    Orden: string;
     Activo?: string;
 }

@@ -18,6 +18,21 @@ export class ArchivoEvidenciaService {
   constructor( private http: HttpClient ) { }
 
   GetByEvidencia(id: string): Observable<ArchivoEvidencia[]> {
-    return this.http.get<ArchivoEvidencia[]>(environment.URL_BACKEND_ARCHIVOEVIDENCIA + `/GetByEvidencia/${id}`);
+    return this.http.get<ArchivoEvidencia[]>(this.API_URL + `/GetByEvidencia/${id}`);
+  }
+
+  PostArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
+    return this.http.post<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
+  }
+
+  UpdateArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
+    return this.http.put<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
+  }
+
+  DeleteArchivo(id: string): Observable<any> {
+    return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
+  }
+  PostFile(formData: FormData): Observable<string> {
+    return this.http.post<string>(`${this.API_URL}/SaveEvidence`, formData)
   }
 }

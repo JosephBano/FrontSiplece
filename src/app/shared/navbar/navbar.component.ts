@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GlobalDataService } from 'src/app/services/global-data.service';
+import { LoginService } from 'src/app/services/login.service';
 import { ToggleBarService } from 'src/app/services/toggle-bar.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit{
   
   constructor(
     private toggleService: ToggleBarService,
-    private gdata: GlobalDataService,
+    private login: LoginService,
     )
     { }
 
@@ -22,11 +22,7 @@ export class NavbarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.gdata.getNombreUsuario().subscribe(
-      (data) => {
-        this.strname = data;
-      }
-    );
+    this.strname = this.login.getTokenDecoded().nombre;
   }
   
 }

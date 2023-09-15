@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
+import { Modelo } from 'src/app/models/modelosSeguridad/modelo.model';
 
 @Pipe({
   name: 'modelo'
@@ -12,7 +12,7 @@ export class ModeloPipe implements PipeTransform {
 
     return value.filter((value: Modelo) => {
       const DetalleFound = 
-        value.Detalle?.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+        value.detalle?.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
       
       if(DetalleFound) return value;
       return '';

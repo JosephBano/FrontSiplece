@@ -1,15 +1,6 @@
 <div class="container mt-4">
 
-  <button class="btn btn-secondary" routerLink="/panel/evidencias">
-    <div class="d-flex ">
-      <div class="">
-        <span class="material-symbols-outlined">
-          arrow_back_ios
-        </span>
-      </div>
-      <span>Regresar</span>
-    </div>
-  </button>
+  <app-boton-atras></app-boton-atras>
   
     <div class="card mt-2 mb-3">
         <div class="card-header">
@@ -47,7 +38,7 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos; let i = index">
+                  <ng-container *ngFor="let elemento of elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '1'">
                       <tr [ngClass]="{'bordern': selectedEsenciales === i}">
                         <th [ngClass]="{'bordern': selectedEsenciales === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
@@ -82,7 +73,7 @@
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  <ng-container *ngFor="let elemento of Elementos; let i = index">
+                  <ng-container *ngFor="let elemento of elementos; let i = index">
                     <ng-container *ngIf="elemento.IdPonderacion == '2'">
                       <tr [ngClass]="{'bordern': selectedComplementarios === i}">
                         <th [ngClass]="{'bordern': selectedComplementarios === i}" scope="row" class="text-center">{{elemento.Orden}}</th>
@@ -105,7 +96,6 @@
                   </ng-container>
                 </tbody>
             </table>
-  
         </div>
     </div>
 </div>

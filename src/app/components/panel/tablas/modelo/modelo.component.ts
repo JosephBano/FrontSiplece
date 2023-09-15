@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Modelo } from 'src/app/models/modelos-generales/modelo.model';
-import { ModeloService } from 'src/app/services/modeloServicios/modelo.service';
+import { Modelo } from 'src/app/models/modelosSeguridad/modelo.model';
+import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { InstitucionesService } from 'src/app/services/modeloServicios/instituciones.service';
-import { Institucion } from 'src/app/models/modelos-generales/institucion.model';
+import { InstitucionesService } from 'src/app/services/serviciosSeguridad/instituciones.service';
+import { Institucion } from 'src/app/models/modelosSeguridad/institucion.model';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { FilterDataService } from 'src/app/services/filter-data.service';
@@ -117,31 +117,34 @@ export class ModeloComponent implements OnInit{
   }
 
   getInstitucionName(id: any){
-    const detalle = this.Instituciones.find(e => e.IdInstitucion === id); 
-    return detalle?.Detalle;
+    const detalle = this.Instituciones.find(e => e.idInstitucion === id); 
+    return detalle?.detalle;
   }
 
   cargarDatosEditar(modelo: Modelo){
-    this.editar.get('id')?.setValue(modelo.IdModelo);
-    this.editar.get('institucion')?.setValue(modelo.IdInstitucion);
-    this.editar.get('detalle')?.setValue(modelo.Detalle);
-    this.editar.get('anio')?.setValue(modelo.Anio);
+    this.editar.get('id')?.setValue(modelo.idModelo);
+    this.editar.get('codigoModelo')?.setValue(modelo.codigoModelo);
+    this.editar.get('detalle')?.setValue(modelo.detalle);
+    this.editar.get('fechaInicio')?.setValue(modelo.fechaInicio);
+    this.editar.get('fechaFin')?.setValue(modelo.fechaFin);
   }
 
   cargarDatosEliminar(modelo: Modelo){
-    this.eliminar.get('id')?.setValue(modelo.IdModelo);
-    this.eliminar.get('institucion')?.setValue(this.getInstitucionName(modelo.IdInstitucion));
-    this.eliminar.get('detalle')?.setValue(modelo.Detalle);
-    this.eliminar.get('anio')?.setValue(modelo.Anio);
+    this.eliminar.get('id')?.setValue(modelo.idModelo);
+    this.eliminar.get('codigoModelo')?.setValue(modelo.codigoModelo);
+    this.eliminar.get('detalle')?.setValue(modelo.detalle);
+    this.eliminar.get('fechaInicio')?.setValue(modelo.fechaInicio);
+    this.eliminar.get('fechaFin')?.setValue(modelo.fechaFin);
   }
 
 
   //agregar modelo
   agregarModelo(): void{
     const modelo: Modelo = {
-      IdInstitucion: this.agregar.value.institucion,
-      Detalle: this.agregar.value.detalle,
-      Anio: this.agregar.value.anio,
+      codigoModelo: this.agregar.value.codigoModelo,
+      detalle: this.agregar.value.detalle,
+      fechaInicio: this.agregar.value.fechaInicio,
+      fechaFin: this.agregar.value.fechaFin
     }
 
     this.modeloService.postModelo(modelo).subscribe(
@@ -162,11 +165,12 @@ export class ModeloComponent implements OnInit{
   //Editar Modelo
   editarModelo(): void {
     const modelo: Modelo = {
-      IdModelo: this.editar.value.id,
-      IdInstitucion: this.editar.value.institucion,
-      Detalle: this.editar.value.detalle,
-      Anio: this.editar.value.anio,
-      Activo: '1'
+      idModelo: this.editar.value.id,
+      codigoModelo: this.editar.value.codigoModelo,
+      detalle: this.editar.value.detalle,
+      fechaInicio: this.editar.value.fechaInicio,
+      fechaFin: this.editar.value.fechaFin,
+      activo: '1'
     }
 
     this.modeloService.updateModelo(modelo).subscribe(
