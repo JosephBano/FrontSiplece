@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToggleBarService } from 'src/app/services/toggle-bar.service';
-import { DataService } from '../../services/data.service';
+import { Sidebar } from '../../services/sidebar.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 
@@ -21,24 +20,23 @@ export class SidebarComponent implements OnDestroy, OnInit{
   variableCompartida!: string;
 
   constructor(
-    private toggleService: ToggleBarService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
     private loginService: LoginService,
     private route: Router,
     ) {
-    this.subscription = this.toggleService.toggle$.subscribe(state => {
+    this.subscription = this.Sidebar.toggle$.subscribe(state => {
       this.toggleState = state;
     });
   }
   
   ngOnInit(): void {
-    this.dataService.getActiveLiOrder1().subscribe(
+    this.Sidebar.getActiveLiOrder1().subscribe(
       (data) => {
         this.activeli = data;
         this.setActive();
       }
     )
-    this.dataService.getActiveLiOrder2().subscribe(
+    this.Sidebar.getActiveLiOrder2().subscribe(
       (data) => {
         this.activeSubli = data;
       }
@@ -50,7 +48,7 @@ export class SidebarComponent implements OnDestroy, OnInit{
   }
 
   toggle(): void {
-    this.toggleService.toggle();
+    this.Sidebar.toggle();
   }
 
   setActive() {
@@ -59,7 +57,7 @@ export class SidebarComponent implements OnDestroy, OnInit{
     }
     else {
       this.tablasList = false;
-      this.dataService.actualizarActiveLiOrder2('');
+      this.Sidebar.actualizarActiveLiOrder2('');
     }
   }
 

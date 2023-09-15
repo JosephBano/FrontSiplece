@@ -5,8 +5,8 @@ import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
 import { Modelo } from 'src/app/models/modelosSeguridad/modelo.model';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
-import { DataService } from '../../../../services/data.service';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Sidebar } from '../../../../services/sidebar.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,12 +34,12 @@ export class CriterioComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
     private modeloService: ModeloService,
     private criterioService: CriteriosService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   )
   {
     this.agregar = this.fb.group({
@@ -60,8 +60,8 @@ export class CriterioComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('criterio')
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('criterio')
     this.InitFiltro();
     this.loadCriterios();
     this.loadModelos();
