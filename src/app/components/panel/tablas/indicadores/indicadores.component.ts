@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-indicadores',
   templateUrl: './indicadores.component.html',
-  styleUrls: ['./indicadores.component.css']
+  styleUrls: ['./indicadores.component.css', '../../panel.component.css']
 })
 export class IndicadoresComponent implements OnInit{
   Indicadores: Indicador[] = [];
@@ -34,12 +34,9 @@ export class IndicadoresComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -65,14 +62,6 @@ export class IndicadoresComponent implements OnInit{
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
       tipoeditar: ['', Validators.required],
-    })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      subcriterio: ['', Validators.required],
-      valoracion: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
-      tipodel: ['', Validators.required],
     })
 
     this.tablafilter = this.fb.group({
@@ -103,18 +92,21 @@ export class IndicadoresComponent implements OnInit{
     )
   }
 
+  setSubCriterio(){
+    this.agregar.get('subcriterio')?.setValue(this.valueFilter);
+    if (this.valueFilter != '0') this.agregar.get('subcriterio')?.disable();
+    else this.agregar.get('subcriterio')?.enable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('elemento', value);
     this.router.navigate(['/panel/tablas/elementos'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.subcriterio = this.valueFilter;
   }
   
   loadIndicadores(){
@@ -122,24 +114,24 @@ export class IndicadoresComponent implements OnInit{
       (data) => {
         this.Indicadores = data;
       }
-      )
-    }
+    )
+  }
     
-    loadSubCriterios(){
-      this.subcriterioService.getSubCriterio().subscribe(
+  loadSubCriterios(){
+    this.subcriterioService.getSubCriterio().subscribe(
+    (data) => {
+      this.SubCriterios = data;
+    }
+    )
+  }
+    
+  loadTipoEvaluaciones(){
+    this.tipoService.getTipoEvaluacion().subscribe(
       (data) => {
-        this.SubCriterios = data;
+        this.TipoEvaluaciones = data;
       }
-      )
-    }
-    
-    loadTipoEvaluaciones(){
-      this.tipoService.getTipoEvaluacion().subscribe(
-        (data) => {
-          this.TipoEvaluaciones = data;
-        }
-        )
-      }
+    )
+  }
       
   loadValoraciones() {
     this.valoracionService.getValoracion().subscribe(
@@ -176,30 +168,24 @@ export class IndicadoresComponent implements OnInit{
   setPreEditar(indicador: Indicador){
     this.editar.get('id')?.setValue(indicador.IdIndicador);
     this.editar.get('subcriterio')?.setValue(indicador.IdSubCriterio);
+    this.editar.get('subcriterio')?.disable();
     this.editar.get('valoracion')?.setValue(indicador.Valoracion);
     this.editar.get('detalle')?.setValue(indicador.Detalle);
     this.editar.get('orden')?.setValue(indicador.Orden);
     this.editar.get('tipoeditar')?.setValue(indicador.IdTipoEvaluacion);
   }
 
-  setPreEliminar(indicador: Indicador){
-    this.eliminar.get('id')?.setValue(indicador.IdIndicador);
-    this.eliminar.get('subcriterio')?.setValue(this.getDetalleSubCriterio(indicador.IdSubCriterio));
-    this.eliminar.get('valoracion')?.setValue(this.getDetalleValoracion(indicador.Valoracion));
-    this.eliminar.get('detalle')?.setValue(indicador.Detalle);
-    this.eliminar.get('orden')?.setValue(indicador.Orden);
-    this.eliminar.get('tipodel')?.setValue(this.getDetalleTipoEvaluacion(indicador.IdTipoEvaluacion));
-  }
-
   //agregar
   agregarIndicador(){
+    this.editar.get('subcriterio')?.enable();
     const indicador: Indicador = {
+      CodigoIndicador: this.agregar.value.codigoIndicador,
       IdSubCriterio: this.agregar.value.subcriterio,
       IdTipoEvaluacion: this.agregar.value.tipoagregar,
       Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
-      Valoracion: '1',
-      Activo: '1',
+      Estandar: this.editar.value.estandar,
+      Valoracion: '1'
     }
 
     this.indicadorService.postIndicador(indicador).subscribe(
@@ -221,13 +207,16 @@ export class IndicadoresComponent implements OnInit{
   }
   //editar
   editarIndicador(){
+    this.editar.get('subcriterio')?.enable();
     const indicador: Indicador = {
       IdIndicador: this.editar.value.id,
+      CodigoIndicador: this.editar.value.codigoIndicador,
       IdSubCriterio: this.editar.value.subcriterio,
       IdTipoEvaluacion: this.editar.value.tipoeditar,
       Valoracion: this.editar.value.valoracion,
       Orden: this.editar.value.orden,
       Detalle: this.editar.value.detalle,
+      Estandar: this.editar.value.estandar,
       Activo: '1',
     }
     
@@ -235,8 +224,6 @@ export class IndicadoresComponent implements OnInit{
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!');
         this.loadIndicadores();
-        this.loadSubCriterios();
-        this.loadValoraciones();
         console.log(data);
       },
       (error) => {
@@ -245,29 +232,8 @@ export class IndicadoresComponent implements OnInit{
       }
     );
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
-    }
-  }
-
-  eliminarIndicador(){
-    const id = this.eliminar.value.id;
-
-    this.indicadorService.deleteIndicador(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadIndicadores();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      }
-    );
-
-    if (this.cerrarEliminarModal){
-      this.cerrarEliminarModal.nativeElement.click();
     }
   }
 }

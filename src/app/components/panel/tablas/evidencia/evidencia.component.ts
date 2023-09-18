@@ -14,7 +14,7 @@ import { FilterDataService } from 'src/app/services/filter-data.service';
 @Component({
   selector: 'app-evidencia',
   templateUrl: './evidencia.component.html',
-  styleUrls: ['./evidencia.component.css']
+  styleUrls: ['./evidencia.component.css', '../../panel.component.css']
 })
 export class EvidenciaComponent implements OnInit{
   Evidencias: Evidencia[] = [];
@@ -31,17 +31,13 @@ export class EvidenciaComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private fd: FilterDataService,
-    private router: Router,
     private toastr: ToastrService,
     private evidenciaService: EvidenciaService,
     private elementoService: ElementoFundamentalService,
@@ -49,7 +45,7 @@ export class EvidenciaComponent implements OnInit{
     private dataService: DataService,
   ) {
     this.agregar = this.fb.group({
-      elemento: ['', Validators.required],
+      elemento: ['0', Validators.required],
       periodoAdd: ['', Validators.required],
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
@@ -58,13 +54,6 @@ export class EvidenciaComponent implements OnInit{
       id: ['', Validators.required],
       elemento: ['', Validators.required],
       periodoEdit: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
-    })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      elemento: ['', Validators.required],
-      periodo: ['', Validators.required],
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
     })
@@ -96,12 +85,15 @@ export class EvidenciaComponent implements OnInit{
     )
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
+  setElemento() {
+    this.agregar.value.elemento = this.valueFilter;
+    if(this.valueFilter != '0') this.agregar.get('elemento')?.disable();
+    else this.agregar.get('elemento')?.enable();
   }
 
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.elemento = this.valueFilter;
   }
 
   loadEvidencia(){
@@ -134,10 +126,10 @@ export class EvidenciaComponent implements OnInit{
     return obj?.Detalle;
   }
 
-  getDetallePeriodo(id: any){
+  /*getDetallePeriodo(id: any){
     const obj = this.Periodos.find(e => e.IdPeriodo === id);
     return obj?.Detalle;
-  }
+  }*/
 
   //otrasFunciones
   setDefaultAgregar(){
@@ -149,29 +141,20 @@ export class EvidenciaComponent implements OnInit{
   
   setPreEditar(evidencia: Evidencia){
     this.editar.get('id')?.setValue(evidencia.IdEvidencia);
+    this.editar.get('codigoEvidencia')?.setValue(evidencia.CodigoEvidencia);
     this.editar.get('elemento')?.setValue(evidencia.IdElemento);
-    this.editar.get('periodoEdit')?.setValue(evidencia.IdPeriodo);
+    this.editar.get('elemento')?.disable();
     this.editar.get('detalle')?.setValue(evidencia.Detalle);
     this.editar.get('orden')?.setValue(evidencia.Orden);
-  }
-  
-  setPreEliminar(evidencia: Evidencia){
-    this.eliminar.get('id')?.setValue(evidencia.IdEvidencia);
-    this.eliminar.get('elemento')?.setValue(this.getDetalleElemento(evidencia.IdElemento));
-    this.eliminar.get('periodoEdit')?.setValue(this.getDetallePeriodo(evidencia.IdPeriodo));
-    this.eliminar.get('detalle')?.setValue(evidencia.Detalle);
-    this.eliminar.get('orden')?.setValue(evidencia.Orden);
-  }
-
-  setPreRestablecer(evidencia: Evidencia){
-    this.restablecerEvidenciaAux = evidencia;
   }
 
   //agregar
   agregarEvidencia(){
+    this.editar.get('elemento')?.enable();
     const evidencia: Evidencia = {
       IdElemento: this.agregar.value.elemento,
-      IdPeriodo: this.agregar.value.periodoAdd,
+      CodigoEvidencia: this.agregar.value.codigoEvidencia,
+      // IdPeriodo: this.agregar.value.periodoAdd,
       Detalle: this.agregar.value.detalle,
       Orden: this.agregar.value.orden,
       Activo: '1',
@@ -196,10 +179,12 @@ export class EvidenciaComponent implements OnInit{
   }
   //editar
   editarEvidencia(){
+    this.editar.get('elemento')?.enable();
     const evidencia: Evidencia = {
       IdEvidencia: this.editar.value.id,
+      CodigoEvidencia: this.editar.value.codigoEvidencia,
       IdElemento: this.editar.value.elemento,
-      IdPeriodo: this.editar.value.periodoEdit,
+      // IdPeriodo: this.editar.value.periodoEdit,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
       Activo: '1',
@@ -221,46 +206,6 @@ export class EvidenciaComponent implements OnInit{
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-    }
-  }
-
-  //eliminar
-  eliminarEvidencia(){
-    const id = this.eliminar.value.id;
-
-    this.evidenciaService.deleteEvidencia(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadEvidencia();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      }
-    );
-
-    if (this.cerrarEliminarModal){
-      this.cerrarEliminarModal.nativeElement.click();
-    }
-  }
-
-  //restablecer
-  restablecerEvidencia(){
-    this.restablecerEvidenciaAux.Activo = '1';    
-    this.evidenciaService.updateEvidencia(this.restablecerEvidenciaAux).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadEvidencia();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios');
-        console.log(error);
-      }
-    )
-    if(this.cerrarRestablecerModal) {
-      this.cerrarRestablecerModal.nativeElement.click();
     }
   }
 }

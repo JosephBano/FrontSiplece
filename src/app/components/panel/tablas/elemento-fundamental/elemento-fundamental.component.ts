@@ -14,10 +14,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-elemento-fundamental',
   templateUrl: './elemento-fundamental.component.html',
-  styleUrls: ['./elemento-fundamental.component.css']
+  styleUrls: ['./elemento-fundamental.component.css', '../../panel.component.css']
 })
 export class ElementoFundamentalComponent implements OnInit{
-  Elementos: ElementoFundamental[] = [];
+Elementos: ElementoFundamental[] = [];
   Indicadores: Indicador[] = [];
   Ponderaciones: Ponderacion[] = [];
   
@@ -31,25 +31,22 @@ export class ElementoFundamentalComponent implements OnInit{
 
   @ViewChild('cerrarAgregarModal') cerrarAgregarModal!: ElementRef;
   @ViewChild('cerrarEditarModal') cerrarEditarModal!: ElementRef;
-  @ViewChild('cerrarEliminarModal') cerrarEliminarModal!: ElementRef;
-  @ViewChild('cerrarRestablecerModal') cerrarRestablecerModal!: ElementRef;
 
   agregar!: FormGroup;
   editar!: FormGroup;
-  eliminar!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private fd: FilterDataService,
     private router: Router,
     private toastr: ToastrService,
+    private dataService: DataService,
     private elementoService: ElementoFundamentalService,
     private indicadorService: IndicadorService,
-    private dataService: DataService,
     private ponderacionService: PonderacionService,
   ) {
     this.agregar = this.fb.group({
-      indicador: ['', Validators.required],
+      indicador: ['0', Validators.required],
       ponderacionAdd: ['', Validators.required],
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
@@ -58,13 +55,6 @@ export class ElementoFundamentalComponent implements OnInit{
       id: ['', Validators.required],
       indicador: ['', Validators.required],
       ponderacionEdit: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
-    })
-    this.eliminar = this.fb.group({
-      id: ['', Validators.required],
-      indicador: ['', Validators.required],
-      ponderacion: ['', Validators.required],
       detalle: ['', Validators.required],
       orden: ['', Validators.required],
     })
@@ -96,18 +86,21 @@ export class ElementoFundamentalComponent implements OnInit{
     )
   }
 
+  setIndicador() {
+    this.agregar.get('indicador')?.setValue(this.valueFilter);
+    if(this.valueFilter != '0') this.agregar.get('indicador')?.disable();
+    else this.agregar.get('indicador')?.enable();
+  }
+
   navegarFiltro(id: string | undefined) {
     const value = id ?? '';
     this.fd.actualizarFiltro('evidencia', value);
     this.router.navigate(['/panel/tablas/evidencia'])
   }
 
-  moreSettingsHandler(){
-    this.moreSettings = !this.moreSettings
-  }
-
   OnChangeFilter() {
     this.valueFilter = this.tablafilter.value.filter;
+    this.agregar.value.indicador = this.valueFilter;
   }
   
   loadIndicadores(){
@@ -156,27 +149,18 @@ export class ElementoFundamentalComponent implements OnInit{
   setPreEditar(elemento: ElementoFundamental){
     this.editar.get('id')?.setValue(elemento.IdElemento);
     this.editar.get('indicador')?.setValue(elemento.IdIndicador);
+    this.editar.get('indicador')?.disable();
     this.editar.get('ponderacionEdit')?.setValue(elemento.IdPonderacion);
     this.editar.get('detalle')?.setValue(elemento.Detalle);
     this.editar.get('orden')?.setValue(elemento.Orden);
   }
-  
-  setPreEliminar(elemento: ElementoFundamental){
-    this.eliminar.get('id')?.setValue(elemento.IdElemento);
-    this.eliminar.get('indicador')?.setValue(this.getDetalleIndicador(elemento.IdIndicador));
-    this.eliminar.get('ponderacion')?.setValue(this.getDetallePonderacion(elemento.IdPonderacion));
-    this.eliminar.get('detalle')?.setValue(elemento.Detalle);
-    this.eliminar.get('orden')?.setValue(elemento.Orden);
-  }
-
-  setPreRestablecer(elemento: ElementoFundamental){
-    this.restablecerElementoAux = elemento;
-  }
 
   //agregar
   agregarElemento(){
+    this.editar.get('indicador')?.enable();
     const elemento: ElementoFundamental = {
       IdIndicador: this.agregar.value.indicador,
+      CodigoElementoFundamental: this.agregar.value.CodigoElementoFundamental,
       IdPonderacion: this.agregar.value.ponderacionAdd,
       Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
@@ -202,8 +186,10 @@ export class ElementoFundamentalComponent implements OnInit{
   }
   //editar
   editarElemento(){
+    this.editar.get('indicador')?.enable();
     const elemento: ElementoFundamental = {
       IdElemento: this.editar.value.id,
+      CodigoElementoFundamental: this.editar.value.codigoElementoFundamental,
       IdIndicador: this.editar.value.indicador,
       IdPonderacion: this.editar.value.ponderacionEdit,
       Orden: this.editar.value.orden,
@@ -215,8 +201,6 @@ export class ElementoFundamentalComponent implements OnInit{
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!');
         this.loadElementosFundamentales();
-        this.loadPonderaciones();
-        this.loadIndicadores();
         console.log(data);
       },
       (error) => {
@@ -225,51 +209,8 @@ export class ElementoFundamentalComponent implements OnInit{
       }
     );
 
-    if (this.cerrarEditarModal || this.cerrarRestablecerModal) {
+    if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
-      this.cerrarRestablecerModal.nativeElement.click();
-    }
-  }
-
-  //eliminar
-  eliminarElemento(){
-    const id = this.eliminar.value.id;
-
-    this.elementoService.deleteElementoFundamental(id).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadElementosFundamentales();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios')
-        console.log(error);
-      }
-    );
-
-    if (this.cerrarEliminarModal){
-      this.cerrarEliminarModal.nativeElement.click();
-    }
-  }
-
-  //restablecer
-  restablecerElemento(){
-    this.restablecerElementoAux.Activo = '1';
-    this.elementoService.updateElementoFundamental(this.restablecerElementoAux).subscribe(
-      (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!');
-        this.loadElementosFundamentales();
-        this.loadPonderaciones();
-        this.loadIndicadores();
-        console.log(data);
-      },
-      (error) => {
-        this.toastr.error('Error!, no se ha podido realizar los cambios');
-        console.log(error);
-      }
-    )
-    if(this.cerrarRestablecerModal) {
-      this.cerrarRestablecerModal.nativeElement.click();
     }
   }
 }

@@ -1,7 +1,7 @@
 export interface Evidencia {
     IdEvidencia?: string;
-    IdElemento?: string;
-    IdPeriodo?: string;
+    CodigoEvidencia: string
+    IdElemento: string;
     Detalle?: string;
     Orden?: string;
     Activo?: string;

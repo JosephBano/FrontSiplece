@@ -32,4 +32,7 @@ export class ArchivoEvidenciaService {
   DeleteArchivo(id: string): Observable<any> {
     return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
+  PostFile(formData: FormData): Observable<string> {
+    return this.http.post<string>(`${this.API_URL}/SaveEvidence`, formData)
+  }
 }

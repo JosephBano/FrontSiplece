@@ -25,12 +25,6 @@
 
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'inicio'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel">
-                <span class="material-symbols-outlined">home</span>
-                <a class="text-decoration-none d-block mx-2">Inicio</a>
-            </div>
-        </li>
         <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'evidencias'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/evidencias">
                 <span class="material-symbols-outlined">description</span>
@@ -55,13 +49,7 @@
 
             <!--Tablas Opcion --Despliegue de sub tablas-->
             <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': tablasList ? '300px' : '0'}">
-                <li class="hver mt-1" (click)="toggle()" routerLink="/panel/tablas/modelo" [ngClass]="{'active' : activeSubli === 'modelo'}">
-                    <div class="d-flex px-4 py-2 align-items-center">
-                        <span class="material-symbols-outlined">chevron_right</span>
-                        <a class="text-decoration-none d-block mx-2">Modelos</a>
-                    </div>
-                </li>
-                <li class="hver" (click)="toggle()" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
+                <li class="hver mt-1" (click)="toggle()" routerLink="/panel/tablas/criterio" [ngClass]="{'active' : activeSubli === 'criterio'}">
                     <div class="d-flex px-4 py-2 align-items-center">
                         <span class="material-symbols-outlined">chevron_right</span>
                         <a class="text-decoration-none d-block mx-2">Criterio</a>
@@ -93,7 +81,7 @@
                 </li>
             </ul>
         </li>
-        <li class="hver" (click)="toggle()" routerLink="/panel/addencargado" [ngClass]="{'active' : activeli === 'addencargado'}">
+        <li class="hver" (click)="toggle()" routerLink="/panel/encargado" [ngClass]="{'active' : activeli === 'encargado'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">person_add</span>
                 <a class="text-decoration-none d-block mx-2">Asignar Encargados</a>
@@ -106,7 +94,7 @@
     <ul class="list-unstyled px-2">        
 
         <!--Check manager-->
-        <li class="hver" (click)="toggle()" routerLink="/panel/checkmanager" [ngClass]="{'active' : activeli === 'checkmanager'}">
+        <li class="hver" (click)="toggle()" routerLink="/panel/supervisor" [ngClass]="{'active' : activeli === 'checkmanager'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">Task</span>
                 <a class="text-decoration-none d-block mx-2">Supervisor</a>

@@ -7,10 +7,11 @@
         <ng-container *ngFor="let archivo of Archivos; let i = index">
             <li class="list-group-item">
                 <div class="contenedor-opciones">
-                    <div class="d-flex">
+                    <div class="d-flex" *ngIf="archivo.PathUrl!==null">
                         <span class="material-symbols-outlined">navigate_next</span>
                         <span class="evidencia">
-                            {{GetNameFile(archivo.IdArchivoEvidencia)}}
+                            <!-- {{GetNameFile(archivo.IdArchivoEvidencia)}} -->
+                            {{archivo.PathUrl}}
                         </span>
                         <span class="material-symbols-outlined x">close</span>
                     </div>

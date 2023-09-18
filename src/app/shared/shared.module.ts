@@ -21,6 +21,9 @@ import { InformacionModalComponent } from './detalle-indicador/estado-evidencia/
 import { EvidenciaFileContenedorComponent } from './detalle-indicador/estado-evidencia/evidencia-file-contenedor/evidencia-file-contenedor.component';
 import { AsignarUsuarioComponent } from './detalle-indicador/estado-evidencia/asignar-usuario/asignar-usuario.component';
 import { UsersPipe } from './../pipes/users.pipe';
+import { TablaEliminarModalComponent } from './tabla-eliminar-modal/tabla-eliminar-modal.component';
+import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-restablecer-modal.component';
+import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
 
 
 @NgModule({
@@ -35,11 +38,14 @@ import { UsersPipe } from './../pipes/users.pipe';
     InformacionModalComponent,
     EvidenciaFileContenedorComponent,
     AsignarUsuarioComponent,
+    TablaEliminarModalComponent,
+    TablaRestablecerModalComponent,
     UsersPipe,
+    BotonAtrasComponent,
   ],
   imports: [
-    CommonModule,
     SharedRoutingModule,
+    CommonModule,
     FormsModule, 
     ReactiveFormsModule,
     ToastrModule
@@ -52,6 +58,9 @@ import { UsersPipe } from './../pipes/users.pipe';
     IndicadorTableComponent,
     EstadoEvidenciaComponent,
     ModalEvidenciasComponent,
+    TablaEliminarModalComponent,
+    TablaRestablecerModalComponent,
+    BotonAtrasComponent,
   ]
 })
 export class SharedModule { }
