@@ -63,6 +63,7 @@ import { LoadingComponent } from './loading/loading.component';
     TablaEliminarModalComponent,
     TablaRestablecerModalComponent,
     BotonAtrasComponent,
+    LoadingComponent,
   ]
 })
 export class SharedModule { }
