@@ -24,6 +24,7 @@ import { UsersPipe } from './../pipes/users.pipe';
 import { TablaEliminarModalComponent } from './tabla-eliminar-modal/tabla-eliminar-modal.component';
 import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-restablecer-modal.component';
 import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
     TablaRestablecerModalComponent,
     UsersPipe,
     BotonAtrasComponent,
+    LoadingComponent,
   ],
   imports: [
     SharedRoutingModule,

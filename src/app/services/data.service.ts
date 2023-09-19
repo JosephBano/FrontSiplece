@@ -6,6 +6,7 @@ import { ElementoFundamentalService } from './modeloServicios/elemento-fundament
 import { EvidenciaService } from './modeloServicios/evidencia.service';
 import { Criterio } from '../models/modelos-generales/criterio.model';
 import { toArray, filter } from 'rxjs/operators';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class DataService {
     private indiService: IndicadorService,
     private elemService: ElementoFundamentalService,
     private evidService: EvidenciaService,
+    private loginService: LoginService,
   ) { }
 
   /*public async getUniqueCode(idPadre: string , detalle: string, tipo: string){
@@ -43,5 +45,11 @@ export class DataService {
     const primeros = cadena.slice(0, 2);
     const ultimos = cadena.slice(-2);
     return primeros + ultimos;
+  }
+
+  nombrePerfil(): string {
+    const perfil = this.loginService.getTokenDecoded().perfil;
+    const nombre = perfil.split('-');
+    return nombre[0];
   }
 }

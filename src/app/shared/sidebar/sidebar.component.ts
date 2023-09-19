@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Sidebar } from '../../services/sidebar.service';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,9 +20,14 @@ export class SidebarComponent implements OnDestroy, OnInit{
   tablasList: boolean = false;
   variableCompartida!: string;
 
+  supervisorActive: boolean = false;
+  encargadoActive: boolean = false;
+  administradorActive: boolean = false; 
+
   constructor(
     private Sidebar: Sidebar,
     private loginService: LoginService,
+    private dataService: DataService,
     private route: Router,
     ) {
     this.subscription = this.Sidebar.toggle$.subscribe(state => {
@@ -30,6 +36,7 @@ export class SidebarComponent implements OnDestroy, OnInit{
   }
   
   ngOnInit(): void {
+    this.SetInitialRols();
     this.Sidebar.getActiveLiOrder1().subscribe(
       (data) => {
         this.activeli = data;
@@ -41,6 +48,17 @@ export class SidebarComponent implements OnDestroy, OnInit{
         this.activeSubli = data;
       }
     )
+  }
+
+  SetInitialRols() {
+    const perfil = this.dataService.nombrePerfil();
+    if(perfil === 'SUPADMIN') {
+      this.administradorActive = true;
+      this.encargadoActive = true;
+      this.supervisorActive = true;
+    }
+    if(perfil === 'ENCARGADO') this.encargadoActive = true;
+    if(perfil === 'SUPERVISOR') this.supervisorActive = true;
   }
 
   ngOnDestroy(): void {

@@ -30,6 +30,8 @@ export class SelectorIndicadoresComponent {
 
   disabledButton = true;
   displayIndicador = false;
+
+  TitlePage: string = 'Componente';
   
   constructor(private fb: FormBuilder,
               private modeloService: ModeloService,
@@ -45,6 +47,7 @@ export class SelectorIndicadoresComponent {
   }
 
   ngOnInit(): void {
+    this.TitlePageHandler();
     const nameInstitution = this.loginService.getTokenDecoded()['cod-institucion'];
     const permisoParams: PermisoPeticion = {
       codigoModelo: this.loginService.getTokenDecoded().modelo,
@@ -53,6 +56,12 @@ export class SelectorIndicadoresComponent {
       codigoSistema: environment.NOMBRE_SISTEMA
     }
     this.getData(permisoParams);
+  }
+
+  TitlePageHandler(): void {
+    if(this.componenteRol === 1) this.TitlePage = 'Subida de Evidencias'; 
+    if(this.componenteRol === 2) this.TitlePage = 'Supervisor'; 
+    if(this.componenteRol === 3) this.TitlePage = 'Encargado'; 
   }
 
   getData(permisoParams: PermisoPeticion){
