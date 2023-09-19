@@ -9,8 +9,8 @@ import { TipoEvaluacion } from '../../../../models/modelos-generales/tipo-evalua
 import { Valoracion } from '../../../../models/modelos-generales/valoracion.model';
 import { TipoEvaluacionService } from 'src/app/services/modeloServicios/tipo-evaluacion.service';
 import { ValoracionService } from 'src/app/services/modeloServicios/valoracion.service';
-import { DataService } from 'src/app/services/data.service';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -40,14 +40,14 @@ export class IndicadoresComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
     private indicadorService: IndicadorService,
     private subcriterioService: SubCriteriosService,
     private tipoService: TipoEvaluacionService,
     private valoracionService: ValoracionService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   ) {
     this.agregar = this.fb.group({
       subcriterio: ['', Validators.required],
@@ -70,8 +70,8 @@ export class IndicadoresComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('indicador');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('indicador');
     this.InitFiltro();
     this.loadIndicadores();
     this.loadSubCriterios();

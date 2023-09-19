@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-menu-tablas',
@@ -17,11 +17,11 @@ export class MenuTablasComponent implements OnInit{
   ]
 
   constructor(
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   ) { }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('');
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-check-manager',
@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 export class CheckManagerComponent implements OnInit{
 
   constructor (
-    private ds: DataService
+    private ds: Sidebar
   ) {}
   ngOnInit(): void {
     this.ds.actualizarActiveLiOrder1('checkmanager')

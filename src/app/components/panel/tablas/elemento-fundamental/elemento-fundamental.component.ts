@@ -7,8 +7,8 @@ import { IndicadorService } from 'src/app/services/modeloServicios/indicador.ser
 import { ElementoFundamentalService } from '../../../../services/modeloServicios/elemento-fundamental.service';
 import { Ponderacion } from '../../../../models/modelos-generales/ponderacion.model';
 import { PonderacionService } from 'src/app/services/modeloServicios/ponderacion.service';
-import { DataService } from 'src/app/services/data.service';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,10 +37,10 @@ Elementos: ElementoFundamental[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
     private elementoService: ElementoFundamentalService,
     private indicadorService: IndicadorService,
     private ponderacionService: PonderacionService,
@@ -65,8 +65,8 @@ Elementos: ElementoFundamental[] = [];
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('elemento');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('elemento');
     this.InitFiltro();
     this.loadElementosFundamentales();
     this.loadIndicadores();

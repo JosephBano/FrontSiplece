@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { ToggleBarService } from 'src/app/services/toggle-bar.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit{
   strname: string = ''; 
   
   constructor(
-    private toggleService: ToggleBarService,
+    private toggleService: Sidebar,
     private login: LoginService,
     )
     { }

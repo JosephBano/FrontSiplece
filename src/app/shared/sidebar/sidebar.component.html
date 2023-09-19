@@ -11,6 +11,8 @@
 
     <hr class="h-color mx-2">
 
+    <ng-container *ngIf="administradorActive">
+
     <!--Administrador Opcion-->
     <ul class="list-unstyled px-2">
         <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'admin'}">
@@ -23,6 +25,8 @@
     
     <hr class="h-color mx-4">
 
+    </ng-container>
+
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
         <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'evidencias'}">
@@ -31,10 +35,12 @@
                 <a class="text-decoration-none d-block mx-2">Evidencias</a>
             </div>
         </li>
-
     </ul>
 
     <hr class="h-color mx-4">
+
+
+    <ng-container *ngIf="encargadoActive">
 
     <!--Asignar Roles y Crear Modelos Opcion-->
     <ul class="list-unstyled px-2">
@@ -91,6 +97,10 @@
 
     <hr class="h-color mx-4">
 
+    </ng-container>
+
+    <ng-container *ngIf="supervisorActive">
+
     <ul class="list-unstyled px-2">        
 
         <!--Check manager-->
@@ -111,6 +121,8 @@
     </ul>
 
     <hr class="h-color mx-3">
+
+    </ng-container>
 
     <ul class="list-unstyled px-2">
         <!--LogOut Opcion-->

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class FilterDataService {
+export class FilterSidebar {
 
   private filtroDefault: BehaviorSubject<string> = new BehaviorSubject<string>('0');
   private filtroCriterio: BehaviorSubject<string> = new BehaviorSubject<string>('');

@@ -12,16 +12,16 @@ import { TablaIndicadoresComponent } from './check-manager/tabla-indicadores/tab
 import { EvidenciasComponent } from './evidencias/evidencias.component';
 import { SelectorComponent } from './evidencias/selector/selector.component';
 import { DetalleIndicadorComponent } from 'src/app/shared/detalle-indicador/detalle-indicador.component';
-import { authGuard } from 'src/app/helpers/auth.guard';
 import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
+import { encargadoGuard, supervisorGuard } from 'src/app/helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', component: EvidenciasComponent, children: [
     { path: '', component: SelectorComponent},
     { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
   ]},
-  { path: 'tablas', component: TablasComponent, children: [
+  { path: 'tablas', component: TablasComponent, canActivate: [encargadoGuard],children: [
     { path: '', component: MenuTablasComponent},
     { path: 'criterio', component: CriterioComponent},
     { path: 'subcriterio', component: SubCriterioComponent},
@@ -29,13 +29,13 @@ const routes: Routes = [
     { path: 'elementos', component: ElementoFundamentalComponent},
     { path: 'evidencia', component: EvidenciaComponent},
   ]},
-  { path: 'supervisor', component: CheckManagerComponent, children: [
-    { path: '', component: TablaIndicadoresComponent},
-    { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
-  ]},
-  { path: 'encargado', component: AsignarEncargadosComponent, children: [
+  { path: 'encargado', component: AsignarEncargadosComponent, canActivate: [encargadoGuard], children: [
     { path: '', component: SelectAEComponent},
     { path: 'asignar-usuarios/:id', component: DetalleIndicadorComponent},
+  ]},
+  { path: 'supervisor', component: CheckManagerComponent, canActivate: [supervisorGuard], children: [
+    { path: '', component: TablaIndicadoresComponent},
+    { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
   ]},
 ];
 
