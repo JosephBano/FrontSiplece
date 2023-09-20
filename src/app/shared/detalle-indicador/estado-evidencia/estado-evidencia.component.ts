@@ -23,6 +23,7 @@ export class EstadoEvidenciaComponent implements OnInit {
 
   //ActiveRols= '1';
   ActiveRols= '2';
+  //subRolActivo = '1';
   subRolActivo = '2';
 
   tituloStr = '';

@@ -29,13 +29,13 @@ export class EvidenciaFileContenedorComponent implements OnInit{
    }
 
   ngOnInit(): void {
-    this.archivoService.GetByEvidencia(this.IdEvidencia).subscribe( data => this.Archivos = data);
+    this.data()
   }
 
-  GetNameFile(id: string | undefined): string {
-    //const archivos = ['file1.png', 'file2.png', 'file2.png', 'file3.png', 'file4.png', 'file5.png', 'file6.png', 'file7.png', 'file8.png', 'file9.png', 'file10.png', 'file11.png', ]
-    console.log(this.Archivos);
-    
-    return this.Archivos.toString();
+  data(): void {
+    this.archivoService.GetByEvidencia(this.IdEvidencia).subscribe(data =>{
+      this.Archivos = data
+      console.log(data);
+    });
   }
 }
