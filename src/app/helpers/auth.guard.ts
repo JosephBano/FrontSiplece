@@ -1,10 +1,11 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { LoginService } from '../services/login.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const routes = inject(Router); 
-  const perfil = inject(DataService).nombrePerfil();
+  const perfil = inject(LoginService).getTokenDecoded();
   if(perfil) return true;
   else {
     routes.navigate(["/inicio"]);
