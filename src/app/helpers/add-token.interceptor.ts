@@ -25,7 +25,7 @@ export class AddTokenInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if(error.status === 401){
           this.toastr.error('Lo sentimos, ha ocurrido un error!, vuelva a ingresar porfavor.');
-          this.router.navigate(['/inicio/login']);
+          this.router.navigate(['/inicio']);
         }
         return throwError(error);
       }) 
