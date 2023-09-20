@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { environment } from 'src/environments/environment.development';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
 import { forkJoin } from 'rxjs';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -35,7 +35,7 @@ export class DetalleIndicadorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private routeUrl: Router,
-    private ds: DataService,
+    private ds: Sidebar,
     private indicadorService: IndicadorService,
     private loginService: LoginService,
     private elementoService: ElementoFundamentalService,

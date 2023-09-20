@@ -5,10 +5,13 @@ import { Indicador } from '../models/modelos-generales/indicador.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class Sidebar {
 
   private activeListOrder1: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private activeListOrder2: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  private toggleSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public toggle$: Observable<boolean> = this.toggleSubject.asObservable();
 
   constructor() { }
 
@@ -26,5 +29,10 @@ export class DataService {
   
   actualizarActiveLiOrder2(nuevoValor: any): void {
     this.activeListOrder2.next(nuevoValor);
+  }
+
+  public toggle(): void {
+    const currentValue = this.toggleSubject.getValue();
+    this.toggleSubject.next(!currentValue);
   }
 }

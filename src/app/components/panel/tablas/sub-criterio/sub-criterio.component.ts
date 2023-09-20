@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 import { Router } from '@angular/router';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 
 @Component({
   selector: 'app-sub-criterio',
@@ -34,12 +34,12 @@ export class SubCriterioComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
     private subcriterioService: SubCriteriosService,
     private criterioService: CriteriosService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   )
   {
     this.agregar = this.fb.group({
@@ -60,8 +60,8 @@ export class SubCriterioComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('subcriterio');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('subcriterio');
     this.InitFiltro();
     this.loadSubCriterios();
     this.loadCriterios();

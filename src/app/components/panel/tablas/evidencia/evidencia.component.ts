@@ -7,9 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { PeriodoService } from 'src/app/services/modeloServicios/periodo.service';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 import { Router } from '@angular/router';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 
 @Component({
   selector: 'app-evidencia',
@@ -37,12 +37,12 @@ export class EvidenciaComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private toastr: ToastrService,
     private evidenciaService: EvidenciaService,
     private elementoService: ElementoFundamentalService,
     private periodoService: PeriodoService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   ) {
     this.agregar = this.fb.group({
       elemento: ['0', Validators.required],
@@ -64,8 +64,8 @@ export class EvidenciaComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('evidencia');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('evidencia');
     this.InitFiltro();
     this.loadEvidencia();
     this.loadElementosFundamentales();
