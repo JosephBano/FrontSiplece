@@ -25,6 +25,7 @@ import { TablaEliminarModalComponent } from './tabla-eliminar-modal/tabla-elimin
 import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-restablecer-modal.component';
 import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
 import { LoadingComponent } from './loading/loading.component';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { LoadingComponent } from './loading/loading.component';
     UsersPipe,
     BotonAtrasComponent,
     LoadingComponent,
+    NotAuthorizedComponent,
   ],
   imports: [
     SharedRoutingModule,
