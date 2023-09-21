@@ -65,6 +65,7 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     TablaEliminarModalComponent,
     TablaRestablecerModalComponent,
     BotonAtrasComponent,
+    LoadingComponent,
   ]
 })
 export class SharedModule { }

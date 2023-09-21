@@ -16,6 +16,7 @@ export class LoginComponent {
   login: FormGroup;
 
   cdInstitucion = "ISTPET";
+  loadingHandler = false;
 
   constructor(
     private fb: FormBuilder,
@@ -30,9 +31,12 @@ export class LoginComponent {
     })
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loginService.removeLocalStorage();
+   }
   
   log(): void {
+    this.loadingHandler = true;
     const user: LoginToken = {
       correo: this.login.value.usuario,
       contrasenia: this.login.value.password,
@@ -53,5 +57,6 @@ export class LoginComponent {
       this.login.reset();
         this.toastr.error(error.error.message);
     })
+    this.loadingHandler = false;
   }
 }
