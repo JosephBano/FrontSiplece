@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ArchivoEvidencia } from '../../../../models/modelos-generales/archivo-evidencia.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-evidencia-file-contenedor',
@@ -21,6 +22,7 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   constructor(
     private archivoService: ArchivoEvidenciaService,
     private fb: FormBuilder,
+    private loginService: LoginService,
   ) {
     this.radiobuton = this.fb.group({
       estado: ['0', [Validators.required]] 
@@ -32,9 +34,8 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   }
 
   data(): void {
-    this.archivoService.GetByEvidencia(this.IdEvidencia).subscribe(data =>{
+    this.archivoService.GetByEvidenciaUser(this.IdEvidencia,this.loginService.getTokenDecoded().usuarioRegistra).subscribe(data =>{
       this.Archivos = data
-      console.log(data);
     });
   }
 }

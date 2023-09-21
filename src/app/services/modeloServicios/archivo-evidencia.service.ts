@@ -22,6 +22,10 @@ export class ArchivoEvidenciaService {
     return this.http.get<ArchivoEvidencia[]>(`${this.API_URL}/GetByEvidencia/${id}`);
   }
 
+  GetByEvidenciaUser(id: string, user: string): Observable<ArchivoEvidencia[]> {
+    return this.http.get<ArchivoEvidencia[]>(`${this.API_URL}/GetByEvidenciaUser?IdEvidencia=${id}&CodeUser=${user}`);
+  }
+
   GetTokenSharedPoint(obtenerToken: ObtenerTokenRequest): Observable<ObtenerTokenResponse>{
     return this.http.post<ObtenerTokenResponse>(`${this.API_URL}/Token`,obtenerToken);
   }
