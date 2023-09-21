@@ -28,7 +28,6 @@ export class IndicadoresComponent implements OnInit{
   checkboxDeshabilitarValue: boolean = false;
   selectedTipos!: number;
 
-  moreSettings: boolean = false;
   valueFilter: string = '0';
   tablafilter!: FormGroup;
 
@@ -50,18 +49,20 @@ export class IndicadoresComponent implements OnInit{
     private Sidebar: Sidebar,
   ) {
     this.agregar = this.fb.group({
-      subcriterio: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
+      subcriterio: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      estandar: ['', [Validators.required, Validators.minLength(5)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       tipoagregar: ['', Validators.required],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
-      subcriterio: ['', Validators.required],
+      subcriterio: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       valoracion: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
       tipoeditar: ['', Validators.required],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      estandar: ['', [Validators.required, Validators.minLength(5)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
 
     this.tablafilter = this.fb.group({
@@ -120,7 +121,7 @@ export class IndicadoresComponent implements OnInit{
   loadSubCriterios(){
     this.subcriterioService.getSubCriterio().subscribe(
     (data) => {
-      this.SubCriterios = data;
+      this.SubCriterios = data.filter(e => e.Activo == '1');
     }
     )
   }
@@ -128,7 +129,7 @@ export class IndicadoresComponent implements OnInit{
   loadTipoEvaluaciones(){
     this.tipoService.getTipoEvaluacion().subscribe(
       (data) => {
-        this.TipoEvaluaciones = data;
+        this.TipoEvaluaciones = data.filter(e => e.Activo == '1');
       }
     )
   }
@@ -136,7 +137,7 @@ export class IndicadoresComponent implements OnInit{
   loadValoraciones() {
     this.valoracionService.getValoracion().subscribe(
       (data) => {
-        this.Valoraciones = data;
+        this.Valoraciones = data.filter(e => e.Activo == '1');
       }
     )
   }
@@ -157,18 +158,12 @@ export class IndicadoresComponent implements OnInit{
     return valoracion?.Detalle;
   }
 
-  //otrasFunciones
-  setDefaultAgregar(){
-    this.agregar.get('subcriterio')?.setValue('');
-    this.agregar.get('detalle')?.setValue('');
-    this.agregar.get('tipoagregar')?.setValue('');
-    this.agregar.get('orden')?.setValue('');
-  }
-  
+  //otrasFunciones  
   setPreEditar(indicador: Indicador){
     this.editar.get('id')?.setValue(indicador.IdIndicador);
     this.editar.get('subcriterio')?.setValue(indicador.IdSubCriterio);
     this.editar.get('subcriterio')?.disable();
+    this.editar.get('estandar')?.setValue(indicador.Estandar);
     this.editar.get('valoracion')?.setValue(indicador.Valoracion);
     this.editar.get('detalle')?.setValue(indicador.Detalle);
     this.editar.get('orden')?.setValue(indicador.Orden);
@@ -177,9 +172,9 @@ export class IndicadoresComponent implements OnInit{
 
   //agregar
   agregarIndicador(){
-    this.editar.get('subcriterio')?.enable();
+    this.agregar.get('subcriterio')?.enable();
     const indicador: Indicador = {
-      CodigoIndicador: this.agregar.value.codigoIndicador,
+      CodigoIndicador: `I-${this.agregar.value.detalle.toLowerCase().replace(" ", "").slice(0, 5)}`,
       IdSubCriterio: this.agregar.value.subcriterio,
       IdTipoEvaluacion: this.agregar.value.tipoagregar,
       Orden: this.agregar.value.orden,
@@ -188,11 +183,12 @@ export class IndicadoresComponent implements OnInit{
       Valoracion: '1'
     }
 
+    this.agregar?.reset();
+
     this.indicadorService.postIndicador(indicador).subscribe(
       (data) => {
         this.toastr.success('El Indicador ha sido agregado correctamente!');
         this.loadIndicadores();
-        this.setDefaultAgregar();
         console.log(data);
       },
       (error) => {
@@ -208,9 +204,10 @@ export class IndicadoresComponent implements OnInit{
   //editar
   editarIndicador(){
     this.editar.get('subcriterio')?.enable();
+    const codigo = this.Indicadores.filter(e => e.IdIndicador === this.editar.value.id);
     const indicador: Indicador = {
       IdIndicador: this.editar.value.id,
-      CodigoIndicador: this.editar.value.codigoIndicador,
+      CodigoIndicador: codigo[0].CodigoIndicador,
       IdSubCriterio: this.editar.value.subcriterio,
       IdTipoEvaluacion: this.editar.value.tipoeditar,
       Valoracion: this.editar.value.valoracion,
@@ -231,6 +228,9 @@ export class IndicadoresComponent implements OnInit{
         console.log(error);
       }
     );
+
+    this.editar.reset();
+    this.editar.get('indicador')?.setValue('0');
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();

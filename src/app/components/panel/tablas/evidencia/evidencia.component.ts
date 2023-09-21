@@ -8,7 +8,6 @@ import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.ser
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { PeriodoService } from 'src/app/services/modeloServicios/periodo.service';
 import { Sidebar } from 'src/app/services/sidebar.service';
-import { Router } from '@angular/router';
 import { FilterSidebar } from 'src/app/services/filter-data.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class EvidenciaComponent implements OnInit{
   checkboxDeshabilitarValue: boolean = false;
   restablecerEvidenciaAux!: Evidencia;
 
-  moreSettings: boolean = false;
   valueFilter: string = '0';
   tablafilter!: FormGroup;
 
@@ -45,17 +43,15 @@ export class EvidenciaComponent implements OnInit{
     private Sidebar: Sidebar,
   ) {
     this.agregar = this.fb.group({
-      elemento: ['0', Validators.required],
-      periodoAdd: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
+      elemento: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
-      elemento: ['', Validators.required],
-      periodoEdit: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
+      elemento: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
 
     this.tablafilter = this.fb.group({
@@ -69,7 +65,6 @@ export class EvidenciaComponent implements OnInit{
     this.InitFiltro();
     this.loadEvidencia();
     this.loadElementosFundamentales();
-    this.loadPeriodos();
   }
 
   //Load Data
@@ -86,7 +81,7 @@ export class EvidenciaComponent implements OnInit{
   }
 
   setElemento() {
-    this.agregar.value.elemento = this.valueFilter;
+    this.agregar.get('elemento')?.setValue(this.valueFilter);
     if(this.valueFilter != '0') this.agregar.get('elemento')?.disable();
     else this.agregar.get('elemento')?.enable();
   }
@@ -107,15 +102,7 @@ export class EvidenciaComponent implements OnInit{
   loadElementosFundamentales(){
     this.elementoService.getElementoFundamental().subscribe(
       (data) => {
-        this.Elementos = data;
-      }
-    )
-  }
-
-  loadPeriodos(){
-    this.periodoService.getPeriodo().subscribe(
-      (data) => {
-        this.Periodos = data;
+        this.Elementos = data.filter(e => e.Activo == '1');
       }
     )
   }
@@ -124,19 +111,6 @@ export class EvidenciaComponent implements OnInit{
   getDetalleElemento(id: any){
     const obj = this.Elementos.find(e => e.IdElemento === id);
     return obj?.Detalle;
-  }
-
-  /*getDetallePeriodo(id: any){
-    const obj = this.Periodos.find(e => e.IdPeriodo === id);
-    return obj?.Detalle;
-  }*/
-
-  //otrasFunciones
-  setDefaultAgregar(){
-    this.agregar.get('periodo')?.setValue('');
-    this.agregar.get('detalle')?.setValue('');
-    this.agregar.get('periodoAdd')?.setValue('');
-    this.agregar.get('orden')?.setValue('');
   }
   
   setPreEditar(evidencia: Evidencia){
@@ -150,21 +124,18 @@ export class EvidenciaComponent implements OnInit{
 
   //agregar
   agregarEvidencia(){
-    this.editar.get('elemento')?.enable();
+    this.agregar.get('elemento')?.enable();
     const evidencia: Evidencia = {
       IdElemento: this.agregar.value.elemento,
-      CodigoEvidencia: this.agregar.value.codigoEvidencia,
-      // IdPeriodo: this.agregar.value.periodoAdd,
+      CodigoEvidencia: `E-${this.agregar.value.detalle.toLowerCase().replace(" ", "").slice(0, 5)}`,
       Detalle: this.agregar.value.detalle,
       Orden: this.agregar.value.orden,
-      Activo: '1',
     }
 
     this.evidenciaService.postEvidencia(evidencia).subscribe(
       (data) => {
         this.toastr.success('La Evidencia ha sido agregado correctamente!');
         this.loadEvidencia();
-        this.setDefaultAgregar();
         console.log(data);
       },
       (error) => {
@@ -173,6 +144,8 @@ export class EvidenciaComponent implements OnInit{
       }
     )
 
+    this.agregar.reset();
+
     if(this.cerrarAgregarModal) {
       this.cerrarAgregarModal.nativeElement.click();
     }
@@ -180,11 +153,11 @@ export class EvidenciaComponent implements OnInit{
   //editar
   editarEvidencia(){
     this.editar.get('elemento')?.enable();
+    const codigo = this.Evidencias.filter(e => e.IdEvidencia == this.editar.value.id);
     const evidencia: Evidencia = {
       IdEvidencia: this.editar.value.id,
-      CodigoEvidencia: this.editar.value.codigoEvidencia,
+      CodigoEvidencia: codigo[0].CodigoEvidencia,
       IdElemento: this.editar.value.elemento,
-      // IdPeriodo: this.editar.value.periodoEdit,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
       Activo: '1',
@@ -194,8 +167,6 @@ export class EvidenciaComponent implements OnInit{
       (data) => {
         this.toastr.success('Se ha realizado los cambios correctamente!');
         this.loadEvidencia();
-        this.loadElementosFundamentales();
-        this.loadPeriodos();
         console.log(data);
       },
       (error) => {
@@ -203,6 +174,9 @@ export class EvidenciaComponent implements OnInit{
         console.log(error);
       }
     );
+
+    this.editar.reset();
+    this.editar.get('elemento')?.setValue('0');
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
