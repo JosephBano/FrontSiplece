@@ -62,3 +62,12 @@ p {
     border: 1px solid #eee;
     border-radius: 10px;
 }
+
+.row{
+    width: 100%;
+}
+
+.statusColor{
+    width: 1.5rem;
+    height: 1.5rem;
+}

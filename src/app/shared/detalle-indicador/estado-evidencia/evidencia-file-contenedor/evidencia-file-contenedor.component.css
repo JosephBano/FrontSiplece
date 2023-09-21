@@ -55,3 +55,14 @@ label + input {
     color: #fff;
     margin: 0;
 }
+
+.row{
+    width: 100%;
+    align-items: center;
+    
+}
+
+.statusColor{
+    width: 1.5rem;
+    height: 1.5rem;
+}
