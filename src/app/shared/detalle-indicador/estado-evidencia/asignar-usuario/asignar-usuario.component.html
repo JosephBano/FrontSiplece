@@ -32,15 +32,15 @@
     </ng-container>
 </ul>
 
-<!--Editar funcion-->
+<!--agregar funcion-->
 <div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="container">
-                    <span class="fw-bolder">Cambiar al encargado</span>   
+                    <span class="fw-bolder">Agregar al encargado</span>   
                     <div class="contenedor-form">
-                        <form [formGroup]="editarEncargado">
+                        <form [formGroup]="agregarEncargado">
                             <div class="form-group mb-2 buscador d-flex justify-content-between">
                                 <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre" formControlName="nombre">
                             </div>
@@ -70,20 +70,21 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="container">
+                <form [formGroup]="AddNewItem" class="container">
                     <p>El nuevo usuario encargado de esta evidencia será <strong>{{straddconf}}</strong></p>
+                    <textarea id="txtAreaAssignUsers" rows="5" placeholder="Que archivo debe subir" formControlName="detalle"></textarea>
                     <div class="d-flex justify-content-center align-items-center">
                         <button class="btn btn-primary" (click)="agregarNuevaArchivo()" data-bs-dismiss="modal">Agregar</button>
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!--Editar funcion fin-->
+<!--agregar funcion fin-->
 
-<!-- Modal agregar-->
+<!-- Modal Editar-->
 <div class="modal fade" id="editarEncargado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -93,7 +94,7 @@
                     <span class="fw-bolder">Cambiar al encargado</span>   
                     <div class="contenedor-form">
                         <ng-container *ngIf="filterBoolean"> <!--Aquiva la expresion para mostrar bloque-->
-                            <form [formGroup]="agregarEncargado">
+                            <form [formGroup]="editarEncargado">
                                 <div class="form-group mb-2 buscador d-flex justify-content-between">
                                     <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre" formControlName="nombre">
                                 </div>
@@ -136,7 +137,7 @@
         </div>
     </div>
 </div>
-<!--Fin funcion agregar-->
+<!--Fin funcion Editar-->
 
 <!--Delete Modal-->
 <button hidden #btnConfDel data-bs-target="#confDelUser" data-bs-toggle="modal"></button>

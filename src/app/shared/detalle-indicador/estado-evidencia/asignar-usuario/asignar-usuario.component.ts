@@ -3,7 +3,7 @@ import { ArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evide
 import { Usuario } from 'src/app/models/usuario.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -17,6 +17,7 @@ export class AsignarUsuarioComponent implements OnInit{
   Usuarios: Usuario[] = [];
   Archivos: ArchivoEvidencia[] = [];
   filter!: string;
+  detalle!: string;
 
   filterBoolean: boolean = false;
 
@@ -25,6 +26,7 @@ export class AsignarUsuarioComponent implements OnInit{
 
   editarEncargado!: FormGroup;
   agregarEncargado!: FormGroup;
+  AddNewItem!: FormGroup;
 
   @ViewChild('btnConfAdd') btnConfAdd!: ElementRef;
   @ViewChild('closeBtnAdd') closeBtnAdd!: ElementRef;
@@ -45,6 +47,9 @@ export class AsignarUsuarioComponent implements OnInit{
     })
     this.agregarEncargado = this.fb.group({
       nombre: '',
+    })
+    this.AddNewItem = this.fb.group({
+      detalle: ['', Validators.required]
     })
    }
 
@@ -88,16 +93,15 @@ export class AsignarUsuarioComponent implements OnInit{
   }
 
   agregarNuevaArchivo() {
+    console.log(this.AddNewItem.value.detalle);
+    if(this.AddNewItem.value.detalle===''){
+      this.AddNewItem.value.detalle='Archivo Evidencia';
+    }
     const Archivo: ArchivoEvidencia= {
       IdEvidencia: this.IdEvidencia,
-      Estado: '0',
       FechaRegistro: this.obtenerFechaEnFormato(),
-      // FechaValidacion: '',
       UsuarioRegistra: this.usuario_aux.codigoAd,
-      RolValida: '',
-      // Detalle: '',
-      // PathUrl: '',
-      Activo: '1'
+      Detalle: this.AddNewItem.value.detalle,
     }
 
     this.archivoService.PostArchivo(Archivo).subscribe(
