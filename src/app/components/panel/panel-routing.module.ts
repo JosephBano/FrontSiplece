@@ -14,13 +14,15 @@ import { SelectorComponent } from './evidencias/selector/selector.component';
 import { DetalleIndicadorComponent } from 'src/app/shared/detalle-indicador/detalle-indicador.component';
 import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
-import { encargadoGuard, supervisorGuard } from 'src/app/helpers/auth.guard';
+import { adminGuard, encargadoGuard, supervisorGuard } from 'src/app/helpers/auth.guard';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   { path: '', component: EvidenciasComponent, children: [
     { path: '', component: SelectorComponent},
     { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
   ]},
+  { path: 'administrar', component: AdminComponent, canActivate: [adminGuard] },
   { path: 'tablas', component: TablasComponent, canActivate: [encargadoGuard],children: [
     { path: '', component: MenuTablasComponent},
     { path: 'criterio', component: CriterioComponent},
