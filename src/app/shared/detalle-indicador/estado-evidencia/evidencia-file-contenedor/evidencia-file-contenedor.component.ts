@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ArchivoEvidencia } from '../../../../models/modelos-generales/archivo-evidencia.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-evidencia-file-contenedor',
