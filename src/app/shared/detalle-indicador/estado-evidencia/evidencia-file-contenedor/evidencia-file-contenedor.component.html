@@ -29,26 +29,26 @@
                         </div>
                     </div>
                     <ng-container *ngIf="rolviewradios == '1'">
-                        <form [formGroup]="radiobuton">
+                        <form [formGroup]="radiobuton" (ngSubmit)="sendValidated(i)">
                             <div class="d-flex">
                                 <div class="d-flex mb-2">
-                                    <div class="contenedor-radio d-flex">
+                                    <div class="contenedor-radio d-flex" *ngIf="!formDisabled[i]">
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">check_small</span>
-                                            <input type="radio" value="2" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=2 formControlName="estado" class="radioinput">
                                         </div>
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">horizontal_rule</span>
-                                            <input type="radio" value="0" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=0 formControlName="estado" class="radioinput">
                                         </div>
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">close</span>
-                                            <input type="radio" value="1" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=1 formControlName="estado" class="radioinput">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="contenedor-btn d-flex align-center">
-                                    <button class="btnsubmit">Aplicar</button>
+                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]">Aplicar</button>
                                 </div>
                             </div>
                         </form>
