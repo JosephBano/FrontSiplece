@@ -66,3 +66,19 @@ label + input {
     width: 1.5rem;
     height: 1.5rem;
 }
+
+.btnApprove{
+    background-color: #9FFFA4;
+    border: #9FFFA4;
+    color: black;
+}
+.btnWait{
+    background-color: #FFDD91;
+    border: #FFDD91;
+    color: black;
+}
+.btnDisapprove{
+    background-color: #FFA785;
+    border: #FFA785;
+    color: black;
+}
