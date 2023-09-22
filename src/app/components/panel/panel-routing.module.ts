@@ -16,6 +16,7 @@ import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encarga
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 import { adminGuard, encargadoGuard, supervisorGuard } from 'src/app/helpers/auth.guard';
 import { AdminComponent } from './admin/admin.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   { path: '', component: EvidenciasComponent, children: [
@@ -39,6 +40,7 @@ const routes: Routes = [
     { path: '', component: TablaIndicadoresComponent},
     { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
   ]},
+  { path: 'reportes', component: ReportsComponent, canActivate:[supervisorGuard]},
 ];
 
 @NgModule({

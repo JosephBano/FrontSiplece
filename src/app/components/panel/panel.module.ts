@@ -27,6 +27,7 @@ import { SelectorComponent } from './evidencias/selector/selector.component';
 import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 import { AdminComponent } from './admin/admin.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { AdminComponent } from './admin/admin.component';
     AsignarEncargadosComponent,
     SelectAEComponent,
     AdminComponent,
+    ReportsComponent,
   ],
   imports: [
     CommonModule,
