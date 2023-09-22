@@ -52,4 +52,11 @@ export class DataService {
     const nombre = perfil.split('-');
     return nombre[0];
   }
+
+  formatName(str: string | undefined) {
+    return str?.replace(/\w\S*/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }).replace(/\./g, " ").split(" ").map(word => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()).join(" ");
+  }
+
 }

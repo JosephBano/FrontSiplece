@@ -28,6 +28,8 @@ import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encarga
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReportsComponent } from './reports/reports.component';
+import { UsersPipe } from 'src/app/pipes/users.pipe';
+import { AsignarRolesComponent } from './admin/asignar-roles/asignar-roles.component';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { ReportsComponent } from './reports/reports.component';
     SelectAEComponent,
     AdminComponent,
     ReportsComponent,
+    AsignarRolesComponent,
   ],
   imports: [
     CommonModule,

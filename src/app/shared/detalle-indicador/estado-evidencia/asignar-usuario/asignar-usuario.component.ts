@@ -5,6 +5,7 @@ import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archiv
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-asignar-usuario',
@@ -39,6 +40,7 @@ export class AsignarUsuarioComponent implements OnInit{
     private archivoService: ArchivoEvidenciaService,
     private fb: FormBuilder,
     private toastr: ToastrService,
+    private dataService: DataService,
   ) {
     this.editarEncargado = this.fb.group({
       nombre: '',
@@ -62,9 +64,7 @@ export class AsignarUsuarioComponent implements OnInit{
   }
 
   formatName(str: string | undefined) {
-    return str?.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    }).replace(/\./g, " ").split(" ").map(word => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()).join(" ");
+    return this.dataService.formatName(str);
   }
 
   comprobarUsuario(usuario: Usuario): boolean {
@@ -117,7 +117,7 @@ export class AsignarUsuarioComponent implements OnInit{
     else {
       this.btnConfAdd.nativeElement.click();
       this.usuario_aux = usuario;
-      this.straddconf = this.formatName(usuario.codigoAd) ?? '';
+      this.straddconf = this.dataService.formatName(usuario.codigoAd) ?? '';
     }
   }
   
@@ -128,7 +128,7 @@ export class AsignarUsuarioComponent implements OnInit{
     else {
       this.btnConfEdit.nativeElement.click();
       this.usuario_aux = usuario;
-      this.straddconf = this.formatName(usuario.codigoAd) ?? '';
+      this.straddconf = this.dataService.formatName(usuario.codigoAd) ?? '';
     }
   }
 
