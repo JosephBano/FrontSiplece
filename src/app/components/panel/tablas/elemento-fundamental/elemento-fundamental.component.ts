@@ -47,14 +47,14 @@ Elementos: ElementoFundamental[] = [];
     this.agregar = this.fb.group({
       indicador: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       ponderacionAdd: ['', Validators.required],
-      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
       orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
       indicador: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       ponderacionEdit: ['', Validators.required],
-      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
       orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
 
@@ -156,7 +156,8 @@ Elementos: ElementoFundamental[] = [];
       Detalle: this.agregar.value.detalle,
       Orden: this.agregar.value.orden,
     }
-
+    console.log(elemento);
+    
     this.elementoService.postElementoFundamental(elemento).subscribe(
       (data) => {
         this.toastr.success('El Elemento Fundamental ha sido agregado correctamente!');

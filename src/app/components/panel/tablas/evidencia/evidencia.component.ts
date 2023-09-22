@@ -44,13 +44,13 @@ export class EvidenciaComponent implements OnInit{
   ) {
     this.agregar = this.fb.group({
       elemento: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
-      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
       orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
       elemento: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
-      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
       orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
 
