@@ -12,6 +12,9 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class DataService {
+  actualizarActiveLiOrder1(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(
     private critService: CriteriosService,

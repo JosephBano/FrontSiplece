@@ -31,6 +31,7 @@ export const environment = {
     URL_BACKEND_PONDERACION: `${BASE_URL_SIPLECE}/Ponderacion`,
     URL_BACKEND_EVIDENCIA: `${BASE_URL_SIPLECE}/Evidencia`,
     URL_BACKEND_ARCHIVOEVIDENCIA: `${BASE_URL_SIPLECE}/ArchivoEvidencia`,
+    URL_BACKEND_REPORTE: `${BASE_URL_SIPLECE}/Reporte/DownloadReport`,
 
     /*Rutas Generales*/
     RUTA_INICIO: '/inicio',
