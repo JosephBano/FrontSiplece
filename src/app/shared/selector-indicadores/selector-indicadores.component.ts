@@ -76,10 +76,17 @@ export class SelectorIndicadoresComponent {
       })
     )
   
-    forkJoin([permission$, data$]).subscribe(([permissionsData, [criteriosData, subCriteriosData]]) => {
-      this.criterios=criteriosData.filter(c=>permissionsData.some(p=>p.codigoPermiso===c.CodigoCriterio))
-      this.subCriterios = subCriteriosData.filter(sc=>permissionsData.some(p=>p.codigoPermiso===sc.CodigoSubCriterio))
-    });
+    if(permisoParams.codigoPerfil.toLowerCase().includes('admin')){
+      forkJoin(data$).subscribe(([[criteriosData, subCriteriosData]]) => {
+        this.criterios = criteriosData;
+        this.subCriterios = subCriteriosData;
+      })
+    }else{ 
+      forkJoin([permission$, data$]).subscribe(([permissionsData, [criteriosData, subCriteriosData]]) => {
+        this.criterios=criteriosData.filter(c=>permissionsData.some(p=>p.codigoPermiso===c.CodigoCriterio))
+        this.subCriterios = subCriteriosData.filter(sc=>permissionsData.some(p=>p.codigoPermiso===sc.CodigoSubCriterio))
+      });
+    }
   }
 
   criterioChange(){
