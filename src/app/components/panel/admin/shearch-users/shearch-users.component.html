@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="contenedor-users">
+            <form [formGroup]="agregarEncargado">
+                <label class="form-label">Usuario registra</label>
+                <div class="input-group">
+                    <input type="search" id="nombre" class="form-control nborderbt" [(ngModel)]="filter" placeholder="Busque por nombre"  formControlName="nombre">
+                    <div class="span-icono form-control nborderbt">
+                        <span class="material-symbols-outlined">arrow_forward_ios</span>
+                    </div>
+                </div>
+            </form> 
+            <div class="list-users table-wrapper">
+                <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                    <div class="list-users_item" (click)="UsuariosSelected = usuario">
+                        <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="contenedor-users col-md-6">
+        <form [formGroup]="perfil">
+            <div class="mb-3">
+                <label class="form-label">Perfil</label>
+                <select class="form-control" formControlName="perfil">
+                    <option selected disabled value="0">Perfiles</option>
+                    <ng-container *ngFor="let perfil of Perfiles">
+                        <option [value]="perfil.id">{{perfil.rol}}</option>
+                    </ng-container>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-between" style="width: 100%;">
+    <button class="btn-mostrar">go</button>
+</div>

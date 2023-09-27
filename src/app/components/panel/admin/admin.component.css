@@ -7,3 +7,84 @@
     -webkit-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
     -moz-box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.5);
 }
+
+span, p {
+    margin: 0;
+}
+
+.btn-mostrar {
+    width: 200px;
+    color: #fff;
+    background-color: #1F295B;
+    border: 1px solid #1F295B;
+    border-radius: 5px;
+}
+
+.contenedor-users {
+    width: 100%;
+    margin: 1rem;
+}
+
+.span-icono {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 40px;
+    cursor: pointer;
+}
+.span-icono:hover {
+    background-color: #eee;
+}
+
+.nborderbt {
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+.list-users {
+    border: 1px solid #eee;
+    border-top: none;
+    border-radius: 10px;
+    border-top-right-radius: 0%;
+    border-top-left-radius: 0%;
+}
+
+.list-users_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .3rem .8rem .3rem .6rem;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.list-users_item:hover {
+    background-color: #eee;
+}
+
+.users-checkbox {
+    background-color: #fff;
+    width: 17px;
+    height: 17px;
+    border: 2px solid #a0a0a0;
+    border-radius: 5px;
+}
+
+.users-checkbox:hover {
+    background-color: #eee;
+}
+
+.users-checkbox_selected {
+    background-color: #0066ffcb !important;
+    border: 1px #7a7a7a solid;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,.3) inset; 
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,.3) inset;             
+    -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,.3) inset;
+}
+
+@media (max-height: 454px) {
+    .table-wrapper {
+        overflow-y: scroll;
+    }
+}

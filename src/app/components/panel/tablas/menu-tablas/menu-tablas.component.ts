@@ -12,7 +12,7 @@ export class MenuTablasComponent implements OnInit{
     {url: 'criterio', titulo: 'Criterios', icono: 'description'},
     {url: 'subcriterio', titulo: 'Sub-Criterios', icono: 'inventory_2'},
     {url: 'indicador', titulo: 'Indicadores', icono: 'list'},
-    {url: 'elemento', titulo: 'Elementos Fundamentales', icono: 'category'},
+    {url: 'elementos', titulo: 'Elementos Fundamentales', icono: 'category'},
     {url: 'evidencia', titulo: 'Evidencias', icono: 'place_item'},
   ]
 
