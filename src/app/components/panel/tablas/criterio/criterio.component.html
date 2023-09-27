@@ -84,7 +84,7 @@
 
 <!--Agregar Modal-->
 <div class="modal fade" id="crearModalCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Criterio</h1>
@@ -102,14 +102,20 @@
                                     <option *ngIf="modelo.activo == '1'" [value]="modelo.idModelo">{{modelo.detalle}}</option>
                                 </ng-container>
                             </select>
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('modelo')?.errors?.['pattern'] && agregar.get('modelo')?.touched">El modelo es <strong>requerido</strong></span>
                         </div>
                         <div class="mb-3">
-                            <label for="DetalleAgregar" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                            <label for="DetalleAgregar" class="form-label">Criterio</label>
+                            <input type="text" class="form-control" id="DetalleAgregar" formControlName="detalle" placeholder="Detalle del criterio">
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('detalle')?.errors?.['required'] && agregar.get('detalle')?.touched">El detalle es <strong>requerido</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('detalle')?.errors?.['minlength'] && agregar.get('detalle')?.touched">El detalle debe tener minimo<strong> 5 caracteres</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('detalle')?.errors?.['maxlength'] && agregar.get('detalle')?.touched">El detalle debe tener un máximo de<strong> 300 caracteres</strong></span>
                         </div>
                         <div class="mb-3">
-                            <label for="ordenAgregar" class="form-label">Año</label>
-                            <input type="text" class="form-control" id="ordenAgregar" formControlName="orden" placeholder="2023">
+                            <label for="ordenAgregar" class="form-label">Orden</label>
+                            <input type="text" class="form-control" id="ordenAgregar" formControlName="orden" placeholder="1, 2, 3...">
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('orden')?.errors?.['required'] && agregar.get('orden')?.touched">El orden del criterio es <strong>requerido</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="agregar.get('orden')?.errors?.['pattern'] && agregar.get('orden')?.touched">El orden solo puede contener <strong>números enteros</strong></span>
                         </div>
                     </form>
                 </div>
@@ -128,7 +134,7 @@
 
 <!--Editar Modal-->
 <div class="modal fade" id="editModalCriterio" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Modelo</h1>
@@ -141,7 +147,7 @@
                         <input type="text" class="d-none" readonly formControlName="id">
                         <div class="mb-3">
                             <label for="modelo" class="form-label">Modelo</label>
-                            <select [disabled]="false" formControlName="modelo" class="form-control" >
+                            <select formControlName="modelo" class="form-control" >
                                 <option value="" selected disabled >Modelos...</option>
                                 <ng-container *ngFor="let modelo of Modelos">
                                     <option *ngIf="modelo.activo == '1'" [value]="modelo.idModelo">{{modelo.detalle}}</option>
@@ -149,12 +155,17 @@
                             </select>
                         </div> 
                         <div class="mb-3">
-                            <label for="DetalleEditar" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="DetalleEditar" formControlName="detalle" placeholder="CACES-UNIVERSIDADES-2020-2023">
+                            <label for="DetalleEditar" class="form-label">Criterio</label>
+                            <input type="text" class="form-control" id="DetalleEditar" formControlName="detalle" placeholder="Detalle del criterio">
+                            <span class="text-danger ml-5 mt-2" *ngIf="editar.get('detalle')?.errors?.['required'] && editar.get('detalle')?.touched">El detalle es <strong>requerido</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="editar.get('detalle')?.errors?.['minlength'] && editar.get('detalle')?.valueChanges && editar.get('detalle')?.valueChanges">El detalle debe tener minimo<strong> 5 caracteres</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="editar.get('detalle')?.errors?.['maxlength'] && editar.get('detalle')?.touched">El detalle debe tener un máximo de<strong> 300 caracteres</strong></span>
                         </div>
                         <div class="mb-3">
-                            <label for="ordenEditar" class="form-label">Siglas</label>
-                            <input type="text" class="form-control" id="ordenEditar" formControlName="orden" placeholder="2023">
+                            <label for="ordenEditar" class="form-label">Orden</label>
+                            <input type="text" class="form-control" id="ordenEditar" formControlName="orden" placeholder="1, 2, 3...">
+                            <span class="text-danger ml-5 mt-2" *ngIf="editar.get('orden')?.errors?.['required'] && editar.get('orden')?.touched">El orden del criterio es <strong>requerido</strong></span>
+                            <span class="text-danger ml-5 mt-2" *ngIf="editar.get('orden')?.errors?.['pattern'] && editar.get('orden')?.touched">El orden solo puede contener <strong>números enteros</strong></span>
                         </div>        
                     </form>
                 </div> 
@@ -163,7 +174,7 @@
             <div class="modal-footer">
                 <button #cerrarEditarModal type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <div class="btn-custom">
-                    <button type="button" class="btn" (click)="editarCriterio()">Editar</button>
+                    <button type="button" class="btn" (click)="editarCriterio()" [disabled]="editar.invalid">Editar</button>
                 </div>
             </div>
         </div>

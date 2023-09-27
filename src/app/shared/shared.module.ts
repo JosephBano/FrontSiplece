@@ -24,6 +24,9 @@ import { UsersPipe } from './../pipes/users.pipe';
 import { TablaEliminarModalComponent } from './tabla-eliminar-modal/tabla-eliminar-modal.component';
 import { TablaRestablecerModalComponent } from './tabla-restablecer-modal/tabla-restablecer-modal.component';
 import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
+import { LoadingComponent } from './loading/loading.component';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { ReviewerObservationComponent } from './detalle-indicador/estado-evidencia/reviewer-observation/reviewer-observation.component';
 
 
 @NgModule({
@@ -42,6 +45,9 @@ import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
     TablaRestablecerModalComponent,
     UsersPipe,
     BotonAtrasComponent,
+    LoadingComponent,
+    NotAuthorizedComponent,
+    ReviewerObservationComponent,
   ],
   imports: [
     SharedRoutingModule,
@@ -61,6 +67,8 @@ import { BotonAtrasComponent } from './boton-atras/boton-atras.component';
     TablaEliminarModalComponent,
     TablaRestablecerModalComponent,
     BotonAtrasComponent,
+    LoadingComponent,
+    UsersPipe,
   ]
 })
 export class SharedModule { }

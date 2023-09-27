@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-select-ae',
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SelectAEComponent implements OnInit{
 
-  constructor(private ds: DataService) { }
+  constructor(private ds: Sidebar) { }
   ngOnInit(): void {
     this.ds.actualizarActiveLiOrder1('encargado');
   }

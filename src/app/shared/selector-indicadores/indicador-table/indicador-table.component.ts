@@ -39,9 +39,15 @@ export class IndicadorTableComponent implements OnInit{
   getData(permisoParams: PermisoPeticion){
     const permission$ = this.perfilService.getPermisos(permisoParams).pipe(data => data)
     const indicator$ = this.indicadorService.getIndicador().pipe(data =>  data)//Cambiar a get by id subcriterio
-    forkJoin([permission$, indicator$]).subscribe(([permissionsData, indicatorsData]) => {
-      this.indicadores = indicatorsData.filter(i=>permissionsData.some(p=>p.codigoPermiso===i.CodigoIndicador))
-    })
+    if(permisoParams.codigoPerfil.toLowerCase().includes('admin')){
+      forkJoin(indicator$).subscribe(([indicatorsData]) => {
+        this.indicadores = indicatorsData
+      })
+    }else{
+      forkJoin([permission$, indicator$]).subscribe(([permissionsData, indicatorsData]) => {
+        this.indicadores = indicatorsData.filter(i=>permissionsData.some(p=>p.codigoPermiso===i.CodigoIndicador))
+      })
+    }
   }
 
   handleRowClick(indicador: any) {

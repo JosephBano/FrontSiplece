@@ -5,9 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
 import { Criterio } from 'src/app/models/modelos-generales/criterio.model';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 import { Router } from '@angular/router';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 
 @Component({
   selector: 'app-sub-criterio',
@@ -22,7 +22,6 @@ export class SubCriterioComponent implements OnInit{
   filter!: string;
   checkboxDeshabilitarValue: boolean = false;
 
-  moreSettings: boolean = false;
   valueFilter: string = '0';
   tablafilter!: FormGroup;
 
@@ -34,24 +33,24 @@ export class SubCriterioComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
     private subcriterioService: SubCriteriosService,
     private criterioService: CriteriosService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   )
   {
     this.agregar = this.fb.group({
-      criterio: ['0', [Validators.required]],
-      detalle: ['', [Validators.required]],
-      orden: ['', [Validators.required]],
+      criterio: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
-      criterio: ['', [Validators.required]],
-      detalle: ['', [Validators.required]],
-      orden: ['', [Validators.required]],
+      criterio: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     
     this.tablafilter = this.fb.group({
@@ -60,8 +59,8 @@ export class SubCriterioComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('subcriterio');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('subcriterio');
     this.InitFiltro();
     this.loadSubCriterios();
     this.loadCriterios();
@@ -106,7 +105,7 @@ export class SubCriterioComponent implements OnInit{
 
   loadCriterios(): void {
     this.criterioService.getCriterios().subscribe( data => {
-      this.Criterios = data;
+      this.Criterios = data.filter(e => e.Activo == '1');
     })
   }
 
@@ -125,12 +124,12 @@ export class SubCriterioComponent implements OnInit{
 
   //agregar
   agregarSubCriterio(): void{
-    this.editar.get('criterio')?.enable();
+    this.agregar.get('criterio')?.enable();
     const subcriterio: SubCriterio = {
-      CodigoSubCriterio: this.agregar.value.codigoSubCriterio,
+      CodigoSubCriterio: `SC-${this.agregar.value.detalle.toLowerCase().replace(" ", "").slice(0, 5)}`,
       IdCriterio: this.agregar.value.criterio,
       Detalle: this.agregar.value.detalle,
-      Orden: '1',
+      Orden: this.agregar.value.orden,
     }
 
     this.subcriterioService.postSubCriterio(subcriterio).subscribe(
@@ -143,6 +142,8 @@ export class SubCriterioComponent implements OnInit{
       console.log(error);
     });
 
+    this.agregar.reset();
+
     if (this.cerrarAgregarModal) {
       this.cerrarAgregarModal.nativeElement.click();
     }
@@ -151,9 +152,10 @@ export class SubCriterioComponent implements OnInit{
   //Editar
   editarSubCriterio(): void {
     this.editar.get('criterio')?.enable();
+    const codigo = this.SubCriterios.filter(e => e.IdSubCriterio === this.editar.value.id);
     const subcriterio: SubCriterio = {
       IdSubCriterio: this.editar.value.id,
-      CodigoSubCriterio: this.editar.value.codigoSubCriterio,
+      CodigoSubCriterio: codigo[0].CodigoSubCriterio,
       IdCriterio: this.editar.value.criterio,
       Detalle: this.editar.value.detalle,
       Orden: this.editar.value.orden,
@@ -162,14 +164,16 @@ export class SubCriterioComponent implements OnInit{
 
     this.subcriterioService.updateSubCriterio(subcriterio).subscribe(
       (data) => {
-        this.toastr.success('Se ha realizado los cambios correctamente!')
-        this.loadCriterios()      
+        this.toastr.success('Se ha realizado los cambios correctamente!'); 
         this.loadSubCriterios();
         console.log(data);  
     }, (error) => {
-      this.toastr.error('Error!, no se ha podido realizar los cambios')
+      this.toastr.error('Error!, no se ha podido realizar los cambios');
       console.log(error);
     });
+
+    this.editar.reset();
+    this.editar.get('criterio')?.setValue('0');
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();

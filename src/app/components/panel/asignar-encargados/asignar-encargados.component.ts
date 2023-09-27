@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-asignar-encargados',
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AsignarEncargadosComponent implements OnInit{
 
-  constructor( private sidebar: DataService) { }
+  constructor( private sidebar: Sidebar) { }
 
   ngOnInit(): void {
     this.sidebar.actualizarActiveLiOrder1('encagados');

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
 
 @Component({
   selector: 'app-menu-tablas',
@@ -12,16 +12,16 @@ export class MenuTablasComponent implements OnInit{
     {url: 'criterio', titulo: 'Criterios', icono: 'description'},
     {url: 'subcriterio', titulo: 'Sub-Criterios', icono: 'inventory_2'},
     {url: 'indicador', titulo: 'Indicadores', icono: 'list'},
-    {url: 'elemento', titulo: 'Elementos Fundamentales', icono: 'category'},
+    {url: 'elementos', titulo: 'Elementos Fundamentales', icono: 'category'},
     {url: 'evidencia', titulo: 'Evidencias', icono: 'place_item'},
   ]
 
   constructor(
-    private dataService: DataService,
+    private Sidebar: Sidebar,
   ) { }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('');
   }
 }

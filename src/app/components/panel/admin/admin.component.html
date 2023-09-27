@@ -1,0 +1,22 @@
+<div class="container mt-3">
+    <div class="contenedor-flotante">
+        <div class="d-flex">
+            <div class="contenedor-roles-principal">
+                <div class="contenedor-usuario">
+                    <form [formGroup]="agregarEncargado">
+                        <div class="form-group mb-2 buscador d-flex justify-content-between">
+                            <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Busque por nombre" formControlName="nombre">
+                        </div>
+                    </form> 
+                    <div class="table-wraper">
+                        <ng-container *ngFor="let usuario of Usuarios | user:filter; let i = index">
+                            <div class="contenedor-seleccionar" (click)="asignarRolesHandler(usuario)">
+                                <p>{{usuario.nombre}} {{usuario.apellido}}</p>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

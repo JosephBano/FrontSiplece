@@ -5,6 +5,7 @@ import { InicioRoutingModule } from './inicio-routing.module';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InicioComponent } from './inicio.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { InicioComponent } from './inicio.component';
     InicioRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    SharedModule,
   ]
 })
 export class InicioModule { }
