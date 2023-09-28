@@ -4,7 +4,7 @@
 <ng-container *ngIf="Archivos.length > 0">
     <ul class="list-group list-group-flush">
         <li class="list-group-item"></li>
-        <ng-container *ngFor="let archivo of Archivos; let i = index">
+        <ng-container *ngFor="let archivo of Archivos; let i = index">           
             <li class="list-group-item">
                 <div class="contenedor-opciones container">
                     <div class="row">
@@ -48,13 +48,21 @@
                                     </div>
                                 </div>
                                 <div class="contenedor-btn d-flex align-center">
-                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]">Aplicar</button>
-                                </div>
-                            </div>
+                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]" (click)="mostrarDetalle()" >Aplicar</button>
+                                </div>                                
+                            </div>                           
                         </form>
                     </ng-container>
                 </div>
             </li>
+            <div *ngIf="mostrarContenedor" class="box-container">
+                <div class="sugerencia-box">
+                  <textarea [(ngModel)]="observacionDetalle" placeholder="Detalle..."></textarea>
+                  <button (click)="enviarObservacion()">Enviar</button>
+                </div>
+                <ng-container *ngFor="let obs of Observaciones; let i = index" class="Observacion-item">                   
+                </ng-container>
+           </div>
         </ng-container>
     </ul>
 </ng-container>
