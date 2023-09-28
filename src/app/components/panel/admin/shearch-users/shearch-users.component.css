@@ -1,0 +1,25 @@
+#trash-icon:active{
+    margin-left: 2px;
+    background-color: #cfd7db;
+    padding: 0.2rem 0.4rem;
+    color: black; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-custom {
+    width: 100%;
+    padding: .5rem 3rem;
+    background: #1F295B;
+    color: #fff;
+    border: solid 1px #1F295B;
+}
+
+.btn-custom:disabled {
+    width: 100%;
+    padding: .5rem 3rem;
+    background: #5562a1;
+    color: #fff;
+    border: solid 1px #5562a1;
+}
