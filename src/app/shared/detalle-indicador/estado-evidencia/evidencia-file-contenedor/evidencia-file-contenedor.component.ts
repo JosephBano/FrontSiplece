@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, TemplateRef, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ArchivoEvidencia } from '../../../../models/modelos-generales/archivo-evidencia.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,16 +6,17 @@ import { LoginService } from 'src/app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { ObservacionArchivo } from 'src/app/models/modelos-generales/observacion-data.model';
 import { ObservacionDataService } from 'src/app/services/modeloServicios/observacion-data.service';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-evidencia-file-contenedor',
   templateUrl: './evidencia-file-contenedor.component.html',
   styleUrls: ['./evidencia-file-contenedor.component.css']
 })
 export class EvidenciaFileContenedorComponent implements OnInit{
-  @Input() IdEvidencia: any;
 
-  mostrarModal = false;
+  @Input() IdEvidencia: any;
+  modalRef?: BsModalRef;
+  IdArchivoEvidencia!: string;
   formulario: FormGroup;
   observacionDetalle: string = '';
   strname: string = ''; 
@@ -24,10 +25,11 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   radiobuton!: FormGroup;
   formDisabled: boolean[] = [];
   formStatus: string[] = [];
-  mostrarContenedor: boolean = false;
   //rolviewradios = '1';
   //rolviewradios = '2';
   @Input() rolviewradios: any;
+  idArchivoSeleccionado: any;
+
 
   constructor(
     private archivoService: ArchivoEvidenciaService,
@@ -35,7 +37,9 @@ export class EvidenciaFileContenedorComponent implements OnInit{
     private fb: FormBuilder,
     private loginService: LoginService,
     private toastr: ToastrService,
-    private login: LoginService
+    private login: LoginService,
+    private modalService: BsModalService
+    
   ) {
     this.radiobuton = this.fb.group({
       estado: ['0', [Validators.required]] 
@@ -49,7 +53,6 @@ export class EvidenciaFileContenedorComponent implements OnInit{
     this.data()
     this.getObservaciones();
     this.strname = this.login.getTokenDecoded().nombre;
-
   }
 
   data(): void {
@@ -57,6 +60,8 @@ export class EvidenciaFileContenedorComponent implements OnInit{
       this.Archivos = data      
       this.formDisabled = new Array(this.Archivos.length).fill(false);
       this.formStatus = new Array(this.Archivos.length).fill('btnWait');
+
+      this.idArchivoSeleccionado = this.Archivos[0].IdArchivoEvidencia;
     });
   }
 
@@ -117,41 +122,17 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   
     return `${anio}-${mes}-${dia}T${hora}:${minutos}:${segundos}`;
   }
-  mostrarDetalle() {
-    this.mostrarContenedor = true; 
-  }
+ 
   getObservaciones(): void {
     this.observacionDataService.getObservaciones().subscribe(data => {
       this.Observaciones = data;
     });
   }
-  async updateObs(index:number,value: string): Promise<void>{
-    const fileUpdate: ObservacionArchivo = {
-      IdObservacionArchivo:this.Observaciones[index].IdObservacionArchivo,
-      IdArchivoEvidencia:this.Observaciones[index].IdArchivoEvidencia,
-      Estado:value,
-      FechaRegistro:this.Observaciones[index].FechaRegistro,
-      UsuarioEvalua:this.Observaciones[index].UsuarioEvalua,
-      Detalle:this.Observaciones[index].Detalle,
-     
-    }
-    console.log(fileUpdate);
-    
-    try{
-      this.observacionDataService.updateObservaciones(fileUpdate).subscribe(data=>{
-        if(data.Estado==value){
-          this.toastr.success("Archivo evaluado con exito");
-        }
-      });
-    }catch(error){ 
-        this.toastr.error("Error al evaluar el archivo");
-    }
-  }
 
   enviarObservacion() {
     if (this.observacionDetalle) {
       const nuevaObservacion: ObservacionArchivo = {
-        IdArchivoEvidencia: '1', 
+        IdArchivoEvidencia:this.idArchivoSeleccionado, 
         UsuarioEvalua: this.strname = this.login.getTokenDecoded().nombre, 
         Detalle: this.observacionDetalle, 
         Estado: '0', 
@@ -160,8 +141,11 @@ export class EvidenciaFileContenedorComponent implements OnInit{
 
       this.observacionDataService.postObservacion(nuevaObservacion).subscribe(response => {
         console.log('Observación enviada exitosamente', response);
-      }, error => {
+        this.mostrarMensaje('Observacion agregada con exito', 'mensaje-exito');
+      },
+      (error) => {
         console.error('Error al enviar la observación', error);
+        this.mostrarMensaje('¡Hubo un error al subir la observacion!', 'mensaje-error');
       });
 
     
@@ -169,5 +153,25 @@ export class EvidenciaFileContenedorComponent implements OnInit{
     }
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  
+  mostrarMensaje(mensaje: string, clase: string) {
+    const mensajeElement = document.getElementById('mensaje');
+
+    if (mensajeElement) {
+      mensajeElement.innerText = mensaje;
+      mensajeElement.classList.add(clase);
+      mensajeElement.style.display = 'block';
+  
+      setTimeout(() => {
+        mensajeElement.style.display = 'none';
+        mensajeElement.innerText = '';
+        mensajeElement.classList.remove(clase);
+      }, 3000); 
+    }
+  }
 
 }

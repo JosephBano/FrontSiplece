@@ -48,21 +48,26 @@
                                     </div>
                                 </div>
                                 <div class="contenedor-btn d-flex align-center">
-                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]" (click)="mostrarDetalle()" >Aplicar</button>
+                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]" (click)="openModal(template)" >Aplicar</button>
                                 </div>                                
                             </div>                           
                         </form>
                     </ng-container>
                 </div>
+                <ng-template #template>
+                    <div class="modal-header">
+                      <h4 class="modal-title pull-left">OBSERVACIONES</h4>
+                      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="visually-hidden">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea [(ngModel)]="observacionDetalle" placeholder="Detalle..."></textarea>
+                        <button (click)="enviarObservacion()">Enviar</button>
+                        <div id="mensaje" class="mensaje"></div>
+                    </div>
+                  </ng-template>
             </li>
-            <div *ngIf="mostrarContenedor" class="box-container">
-                <div class="sugerencia-box">
-                  <textarea [(ngModel)]="observacionDetalle" placeholder="Detalle..."></textarea>
-                  <button (click)="enviarObservacion()">Enviar</button>
-                </div>
-                <ng-container *ngFor="let obs of Observaciones; let i = index" class="Observacion-item">                   
-                </ng-container>
-           </div>
         </ng-container>
     </ul>
 </ng-container>

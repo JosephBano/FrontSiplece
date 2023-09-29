@@ -82,38 +82,71 @@ label + input {
     border: #FFA785;
     color: black;
 }
-.sugerencia-box {
-    background-color: #f4f4f4; 
-    padding: 20px;
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.modal-header {
+    background-color: #1F295B;
+    color: #fff;
+    padding: 10px;
     text-align: center; 
   }
   
-  .sugerencia-box textarea {
-    width: 100%; 
-    padding: 10px; 
-    margin-bottom: 10px; 
-    border: 1px solid #ccc; 
-    border-radius: 3px; 
-    resize: none; 
-  }
-  
-  .sugerencia-box button {
-    background-color: #007bff; 
+ 
+  .modal-title {
+    font-size: 1.5rem;
+    margin: 0;
+    display: inline-block; 
+    vertical-align: middle; 
     color: #fff; 
-    border: none; 
-    padding: 10px 20px; 
-    border-radius: 3px; 
-    cursor: pointer; 
+  }
+ 
+  .btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 5px;
   }
   
-  .sugerencia-box button:hover {
-    background-color: #0056b3; 
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+  
+  
+  button {
+    background-color: #1F295B;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto; 
+  }
+  
+  
+  button:hover {
+    background-color: #1F295B; 
   }
 
-  .box-container{
-    margin-top: 5px;
+  .mensaje {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
   }
-
+  
+  .mensaje-exito {
+    background-color: #4CAF50; /* Color verde para éxito */
+    color: white;
+  }
+  
+  .mensaje-error {
+    background-color: #f44336; /* Color rojo para error */
+    color: white;
+  }
