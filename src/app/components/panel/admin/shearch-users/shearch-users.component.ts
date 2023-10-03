@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/models/usuario.model';
+import { RolPerfil } from 'src/app/models/modelosSeguridad/perfil.model';
+import { Usuario, UsuarioRolPeticion, UsuarioRolRespuesta } from 'src/app/models/usuario.model';
 import { DataService } from 'src/app/services/data.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { environment } from 'src/environments/environment.development';
 
 const inputText = document.getElementById('nombre') as HTMLInputElement;
 
@@ -13,8 +16,14 @@ const inputText = document.getElementById('nombre') as HTMLInputElement;
 })
 export class ShearchUsersComponent {
   Usuarios: Usuario[] = [];
-  UsuariosSelected!: Usuario;
-  Perfiles: any[]=[{rol:'SUPERVISOR',id:1}, {rol:'ADMIN', id:2}, {rol:'ENCARGADO', id:3}, {rol:'SUPADMIN',id:4}];
+  AllPerfiles: RolPerfil[]=[
+    {rol:'ENCARGADO', id:1}, 
+    {rol:'SUPERVISOR',id:2}, 
+    {rol:'ADMIN', id:3}, 
+    {rol:'SUPADMIN',id:4}
+  ];
+  Perfiles: RolPerfil[]=[];
+  PerfilesResponce: UsuarioRolRespuesta[] = [];
   
   valueEncargadoFilter: string = '';
   valuePerfilFilter: string = '';
@@ -28,6 +37,7 @@ export class ShearchUsersComponent {
 
   constructor(
     private usuarios: UsuarioService,
+    private loginService: LoginService,
     private fb: FormBuilder,
     private ds: DataService,
   ) { 
@@ -49,6 +59,39 @@ export class ShearchUsersComponent {
     )
   }
 
+  loadRolData(codeUser: string): void {
+    this.Perfiles=[];
+    const rolRequest: UsuarioRolPeticion = {
+      codigoUsuario:codeUser,
+      codigoSistema: environment.NOMBRE_SISTEMA,
+      codigoInstitucion: this.loginService.getTokenDecoded()['cod-institucion'],
+    }
+    this.usuarios.getRol(rolRequest).subscribe(data => {    
+      if(data.length<=1){
+        if(data[0].mensaje!=null){
+          console.log(data);
+          this.Perfiles=this.AllPerfiles;
+          return;
+        } 
+      }
+      const PerfilAsignado = this.AllPerfiles.filter(all=>data.some(res=>all.rol==res.codigoPerfil.split('-')[0]))
+      let nivelPerfil:number=0;
+      
+      PerfilAsignado.forEach(pa=>{
+        if(pa.id>nivelPerfil){
+          nivelPerfil=pa.id;
+        }
+      })
+      if(nivelPerfil!==this.AllPerfiles.length){
+        this.AllPerfiles.forEach(all=>{
+          if(all.id>nivelPerfil){
+            this.Perfiles.push(all)
+          }
+        })
+      } 
+    })
+  }
+
   OnChangeEncargadoFilter() {
     this.displayPermissions = false;
     this.valueEncargadoFilter = this.selects.get('filterEncargado')?.value;
@@ -58,6 +101,8 @@ export class ShearchUsersComponent {
     } else {
       this.selects.get("filterPerfil")?.disable();
     }
+    this.loadRolData(this.valueEncargadoFilter);
+    
     this.OnChangePerfilFilter();
   }
   OnChangePerfilFilter() {

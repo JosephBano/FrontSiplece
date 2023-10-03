@@ -8,12 +8,12 @@
                         <option value="" selected disabled>Seleccionar usuario</option>
                         <option value="0">Ningun usuario seleccionado</option>
                         <ng-container *ngFor="let filtro of Usuarios">
-                            <option [value]="filtro.idUsuario">{{filtro.nombre}} {{filtro.apellido}}</option>
+                            <option [value]="filtro.codigoAd">{{filtro.nombre}} {{filtro.apellido}}</option>
                         </ng-container>
                     </select>
                 </div>
                 <div class="col-1 d-flex justify-content-center align-items-center">
-                    <span id="trash-icon" class="restore-filter material-symbols-outlined fs-2" (click)="pressTrashEncargado()">delete</span>
+                    <span id="trash-icon" class="restore-filter material-symbols-outlined fs-2" (click)="pressTrashEncargado()">refresh</span>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <div class="col-11">
                     <select class="form-control" formControlName="filterPerfil" (change)="OnChangePerfilFilter()">
                         <option selected disabled value="">Seleccionar un perfiles</option>
-                        <option value="0">Ningun perfiles seleccionado</option>
+                        <option value="0">Eliminar perfil de usuario</option>
                         <ng-container *ngFor="let perfil of Perfiles">
                             <option [value]="perfil.id">{{perfil.rol}}</option>
                         </ng-container>
