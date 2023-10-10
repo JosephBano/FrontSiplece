@@ -48,7 +48,7 @@ export class CriterioComponent implements OnInit{
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
-      modelo: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
+      modelo: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
       orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
@@ -124,6 +124,7 @@ export class CriterioComponent implements OnInit{
 
   //agregar Criterio
   agregarCriterio(): void{
+    this.agregar.get('modelo')?.enable();
     const criterio: Criterio = {
       CodigoCriterio: `C-${this.agregar.value.detalle.toLowerCase().replace(" ", "").slice(0, 5)}`,
       IdModelo: this.agregar.value.modelo,
@@ -141,9 +142,7 @@ export class CriterioComponent implements OnInit{
       console.log(error);
     });
 
-    this.agregar?.reset('modelo');
-    this.agregar?.reset('detalle');
-    this.agregar?.reset('orden');
+    this.agregar?.reset();
 
     if (this.cerrarAgregarModal) {
       this.cerrarAgregarModal.nativeElement.click();
@@ -173,9 +172,8 @@ export class CriterioComponent implements OnInit{
       console.log(error);
     });
 
+    this.editar?.reset('');
     this.editar.get('modelo')?.setValue('0');
-    this.editar?.reset('detalle');
-    this.editar?.reset('orden');
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();
