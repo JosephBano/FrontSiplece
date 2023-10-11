@@ -69,9 +69,15 @@ export class DetalleIndicadorComponent implements OnInit {
     const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
     const element$ = this.elementoService.getElementoFundamental().pipe(data => data);
 
-    forkJoin([permission$, element$]).subscribe(([permissionsData, elementsData]) => {
-      this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
-    })
+    if(this.permisoParams?.codigoPerfil.toLowerCase().includes('admin')){
+      forkJoin(element$).subscribe(([elementsData]) => {
+        this.elementos = elementsData.filter(e => e.IdIndicador==id);
+      })
+    } else {
+      forkJoin([permission$, element$]).subscribe(([permissionsData, elementsData]) => {
+        this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
+      })
+    }
   }
 
   getIndicadorById(id: string): void {
@@ -79,14 +85,22 @@ export class DetalleIndicadorComponent implements OnInit {
     const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
     const indicator$ = this.indicadorService.getIndicadorById(id).pipe(data => data);
     forkJoin([permission$,indicator$]).subscribe(([permissionsData,indicatorsData]) => {
-      if (indicatorsData && indicatorsData.length > 0) {        
-        const indicadores = indicatorsData.filter(i => permissionsData.some(p => p.codigoPermiso===i.CodigoIndicador))
-        this.indicador= indicadores[0]; 
-        if (this.indicador) {
-          this.cargaDeDatos(); 
-        }else{
-          /* 404 not found */
-          //this.router.navigate(['panel/evidencias/detalle', this.selectedIndicador])
+      console.log(indicatorsData);
+      
+      if (indicatorsData && indicatorsData.length > 0) {  
+        if(this.permisoParams?.codigoPerfil.toLowerCase().includes('admin'))
+        {
+          this.indicador = indicatorsData[0];
+          this.cargaDeDatos();
+        } else {    
+          const indicadores = indicatorsData.filter(i => permissionsData.some(p => p.codigoPermiso===i.CodigoIndicador))
+          this.indicador= indicadores[0]; 
+          if (this.indicador) {
+            this.cargaDeDatos(); 
+          }else{
+            /* 404 not found */
+            //this.router.navigate(['panel/evidencias/detalle', this.selectedIndicador])
+          }
         }
       }
     })

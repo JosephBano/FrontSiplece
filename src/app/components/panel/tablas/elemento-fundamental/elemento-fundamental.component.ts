@@ -156,7 +156,8 @@ Elementos: ElementoFundamental[] = [];
       Detalle: this.agregar.value.detalle,
       Orden: this.agregar.value.orden,
     }
-
+    console.log(elemento);
+    
     this.elementoService.postElementoFundamental(elemento).subscribe(
       (data) => {
         this.toastr.success('El Elemento Fundamental ha sido agregado correctamente!');

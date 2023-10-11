@@ -14,7 +14,7 @@
                             <option value="" selected disabled>Filtrado por Elemento Fundamental</option>
                             <option value="0">Todos los Elementos Fundamentales</option>
                             <ng-container *ngFor="let filtro of Elementos">
-                                <option [value]="filtro.IdElemento">{{filtro.Detalle}}</option>
+                                <option [value]="filtro.IdElemento">{{filtro.Detalle!.length>150 ? filtro.Detalle?.substring(0,150)+'...':filtro.Detalle}}</option>
                             </ng-container>
                         </select>
                     </form>
