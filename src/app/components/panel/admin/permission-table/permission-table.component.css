@@ -1,0 +1,15 @@
+.btn-permission{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    text-align: justify;
+}
+.btn-permission-click{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    text-align: justify;
+    color: black;
+}
