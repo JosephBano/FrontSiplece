@@ -17,6 +17,7 @@ const inputText = document.getElementById('nombre') as HTMLInputElement;
 export class ShearchUsersComponent {
   Usuarios: Usuario[] = [];
   AllPerfiles: RolPerfil[]=[
+    {rol:'ASIGNAR ROL',id:-1},
     {rol:'ENCARGADO', id:1}, 
     {rol:'SUPERVISOR',id:2}, 
     {rol:'ADMIN', id:3}, 
@@ -59,7 +60,36 @@ export class ShearchUsersComponent {
     )
   }
 
-  loadRolData(codeUser: string): void {
+  loadRolData(codeUser: string): void{
+    this.Perfiles=[];
+    const rolRequest: UsuarioRolPeticion = {
+      codigoUsuario:codeUser,
+      codigoSistema: environment.NOMBRE_SISTEMA,
+      codigoInstitucion: this.loginService.getTokenDecoded()['cod-institucion'],
+    }
+    this.usuarios.getRol(rolRequest).subscribe(data => {    
+      let indice=0;
+      let nivelPerfil=0;
+      if(data[0].codigoPerfil===null){
+        this.Perfiles.push(this.AllPerfiles[0])
+      }else{
+        const PerfilAsignado = data.filter(res=>this.AllPerfiles.some(all=>all.rol==res.codigoPerfil.split('-')[0]))
+        const PerfilCode = this.AllPerfiles.filter(all=>data.some(res=>res.codigoPerfil.split('-')[0]==all.rol))
+        PerfilCode.forEach((pc,index)=>{
+          if(pc.id<nivelPerfil){
+            indice=index
+          }
+        })
+        const perfilNuevo:RolPerfil = {
+          id:PerfilCode[indice].id,
+          rol: PerfilAsignado[indice].codigoPerfil
+        } 
+        this.Perfiles.push(perfilNuevo)     
+      }
+    });
+  }
+
+  loadAssignableRolData(codeUser: string): void {
     this.Perfiles=[];
     const rolRequest: UsuarioRolPeticion = {
       codigoUsuario:codeUser,
@@ -69,7 +99,6 @@ export class ShearchUsersComponent {
     this.usuarios.getRol(rolRequest).subscribe(data => {    
       if(data.length<=1){
         if(data[0].mensaje!=null){
-          console.log(data);
           this.Perfiles=this.AllPerfiles;
           return;
         } 
@@ -120,18 +149,19 @@ export class ShearchUsersComponent {
   pressTrashEncargado(){
     this.selects.get('filterEncargado')!.setValue('0'); 
     this.valueEncargadoFilter = '0'; 
-    this.disabledButton = true;
+    this.disabledButton = true;    
+    this.displayPermissions=false;
     this.selects.get("filterPerfil")?.disable();
   }
   pressTrashPerfil(){
     this.selects.get('filterPerfil')!.setValue('0');
     this.valuePerfilFilter = '0'; 
     this.disabledButton = true;
+    this.displayPermissions=false
   }
 
   ChangeVisibilityUsers() {
     console.log('selected');
-    
     this.mostrarUsuarios = true;
   }
 
