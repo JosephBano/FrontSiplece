@@ -8,3 +8,7 @@ export interface PermisoPeticion {
     codigoEstado: string,
     codigoSistema: string
 }
+export interface RolPerfil {
+    id: number;
+    rol: string;
+}
