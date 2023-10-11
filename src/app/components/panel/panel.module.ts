@@ -30,7 +30,8 @@ import { AdminComponent } from './admin/admin.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UsersPipe } from 'src/app/pipes/users.pipe';
 import { ShearchUsersComponent } from './admin/shearch-users/shearch-users.component';
-
+import { PermissionTableComponent } from './admin/permission-table/permission-table.component';
+import { MaterialModule } from '../../material.module';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ShearchUsersComponent } from './admin/shearch-users/shearch-users.compo
     AdminComponent,
     ReportsComponent,
     ShearchUsersComponent,
+    PermissionTableComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +70,8 @@ import { ShearchUsersComponent } from './admin/shearch-users/shearch-users.compo
     FormsModule, 
     ReactiveFormsModule,
     PanelRoutingModule,
+    
+    MaterialModule
   ],
   providers: [
     CriterioComponent,
