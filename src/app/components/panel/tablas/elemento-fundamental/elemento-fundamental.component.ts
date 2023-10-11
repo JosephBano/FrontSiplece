@@ -7,8 +7,8 @@ import { IndicadorService } from 'src/app/services/modeloServicios/indicador.ser
 import { ElementoFundamentalService } from '../../../../services/modeloServicios/elemento-fundamental.service';
 import { Ponderacion } from '../../../../models/modelos-generales/ponderacion.model';
 import { PonderacionService } from 'src/app/services/modeloServicios/ponderacion.service';
-import { DataService } from 'src/app/services/data.service';
-import { FilterDataService } from 'src/app/services/filter-data.service';
+import { Sidebar } from 'src/app/services/sidebar.service';
+import { FilterSidebar } from 'src/app/services/filter-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,7 +25,6 @@ Elementos: ElementoFundamental[] = [];
   checkboxDeshabilitarValue: boolean = false;
   restablecerElementoAux!: ElementoFundamental;
 
-  moreSettings: boolean = false;
   valueFilter: string = '0';
   tablafilter!: FormGroup;
 
@@ -37,26 +36,26 @@ Elementos: ElementoFundamental[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private fd: FilterDataService,
+    private fd: FilterSidebar,
     private router: Router,
     private toastr: ToastrService,
-    private dataService: DataService,
+    private Sidebar: Sidebar,
     private elementoService: ElementoFundamentalService,
     private indicadorService: IndicadorService,
     private ponderacionService: PonderacionService,
   ) {
     this.agregar = this.fb.group({
-      indicador: ['0', Validators.required],
+      indicador: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       ponderacionAdd: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
     this.editar = this.fb.group({
       id: ['', Validators.required],
-      indicador: ['', Validators.required],
+      indicador: ['0', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
       ponderacionEdit: ['', Validators.required],
-      detalle: ['', Validators.required],
-      orden: ['', Validators.required],
+      detalle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1024)]],
+      orden: ['', [Validators.required, Validators.pattern(/^[-?]?[1-9]+$/)]],
     })
 
     this.tablafilter = this.fb.group({
@@ -65,8 +64,8 @@ Elementos: ElementoFundamental[] = [];
   }
 
   ngOnInit(): void {
-    this.dataService.actualizarActiveLiOrder1('tablas');
-    this.dataService.actualizarActiveLiOrder2('elemento');
+    this.Sidebar.actualizarActiveLiOrder1('tablas');
+    this.Sidebar.actualizarActiveLiOrder2('elemento');
     this.InitFiltro();
     this.loadElementosFundamentales();
     this.loadIndicadores();
@@ -106,7 +105,7 @@ Elementos: ElementoFundamental[] = [];
   loadIndicadores(){
     this.indicadorService.getIndicador().subscribe(
       (data) => {
-        this.Indicadores = data;
+        this.Indicadores = data.filter(e => e.Activo == '1');
       }
     )
   }
@@ -138,14 +137,6 @@ Elementos: ElementoFundamental[] = [];
     return obj?.Detalle;
   }
 
-  //otrasFunciones
-  setDefaultAgregar(){
-    this.agregar.get('indicador')?.setValue('');
-    this.agregar.get('detalle')?.setValue('');
-    this.agregar.get('ponderacionAdd')?.setValue('');
-    this.agregar.get('orden')?.setValue('');
-  }
-  
   setPreEditar(elemento: ElementoFundamental){
     this.editar.get('id')?.setValue(elemento.IdElemento);
     this.editar.get('indicador')?.setValue(elemento.IdIndicador);
@@ -157,21 +148,20 @@ Elementos: ElementoFundamental[] = [];
 
   //agregar
   agregarElemento(){
-    this.editar.get('indicador')?.enable();
+    this.agregar.get('indicador')?.enable();
     const elemento: ElementoFundamental = {
+      CodigoElementoFundamental: `EF-${this.agregar.value.detalle.toLowerCase().replace(" ", "").slice(0, 5)}`,
       IdIndicador: this.agregar.value.indicador,
-      CodigoElementoFundamental: this.agregar.value.CodigoElementoFundamental,
       IdPonderacion: this.agregar.value.ponderacionAdd,
-      Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
-      Activo: '1',
+      Orden: this.agregar.value.orden,
     }
-
+    console.log(elemento);
+    
     this.elementoService.postElementoFundamental(elemento).subscribe(
       (data) => {
         this.toastr.success('El Elemento Fundamental ha sido agregado correctamente!');
         this.loadElementosFundamentales();
-        this.setDefaultAgregar();
         console.log(data);
       },
       (error) => {
@@ -180,16 +170,20 @@ Elementos: ElementoFundamental[] = [];
       }
     )
 
+    this.agregar.reset();
+
     if(this.cerrarAgregarModal) {
       this.cerrarAgregarModal.nativeElement.click();
     }
   }
+
   //editar
   editarElemento(){
     this.editar.get('indicador')?.enable();
+    const codigo = this.Elementos.filter(e => e.IdElemento == this.editar.value.id);
     const elemento: ElementoFundamental = {
       IdElemento: this.editar.value.id,
-      CodigoElementoFundamental: this.editar.value.codigoElementoFundamental,
+      CodigoElementoFundamental: codigo[0].CodigoElementoFundamental,
       IdIndicador: this.editar.value.indicador,
       IdPonderacion: this.editar.value.ponderacionEdit,
       Orden: this.editar.value.orden,
@@ -208,6 +202,9 @@ Elementos: ElementoFundamental[] = [];
         console.log(error);
       }
     );
+
+    this.editar.reset();
+    this.editar.get('indicador')?.setValue('0');
 
     if (this.cerrarEditarModal) {
       this.cerrarEditarModal.nativeElement.click();

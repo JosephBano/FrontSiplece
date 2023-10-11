@@ -13,6 +13,7 @@
             </div>
 
             <div class="card text-center card-padding">
+                <app-loading *ngIf="loadingHandler"></app-loading>
                 <form [formGroup]="login" (ngSubmit)=log()>
                     <div class="contenedor-item">
                         <input type="text" class="item" placeholder="Usuario" formControlName="usuario">

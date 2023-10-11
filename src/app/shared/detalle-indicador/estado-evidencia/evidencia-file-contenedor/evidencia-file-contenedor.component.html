@@ -6,36 +6,49 @@
         <li class="list-group-item"></li>
         <ng-container *ngFor="let archivo of Archivos; let i = index">
             <li class="list-group-item">
-                <div class="contenedor-opciones">
-                    <div class="d-flex" *ngIf="archivo.PathUrl!==null">
-                        <span class="material-symbols-outlined">navigate_next</span>
-                        <span class="evidencia">
-                            <!-- {{GetNameFile(archivo.IdArchivoEvidencia)}} -->
-                            {{archivo.PathUrl}}
-                        </span>
-                        <span class="material-symbols-outlined x">close</span>
+                <div class="contenedor-opciones container">
+                    <div class="row">
+                        <div class="d-flex col-1"></div>
+                        <div class="d-flex col-1">
+                            <div class="statusColor" *ngIf="archivo.Estado=='2' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#9FFFA4'}"></div>
+                            <div class="statusColor" *ngIf="archivo.Estado=='1' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#FFA785'}"></div>
+                            <div class="statusColor" *ngIf="archivo.Estado=='0' || archivo.PathUrl===null" [ngStyle]="{'background-color': '#FFDD91'}"></div>
+                        </div>
+                        <div class="d-flex col-3">
+                            {{archivo.Detalle}}
+                        </div>
+                        <div class="d-flex col-3">
+                            {{archivo.UsuarioRegistra}}
+                        </div>
+                        <div class="d-flex col-4" *ngIf="archivo.PathUrl!==null">
+                            <span class="material-symbols-outlined">navigate_next</span>
+                            <a href={{archivo.PathUrl}} class="evidencia">
+                                {{archivo.Detalle}}
+                            </a>
+                            <span class="material-symbols-outlined x">close</span>
+                        </div>
                     </div>
                     <ng-container *ngIf="rolviewradios == '1'">
-                        <form [formGroup]="radiobuton">
+                        <form [formGroup]="radiobuton" (ngSubmit)="sendValidated(i)">
                             <div class="d-flex">
                                 <div class="d-flex mb-2">
-                                    <div class="contenedor-radio d-flex">
+                                    <div class="contenedor-radio d-flex" *ngIf="!formDisabled[i]">
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">check_small</span>
-                                            <input type="radio" value="1" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=2 formControlName="estado" class="radioinput">
                                         </div>
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">horizontal_rule</span>
-                                            <input type="radio" value="0" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=0 formControlName="estado" class="radioinput">
                                         </div>
                                         <div class="radio-cont">
                                             <span class="material-symbols-outlined icon-radio">close</span>
-                                            <input type="radio" value="-1" formControlName="estado" class="radioinput">
+                                            <input type="radio" value=1 formControlName="estado" class="radioinput">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="contenedor-btn d-flex align-center">
-                                    <button class="btnsubmit">Aplicar</button>
+                                    <button [ngClass]="formStatus[i]" [disabled]="formDisabled[i]">Aplicar</button>
                                 </div>
                             </div>
                         </form>

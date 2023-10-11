@@ -11,10 +11,12 @@
 
     <hr class="h-color mx-2">
 
+    <ng-container *ngIf="administradorActive">
+
     <!--Administrador Opcion-->
     <ul class="list-unstyled px-2">
         <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'admin'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/admin">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/administrar">
                 <span class="material-symbols-outlined">shield_person</span>
                 <a class="text-decoration-none d-block mx-2">Administrador</a>
             </div>
@@ -22,6 +24,8 @@
     </ul>
     
     <hr class="h-color mx-4">
+
+    </ng-container>
 
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
@@ -31,10 +35,12 @@
                 <a class="text-decoration-none d-block mx-2">Evidencias</a>
             </div>
         </li>
-
     </ul>
 
     <hr class="h-color mx-4">
+
+
+    <ng-container *ngIf="encargadoActive">
 
     <!--Asignar Roles y Crear Modelos Opcion-->
     <ul class="list-unstyled px-2">
@@ -91,6 +97,10 @@
 
     <hr class="h-color mx-4">
 
+    </ng-container>
+
+    <ng-container *ngIf="supervisorActive">
+
     <ul class="list-unstyled px-2">        
 
         <!--Check manager-->
@@ -102,7 +112,7 @@
         </li>
         
         <!--Reportes Opcion-->
-        <li class="hver" (click)="toggle()" routerLink="/panel" [ngClass]="{'active' : activeli === 'reportes'}">
+        <li class="hver" (click)="toggle()" routerLink="/panel/reportes" [ngClass]="{'active' : activeli === 'report'}">
             <div class="d-flex px-3 py-2 align-items-center hver">
                 <span class="material-symbols-outlined">monitoring</span>
                 <a class="text-decoration-none d-block mx-2">Reportes</a>
@@ -111,6 +121,8 @@
     </ul>
 
     <hr class="h-color mx-3">
+
+    </ng-container>
 
     <ul class="list-unstyled px-2">
         <!--LogOut Opcion-->

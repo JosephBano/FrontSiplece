@@ -26,7 +26,12 @@ import { PanelComponent } from './panel.component';
 import { SelectorComponent } from './evidencias/selector/selector.component';
 import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encargados.component';
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
-
+import { AdminComponent } from './admin/admin.component';
+import { ReportsComponent } from './reports/reports.component';
+import { UsersPipe } from 'src/app/pipes/users.pipe';
+import { ShearchUsersComponent } from './admin/shearch-users/shearch-users.component';
+import { PermissionTableComponent } from './admin/permission-table/permission-table.component';
+import { MaterialModule } from '../../material.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +59,10 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
     EvidenciaPipe,
     AsignarEncargadosComponent,
     SelectAEComponent,
+    AdminComponent,
+    ReportsComponent,
+    ShearchUsersComponent,
+    PermissionTableComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +70,8 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
     FormsModule, 
     ReactiveFormsModule,
     PanelRoutingModule,
+    
+    MaterialModule
   ],
   providers: [
     CriterioComponent,

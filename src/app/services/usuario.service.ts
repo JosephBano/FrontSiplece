@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario.model';
+import { Usuario, UsuarioRolPeticion, UsuarioRolRespuesta } from '../models/usuario.model';
 import { environment } from 'src/environments/environment.development';
 import { LoginService } from './login.service';
 
@@ -27,5 +27,8 @@ export class UsuarioService {
       'Authorization': `Bearer ${token}`
     })
     return this.http.get<Usuario[]>(this.API_URL, {headers});
+  }
+  getRol(userRol: UsuarioRolPeticion): Observable<UsuarioRolRespuesta[]> {
+    return this.http.get<UsuarioRolRespuesta[]>(`${this.API_URL}/rol?CodigoUsuario=${userRol.codigoUsuario}&CodigoSistema=${userRol.codigoSistema}&CodigoInstitucion=${userRol.codigoInstitucion}`)
   }
 }

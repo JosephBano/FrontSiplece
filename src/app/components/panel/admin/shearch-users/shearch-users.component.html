@@ -1,0 +1,47 @@
+<form [formGroup]="selects">
+    <div class="row">
+        <div class="contenedor-users col select-filter">
+            <div class="row">
+                <label class="form-label">Usuario registra</label>
+                <div class="col-11">
+                    <select class="form-control select-filter" formControlName="filterEncargado" (change)="OnChangeEncargadoFilter()">
+                        <option value="" selected disabled>Seleccionar usuario</option>
+                        <option value="0">Ningun usuario seleccionado</option>
+                        <ng-container *ngFor="let filtro of Usuarios">
+                            <option [value]="filtro.codigoAd">{{filtro.nombre}} {{filtro.apellido}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col-1 d-flex justify-content-center align-items-center">
+                    <span id="trash-icon" class="restore-filter material-symbols-outlined fs-2" (click)="pressTrashEncargado()">refresh</span>
+                </div>
+            </div>
+        </div>
+        <div class="contenedor-users col select-filter">
+            <div class="row">
+                <label class="form-label">Perfil</label>
+                <div class="col-11">
+                    <select class="form-control" formControlName="filterPerfil" (change)="OnChangePerfilFilter()">
+                        <option selected disabled value="">Seleccionar un perfiles</option>
+                        <option value="0">Eliminar perfil de usuario</option>
+                        <ng-container *ngFor="let perfil of Perfiles">
+                            <option [value]="perfil.rol">{{perfil.rol}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col-1 d-flex justify-content-center align-items-center">
+                    <span id="trash-icon" class="restore-filter material-symbols-outlined fs-2" (click)="pressTrashPerfil()">delete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between w-100 fs-4" style="height: 35px;">
+        <button type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onSubmit()" [disabled]="disabledButton">Seleccionar permisos</button>
+    </div>
+</form>
+
+<div class="mt-4">
+    <ng-container *ngIf="displayPermissions">
+      <app-permission-table [IdUser]="valueEncargadoFilter" [IdRol]="valuePerfilFilter"></app-permission-table>
+    </ng-container>
+</div>
