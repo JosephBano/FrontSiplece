@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment.development";
     providedIn: 'root'
 })
 export class PerfilService {
-    private readonly API_URL = environment.URL_SEGURIDAD;
+    private readonly API_URL = environment.URL_SEG_PERFIL;
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,6 +17,6 @@ export class PerfilService {
     constructor(private http: HttpClient) { }
     
     getPermisos(datos: PermisoPeticion): Observable<PermisoRespuesta[]> {
-        return this.http.post<PermisoRespuesta[]>(`${this.API_URL}/Perfil/permisos`, datos, this.httpOptions);
+        return this.http.post<PermisoRespuesta[]>(`${this.API_URL}/permisos`, datos, this.httpOptions);
     }
 }
