@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Criterio } from '../../models/modelos-generales/criterio.model';
 import { environment } from 'src/environments/environment.development';
+import { ListaPermisoRespuesta } from 'src/app/models/modelosSeguridad/permission.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class CriteriosService {
 
   getByModelo(id: string): Observable<Criterio[]> {
     return this.http.get<Criterio[]>(this.API_URL + `/GetByModelo/${id}`);
+  }
+
+  getAllByModelo(id: string): Observable<ListaPermisoRespuesta[]> {
+    return this.http.get<ListaPermisoRespuesta[]>(`${this.API_URL}/AllComponents?IdModelo=${id}`);
   }
 
   getCriterioById(id: string): Observable<Criterio> {
