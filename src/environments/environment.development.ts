@@ -53,4 +53,6 @@ export const environment = {
     URL_SEGURIDAD: BASE_URL_SEGURIDAD,
     URL_SEG_TOKEN: `${BASE_URL_SEGURIDAD}/Token`,
     URL_SEG_USUARIOS: `${BASE_URL_SEGURIDAD}/Usuario`,
+    URL_SEG_PERFIL: `${BASE_URL_SEGURIDAD}/Perfil`,
+    URL_SEG_COMPONENTE: `${BASE_URL_SEGURIDAD}/Componente`,
 };
