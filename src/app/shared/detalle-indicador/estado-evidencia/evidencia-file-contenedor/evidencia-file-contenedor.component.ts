@@ -77,6 +77,12 @@ export class EvidenciaFileContenedorComponent implements OnInit{
       PathUrl:this.Archivos[index].PathUrl,
       Activo:this.Archivos[index].Activo
     }
+    if(fileUpdate.Detalle===null){
+      fileUpdate.Detalle=""
+    }
+    if(fileUpdate.PathUrl===null){
+      fileUpdate.PathUrl=""
+    }
     console.log(fileUpdate);
     
     try{
