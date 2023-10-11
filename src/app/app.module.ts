@@ -9,18 +9,20 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { AddTokenInterceptor } from './helpers/add-token.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { InicioModule } from './components/inicio/inicio.module';
 import { PanelModule } from './components/panel/panel.module';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    TooltipModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     RouterModule,
@@ -33,7 +35,8 @@ import { PanelModule } from './components/panel/panel.module';
     SharedModule,
     InicioModule,
     ToastrModule.forRoot(),
-    NgbAlertModule
+    NgbAlertModule,
+    ModalModule.forRoot(),
   ],
   providers: [JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

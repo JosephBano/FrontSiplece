@@ -82,3 +82,71 @@ label + input {
     border: #FFA785;
     color: black;
 }
+
+.modal-header {
+    background-color: #1F295B;
+    color: #fff;
+    padding: 10px;
+    text-align: center; 
+  }
+  
+ 
+  .modal-title {
+    font-size: 1.5rem;
+    margin: 0;
+    display: inline-block; 
+    vertical-align: middle; 
+    color: #fff; 
+  }
+ 
+  .btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 5px;
+  }
+  
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+  
+  
+  button {
+    background-color: #1F295B;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    margin: 0 auto; 
+  }
+  
+  
+  button:hover {
+    background-color: #1F295B; 
+  }
+
+  .mensaje {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .mensaje-exito {
+    background-color: #4CAF50; /* Color verde para éxito */
+    color: white;
+  }
+  
+  .mensaje-error {
+    background-color: #f44336; /* Color rojo para error */
+    color: white;
+  }
