@@ -11,14 +11,6 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit{
-
-  Usuarios: Usuario[] = [];
-  
-  agregarEncargado!: FormGroup;
-
-  filter!: string;
-
-
   constructor(
     private bar: Sidebar,
   ) { }
@@ -26,18 +18,5 @@ export class AdminComponent implements OnInit{
   ngOnInit(): void {
     this.bar.actualizarActiveLiOrder1('admin');
     this.bar.actualizarActiveLiOrder2('adminUsuario');
-    this.loadData();
-  }
-
-  loadData(): void {
-    this.usuarios.getUsuarios().subscribe(
-      (data) => {
-        this.Usuarios = data;
-      }
-    )
-  }
-
-  asignarRolesHandler(usuario: Usuario):void {
-
   }
 }
