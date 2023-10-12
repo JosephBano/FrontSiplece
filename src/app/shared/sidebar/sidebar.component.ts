@@ -94,6 +94,16 @@ export class SidebarComponent implements OnDestroy, OnInit{
       }
     }
   }
+  adminToggleHandler(){
+    if(this.adminList) {
+      this.adminList = false;
+    }
+    else{
+      if(this.activeli === 'admin') {
+        this.adminList = true;
+      }
+    }
+  }
 
   Subli1ToggleHandler() {
     if(this.adminList) {
