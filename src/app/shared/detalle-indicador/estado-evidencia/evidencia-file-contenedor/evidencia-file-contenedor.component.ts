@@ -160,7 +160,9 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    if(this.radiobuton.value.estado === '1'){
+      this.modalRef = this.modalService.show(template);
+    }
   }
 
   

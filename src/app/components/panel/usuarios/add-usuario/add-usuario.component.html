@@ -1,0 +1,55 @@
+<div class="container mt-3">
+    <div class="contenedor-flotante">
+        <h1>Agregar Usuarios</h1>
+        <form #formUsuario="ngForm" (ngSubmit)="agregarUsuario(formUsuario)">
+
+            <label >Nombre:</label>
+            <input type="text" name="nombre" [(ngModel)]="nombre">
+          
+            <label>Apellido:</label>
+            <input type="text" name="apellido" [(ngModel)]="apellido">
+          
+            <label>Contraseña:
+            </label>
+            <div class="input-group">
+
+              <input
+
+                [type]="showPassword ? 'text' : 'password'"
+                name="contrasenia"
+                [(ngModel)]="contrasenia"
+                minlength="8"
+                #contraseniaValidation="ngModel" 
+                required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$">
+            
+                <span class="input-group-text input-group-append" (click)="showPassword = !showPassword">
+                  <i 
+                    class="fa"
+                    [ngClass]="{'fa-eye-slash': !showPassword, 'fa-eye': showPassword}"
+                  ></i>
+                </span>
+              </div>
+              <div *ngIf="contraseniaValidation.invalid && (contraseniaValidation.dirty || contraseniaValidation.touched)" class="alert alert-danger">
+          
+                <div *ngIf="contraseniaValidation?.errors?.['required']">
+                  La contraseña es obligatoria.
+                </div>
+                
+                <div *ngIf="contraseniaValidation?.errors?.['minlength']">
+                  La contraseña debe tener al menos 8 caracteres. 
+                </div>
+                
+                <div *ngIf="contraseniaValidation?.errors?.['pattern']">
+                  La contraseña debe contener al menos una mayúscula y un número.
+                </div>
+              </div>
+
+            
+          
+          
+            <button type="submit">Guardar</button>
+          
+          </form>
+    </div>
+</div>

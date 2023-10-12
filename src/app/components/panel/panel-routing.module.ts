@@ -17,6 +17,12 @@ import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.comp
 import { adminGuard, encargadoGuard, supervisorGuard } from 'src/app/helpers/auth.guard';
 import { AdminComponent } from './admin/admin.component';
 import { ReportsComponent } from './reports/reports.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { AddUsuarioComponent } from './usuarios/add-usuario/add-usuario.component';
+import { MenuUsuarioComponent } from './usuarios/menu-usuario/menu-usuario.component';
+import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
+
+
 
 const routes: Routes = [
   { path: '', component: EvidenciasComponent, children: [
@@ -24,6 +30,12 @@ const routes: Routes = [
     { path: 'indicador-evidencia/:id', component: DetalleIndicadorComponent},
   ]},
   { path: 'administrar', component: AdminComponent, canActivate: [adminGuard] },
+
+  {path: 'usuarios', component: UsuariosComponent, canActivate: [adminGuard], children: [
+    { path: 'menuUsuario', component: MenuUsuarioComponent},
+    { path: 'addUsuario', component: AddUsuarioComponent},
+    { path: 'usuariosList', component: UsuariosListComponent},
+  ]},
   { path: 'tablas', component: TablasComponent, canActivate: [encargadoGuard],children: [
     { path: '', component: MenuTablasComponent},
     { path: 'criterio', component: CriterioComponent},
@@ -38,13 +50,14 @@ const routes: Routes = [
   ]},
   { path: 'supervisor', component: CheckManagerComponent, canActivate: [supervisorGuard], children: [
     { path: '', component: TablaIndicadoresComponent},
-    { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},
+    { path: 'revision-evidencia/:id', component: DetalleIndicadorComponent},                                        
   ]},
   { path: 'reportes', component: ReportsComponent, canActivate:[supervisorGuard]},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  
   exports: [RouterModule]
 })
 export class PanelRoutingModule { }
