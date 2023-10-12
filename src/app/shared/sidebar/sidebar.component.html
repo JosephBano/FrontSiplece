@@ -15,17 +15,36 @@
 
     <!--Administrador Opcion-->
     <ul class="list-unstyled px-2">
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'admin'}">
-            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/administrar">
+        <li class="hver" (click)="adminToggleHandler(); toggle();" [ngClass]="{'active' : activeli === 'admin'}">
+            <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/usuarios/menuUsuario">
                 <span class="material-symbols-outlined">shield_person</span>
                 <a class="text-decoration-none d-block mx-2">Administrador</a>
             </div>
         </li>
+        <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': adminList ? '300px' : '0'}">
+            <li class="hver mt-1" (click)="toggle()" routerLink="/panel/usuarios/usuariosList" [ngClass]="{'active' : activeSubli === 'usuariosList'}">
+                <div class="d-flex px-4 py-2 align-items-center">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <a class="text-decoration-none d-block mx-2">Lista de Usuarios</a>
+                </div>
+            </li>  
+            <li class="hver mt-1" (click)="toggle()" routerLink="/panel/usuarios/addUsuario" [ngClass]="{'active' : activeSubli === 'addusuarios'}">
+                <div class="d-flex px-4 py-2 align-items-center">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <a class="text-decoration-none d-block mx-2">Agregar Usuario</a>
+                </div>
+            </li> 
+            <li class="hver mt-1" (click)="toggle()" routerLink="/panel/administrar" [ngClass]="{'active' : activeSubli === 'adminUsuario'}">
+                <div class="d-flex px-4 py-2 align-items-center">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <a class="text-decoration-none d-block mx-2">Administrar</a>
+                </div>
+            </li> 
+        </ul>
     </ul>
     
     <hr class="h-color mx-4">
-
-    </ng-container>
+</ng-container> 
 
     <!--Inicio Opcion-->
     <ul class="list-unstyled px-2">
