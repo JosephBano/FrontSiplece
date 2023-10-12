@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit{
 
   ngOnInit(): void {
     this.bar.actualizarActiveLiOrder1('admin');
+    this.bar.actualizarActiveLiOrder2('adminUsuario');
     this.loadData();
   }
 
