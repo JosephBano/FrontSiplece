@@ -15,12 +15,21 @@
 
     <!--Administrador Opcion-->
     <ul class="list-unstyled px-2">
-        <li class="hver" (click)="toggle()" [ngClass]="{'active' : activeli === 'admin'}">
+        <li class="hver" (click)="Subli1ToggleHandler();" [ngClass]="{'active' : activeli === 'admin'}">
             <div class="d-flex px-3 py-2 align-items-center" routerLink="/panel/administrar">
                 <span class="material-symbols-outlined">shield_person</span>
                 <a class="text-decoration-none d-block mx-2">Administrador</a>
             </div>
         </li>
+        <!--Tablas Opcion --Despliegue de sub tablas-->
+        <ul class="list-unstyled px-4 animate-sublist" [ngStyle]="{'max-height': adminList ? '300px' : '0'}">
+            <li class="hver mt-1" (click)="toggle()" routerLink="/panel/Usuario" [ngClass]="{'active' : activeSubli === 'usuarios'}">
+                <div class="d-flex px-4 py-2 align-items-center">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <a class="text-decoration-none d-block mx-2">Usuario</a>
+                </div>
+            </li>
+        </ul>
     </ul>
     
     <hr class="h-color mx-4">
@@ -46,7 +55,7 @@
     <ul class="list-unstyled px-2">
         <!--Tablas Opcion-->
         <li class="hver" >
-            <div class="hver" routerLink="/panel/tablas" (click)="tablasToggleHandler(); toggle();" [ngClass]="{'active' : activeli === 'tablas'}">
+            <div class="hver" routerLink="/panel/tablas" (click)="Subli1ToggleHandler();" [ngClass]="{'active' : activeli === 'tablas'}">
                 <div class="d-flex px-3 py-2 align-items-center">
                     <span class="material-symbols-outlined">overview_key</span>
                     <a class="text-decoration-none d-block mx-2">Crear Modelo</a>

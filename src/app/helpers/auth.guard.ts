@@ -23,10 +23,22 @@ export const adminGuard: CanActivateFn = (route, state) => {
   }
 };
 
+export const encargadoGuard: CanActivateFn = (route, state) => {
+  const routes = inject(Router);
+  const perfil = inject(DataService).nombrePerfil();
+  if(perfil === 'SUPADMIN') return true;
+  if(perfil === 'ADMIN') return true;
+  else {
+    routes.navigate(["/panel"]);
+    return false;
+  }
+};
+
 export const supervisorGuard: CanActivateFn = (route, state) => {
   const routes = inject(Router);
   const perfil = inject(DataService).nombrePerfil();
   if(perfil === 'SUPADMIN') return true;
+  if(perfil === 'ADMIN') return true;
   if(perfil === 'SUPERVISOR') return true;
   else {
     routes.navigate(["/panel"]);
@@ -34,13 +46,3 @@ export const supervisorGuard: CanActivateFn = (route, state) => {
   }
 };
 
-export const encargadoGuard: CanActivateFn = (route, state) => {
-  const routes = inject(Router);
-  const perfil = inject(DataService).nombrePerfil();
-  if(perfil === 'SUPADMIN') return true;
-  if(perfil === 'ENCARGADO') return true;
-  else {
-    routes.navigate(["/panel"]);
-    return false;
-  }
-};
