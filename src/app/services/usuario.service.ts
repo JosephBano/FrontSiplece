@@ -49,8 +49,6 @@ export class UsuarioService {
     return this.http.delete<Usuario>(`${this.API_URL}/${id}`);
   }
 
-}
-
   getRol(userRol: UsuarioRolPeticion): Observable<UsuarioRolRespuesta[]> {
     return this.http.get<UsuarioRolRespuesta[]>(`${this.API_URL}/rol?CodigoUsuario=${userRol.codigoUsuario}&CodigoSistema=${userRol.codigoSistema}&CodigoInstitucion=${userRol.codigoInstitucion}`)
   }

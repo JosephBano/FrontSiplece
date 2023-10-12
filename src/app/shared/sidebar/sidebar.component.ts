@@ -58,7 +58,7 @@ export class SidebarComponent implements OnDestroy, OnInit{
       this.encargadoActive = true;
       this.supervisorActive = true;
     }
-    if(perfil === 'ENCARGADO') this.encargadoActive = true;
+    if(perfil === 'ADMIN') this.encargadoActive = true;
     if(perfil === 'SUPERVISOR') this.supervisorActive = true;
   }
 
@@ -95,6 +95,17 @@ export class SidebarComponent implements OnDestroy, OnInit{
     }
   }
   adminToggleHandler(){
+    if(this.adminList) {
+      this.adminList = false;
+    }
+    else{
+      if(this.activeli === 'admin') {
+        this.adminList = true;
+      }
+    }
+  }
+
+  Subli1ToggleHandler() {
     if(this.adminList) {
       this.adminList = false;
     }
