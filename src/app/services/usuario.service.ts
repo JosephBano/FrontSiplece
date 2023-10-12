@@ -28,4 +28,26 @@ export class UsuarioService {
     })
     return this.http.get<Usuario[]>(this.API_URL, {headers});
   }
+
+
+  getUsuariosActivos(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.API_URL);
+  }
+   
+  getUsuario(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.API_URL}/${id}`);
+  }
+
+  crearUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.API_URL, usuario); 
+  }
+
+  actualizarUsuario(usuario: Usuario): Observable<any> {
+    return this.http.put<Usuario>(this.API_URL, usuario);
+  }
+  eliminarUsuario(id: number): Observable<any> {
+    return this.http.delete<Usuario>(`${this.API_URL}/${id}`);
+  }
+
 }
+
