@@ -28,12 +28,8 @@ import { AsignarEncargadosComponent } from './asignar-encargados/asignar-encarga
 import { SelectAEComponent } from './asignar-encargados/select-ae/select-ae.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReportsComponent } from './reports/reports.component';
+import { UsersPipe } from 'src/app/pipes/users.pipe';
 import { ShearchUsersComponent } from './admin/shearch-users/shearch-users.component';
-import { UsuariosComponent } from './usuarios/usuarios.component';
-import { AddUsuarioComponent } from './usuarios/add-usuario/add-usuario.component';
-import { MenuUsuarioComponent } from './usuarios/menu-usuario/menu-usuario.component';
-import { ContainerComponent } from './usuarios/menu-usuario/container/container.component';
-import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
 import { PermissionTableComponent } from './admin/permission-table/permission-table.component';
 import { MaterialModule } from '../../material.module';
 
@@ -66,11 +62,6 @@ import { MaterialModule } from '../../material.module';
     AdminComponent,
     ReportsComponent,
     ShearchUsersComponent,
-    UsuariosComponent,
-    AddUsuarioComponent,
-    MenuUsuarioComponent,
-    ContainerComponent,
-    UsuariosListComponent,
     PermissionTableComponent,
   ],
   imports: [
