@@ -30,6 +30,11 @@ import { AdminComponent } from './admin/admin.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UsersPipe } from 'src/app/pipes/users.pipe';
 import { AsignarRolesComponent } from './admin/asignar-roles/asignar-roles.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { AddUsuarioComponent } from './usuarios/add-usuario/add-usuario.component';
+import { MenuUsuarioComponent } from './usuarios/menu-usuario/menu-usuario.component';
+import { ContainerComponent } from './usuarios/menu-usuario/container/container.component';
+import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
 
 
 @NgModule({
@@ -61,6 +66,13 @@ import { AsignarRolesComponent } from './admin/asignar-roles/asignar-roles.compo
     AdminComponent,
     ReportsComponent,
     AsignarRolesComponent,
+    UsuariosComponent,
+    AddUsuarioComponent,
+    MenuUsuarioComponent,
+    ContainerComponent,
+    UsuariosListComponent,
+
+
   ],
   imports: [
     CommonModule,
