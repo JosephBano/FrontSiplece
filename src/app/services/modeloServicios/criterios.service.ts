@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Criterio } from '../../models/modelos-generales/criterio.model';
+import { Criterio, ListChild } from '../../models/modelos-generales/criterio.model';
 import { environment } from 'src/environments/environment.development';
 import { ListaPermisoRespuesta } from 'src/app/models/modelosSeguridad/permission.model';
 
@@ -32,6 +32,10 @@ export class CriteriosService {
 
   getCriterioById(id: string): Observable<Criterio> {
     return this.http.get<Criterio>(this.API_URL + `/FindOne/${id}`);
+  }
+
+  getChild(code: string): Observable<ListChild[]> {
+    return this.http.get<ListChild[]>(`${this.API_URL}/AllChild?CodigoCriterio=${code}`);
   }
 
   postCriterios(criterio: Criterio): Observable<Criterio> {

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
+import { Evidencia, ListChild, ListFather } from 'src/app/models/modelos-generales/evidencia.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -27,6 +27,10 @@ export class EvidenciaService {
 
   getEvidenciaById(id: string): Observable<Evidencia> {
     return this.http.get<Evidencia>(`${this.API_URL}/FindOne/${id}`)
+  }
+
+  getFather(code: string): Observable<ListFather[]> {
+    return this.http.get<ListFather[]>(`${this.API_URL}/AllFather?CodigoEvidencia=${code}`);
   }
   
   postEvidencia(evidencia: Evidencia): Observable<Evidencia> {
