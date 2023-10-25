@@ -9,3 +9,10 @@ export interface Indicador {
     Valoracion?: string;
     Estandar?: string;
 }
+
+export interface ListChild {
+    listP: string
+}
+export interface ListFather {
+    listP: string
+}
