@@ -8,9 +8,7 @@
     </mat-radio-group>
   </ng-container>
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-      <!-- use a disabled button to provide padding for tree leaf -->
       <button mat-icon-button disabled></button>
       <mat-icon>
         chevron_right 
@@ -20,7 +18,6 @@
         {{node.value.Detalle}}
       </button>
     </mat-tree-node>
-    <!-- This is the tree node template for expandable nodes -->
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
       <button mat-icon-button matTreeNodeToggle
               [attr.aria-label]="'Toggle ' + node.name">
@@ -36,6 +33,6 @@
   </mat-tree>
 
   <div class="d-flex justify-content-between w-100 fs-4" style="height: 35px;">
-    <button type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onSubmit()" >Seleccionar permisos</button>
+    <button type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onSubmit()" [disabled]="disabledButton">Seleccionar permisos</button>
   </div>
 </form>
