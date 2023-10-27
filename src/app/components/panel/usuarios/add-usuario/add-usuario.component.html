@@ -8,7 +8,7 @@
           
             <label>Apellido:</label>
             <input type="text" name="apellido" [(ngModel)]="apellido">
-          
+                
             <label>Contraseña:
             </label>
             <div class="input-group">
@@ -48,7 +48,7 @@
             
           
           
-            <button type="submit">Guardar</button>
+            <button type="submit" (click)="getUsuarios()" >Guardar</button>
           
           </form>
     </div>

@@ -8,6 +8,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col">Correo</th>
+          <th scope="col">Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +17,9 @@
           <td>{{usuario.nombre}}</td>
           <td>{{usuario.apellido}}</td>
           <td>{{usuario.correo}}</td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteUser(usuario.idUsuario)">
+            eliminar usuario
+          </button></td>
         </tr>
       </tbody>
     </table>

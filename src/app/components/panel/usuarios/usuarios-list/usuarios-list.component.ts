@@ -58,7 +58,22 @@ export class UsuariosListComponent {
         }
      );
   }
-
+  deleteUser(idUsuario?: number) {
+    console.log("Hello from delete");
+    if (idUsuario !== undefined) {
+      this.usuarioService.eliminarUsuario(idUsuario).subscribe({
+        next: (res) => {
+          this.getUsuarios(); 
+          console.log('Usuario eliminado correctamente');
+        },
+        error: (err) => {
+          console.error('Error al borrar usuario', err);
+        }
+      });
+    } else {
+      console.error('El idUsuario es undefined');
+    }
+  }
 }
 
 

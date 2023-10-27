@@ -18,6 +18,7 @@ export class AddUsuarioComponent implements OnInit{
   nombre: string = '';
   apellido: string = '';
   contrasenia: string = '';
+  correo: string = '';
   showPassword = false;
 
   constructor(
@@ -33,7 +34,8 @@ export class AddUsuarioComponent implements OnInit{
       apellido: ['', Validators.required],
       contrasenia: ['',Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)] 
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)],
+      
     });
   }
   
@@ -57,11 +59,25 @@ export class AddUsuarioComponent implements OnInit{
      );
   }
 
+  getUsuario(id: number) {
+    this.usuarioService.getUsuario(id).subscribe(
+      (usuario: Usuario) => {
+        this.usuario = usuario;
+        // Realiza cualquier otra lógica que necesites con los datos del usuario.
+      },
+      error => {
+        console.error('Error al obtener el usuario', error);
+      }
+    );
+  }
+
   agregarUsuario(form: NgForm) {
     if (this.nombre && this.apellido && this.contrasenia) {
+      const apellidoMinusculas = this.apellido.toLowerCase();
+      const nombreMinusculas = this.nombre.toLocaleLowerCase();
       const usuario: Usuario = {
-        codigoAd: `${this.nombre}.${this.apellido}`,
-        correo: `${this.nombre}.${this.apellido}@institutotraversari.edu.ec`,
+        codigoAd: `${nombreMinusculas}.${apellidoMinusculas}`,
+        correo: `${nombreMinusculas}.${apellidoMinusculas}@istpet.edu.ec`,
         nombre: this.nombre,
         apellido: this.apellido,
         rol: '',
