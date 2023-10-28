@@ -67,21 +67,21 @@ export class PermissionTableComponent {
       console.log("Ya tiene rol");
       //console.log(this.permisoParams);
     }else{
-      //crea nuevo rol     
+      const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
+      const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
+        switchMap((data)=>{
+          const component$ = this.criterioService.getAllByModelo(data.idModelo!).pipe(data=>data);
+          return forkJoin([component$])
+        }
+      ))
+      forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
+        const listBasicPermission = componentData.filter(c=>permissionData.some(p=>c.Codigo===p.codigoPermiso))
+        
+        this.getPermissionBasic(listBasicPermission,componentData)
+        this.getUserData()
+      })    
     }
-    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
-    const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
-      switchMap((data)=>{
-        const component$ = this.criterioService.getAllByModelo(data.idModelo!).pipe(data=>data);
-        return forkJoin([component$])
-      }
-    ))
-    forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
-      const listBasicPermission = componentData.filter(c=>permissionData.some(p=>c.Codigo===p.codigoPermiso))
-      
-      this.getPermissionBasic(listBasicPermission,componentData)
-      this.getUserData()
-    })
+    
   }
 
   getPermissionBasic(list: ListaPermisoRespuesta[],all: ListaPermisoRespuesta[]){
@@ -243,12 +243,12 @@ export class PermissionTableComponent {
     });
   }
 
-  combinarCadenas(cadena1: string, cadena2: string): string {
-    if(cadena1===null || cadena2===null){
-      if(cadena1===null){
+  combinarCadenas(cadena1: string, cadena2: string): string {  
+    if(cadena1===undefined || cadena2===undefined){
+      if(cadena1===undefined){
         return cadena2;
       }
-      if(cadena2===null){
+      if(cadena2===undefined){
         return cadena1;
       }
     } else {
@@ -258,7 +258,7 @@ export class PermissionTableComponent {
       const cadenaCombinada = Array.from(conjunto).join(',');
       return cadenaCombinada;
     }
-    return ''
+    return '';
   }
 
   obtenerTodosLosHijos(nodo: NodoArbol): ListaPermisoRespuesta[] {
