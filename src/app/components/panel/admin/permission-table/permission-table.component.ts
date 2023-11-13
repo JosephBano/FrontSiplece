@@ -3,7 +3,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { forkJoin, switchMap } from 'rxjs';
 import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
-import { AddPermiso, PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
+import { AddPermiso, PermisoPeticion, PermisoRespuesta, UpdatePermiso } from 'src/app/models/modelosSeguridad/perfil.model';
 import { LoginService } from 'src/app/services/login.service';
 import { environment } from 'src/environments/environment.development';
 import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
@@ -26,11 +26,13 @@ export class PermissionTableComponent {
   @Input() IdUser?:string;
   permisoParams?: PermisoPeticion;
   assignablePermissions: ListaPermisoRespuesta[] = new Array<ListaPermisoRespuesta>();
+  mePermissions: PermisoRespuesta[] = new Array<PermisoRespuesta>();
   menuList:NodoArbol[]=[];
   disabledButton=true;
   addPermissions: string[] = [];
   addPermissionsList: string = '';
   permissionForm: FormGroup;
+  newPermission=true;
   
   constructor(
     private criterioService: CriteriosService,
@@ -61,10 +63,25 @@ export class PermissionTableComponent {
   }
 
   loadUserData(){
-    if(this.IdRol!=='ASIGNAR ROL'){   
+    if(this.IdRol!=='ASIGNAR ROL'){  
+      this.newPermission=false; 
       this.permisoParams!.codigoPerfil=this.IdRol!;
       this.permissionForm.get('selectedRolOption')?.setValue(this.IdRol);
       console.log("Ya tiene rol");
+      const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
+      const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
+        switchMap((data)=>{
+          const component$ = this.criterioService.getAllByModelo(data.idModelo!).pipe(data=>data);
+          return forkJoin([component$])
+        }
+      ))
+      forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
+        const listBasicPermission = componentData.filter(c=>!permissionData.some(p=>c.Codigo===p.codigoPermiso))
+        
+        this.assignablePermissions = listBasicPermission;
+        this.mePermissions=permissionData;
+        this.getUserData()
+      })    
       //console.log(this.permisoParams);
     }else{
       const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
@@ -120,22 +137,26 @@ export class PermissionTableComponent {
       this.menuList.push(this.createNuevoNodo(item))
   }
   getHijo(item: ListaPermisoRespuesta){
-    switch(item.Codigo!==null){
-      case item.Codigo?.includes('SC-',0) && !item.Codigo?.includes('SC-',1):
-        this.menuLv2(item,this.menuList)
-        break;
-      case item.Codigo?.includes('I-',0) && !item.Codigo?.includes('I-',1):
-        this.menuLv3(item,this.menuList)
-        break;
-      case item.Codigo?.includes('EF-',0) && !item.Codigo?.includes('EF-',1):
-        this.menuLv4(item,this.menuList)
-        break;
-      case item.Codigo?.includes('E-',0) && !item.Codigo?.includes('E-',1):
-        this.menuLv5(item,this.menuList)
-        break;
-      default:
-        break;
-    }
+    this.mePermissions.forEach(mp=>{
+      if(item.Codigo!==mp.codigoPermiso){
+        switch(item.Codigo!==null){
+          case item.Codigo?.includes('SC-',0) && !item.Codigo?.includes('SC-',1):
+            this.menuLv2(item,this.menuList)
+            break;
+          case item.Codigo?.includes('I-',0) && !item.Codigo?.includes('I-',1):
+            this.menuLv3(item,this.menuList)
+            break;
+          case item.Codigo?.includes('EF-',0) && !item.Codigo?.includes('EF-',1):
+            this.menuLv4(item,this.menuList)
+            break;
+          case item.Codigo?.includes('E-',0) && !item.Codigo?.includes('E-',1):
+            this.menuLv5(item,this.menuList)
+            break;
+          default:
+            break;
+        }
+      }
+    });
   }
 
   menuLv2(item:ListaPermisoRespuesta, menuList: NodoArbol[]){  
@@ -178,7 +199,7 @@ export class PermissionTableComponent {
     }
   }
 
-  onSubmit() { 
+  onSubmit(newPermission:boolean) { 
     const observables=this.addPermissions.map(ap=>{
       switch(ap!==null){
         case ap.includes('C-',0) && !ap.includes('C-',1):        
@@ -224,21 +245,30 @@ export class PermissionTableComponent {
         }
       })
       console.log(this.addPermissionsList)
-      const addPermiso: AddPermiso = {
-        CodigoPerfil:this.permissionForm.get('selectedRolOption')?.value,
-        CodigoUsuario:this.IdUser!,
-        CodigoInstitucion:this.loginService.getTokenDecoded()['cod-institucion'],
-        CodigoSistema: this.loginService.getTokenDecoded().sistema,
-        ListCodigoOpciones: this.addPermissionsList
-      }
-      try{
-        this.perfilService.addPermisos(addPermiso).subscribe(data=>{
-          if(data[0]===1){
-            this.toastr.success("Permisos agregados con exito");
-          }
-        });
-      }catch(error){ 
-        this.toastr.error("Error al asignar permisos al usuario");
+      if(newPermission){
+        const addPermiso: AddPermiso = {
+          CodigoPerfil:this.permissionForm.get('selectedRolOption')?.value,
+          CodigoUsuario:this.IdUser!,
+          CodigoInstitucion:this.loginService.getTokenDecoded()['cod-institucion'],
+          CodigoSistema: this.loginService.getTokenDecoded().sistema,
+          ListCodigoOpciones: this.addPermissionsList
+        }
+        /*try{
+          this.perfilService.addPermisos(addPermiso).subscribe(data=>{
+            if(data[0]===1){
+              this.toastr.success("Permisos agregados con exito");
+            }
+          });
+        }catch(error){ 
+          this.toastr.error("Error al asignar permisos al usuario");
+        }*/
+      } else {
+        const updatePermiso: UpdatePermiso = {
+          UsuarioPerfil: this.IdRol!,
+          ListCodigoOpciones: this.addPermissionsList
+        }
+        console.log(this.addPermissions);
+        console.log(this.mePermissions);
       }
     });
   }
