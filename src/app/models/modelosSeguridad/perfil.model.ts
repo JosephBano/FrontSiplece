@@ -19,3 +19,8 @@ export interface AddPermiso {
     CodigoSistema: string;
     ListCodigoOpciones: string;
 }
+
+export interface UpdatePermiso {
+    UsuarioPerfil: string;
+    ListCodigoOpciones: string;
+}
