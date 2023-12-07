@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AddPermiso, PermisoPeticion, PermisoRespuesta } from "src/app/models/modelosSeguridad/perfil.model";
+import { AddPermiso, PermisoPeticion, PermisoRespuesta, UpdatePermiso } from "src/app/models/modelosSeguridad/perfil.model";
 import { environment } from "src/environments/environment.development";
 
 @Injectable({
@@ -22,5 +22,9 @@ export class PerfilService {
 
     addPermisos(datos: AddPermiso):Observable<number[]> {
         return this.http.post<number[]>(`${this.API_URL}/agregarPermisos`, datos, this.httpOptions);
+    }
+
+    updatePermisos(datos: UpdatePermiso):Observable<number[]> {
+        return this.http.post<number[]>(`${this.API_URL}/actualizarPermisos`, datos, this.httpOptions);
     }
 }
