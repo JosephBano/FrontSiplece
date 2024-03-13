@@ -77,12 +77,22 @@ export class PermissionTableComponent {
       ))
       forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
         const listBasicPermission = componentData.filter(c=>!permissionData.some(p=>c.Codigo===p.codigoPermiso))
+        console.log('permissionData:');
+        console.log(permissionData);
         
-        this.assignablePermissions = listBasicPermission;
-        this.mePermissions=permissionData;
+        //this.assignablePermissions = listBasicPermission;
+        //this.mePermissions=permissionData;
+        console.log('listBasicPermission:'); 
+        console.log(listBasicPermission);
+        console.log('componentData:');
+        console.log(componentData);
+               
+        this.getPermissionBasic(listBasicPermission,componentData)
+        console.log('assignablePermissions:');
+        console.log(this.assignablePermissions);
+        
         this.getUserData()
       })    
-      //console.log(this.permisoParams);
     }else{
       const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
       const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
@@ -92,11 +102,18 @@ export class PermissionTableComponent {
         }
       ))
       forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
+        console.log(componentData);
         const listBasicPermission = componentData.filter(c=>permissionData.some(p=>c.Codigo===p.codigoPermiso))
+        this.assignablePermissions=listBasicPermission;
+        console.log(listBasicPermission);
+        console.log(componentData);
+        
         
         this.getPermissionBasic(listBasicPermission,componentData)
+        console.log(this.assignablePermissions);
+        
         this.getUserData()
-      })    
+      });
     }
     
   }
@@ -137,26 +154,22 @@ export class PermissionTableComponent {
       this.menuList.push(this.createNuevoNodo(item))
   }
   getHijo(item: ListaPermisoRespuesta){
-    this.mePermissions.forEach(mp=>{
-      if(item.Codigo!==mp.codigoPermiso){
-        switch(item.Codigo!==null){
-          case item.Codigo?.includes('SC-',0) && !item.Codigo?.includes('SC-',1):
-            this.menuLv2(item,this.menuList)
-            break;
-          case item.Codigo?.includes('I-',0) && !item.Codigo?.includes('I-',1):
-            this.menuLv3(item,this.menuList)
-            break;
-          case item.Codigo?.includes('EF-',0) && !item.Codigo?.includes('EF-',1):
-            this.menuLv4(item,this.menuList)
-            break;
-          case item.Codigo?.includes('E-',0) && !item.Codigo?.includes('E-',1):
-            this.menuLv5(item,this.menuList)
-            break;
-          default:
-            break;
-        }
-      }
-    });
+    switch(item.Codigo!==null){
+      case item.Codigo?.includes('SC-',0) && !item.Codigo?.includes('SC-',1):
+        this.menuLv2(item,this.menuList)
+        break;
+      case item.Codigo?.includes('I-',0) && !item.Codigo?.includes('I-',1):
+        this.menuLv3(item,this.menuList)
+        break;
+      case item.Codigo?.includes('EF-',0) && !item.Codigo?.includes('EF-',1):
+        this.menuLv4(item,this.menuList)
+        break;
+      case item.Codigo?.includes('E-',0) && !item.Codigo?.includes('E-',1):
+        this.menuLv5(item,this.menuList)
+        break;
+      default:
+        break;
+    }
   }
 
   menuLv2(item:ListaPermisoRespuesta, menuList: NodoArbol[]){  
@@ -199,7 +212,7 @@ export class PermissionTableComponent {
     }
   }
 
-  onSubmit(newPermission:boolean) { 
+  onSubmit() { 
     const observables=this.addPermissions.map(ap=>{
       switch(ap!==null){
         case ap.includes('C-',0) && !ap.includes('C-',1):        
@@ -245,7 +258,9 @@ export class PermissionTableComponent {
         }
       })
       console.log(this.addPermissionsList)
-      if(newPermission){
+      if(this.newPermission){
+        console.log('persmiso nuevo');
+        
         const addPermiso: AddPermiso = {
           CodigoPerfil:this.permissionForm.get('selectedRolOption')?.value,
           CodigoUsuario:this.IdUser!,
@@ -253,7 +268,7 @@ export class PermissionTableComponent {
           CodigoSistema: this.loginService.getTokenDecoded().sistema,
           ListCodigoOpciones: this.addPermissionsList
         }
-        /*try{
+        try{
           this.perfilService.addPermisos(addPermiso).subscribe(data=>{
             if(data[0]===1){
               this.toastr.success("Permisos agregados con exito");
@@ -261,11 +276,23 @@ export class PermissionTableComponent {
           });
         }catch(error){ 
           this.toastr.error("Error al asignar permisos al usuario");
-        }*/
+        }
       } else {
+        console.log('permiso actualiza');
+        
         const updatePermiso: UpdatePermiso = {
           UsuarioPerfil: this.IdRol!,
           ListCodigoOpciones: this.addPermissionsList
+        }
+
+        try{
+          /*this.perfilService.updatePermisos(updatePermiso).subscribe(data=>{
+            if(data[0]===1){
+              this.toastr.success("Permisos actualizados con exito");
+            }
+          });*/
+        }catch(error){
+          this.toastr.error("Error al actualizar permisos del usuario");
         }
         console.log(this.addPermissions);
         console.log(this.mePermissions);

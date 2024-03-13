@@ -1,5 +1,5 @@
-const BASE_URL_SIPLECE = 'https://localhost:7094/api';
-const BASE_URL_SEGURIDAD = 'https://localhost:7177/api';
+const BASE_URL_SIPLECE = 'https://16.13.9.13:7094/api';
+const BASE_URL_SEGURIDAD = 'https://16.13.9.13:7177/api';
 const BASE_RUTA_PANEL = '/panel';
 const BASE_RUTA_TABLAS = `${BASE_RUTA_PANEL}/tablas`;
 
@@ -7,15 +7,15 @@ export const environment = {
     /*Constantes del sistema*/
     NOMBRE_SISTEMA: "SIPLECE",
     /*Constantes SharedPoint Folder*/
-    SHP_FOLDER_SITE_NAME: "SitioGrupo",
+    SHP_FOLDER_SITE_NAME: "SIPLECE",
     SHP_FOLDER_LIST_NAME: "CACES_2023",
     /*Constantes SharedPointAPI*/
     SHP_API_GRANT_TYPE: "refresh_token",
     SHP_API_APP_ID: "00000003-0000-0ff1-ce00-000000000000",
-    SHP_API_CLIENT_ID: "70a6eaa1-54ec-4ca0-b3dd-216ccfd51058",
-    SHP_API_CLIENT_SECRET: "OXsrUMadzKKV0ltAUHkFthOb3tx9RySbmhQ67cuxWHo=",
+    SHP_API_CLIENT_ID: "fa818300-6535-4512-8ed5-6918f62098ac",
+    SHP_API_CLIENT_SECRET: "/VkwYQuzBBNBJkg53I26lrRzljO9AuaraDSFqv+uOMs=",
     SHP_API_TENANT_NAME: "institutotraversari",
-    SHP_REFRESH_TOKEN: "PAQABAAEAAAAtyolDObpQQ5VtlI4uGjEPCJLWaoUNE8llQh1idUJRZTTpyhEWEogzQFtsXlA5puAz0DOzTYfuk8cDQTbhTD-5npx2U8mxHaod5KB6TKb3NjdVLUzB8xWbl_tDMjNK7ctSCL85gVXsNK-6CxfvpGsV4VwD1dDVbcd83TwwCXpOGrLYVC79bupgJPsaxEsoDXlMBkli0eRnrHqqX79bTPz-dPFJbPZbhi_JWjtMa4GFP1b3etWP91LrNgnWgAPjRerbEDHIAhyOCDPyZeKgKhDnnhrgKymLiVNAEBZ1H5-HxyAA",
+    SHP_REFRESH_TOKEN: "PAQABAAEAAAAtyolDObpQQ5VtlI4uGjEPSo2klJCMWu8kIrEQcpmQfv-KSejoyT_OFD_sR1rZASvqV2-qcLPJwehm-RNuk5LiCDZf2F3tEXCamGzL-OGlGf2JqIy51qHpjPByTRWmWTocPlncISgB9j05M7fqUA2D8qiZsddadQAtnn3uBoPPjPMELjCuUy9wNBkIdvj4UaOZ43k-yXKhkiFgDZVAcam8u9Vk5DWsmCm6aHLckwH0buBKbBQgXf4R5ukhPmuqdtFdG17HbyNw1kgKNS3x3E9xcHQ31jKTOnlQu5j8hIe0sCAA",
     /*URL's Controladores BackEnd */
     URL_BACKEND: BASE_URL_SIPLECE,
     URL_BACKEND_INSTITUCIONES: `${BASE_URL_SEGURIDAD}/Institucion`,

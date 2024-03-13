@@ -61,7 +61,7 @@ export class AddUsuarioComponent implements OnInit{
     if (this.nombre && this.apellido && this.contrasenia) {
       const usuario: Usuario = {
         codigoAd: `${this.nombre}.${this.apellido}`,
-        correo: `${this.nombre}.${this.apellido}@institutotraversari.edu.ec`,
+        correo: `${this.nombre.toLowerCase()}.${this.apellido.toLocaleLowerCase()}@istpet.edu.ec`,
         nombre: this.nombre,
         apellido: this.apellido,
         rol: '',
