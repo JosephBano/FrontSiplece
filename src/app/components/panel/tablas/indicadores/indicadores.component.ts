@@ -179,7 +179,7 @@ export class IndicadoresComponent implements OnInit{
       IdTipoEvaluacion: this.agregar.value.tipoagregar,
       Orden: this.agregar.value.orden,
       Detalle: this.agregar.value.detalle,
-      Estandar: this.editar.value.estandar,
+      Estandar: this.agregar.value.estandar,
       Valoracion: '1'
     }
 

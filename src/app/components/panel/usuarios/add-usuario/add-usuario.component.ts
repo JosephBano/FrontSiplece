@@ -14,7 +14,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class AddUsuarioComponent implements OnInit{
   usuario?: Usuario;
   usuarios: Usuario[] = [];
-  formulario!: FormGroup;
+  formUsuario!: FormGroup;
   nombre: string = '';
   apellido: string = '';
   contrasenia: string = '';
@@ -28,12 +28,10 @@ export class AddUsuarioComponent implements OnInit{
     private router: Router
   ) { 
  
-    this.formulario = this.fb.group({
+    this.formUsuario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      contrasenia: ['',Validators.required,
-      Validators.minLength(8),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)] 
+      contrasenia: ['',Validators.required] 
     });
   }
   
@@ -58,14 +56,20 @@ export class AddUsuarioComponent implements OnInit{
   }
 
   agregarUsuario(form: NgForm) {
-    if (this.nombre && this.apellido && this.contrasenia) {
+    if (this.formUsuario.invalid) {
+      alert('Error al crear usuario, por favor llene todos los campos correctamente.');
+    } else {
+      const nombre = this.formUsuario.value['nombre'];
+      const apellido = this.formUsuario.value['apellido'];
+      const contrasenia = this.formUsuario.value['contrasenia'];
+  
       const usuario: Usuario = {
-        codigoAd: `${this.nombre}.${this.apellido}`,
-        correo: `${this.nombre.toLowerCase()}.${this.apellido.toLocaleLowerCase()}@istpet.edu.ec`,
-        nombre: this.nombre,
-        apellido: this.apellido,
+        codigoAd: `${nombre}.${apellido}`,
+        correo: `${nombre.toLowerCase()}.${apellido.toLocaleLowerCase()}@istpet.edu.ec`,
+        nombre: nombre,
+        apellido: apellido,
         rol: '',
-        contrasenia: this.contrasenia,
+        contrasenia: contrasenia,
         activo: '1'
       };
   
@@ -80,6 +84,7 @@ export class AddUsuarioComponent implements OnInit{
       this.nombre = '';
       this.apellido = '';
       this.contrasenia = '';
+      alert('Usuario creado con éxito');
     }
   }
 }

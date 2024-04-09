@@ -1,13 +1,25 @@
 <div class="container mt-3">
     <div class="contenedor-flotante">
         <h1>Agregar Usuarios</h1>
-        <form #formUsuario="ngForm" (ngSubmit)="agregarUsuario(formUsuario)">
+        <form [formGroup]="formUsuario" (ngSubmit)='agregarUsuario(formUsuario.value)'>
 
             <label >Nombre:</label>
-            <input type="text" name="nombre" [(ngModel)]="nombre">
+            <input type="text" formControlName="nombre" pattern="[a-zA-Z ]*" required>
+            <div *ngIf="formUsuario.controls['nombre']?.errors?.['pattern']" class="alert alert-danger">
+              Por favor, introduce sólo letras.
+            </div>
+            <div *ngIf="formUsuario.controls['nombre']?.errors?.['required'] && formUsuario.controls['nombre']?.touched" class="alert alert-danger">
+              Este campo es obligatorio.
+            </div>
           
             <label>Apellido:</label>
-            <input type="text" name="apellido" [(ngModel)]="apellido">
+            <input type="text" formControlName="apellido" [(ngModel)]="apellido" pattern="[a-zA-Z ]*" required autocomplete="off">
+            <div *ngIf="formUsuario.controls['apellido']?.errors?.['pattern']" class="alert alert-danger">
+              Por favor, introduce sólo letras.
+            </div>
+            <div *ngIf="formUsuario.controls['apellido']?.errors?.['required'] && formUsuario.controls['apellido']?.touched" class="alert alert-danger">
+              Este campo es obligatorio.
+            </div>
           
             <label>Contraseña:
             </label>
@@ -16,12 +28,11 @@
               <input
 
                 [type]="showPassword ? 'text' : 'password'"
-                name="contrasenia"
+                formControlName="contrasenia"
                 [(ngModel)]="contrasenia"
-                minlength="8"
-                #contraseniaValidation="ngModel" 
+                minlength="8" 
                 required
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$">
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$" >
             
                 <span class="input-group-text input-group-append" (click)="showPassword = !showPassword">
                   <i 
@@ -30,17 +41,17 @@
                   ></i>
                 </span>
               </div>
-              <div *ngIf="contraseniaValidation.invalid && (contraseniaValidation.dirty || contraseniaValidation.touched)" class="alert alert-danger">
+              <div *ngIf="formUsuario.controls['contrasenia'].invalid && (formUsuario.controls['contrasenia'].dirty || formUsuario.controls['contrasenia'].touched)" class="alert alert-danger">
           
-                <div *ngIf="contraseniaValidation?.errors?.['required']">
+                <div *ngIf="formUsuario.controls['contrasenia'].errors?.['required']">
                   La contraseña es obligatoria.
                 </div>
                 
-                <div *ngIf="contraseniaValidation?.errors?.['minlength']">
+                <div *ngIf="formUsuario.controls['contrasenia'].errors?.['minlength']">
                   La contraseña debe tener al menos 8 caracteres. 
                 </div>
                 
-                <div *ngIf="contraseniaValidation?.errors?.['pattern']">
+                <div *ngIf="formUsuario.controls['contrasenia'].errors?.['pattern']">
                   La contraseña debe contener al menos una mayúscula y un número.
                 </div>
               </div>
