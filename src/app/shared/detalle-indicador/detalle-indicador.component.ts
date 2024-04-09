@@ -8,8 +8,11 @@ import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
 import { LoginService } from 'src/app/services/login.service';
 import { environment } from 'src/environments/environment.development';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { Sidebar } from 'src/app/services/sidebar.service';
+import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
+import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
+import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 
 @Component({
   selector: 'app-detalle-indicador',
@@ -40,6 +43,10 @@ export class DetalleIndicadorComponent implements OnInit {
     private loginService: LoginService,
     private elementoService: ElementoFundamentalService,
     private perfilService: PerfilService,
+    private evidenciaService: EvidenciaService,
+    private elementoFundamentalService: ElementoFundamentalService,
+    private criterioService: CriteriosService,
+    private subcriterioService: SubCriteriosService,
     //private router: Router
   ) { }
    
@@ -73,10 +80,55 @@ export class DetalleIndicadorComponent implements OnInit {
       forkJoin(element$).subscribe(([elementsData]) => {
         this.elementos = elementsData.filter(e => e.IdIndicador==id);
       })
-    } else {
+    }else{
       forkJoin([permission$, element$]).subscribe(([permissionsData, elementsData]) => {
-        this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
+        let allPadres: string[] = []; // Declarar el array fuera del contexto donde se define padres
+        permissionsData.forEach((permiso)=>{
+            this.getPadres(permiso.codigoPermiso).subscribe((data)=>{
+                if(permiso.codigoPermiso.startsWith('C-')){
+                    //manejo datos permiso Criterio
+                    this.elementos = elementsData.filter(e => e.IdIndicador==id);
+                  } else if(permiso.codigoPermiso.startsWith('SC-')){
+                    //manejo datos permiso Subcritero
+                    this.elementos = elementsData.filter(e => e.IdIndicador==id);
+                  } else if((permiso.codigoPermiso.startsWith('I-'))){
+                    //manejo datos permiso Indicador
+                    this.elementos = elementsData.filter(e => e.IdIndicador==id);
+                  } else if(permiso.codigoPermiso.startsWith('EF-')){
+                  //manejo datos permiso Elemento fundamental
+                  this.elementos = elementsData.filter(e=>permissionsData.some(p=>p.codigoPermiso===e.CodigoElementoFundamental) && e.IdIndicador==id)
+                  console.log(this.elementos);
+              } else if(permiso.codigoPermiso.startsWith('E-')){
+                    //manejo datos permiso Evidencia
+                    const padres: string[] = data[0].listP.split(',');
+                    allPadres.push(...padres); 
+                    this.elementos = elementsData.filter(e => allPadres.includes(e.CodigoElementoFundamental) && e.IdIndicador==id);
+                }
+            });
+        });
       })
+    }
+  }
+  getPadres(dato: string): Observable<any> {
+    switch(true){
+      case dato.includes('C-',0) && !dato.includes('C-',1):        
+        return this.criterioService.getChild(dato);
+      case dato.includes('SC-',0) && !dato.includes('SC-',1):
+        const scC$ = this.subcriterioService.getChild(dato).pipe(sc=>sc);     
+        const scF$ = this.subcriterioService.getFather(dato).pipe(sc=>sc); 
+        return forkJoin([scC$,scF$]);
+      case dato.includes('I-',0) && !dato.includes('I-',1):
+        const iC$ = this.indicadorService.getChild(dato).pipe(i=>i)     
+        const iF$ = this.indicadorService.getFather(dato).pipe(i=>i) 
+        return forkJoin([iC$,iF$]);
+      case dato.includes('EF-',0) && !dato.includes('EF-',1):
+        const efC$ = this.elementoFundamentalService.getChild(dato).pipe(ef=>ef)     
+        const efF$ = this.elementoFundamentalService.getFather(dato).pipe(ef=>ef) 
+        return forkJoin([efC$,efF$]);
+      case dato.includes('E-',0) && !dato.includes('E-',1):   
+        return this.evidenciaService.getFather(dato);
+      default:
+        return of();  
     }
   }
 
@@ -93,14 +145,8 @@ export class DetalleIndicadorComponent implements OnInit {
           this.indicador = indicatorsData[0];
           this.cargaDeDatos();
         } else {    
-          const indicadores = indicatorsData.filter(i => permissionsData.some(p => p.codigoPermiso===i.CodigoIndicador))
-          this.indicador= indicadores[0]; 
-          if (this.indicador) {
-            this.cargaDeDatos(); 
-          }else{
-            /* 404 not found */
-            //this.router.navigate(['panel/evidencias/detalle', this.selectedIndicador])
-          }
+          this.indicador = indicatorsData[0];
+          this.cargaDeDatos();
         }
       }
     })
@@ -109,6 +155,6 @@ export class DetalleIndicadorComponent implements OnInit {
   cargaDeDatos(): void {
     this.strTituloIndicador = this.indicador.Detalle || '';
     this.strTipoIndicador = this.indicador.IdTipoEvaluacion === "1" ? 'Cuantitativo' : 'Cualitativo';
+    this.strEstandar = this.indicador.Estandar ? this.indicador.Estandar.toString() : '';
   }
-  
 }
