@@ -8,14 +8,14 @@ import { LoginService } from 'src/app/services/login.service';
 import { environment } from 'src/environments/environment.development';
 import { ModeloService } from 'src/app/services/serviciosSeguridad/modelo.service';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
-import { NodoArbol, ListaPermisoRespuesta, NodoFlat } from 'src/app/models/modelosSeguridad/permission.model';
+import { NodoArbol, ListaPermisoRespuesta, NodoFlat, DeletePermiso } from 'src/app/models/modelosSeguridad/permission.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
 import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
 import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { ListaPermisoPeticion, PermisosPeticion } from 'src/app/models/modelosSeguridad/permission.model';
 @Component({
   selector: 'app-permission-table',
   templateUrl: './permission-table.component.html',
@@ -33,6 +33,13 @@ export class PermissionTableComponent {
   addPermissionsList: string = '';
   permissionForm: FormGroup;
   newPermission=true;
+  updatePermission=true;
+  selectedItems: ListaPermisoRespuesta[] = [];
+  permisosPeticion: PermisosPeticion[]= [];
+  ListCodigoOpciones: string[] = [];  
+  // Remove the duplicate declaration of 'EliminarPermisos'
+  // EliminarPermisos: DeletePermiso[] = [];
+
   
   constructor(
     private criterioService: CriteriosService,
@@ -64,10 +71,10 @@ export class PermissionTableComponent {
 
   loadUserData(){
     if(this.IdRol!=='ASIGNAR ROL'){  
+      this.updatePermission=true;
       this.newPermission=false; 
       this.permisoParams!.codigoPerfil=this.IdRol!;
       this.permissionForm.get('selectedRolOption')?.setValue(this.IdRol);
-      console.log("Ya tiene rol");
       const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
       const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
         switchMap((data)=>{
@@ -77,46 +84,45 @@ export class PermissionTableComponent {
       ))
       forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
         const listBasicPermission = componentData.filter(c=>!permissionData.some(p=>c.Codigo===p.codigoPermiso))
-        console.log('permissionData:');
-        console.log(permissionData);
-        
-        //this.assignablePermissions = listBasicPermission;
-        //this.mePermissions=permissionData;
-        console.log('listBasicPermission:'); 
-        console.log(listBasicPermission);
-        console.log('componentData:');
-        console.log(componentData);
-               
         this.getPermissionBasic(listBasicPermission,componentData)
-        console.log('assignablePermissions:');
-        console.log(this.assignablePermissions);
+        this.assignablePermissions = componentData.filter(l=>listBasicPermission.some(p=>l.Codigo===p.Codigo));
         
+        let permisos: PermisosPeticion = {  
+          codigoModelo: this.permisoParams?.codigoModelo!,
+          codigoPerfil: this.permisoParams!.codigoPerfil,
+          codigoEstado: 'A'
+        };
+        
+        this.perfilService.getPermisosByCodigoPerfil(permisos.codigoModelo, permisos.codigoPerfil, permisos.codigoEstado).subscribe((data: PermisoRespuesta[]) => {
+          this.mePermissions = data;
+          this.mePermissions.forEach(mp=>{
+            this.selectedItems.push(componentData.find(ap=>ap.Codigo===mp.codigoPermiso)!)
+          })
+        });
+
         this.getUserData()
       })    
     }else{
+      this.updatePermission=false;
+      // Aqui asigna y crea un perfil con un rol
       const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data=>data);
       const data$ = this.modeloService.getModeloByCode(this.permisoParams?.codigoModelo!).pipe(
         switchMap((data)=>{
           const component$ = this.criterioService.getAllByModelo(data.idModelo!).pipe(data=>data);
           return forkJoin([component$])
         }
-      ))
+      ));  
       forkJoin([permission$, data$]).subscribe(([permissionData, [componentData]]) => {
-        console.log(componentData);
         const listBasicPermission = componentData.filter(c=>permissionData.some(p=>c.Codigo===p.codigoPermiso))
-        this.assignablePermissions=listBasicPermission;
+        this.assignablePermissions=listBasicPermission;      
         console.log(listBasicPermission);
-        console.log(componentData);
         
-        
-        this.getPermissionBasic(listBasicPermission,componentData)
-        console.log(this.assignablePermissions);
+        this.getPermissionBasic(this.selectedItems,componentData)
         
         this.getUserData()
       });
     }
-    
-  }
+  } 
 
   getPermissionBasic(list: ListaPermisoRespuesta[],all: ListaPermisoRespuesta[]){
     const noDelete: ListaPermisoRespuesta[]=[]
@@ -203,15 +209,56 @@ export class PermissionTableComponent {
     return nuevoNodo;
   }
 
-  childElement(elementCode: string){
+  
+  childElement(elementCode: string) {
     this.disabledButton=false
     const res=this.addPermissions.find(ap=>ap===elementCode);
     if(res===undefined){
       this.addPermissions.push(elementCode);
       this.permissionForm.get('listPermision')?.setValue(this.addPermissionsList);
     }
+    const selectedItemIndex = this.assignablePermissions.findIndex(item => item.Codigo === elementCode);
+  if (selectedItemIndex !== -1) {
+    this.selectedItems.push(this.assignablePermissions[selectedItemIndex]);
+    const children = this.recorrerTodosLosHijos(this.menuList, elementCode);
+    this.selectedItems.push(...children);
+    this.assignablePermissions = this.assignablePermissions.filter(item => !this.selectedItems.includes(item));
+    this.getUserData();
   }
-
+  }
+  
+  removeChildElement(elementCode: string) {
+    const selectedItem = this.selectedItems.find(item => item.Codigo === elementCode);
+    if (selectedItem) {
+      const selectedItemIndex = this.selectedItems.findIndex(item => item.Codigo === elementCode);
+      if (selectedItemIndex !== -1) {
+        this.assignablePermissions.push(this.selectedItems[selectedItemIndex]);
+        const children = this.recorrerTodosLosHijos(this.menuList, elementCode);
+        this.assignablePermissions.push(...children);
+        this.selectedItems = this.selectedItems.filter(item => !this.assignablePermissions.includes(item));
+      }
+  
+      
+      const EliminarPermisos: DeletePermiso = {
+        usuarioPerfil: `${this.permisoParams!.codigoPerfil}`,
+        idOpciones: `${this.mePermissions[0].codigoRol}=${selectedItem.Codigo}`
+      };
+  //llamado al servicio eliminar permiso perfil
+      try{
+        
+        this.perfilService.deletePermisos(EliminarPermisos.usuarioPerfil, EliminarPermisos.idOpciones).subscribe(
+        (data) => { 
+          if(data[0]===1){
+            this.toastr.success("Permisos eliminados con exito");
+          }
+        }
+      )}catch(error) {
+        this.toastr.error("Error al eliminar permisos del usuario");
+      }
+  
+      this.getUserData();
+    }
+  }
   onSubmit() { 
     const observables=this.addPermissions.map(ap=>{
       switch(ap!==null){
@@ -239,14 +286,11 @@ export class PermissionTableComponent {
       results.forEach(result => {
         if (Array.isArray(result) && result.length === 2) {
           const [listChild, listFather] = result;
-          console.log('Resultado ListChild:', listChild[0].listP);
-          console.log('Resultado ListFather:', listFather[0].listP);
-          this.addPermissions.push(listChild[0].listP)
-          this.addPermissions.push(listFather[0].listP)
+          this.addPermissions.push(...listChild[0].listP.split(','))
+          this.addPermissions.push(...listFather[0].listP.split(','))
         } else if (Array.isArray(result) && result.length === 1) {
           const listChild = result[0];
-          console.log('Resultado ListChild:', listChild.listP);
-          this.addPermissions.push(listChild.listP)
+          this.addPermissions.push(...listChild.listP.split(','))
         }
       });
       
@@ -257,16 +301,12 @@ export class PermissionTableComponent {
           this.addPermissionsList=this.combinarCadenas(r,this.addPermissionsList);
         }
       })
-      console.log(this.addPermissionsList)
-      if(this.newPermission){
-        console.log('persmiso nuevo');
-        
         const addPermiso: AddPermiso = {
           CodigoPerfil:this.permissionForm.get('selectedRolOption')?.value,
           CodigoUsuario:this.IdUser!,
           CodigoInstitucion:this.loginService.getTokenDecoded()['cod-institucion'],
           CodigoSistema: this.loginService.getTokenDecoded().sistema,
-          ListCodigoOpciones: this.addPermissionsList
+          ListCodigoOpciones: this.selectedItems.map(si=>si.Codigo).join(',')
         }
         try{
           this.perfilService.addPermisos(addPermiso).subscribe(data=>{
@@ -277,27 +317,27 @@ export class PermissionTableComponent {
         }catch(error){ 
           this.toastr.error("Error al asignar permisos al usuario");
         }
-      } else {
-        console.log('permiso actualiza');
-        
-        const updatePermiso: UpdatePermiso = {
-          UsuarioPerfil: this.IdRol!,
-          ListCodigoOpciones: this.addPermissionsList
-        }
-
-        try{
-          /*this.perfilService.updatePermisos(updatePermiso).subscribe(data=>{
-            if(data[0]===1){
-              this.toastr.success("Permisos actualizados con exito");
-            }
-          });*/
-        }catch(error){
-          this.toastr.error("Error al actualizar permisos del usuario");
-        }
-        console.log(this.addPermissions);
-        console.log(this.mePermissions);
-      }
     });
+  }
+  onUpdate() { 
+    this.loadUserData();
+    const _updatePermiso: UpdatePermiso = {
+      UsuarioPerfil: this.IdRol!,
+      ListCodigoOpciones: this.addPermissions.join(','),
+     
+    }
+    this.selectedItems=[];
+    try{
+      this.perfilService.updatePermisos(_updatePermiso).subscribe(
+        (data) => {
+          
+          if(data[0]===1){
+            this.toastr.success("Permisos actualizados con exito");
+          }
+      });
+    }catch(error){
+      this.toastr.error("Error al actualizar permisos del usuario");
+    }
   }
 
   combinarCadenas(cadena1: string, cadena2: string): string {  
@@ -340,7 +380,6 @@ export class PermissionTableComponent {
       for (const nodo of nodos) {
         
         if(nodo.value.Codigo===code){
-          console.log(nodo);
           
           todosLosHijos = this.obtenerTodosLosHijos(nodo)
         }

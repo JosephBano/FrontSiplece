@@ -7,32 +7,42 @@
       <mat-radio-button value="ENCARGADO">ENCARGADO</mat-radio-button>
     </mat-radio-group>
   </ng-container>
-  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-      <button mat-icon-button disabled></button>
-      <mat-icon>
-        chevron_right 
-      </mat-icon>
-      <button mat-button color="accent" class="btn-permission"
-        (click)="childElement(node.value.Codigo)">
-        {{node.value.Detalle}}
-      </button>
-    </mat-tree-node>
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button>
-      <button mat-button color="primary" class="btn-permission"
-        (click)="childElement(node.value.Codigo)">
-        {{node.value.Detalle}}
-      </button>
-    </mat-tree-node>
-  </mat-tree>
+
+  <div class="flex-container">
+    <div class="container-menu">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <button mat-icon-button disabled></button>
+          {{node.value.Detalle}}
+          <button mat-button (click)="childElement(node.value.Codigo)" class="btn-agregar">Agregar</button>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'toggle ' + node.value.Detalle">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          {{node.value.Detalle}}
+          <button mat-button (click)="childElement(node.value.Codigo)" class="btn-agregar">Agregar</button>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+    
+    <div class="container-asignados">
+      <div *ngFor="let item of selectedItems">
+        {{item.Detalle}} 
+        <button mat-button (click)="removeChildElement(item.Codigo ?? '')" class="btn-eliminar">Eliminar</button>
+      </div>
+    </div>
+  </div>
 
   <div class="d-flex justify-content-between w-100 fs-4" style="height: 35px;">
-    <button type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onSubmit()" [disabled]="disabledButton">{{newPermission ? 'Seleccionar permisos' : 'Actualizar permisos'}}</button>
+    <button *ngIf="!updatePermission" type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onSubmit()" [disabled]="disabledButton">
+      Crear permisos
+    </button>
+    <button *ngIf="updatePermission" type="submit" class="btn-mostrar btn-custom w-100 h-100" (click)="onUpdate()" [disabled]="disabledButton">
+      {{newPermission ? 'Seleccionar permisos' : 'Actualizar permisos'}}
+    </button>
   </div>
 </form>
