@@ -14,3 +14,8 @@ export interface ListChild {
 export interface ListFather {
     listP: string
 }
+
+export interface EvidenciaUsuarioPeticion{
+    codigoEvidencia: string;
+    usuarioRegistra: string;
+}

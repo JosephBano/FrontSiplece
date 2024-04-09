@@ -24,3 +24,9 @@ export interface UpdatePermiso {
     UsuarioPerfil: string;
     ListCodigoOpciones: string;
 }
+
+export interface DeletePerfil {
+    CodigoAd: string;
+    CodigoSistema: string;
+    CodigoInstitucion: string;
+}

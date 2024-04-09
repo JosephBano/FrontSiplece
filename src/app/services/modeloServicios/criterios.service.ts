@@ -49,4 +49,7 @@ export class CriteriosService {
   deleteCriterio(id: string): Observable<any> {
     return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
+  getCriterioByCodigo(codigoCriterio: string): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/GetByCodigo/${codigoCriterio}`);
+  }
 }

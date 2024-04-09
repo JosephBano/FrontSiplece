@@ -26,6 +26,7 @@ export interface AgregarArchivoResponse {
 }
 export interface AgregarPathRequest {
     PathUrl?: string;
-    IdEvidencia?: string;
+    IdArchivoEvidencia?: number;
     CodigoUsuario?: string;
+    Detalle?: string;
 }
