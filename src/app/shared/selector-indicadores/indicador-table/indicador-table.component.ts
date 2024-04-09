@@ -1,10 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
+import { SubCriterioComponent } from 'src/app/components/panel/tablas/sub-criterio/sub-criterio.component';
 import { Indicador } from 'src/app/models/modelos-generales/indicador.model';
 import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
 import { LoginService } from 'src/app/services/login.service';
+import { CriteriosService } from 'src/app/services/modeloServicios/criterios.service';
+import { ElementoFundamentalService } from 'src/app/services/modeloServicios/elemento-fundamental.service';
+import { EvidenciaService } from 'src/app/services/modeloServicios/evidencia.service';
 import { IndicadorService } from 'src/app/services/modeloServicios/indicador.service';
+import { SubCriteriosService } from 'src/app/services/modeloServicios/sub-criterios.service';
 import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
 import { environment } from 'src/environments/environment.development';
 
@@ -23,7 +28,11 @@ export class IndicadorTableComponent implements OnInit{
   constructor(private indicadorService: IndicadorService,
               private perfilService: PerfilService,
               private loginService: LoginService,
-              private route: Router)
+              private route: Router,
+              private criterioService: CriteriosService,
+              private elementoFundamentalService: ElementoFundamentalService,
+              private subcriterioService: SubCriteriosService,
+              private evidenciaService: EvidenciaService)
   { }
 
   ngOnInit(): void {
@@ -33,26 +42,78 @@ export class IndicadorTableComponent implements OnInit{
       codigoEstado: 'A',
       codigoSistema: environment.NOMBRE_SISTEMA
     }
-    this.getData(permisoParams);
+    
+    // this.getDataAdmin(permisoParams);
+    if(permisoParams.codigoPerfil.toLowerCase().includes('admin')) {
+      this.getDataAdmin(permisoParams);
+    } else {
+      this.getDataUser(permisoParams);
+    }
   }
 
-  getData(permisoParams: PermisoPeticion){
+  getDataAdmin(permisoParams: PermisoPeticion){
     const permission$ = this.perfilService.getPermisos(permisoParams).pipe(data => data)
     const indicator$ = this.indicadorService.getIndicador().pipe(data =>  data)//Cambiar a get by id subcriterio
-    if(permisoParams.codigoPerfil.toLowerCase().includes('admin')){
       forkJoin(indicator$).subscribe(([indicatorsData]) => {
         this.indicadores = indicatorsData
       })
-    }else{
-      forkJoin([permission$, indicator$]).subscribe(([permissionsData, indicatorsData]) => {
-        this.indicadores = indicatorsData.filter(i=>permissionsData.some(p=>p.codigoPermiso===i.CodigoIndicador))
-      })
+    
+  }
+
+  getDataUser(permisoParams: PermisoPeticion){
+    const permission$ = this.perfilService.getPermisos(permisoParams).pipe(data => data)
+    const indicator$ = this.indicadorService.getIndicador().pipe(data =>  data)//Cambiar a get by id subcriterio
+    forkJoin([permission$, indicator$]).subscribe(([permissionsData, indicatorsData]) => {  
+      let allPadres: string[] = [];
+        permissionsData.forEach((permiso)=>{
+          this.getPadres(permiso.codigoPermiso).subscribe((data)=>{
+            if(permiso.codigoPermiso.startsWith('C-')){
+              this.indicadores = indicatorsData
+            }else if(permiso.codigoPermiso.startsWith('SC-')){
+              this.indicadores = indicatorsData
+            }else if(permiso.codigoPermiso.startsWith('I-')){
+              this.indicadores = indicatorsData.filter(i=>permissionsData.some(permiso=>permiso.codigoPermiso===i.CodigoIndicador));
+            }else if(permiso.codigoPermiso.startsWith('EF-')){
+              const padres: string[] = data[1][0].listP.split(',');
+              allPadres.push(...padres);
+              this.indicadores = indicatorsData.filter(ef=>allPadres.includes(ef.CodigoIndicador));
+              
+            }else if(permiso.codigoPermiso.startsWith('E-')){
+              const padres: string[] = data[0].listP.split(',');
+              allPadres.push(...padres);
+              this.indicadores = indicatorsData.filter(e=>allPadres.includes(e.CodigoIndicador));
+            }
+            
+          });
+       });
+    });
+  }
+
+  getPadres(dato: string): Observable<any> {
+    switch(true){
+      case dato.includes('C-',0) && !dato.includes('C-',1):        
+        return this.criterioService.getChild(dato);
+      case dato.includes('SC-',0) && !dato.includes('SC-',1):
+        const scC$ = this.subcriterioService.getChild(dato).pipe(sc=>sc);     
+        const scF$ = this.subcriterioService.getFather(dato).pipe(sc=>sc); 
+        return forkJoin([scC$,scF$]);
+      case dato.includes('I-',0) && !dato.includes('I-',1):
+        const iC$ = this.indicadorService.getChild(dato).pipe(i=>i)     
+        const iF$ = this.indicadorService.getFather(dato).pipe(i=>i) 
+        return forkJoin([iC$,iF$]);
+      case dato.includes('EF-',0) && !dato.includes('EF-',1):
+        const efC$ = this.elementoFundamentalService.getChild(dato).pipe(ef=>ef)     
+        const efF$ = this.elementoFundamentalService.getFather(dato).pipe(ef=>ef) 
+        return forkJoin([efC$,efF$]);
+      case dato.includes('E-',0) && !dato.includes('E-',1):   
+        return this.evidenciaService.getFather(dato);
+      default:
+        return of();  
     }
   }
 
   handleRowClick(indicador: any) {
     this.selectedIndicador = indicador;
-    console.log(this.redireccionRol);
     
     switch(this.redireccionRol) {
       case 1:
