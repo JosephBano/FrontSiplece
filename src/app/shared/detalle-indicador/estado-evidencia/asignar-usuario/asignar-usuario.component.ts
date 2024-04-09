@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evidencia.model';
+import { ArchivoEvidencia, insertarArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evidencia.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -60,18 +60,15 @@ export class AsignarUsuarioComponent implements OnInit{
   }
   
   loadData() {
-    this.userService.getUsuarios().subscribe(data => this.Usuarios = data.filter(e => e.activo == '1'));  
+    this.userService.getUsuarios().subscribe(data => this.Usuarios = data.filter(e => e.activo == '1')); 
     this.archivoService.GetByEvidencia(this.IdEvidencia).subscribe(data => this.Archivos = data.filter(e => e.Activo == '1'));
   }
-
   statusFilter() {
     this.filterBoolean = !this.filterBoolean;
   }
-
   formatName(str: string | undefined) {
     return this.dataService.formatName(str);
   }
-
   comprobarUsuario(usuario: Usuario): boolean {
     for (let i = 0; i < this.Archivos.length; i++) {
       if(this.Archivos[i].UsuarioRegistra == usuario.codigoAd) return true 
@@ -93,18 +90,16 @@ export class AsignarUsuarioComponent implements OnInit{
   }
 
   agregarNuevaArchivo() {
-    console.log(this.AddNewItem.value.detalle);
     if(this.AddNewItem.value.detalle===''){
       this.AddNewItem.value.detalle='Archivo Evidencia';
     }
-    const Archivo: ArchivoEvidencia= {
-      IdEvidencia: this.IdEvidencia,
-      FechaRegistro: this.obtenerFechaEnFormato(),
-      UsuarioRegistra: this.usuario_aux.codigoAd,
-      Detalle: this.AddNewItem.value.detalle,
+    const Archivo: insertarArchivoEvidencia= {
+      codigoUsuario: this.usuario_aux.codigoAd,
+      fechaRegistro: this.obtenerFechaEnFormato(),
+      detalle: this.AddNewItem.value.detalle,
+      idEvidencia: this.IdEvidencia
     }
-
-    this.archivoService.PostArchivo(Archivo).subscribe(
+    this.archivoService.insertarArchivoEvidencia(Archivo).subscribe(
       data => { 
         this.toastr.success('Evidencia creada con exito');
         this.loadData();
