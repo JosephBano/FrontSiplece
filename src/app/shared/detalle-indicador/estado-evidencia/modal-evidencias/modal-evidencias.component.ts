@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { ObservacionDataService } from 'src/app/services/modeloServicios/observacion-data.service';
 
 @Component({
   selector: 'app-modal-evidencias',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./modal-evidencias.component.css']
 })
 export class ModalEvidenciasComponent implements OnInit{
-
+  @Input() idArchivo?: number;
   files: File[] = [];
   formData: FormData = new FormData();
   @Input() elemento: any;
@@ -30,6 +31,7 @@ export class ModalEvidenciasComponent implements OnInit{
     private toastr: ToastrService,
     private location: Location,
     private router: Router,
+    private observacionDataService: ObservacionDataService
   ) { }
 
   ngOnInit(): void {
@@ -64,51 +66,64 @@ export class ModalEvidenciasComponent implements OnInit{
   async onUpload() {
     try {
       const fileData = await this.convertToBase64(this.files[0]);
-      this.getToken(this.files[0].name,fileData)
+      this.getToken(this.files[0].name, fileData, this.files[0].name)
       this.router.navigate([`${this.location.path()}`]);
       this.files = []
     } catch (error) {
       this.toastr.error(`Error base 64: {error}`)
     }
   }
-
-  async getToken(fileName: string, filebase: string) {  
-    const credentials: ObtenerTokenRequest = {
-      GrantType: environment.SHP_API_GRANT_TYPE,
-      ApplicationId: environment.SHP_API_APP_ID,
-      ClientId: environment.SHP_API_CLIENT_ID,
-      ClientSecret: environment.SHP_API_CLIENT_SECRET,
-      TenantName: environment.SHP_API_TENANT_NAME,
-      RefreshToken: environment.SHP_REFRESH_TOKEN
+  CancelFile(): void {
+    this.files = [];
     }
-    this.archivoEvService.GetTokenSharedPoint(credentials).pipe(
-      switchMap((tokenAccess: any)=>{
-        const addFileBody: AgregarArchivoRequest = {
-          TenantName: credentials.TenantName,
-          SiteName: environment.SHP_FOLDER_SITE_NAME,
-          ListName: environment.SHP_FOLDER_LIST_NAME,
-          FileName: fileName,
-          FileBase64: filebase,
-          AccessToken: tokenAccess["access_token"]
-        }
-        return this.archivoEvService.AddFileSharedPoint(addFileBody)
+
+    async getToken(fileName: string, filebase: string, fileDetail: string) {  
+      const credentials: ObtenerTokenRequest = {
+        GrantType: environment.SHP_API_GRANT_TYPE,
+        ApplicationId: environment.SHP_API_APP_ID,
+        ClientId: environment.SHP_API_CLIENT_ID,
+        ClientSecret: environment.SHP_API_CLIENT_SECRET,
+        TenantName: environment.SHP_API_TENANT_NAME,
+        RefreshToken: environment.SHP_REFRESH_TOKEN
+      }
+      this.archivoEvService.GetTokenSharedPoint(credentials).pipe(
+        switchMap((tokenAccess: any)=>{
+          const addFileBody: AgregarArchivoRequest = {
+            TenantName: credentials.TenantName,
+            SiteName: environment.SHP_FOLDER_SITE_NAME,
+            ListName: environment.SHP_FOLDER_LIST_NAME,
+            FileName: fileName,
+            FileBase64: filebase,
+            AccessToken: tokenAccess["access_token"]
+          }
+          return this.archivoEvService.AddFileSharedPoint(addFileBody)
+        })
+      ).subscribe(data => {
+        this.updateEvidenceFile(data.PathUrl, fileDetail)
       })
-    ).subscribe(data => {
-      this.updateEvidenceFile(data.PathUrl)
-    })
-  }
-
-  updateEvidenceFile(pathUrl?: string) {
-    const agregarPath: AgregarPathRequest = {
-      PathUrl: pathUrl,
-      CodigoUsuario: this.usuarioRegister,
-      IdEvidencia: this.Evidencias[0].IdEvidencia
     }
-    this.toastr.success("Archivo subido a SharedPoint")    
-    this.archivoEvService.SaveFile(agregarPath).subscribe(
-    );
-  }
 
+  updateEvidenceFile(pathUrl?: string, fileDetail?: string) {
+    if (this.idArchivo !== undefined) {
+      console.log('idArchivo: en updateevidence file', this.idArchivo);
+      const agregarPath: AgregarPathRequest = {
+        PathUrl: pathUrl,
+        CodigoUsuario: this.usuarioRegister,
+        IdArchivoEvidencia: this.idArchivo,
+        Detalle: fileDetail
+      }
+      this.toastr.success("Archivo subido a SharedPoint")    
+      this.archivoEvService.SaveFile(agregarPath).subscribe();
+      this.observacionDataService.deleteObservacion(this.idArchivo).subscribe(
+        response => {
+          console.log('Observación eliminada:', response);
+        },
+        error => {
+          console.error('Error eliminando observación:', error);
+        }
+      );
+    }
+  }
   openModal() {
     this.evidenciaService.getEvidencia().subscribe(
       (data) => {
