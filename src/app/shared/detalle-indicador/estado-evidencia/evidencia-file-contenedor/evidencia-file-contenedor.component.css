@@ -150,3 +150,9 @@ label + input {
     background-color: #f44336; /* Color rojo para error */
     color: white;
   }
+  .observacion {
+    border: 1px solid red;
+    background-color: #ffcccc; /* Un rojo claro */
+    padding: 10px;
+    border-radius: 5px;
+  }

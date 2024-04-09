@@ -1,4 +1,4 @@
-import {Component, TemplateRef, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component, TemplateRef, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ArchivoEvidencia } from '../../../../models/modelos-generales/archivo-evidencia.model';
 import { ArchivoEvidenciaService } from 'src/app/services/modeloServicios/archivo-evidencia.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,13 +7,15 @@ import { ToastrService } from 'ngx-toastr';
 import { ObservacionArchivo } from 'src/app/models/modelos-generales/observacion-data.model';
 import { ObservacionDataService } from 'src/app/services/modeloServicios/observacion-data.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Observable, of, tap } from 'rxjs';
 @Component({
   selector: 'app-evidencia-file-contenedor',
   templateUrl: './evidencia-file-contenedor.component.html',
   styleUrls: ['./evidencia-file-contenedor.component.css']
 })
 export class EvidenciaFileContenedorComponent implements OnInit{
-
+  @Output() idArchivoSeleccionadoEmitido = new EventEmitter<number>();
+  observaciones$?: Observable<ObservacionArchivo[]>;
   @Input() IdEvidencia: any;
   modalRef?: BsModalRef;
   IdArchivoEvidencia!: string;
@@ -51,18 +53,32 @@ export class EvidenciaFileContenedorComponent implements OnInit{
  
   ngOnInit(): void {
     this.data()
-    this.getObservaciones();
     this.strname = this.login.getTokenDecoded().nombre;
+    this.sendValidated
   }
 
   data(): void {
-    this.archivoService.GetByEvidenciaUser(this.IdEvidencia,this.loginService.getTokenDecoded().usuarioRegistra).subscribe(data =>{
-      this.Archivos = data      
+    this.archivoService.GetByEvidenciaUser(this.IdEvidencia,this.loginService.getTokenDecoded().usuarioRegistra).subscribe(data => {
+      this.Archivos = data;
       this.formDisabled = new Array(this.Archivos.length).fill(false);
       this.formStatus = new Array(this.Archivos.length).fill('btnWait');
-
-      this.idArchivoSeleccionado = this.Archivos[0].IdArchivoEvidencia;
+      if (this.Archivos.length > 0) {
+        this.idArchivoSeleccionado = this.Archivos[0].IdArchivoEvidencia;
+        this.getObservacionByIdArchivoEvidencia(this.idArchivoSeleccionado);
+        this.idArchivoSeleccionadoEmitido.emit(this.idArchivoSeleccionado);
+      }
     });
+    if(this.loginService.getTokenDecoded().perfil === "SUPADMIN" || this.loginService.getTokenDecoded().perfil === "SUPERVISOR" ){ //aqui configuracion para supervisor
+      this.archivoService.GetByEvidencia(this.IdEvidencia).subscribe(data=>{
+        this.Archivos = data;
+        this.formDisabled = new Array(this.Archivos.length).fill(false);
+        this.formStatus = new Array(this.Archivos.length).fill('btnWait');
+        if (this.Archivos.length > 0) {
+          this.idArchivoSeleccionado = this.Archivos[0].IdArchivoEvidencia;
+          this.getObservacionByIdArchivoEvidencia(this.idArchivoSeleccionado);
+      }
+      });
+    }
   }
 
   sendValidated(i:number){    
@@ -87,7 +103,6 @@ export class EvidenciaFileContenedorComponent implements OnInit{
   async updateStatus(index:number,value: string): Promise<void>{
     const fileUpdate: ArchivoEvidencia = {
       IdArchivoEvidencia:this.Archivos[index].IdArchivoEvidencia,
-      IdEvidencia:this.Archivos[index].IdEvidencia,
       IdPeriodo:this.Archivos[index].IdPeriodo,
       Estado:value,
       FechaRegistro:this.Archivos[index].FechaRegistro,
@@ -129,11 +144,15 @@ export class EvidenciaFileContenedorComponent implements OnInit{
     return `${anio}-${mes}-${dia}T${hora}:${minutos}:${segundos}`;
   }
  
-  getObservaciones(): void {
-    this.observacionDataService.getObservaciones().subscribe(data => {
-      this.Observaciones = data;
-    });
+  getObservacionByIdArchivoEvidencia(id: any) {
+    this.observacionDataService.getObservacionByIdArchivoEvidencia(id).subscribe(
+      data => {
+        this.Observaciones = data;
+      }
+    );
   }
+  
+  
 
   enviarObservacion() {
     if (this.observacionDetalle) {
