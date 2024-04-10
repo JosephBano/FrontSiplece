@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
+import { Evidencia, EvidenciaUsuarioPeticion, ListChild, ListFather } from 'src/app/models/modelos-generales/evidencia.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -28,9 +28,16 @@ export class EvidenciaService {
   getEvidenciaById(id: string): Observable<Evidencia> {
     return this.http.get<Evidencia>(`${this.API_URL}/FindOne/${id}`)
   }
+
+  getFather(code: string): Observable<ListFather[]> {
+    return this.http.get<ListFather[]>(`${this.API_URL}/AllFather?CodigoEvidencia=${code}`);
+  }
+  getByUsuario(evidencia: EvidenciaUsuarioPeticion): Observable<Evidencia[]> {
+    return this.http.get<Evidencia[]>(`${this.API_URL}/GetByUsuario/${evidencia.codigoEvidencia}/${evidencia.usuarioRegistra}`);
+  }
   
   postEvidencia(evidencia: Evidencia): Observable<Evidencia> {
-    return this.http.post<Evidencia>(this.API_URL, evidencia, this.httpOptions);
+    return this.http.post<Evidencia>(this.API_URL, evidencia, this.httpOptions); /// Comprabar donde uso si vale y que no se dañe
   }
   
   updateEvidencia(evidencia: Evidencia): Observable<Evidencia> {
@@ -40,4 +47,5 @@ export class EvidenciaService {
   deleteEvidencia(id: string): Observable<any> {
     return this.http.delete(this.API_URL + `/${id}`, this.httpOptions);
   }
+
 }

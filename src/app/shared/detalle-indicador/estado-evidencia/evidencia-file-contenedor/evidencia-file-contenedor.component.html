@@ -9,25 +9,30 @@
                 <div class="contenedor-opciones container">
                     <div class="row">
                         <div class="d-flex col-1"></div>
+                        <div class="d-flex col-2">
+                          <p class="observacion" *ngIf="Observaciones && Observaciones.length > 0 && Observaciones[0].IdArchivoEvidencia === archivo.IdArchivoEvidencia">
+                            {{ Observaciones[0].Detalle }}
+                          </p>
+                        </div>
                         <div class="d-flex col-1">
-                            <div class="statusColor" *ngIf="archivo.Estado=='2' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#9FFFA4'}"></div>
-                            <div class="statusColor" *ngIf="archivo.Estado=='1' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#FFA785'}"></div>
-                            <div class="statusColor" *ngIf="archivo.Estado=='0' || archivo.PathUrl===null" [ngStyle]="{'background-color': '#FFDD91'}"></div>
+                          <div class="statusColor" *ngIf="archivo.Estado=='2' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#9FFFA4'}"></div>
+                          <div class="statusColor" *ngIf="archivo.Estado=='1' && archivo.PathUrl!==null" [ngStyle]="{'background-color': '#FFA785'}"></div>
+                          <div class="statusColor" *ngIf="archivo.Estado=='0' || archivo.PathUrl===null" [ngStyle]="{'background-color': '#FFDD91'}"></div>
                         </div>
-                        <div class="d-flex col-3">
-                            {{archivo.Detalle}}
+                        <div class="d-flex col-2">
+                          {{archivo.Detalle}}
                         </div>
-                        <div class="d-flex col-3">
-                            {{archivo.UsuarioRegistra}}
+                        <div class="d-flex col-2">
+                          {{archivo.UsuarioRegistra}}
                         </div>
                         <div class="d-flex col-4" *ngIf="archivo.PathUrl!==null">
-                            <span class="material-symbols-outlined">navigate_next</span>
-                            <a href={{archivo.PathUrl}} class="evidencia">
-                                {{archivo.Detalle}}
-                            </a>
-                            <span class="material-symbols-outlined x">close</span>
+                          <span class="material-symbols-outlined">navigate_next</span>
+                          <a href={{archivo.PathUrl}} class="evidencia">
+                            {{archivo.Detalle}}
+                          </a>
+                          <span class="material-symbols-outlined x">close</span>
                         </div>
-                    </div>
+                      </div>
                     <ng-container *ngIf="rolviewradios == '1'">
                         <form [formGroup]="radiobuton" (ngSubmit)="sendValidated(i)">
                             <div class="d-flex">

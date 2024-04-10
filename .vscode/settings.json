@@ -1,0 +1,7 @@
+{
+    "editor.autoIndent": "full",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.alwaysShowStatus": true
+}

@@ -32,8 +32,12 @@ export class ObservacionDataService {
   updateObservaciones(observacionArchivo: ObservacionArchivo): Observable<ObservacionArchivo> {
     return this.http.put<ObservacionArchivo>(this.API_URL, observacionArchivo, this.httpOptions);
   }
- 
-
+  getObservacionByIdArchivoEvidencia(id: any): Observable<any> {
+    return this.http.get(`${this.API_URL}/GetObservacionByIdArchivoEvidencia/${id}`);
+  }
+  deleteObservacion(id: any): Observable<any> {
+    return this.http.delete(`${this.API_URL}/DeleteObservacionByIdArchivoEvidencia/${id}`);
+  }
 }
 
 

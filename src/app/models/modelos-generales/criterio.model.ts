@@ -6,3 +6,6 @@ export interface Criterio {
     Orden: string;
     Activo?: string;
 }
+export interface ListChild {
+    listP: string
+}

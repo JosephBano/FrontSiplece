@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RolPerfil } from 'src/app/models/modelosSeguridad/perfil.model';
+import { ToastrService } from 'ngx-toastr';
+import { DeletePerfil, RolPerfil } from 'src/app/models/modelosSeguridad/perfil.model';
 import { Usuario, UsuarioRolPeticion, UsuarioRolRespuesta } from 'src/app/models/usuario.model';
 import { DataService } from 'src/app/services/data.service';
 import { LoginService } from 'src/app/services/login.service';
+import { PerfilService } from 'src/app/services/serviciosSeguridad/perfil.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { environment } from 'src/environments/environment.development';
 
@@ -40,7 +42,8 @@ export class ShearchUsersComponent {
     private usuarios: UsuarioService,
     private loginService: LoginService,
     private fb: FormBuilder,
-    private ds: DataService,
+    private perfilService: PerfilService,
+    private toastr: ToastrService
   ) { 
     this.selects = this.fb.group({
       filterEncargado: new FormControl({value: '0', disabled: false}),
@@ -50,6 +53,8 @@ export class ShearchUsersComponent {
 
   ngOnInit(): void {
     this.loadData();
+    console.log(this.loadRolData);
+    
   }
 
   loadData(): void {
@@ -154,10 +159,34 @@ export class ShearchUsersComponent {
     this.selects.get("filterPerfil")?.disable();
   }
   pressTrashPerfil(){
+    console.log(this.Perfiles);
+    this.Perfiles=[];
+    
     this.selects.get('filterPerfil')!.setValue('0');
     this.valuePerfilFilter = '0'; 
     this.disabledButton = true;
     this.displayPermissions=false
+
+    let codigoAd = this.selects.get('filterEncargado')?.value;
+
+    const EliminarPerfil: DeletePerfil = {
+      CodigoAd: codigoAd,
+      CodigoSistema: environment.NOMBRE_SISTEMA,
+      CodigoInstitucion: this.loginService.getTokenDecoded()['cod-institucion'],
+    };
+//llamado al servicio eliminar perfil
+    try{
+      
+      this.perfilService.deletePerfil(EliminarPerfil.CodigoAd, EliminarPerfil.CodigoSistema, EliminarPerfil.CodigoInstitucion).subscribe(
+      (data) => { 
+        if(data[0]===1){
+          this.toastr.success("Perfil eliminado con exito");
+        }
+      }
+    )}catch(error) {
+      this.toastr.error("Error al eliminar perfil del usuario");
+    }
+
   }
 
   ChangeVisibilityUsers() {

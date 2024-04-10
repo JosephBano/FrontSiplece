@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Indicador } from '../../models/modelos-generales/indicador.model';
+import { Indicador, ListChild, ListFather } from '../../models/modelos-generales/indicador.model';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
@@ -31,6 +31,14 @@ export class IndicadorService {
 
   getIndicadorById(id: string): Observable<Indicador[]> {
     return this.http.get<Indicador[]>(`${this.API_URL}/FindOne/${id}`)
+  }
+
+  getChild(code: string): Observable<ListChild[]> {
+    return this.http.get<ListChild[]>(`${this.API_URL}/AllChild?CodigoIndicador=${code}`);
+  }
+
+  getFather(code: string): Observable<ListFather[]> {
+    return this.http.get<ListFather[]>(`${this.API_URL}/AllFather?CodigoIndicador=${code}`);
   }
   
   postIndicador(indicador: Indicador): Observable<Indicador> {

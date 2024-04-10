@@ -12,3 +12,21 @@ export interface RolPerfil {
     id: number;
     rol: string;
 }
+export interface AddPermiso {
+    CodigoPerfil: string;
+    CodigoUsuario: string;
+    CodigoInstitucion: string;
+    CodigoSistema: string;
+    ListCodigoOpciones: string;
+}
+
+export interface UpdatePermiso {
+    UsuarioPerfil: string;
+    ListCodigoOpciones: string;
+}
+
+export interface DeletePerfil {
+    CodigoAd: string;
+    CodigoSistema: string;
+    CodigoInstitucion: string;
+}

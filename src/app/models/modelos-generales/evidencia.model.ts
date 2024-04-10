@@ -6,3 +6,16 @@ export interface Evidencia {
     Orden?: string;
     Activo?: string;
 }
+
+export interface ListChild {
+    listP: string
+}
+
+export interface ListFather {
+    listP: string
+}
+
+export interface EvidenciaUsuarioPeticion{
+    codigoEvidencia: string;
+    usuarioRegistra: string;
+}

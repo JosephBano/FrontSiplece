@@ -17,3 +17,14 @@ export interface NodoFlat {
     value: ListaPermisoRespuesta;
     level: number;
 }
+
+export interface PermisosPeticion{
+    codigoModelo: string,
+    codigoPerfil: string,
+    codigoEstado: string
+}
+
+export interface DeletePermiso{
+    usuarioPerfil: string;
+    idOpciones: string;
+}

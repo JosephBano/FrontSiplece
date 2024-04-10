@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SubCriterio } from '../../models/modelos-generales/subCriterio.model';
-import { Observable, of } from 'rxjs';
+import { ListChild, ListFather, SubCriterio } from '../../models/modelos-generales/subCriterio.model';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -31,6 +31,14 @@ export class SubCriteriosService {
 
   getSubCriterioById(id: string): Observable<SubCriterio> {
     return this.http.get<SubCriterio>(this.API_URL + `/FindOne/${id}`);
+  }
+
+  getChild(code: string): Observable<ListChild[]> {
+    return this.http.get<ListChild[]>(`${this.API_URL}/AllChild?CodigoSubcriterio=${code}`);
+  }
+
+  getFather(code: string): Observable<ListFather[]> {
+    return this.http.get<ListFather[]>(`${this.API_URL}/AllFather?CodigoSubcriterio=${code}`);
   }
 
   postSubCriterio(subcriterio: SubCriterio): Observable<SubCriterio> {

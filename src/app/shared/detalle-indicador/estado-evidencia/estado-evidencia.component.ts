@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { Evidencia } from 'src/app/models/modelos-generales/evidencia.model';
+import { Evidencia, EvidenciaUsuarioPeticion } from 'src/app/models/modelos-generales/evidencia.model';
 import { PermisoPeticion } from 'src/app/models/modelosSeguridad/perfil.model';
 import { Sidebar } from 'src/app/services/sidebar.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./estado-evidencia.component.css']
 })
 export class EstadoEvidenciaComponent implements OnInit {
-  
+  idArchivoSeleccionado?: number;
   @Input() idElemento: any;
   
   evidencias: Evidencia[] = [];
@@ -43,7 +43,17 @@ export class EstadoEvidenciaComponent implements OnInit {
       codigoEstado: 'A',
       codigoSistema: environment.NOMBRE_SISTEMA
     }
-    this.loadData();
+    const permisoParams: PermisoPeticion = {
+      codigoModelo: this.loginService.getTokenDecoded().modelo,
+      codigoPerfil: this.loginService.getTokenDecoded().perfil,
+      codigoEstado: 'A',
+      codigoSistema: environment.NOMBRE_SISTEMA
+    }
+     if(permisoParams.codigoPerfil.toLowerCase().includes('admin')) {
+       this.loadData();
+      } else {
+        this.loadDataUser();
+   }
     this.loadTitle();
     this.InitRoles();
   }
@@ -60,9 +70,19 @@ export class EstadoEvidenciaComponent implements OnInit {
   loadData() {
     const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
     const evidence$ = this.evidenciaService.getByElemento(this.idElemento).pipe(data => data);
-      
     forkJoin([permission$,evidence$]).subscribe(([permissionsData, evidencesData]) => {
-      this.evidencias = evidencesData.filter(e => permissionsData.some(p=>p.codigoPermiso===e.CodigoEvidencia) && e.Activo=='1');     
+      this.evidencias = evidencesData
+    })
+  }
+  loadDataUser() {
+    const evidenciaUser: EvidenciaUsuarioPeticion = {
+      codigoEvidencia: this.idElemento,
+      usuarioRegistra: this.loginService.getTokenDecoded().usuarioRegistra
+    }
+    const permission$ = this.perfilService.getPermisos(this.permisoParams!).pipe(data => data)
+    const evidence$ = this.evidenciaService.getByElemento(this.idElemento).pipe(data => data);
+    forkJoin([permission$,evidence$]).subscribe(([permissionsData, evidencesData]) => {
+      this.evidencias = evidencesData
     })
   }
 

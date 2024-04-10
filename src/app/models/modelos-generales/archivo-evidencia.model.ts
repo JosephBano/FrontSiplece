@@ -1,6 +1,5 @@
 export interface ArchivoEvidencia {
     IdArchivoEvidencia?: string;
-    IdEvidencia: string;
     IdPeriodo?: string;
     Estado?: string;
     FechaRegistro: string;
@@ -10,4 +9,10 @@ export interface ArchivoEvidencia {
     Detalle?: string;
     PathUrl?: string;
     Activo?: string;
+}
+export interface insertarArchivoEvidencia{
+    codigoUsuario: string,
+    detalle: string,
+    fechaRegistro: string,
+    idEvidencia: number
 }

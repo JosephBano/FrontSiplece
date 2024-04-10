@@ -13,3 +13,48 @@
     text-align: justify;
     color: black;
 }
+.flex-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .container-menu,
+  .container-asignados {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    overflow-y: auto;
+    height: 400px;
+  }
+  
+  .container-menu button,
+  .container-asignados button {
+    margin-left: 10px;
+  }
+  
+  .container-menu mat-icon-button,
+  .container-asignados mat-icon-button {
+    margin-right: 10px;
+  }
+  
+  mat-tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .btn-agregar {
+    background-color: #4CAF50; 
+    color: white;
+  }
+  
+  .btn-eliminar {
+    background-color: #f44336; 
+    color: white;
+  }
+  
+  .btn-agregar:hover, .btn-eliminar:hover {
+    color: #fff;
+    opacity: 0.8;
+  }

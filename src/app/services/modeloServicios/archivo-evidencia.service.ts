@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
-import { ArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evidencia.model';
+import { ArchivoEvidencia, insertarArchivoEvidencia } from 'src/app/models/modelos-generales/archivo-evidencia.model';
 import { AgregarArchivoRequest, AgregarArchivoResponse, AgregarPathRequest, ObtenerTokenRequest, ObtenerTokenResponse } from 'src/app/models/modelos-generales/sharedPointToken';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class ArchivoEvidenciaService {
   };
 
   constructor( private http: HttpClient ) { }
+
+  GetArchivosEvidencias(): Observable<any[]> {
+    return this.http.get<any[]>(this.API_URL);
+  }
 
   GetByEvidencia(id: string): Observable<ArchivoEvidencia[]> {
     return this.http.get<ArchivoEvidencia[]>(`${this.API_URL}/GetByEvidencia/${id}`);
@@ -35,7 +39,10 @@ export class ArchivoEvidenciaService {
   }
 
   PostArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {
-    return this.http.post<ArchivoEvidencia>(this.API_URL, archivo, this.httpOptions);
+    return this.http.post<ArchivoEvidencia>(`${this.API_URL}/InsertarArchivoEvidencia`, archivo, this.httpOptions);
+  }
+  insertarArchivoEvidencia(archivo: insertarArchivoEvidencia): Observable<insertarArchivoEvidencia> {
+    return this.http.post<insertarArchivoEvidencia>(`${this.API_URL}/InsertarArchivoEvidencia`, archivo, this.httpOptions);
   }
 
   UpdateArchivo(archivo: ArchivoEvidencia): Observable<ArchivoEvidencia> {

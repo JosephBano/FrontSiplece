@@ -66,8 +66,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -104,7 +104,13 @@
               "browserTarget": "FrontEnd:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 80,
+            "ssl": true,
+            "sslCert": "C:\\SIPLECE\\Certificados_SIPLECE\\SIPLECE-cert.pem",
+            "sslKey": "C:\\SIPLECE\\Certificados_SIPLECE\\SIPLECE-key.pem"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
